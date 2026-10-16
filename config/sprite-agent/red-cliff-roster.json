@@ -1,0 +1,132 @@
+{
+  "storyline": "red-cliff",
+  "designBible": "config/sprite-agent/red-cliff-character-bible.json",
+  "designBibleVersion": 2,
+  "datasetPersonCount": 63,
+  "productionScope": "mvp-core",
+  "concurrency": 1,
+  "characters": [
+    {
+      "id": "zhou-yu",
+      "nameKo": "주유",
+      "faction": "오",
+      "role": "총지휘관",
+      "weapon": "직검",
+      "palette": ["적갈색", "진홍색", "금색"],
+      "silhouette": "젊은 지휘관, 검은 상투, 붉은 깃 장식, 짧은 망토",
+      "status": "needs-redesign",
+      "statusReason": "오나라 색 비중과 총지휘관 인상을 강화해야 함"
+    },
+    {
+      "id": "cao-cao",
+      "nameKo": "조조",
+      "faction": "위",
+      "role": "대군 지휘관",
+      "weapon": "지휘검",
+      "palette": ["검정", "짙은 청색", "금색"],
+      "silhouette": "중년 군주, 짧은 수염, 높은 관, 무거운 망토",
+      "status": "needs-redesign",
+      "statusReason": "위나라 색 비중을 강화하고 온화한 얼굴을 냉정한 군주형으로 교체해야 함"
+    },
+    {
+      "id": "zhuge-liang",
+      "nameKo": "제갈량",
+      "faction": "촉",
+      "role": "군사",
+      "weapon": "깃털 부채",
+      "palette": ["백색", "청색", "회색"],
+      "silhouette": "학창의, 높은 두건, 긴 소매, 깃털 부채",
+      "status": "queued"
+    },
+    {
+      "id": "sun-quan",
+      "nameKo": "손권",
+      "faction": "오",
+      "role": "군주",
+      "weapon": "패검",
+      "palette": ["적색", "자주색", "금색"],
+      "silhouette": "젊은 군주, 오나라 관, 넓은 어깨의 예복",
+      "status": "queued"
+    },
+    {
+      "id": "liu-bei",
+      "nameKo": "유비",
+      "faction": "촉",
+      "role": "군주",
+      "weapon": "쌍검",
+      "palette": ["녹색", "갈색", "황동색"],
+      "silhouette": "온화한 군주, 긴 귀를 암시하는 옆머리, 장포, 쌍검",
+      "status": "queued"
+    },
+    {
+      "id": "huang-gai",
+      "nameKo": "황개",
+      "faction": "오",
+      "role": "노장·화공 실행자",
+      "weapon": "군용도",
+      "palette": ["적갈색", "회색", "금색"],
+      "silhouette": "백발과 수염의 노장, 두꺼운 갑옷, 넓은 군용도",
+      "status": "queued"
+    },
+    {
+      "id": "lu-su",
+      "nameKo": "노숙",
+      "faction": "오",
+      "role": "외교가·참모",
+      "weapon": "죽간",
+      "palette": ["갈색", "청록색", "금색"],
+      "silhouette": "문관 관모, 긴 도포, 죽간을 든 차분한 참모",
+      "status": "queued"
+    },
+    {
+      "id": "pang-tong",
+      "nameKo": "방통",
+      "faction": "촉",
+      "role": "군사·연환계 제안자",
+      "weapon": "지팡이",
+      "palette": ["암갈색", "청록색", "회색"],
+      "silhouette": "거친 머리와 수염, 소박한 도포, 굽은 지팡이",
+      "status": "queued"
+    },
+    {
+      "id": "gan-ning",
+      "nameKo": "감녕",
+      "faction": "오",
+      "role": "돌격 장수",
+      "weapon": "환도",
+      "palette": ["적색", "검정", "은색"],
+      "silhouette": "방울 장식, 가벼운 갑옷, 빠른 해적 장수 실루엣",
+      "status": "queued"
+    },
+    {
+      "id": "zhao-yun",
+      "nameKo": "조운",
+      "faction": "촉",
+      "role": "호위 장수",
+      "weapon": "장창",
+      "palette": ["백색", "은색", "청록색"],
+      "silhouette": "은빛 경갑, 흰 망토, 긴 창의 날렵한 실루엣",
+      "status": "queued"
+    },
+    {
+      "id": "guan-yu",
+      "nameKo": "관우",
+      "faction": "촉",
+      "role": "선봉 장수",
+      "weapon": "청룡언월도",
+      "palette": ["녹색", "갈색", "금색"],
+      "silhouette": "긴 수염, 녹색 두건, 장병기를 든 큰 체격",
+      "status": "queued"
+    },
+    {
+      "id": "zhang-fei",
+      "nameKo": "장비",
+      "faction": "촉",
+      "role": "맹장",
+      "weapon": "장팔사모",
+      "palette": ["검정", "적색", "황동색"],
+      "silhouette": "굵은 수염, 넓은 체격, 뱀창을 든 거친 장수",
+      "status": "queued"
+    }
+  ]
+}

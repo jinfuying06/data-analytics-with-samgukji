@@ -1,0 +1,380 @@
+{
+  "schemaVersion": 3,
+  "storyline": "red-cliff",
+  "source": {
+    "type": "project-dataset",
+    "chapterRange": [43, 50],
+    "distinctMentionCount": 63,
+    "note": "인물 수는 연의 언급 데이터 기준이며 실제 전투 참가자 수와 같지 않다."
+  },
+  "artDirection": {
+    "style": "큰 머리와 짧은 팔다리의 귀여운 초기 콘솔풍 8비트 SD 전신 캐릭터",
+    "recognitionOrder": ["faction", "role", "person"],
+    "factionColorCoverage": "전체 면적의 45~55%, 머리·상체·허리 아래 중 최소 두 구역에서 반복",
+    "identityRule": "실루엣 1개 + 대표 소품 1개 + 얼굴 특징 1개",
+    "logicalSprite": "몸체 48x64 안팎, 무기 포함 72x80 안팎, 머리 비율 42~48%, 최근접 보간 확대",
+    "paletteLimit": "피부 포함 8~16색, 재질별 최대 3단계 명암",
+    "prototypePolicy": "기존 주유·조조 이미지는 보존 대상 시제품이며 높은 해상도, 많은 장식, 얼굴·의상·색 배치의 기준이 아니다.",
+    "facing": "screen-right",
+    "frame": { "width": 420, "height": 250 },
+    "avoid": [
+      "특정 삼국지 게임·애니메이션·일러스트 디자인 복제",
+      "서양식 판타지 갑옷",
+      "세력색으로 갑옷 전체를 단색 처리",
+      "세련된 고해상도 픽셀 일러스트와 미세 갑옷 문양",
+      "그라데이션과 반투명 안티앨리어싱",
+      "문자·로고·워터마크",
+      "그림으로 들어간 체크무늬 배경"
+    ]
+  },
+  "factions": {
+    "위": {
+      "palette": ["#8B1E24", "#C33B32", "#171319", "#6B6668", "#C79A3A"],
+      "language": "수직선과 사각형, 각진 어깨, 직선형 관, 닫힌 옷깃",
+      "placement": "진홍과 적색을 관끈·몸통·허리천에 반복하고 먹색은 외곽, 금색은 5% 이하"
+    },
+    "촉": {
+      "palette": ["#285943", "#4D7848", "#66452F", "#B7AA82", "#B4873B"],
+      "language": "둥근 선과 매듭, 둥근 어깨, 천과 가죽의 혼합",
+      "placement": "녹색을 상체와 허리천에 반복하고 갈색은 가죽, 황동은 8% 이하"
+    },
+    "오": {
+      "palette": ["#173B5B", "#2E6B8A", "#2D7C78", "#62636A", "#D1A348"],
+      "language": "사선과 물결, 비대칭 수군 장비, 짧은 망토",
+      "placement": "남청과 청색을 머리 장식과 상체에 반복하고 청록은 하체, 금색은 8% 이하"
+    },
+    "기타": {
+      "palette": ["#6A5944", "#65666B", "#65445E", "#9B7A3D"],
+      "language": "생전 세력과 신분을 따르는 독립 색 체계"
+    }
+  },
+  "characters": [
+    {
+      "id": "cao-cao", "nameKo": "조조", "nameHanja": "曹操", "displayFaction": "위", "productionTier": "anchor",
+      "archetype": "위-냉정한 군주", "designState": "needs-redesign", "colorPlan": { "head": "먹색 관+적색 끈", "torso": "진홍 지휘관 복식", "lower": "적색 허리천+검정 짧은 옷자락", "personalAccent": "작은 금색 표식 5% 이하" },
+      "chapterCount": 8, "chapters": [43, 44, 45, 46, 47, 48, 49, 50], "role": "대군 지휘관·군주",
+      "silhouette": "큰 머리와 짧은 팔다리, 먹색의 작은 사각 관, 진홍 상체와 짧은 검정 옷자락이 이어지는 귀여운 군주형", "signature": "몸통과 허벅지를 합친 길이의 곧은 은회색 지휘검과 검은 손잡이", "face": "1~2논리 픽셀의 작고 가로로 긴 눈, 안쪽이 낮은 눈썹, 굳게 다문 입, 분리된 짧은 콧수염과 턱수염", "motion": "상대를 내려다보며 먼저 명령하고 짧고 단호하게 검을 뽑는다", "avoid": ["둥글고 큰 눈", "미소 또는 온화한 표정", "단도처럼 짧은 검", "과장된 대검", "둥글고 화려한 금장식", "긴 망토", "미세 갑옷판", "세련된 고해상도 픽셀 일러스트"]
+    },
+    {
+      "id": "liu-bei", "nameKo": "유비", "nameHanja": "劉備", "displayFaction": "촉", "productionTier": "anchor",
+      "archetype": "촉-인간적인 군주", "designState": "planned", "colorPlan": { "head": "비취 관끈", "torso": "녹색 겉옷", "lower": "갈녹 장포 자락", "personalAccent": "황동 매듭" },
+      "chapterCount": 7, "chapters": [43, 44, 45, 47, 48, 49, 50], "role": "연합 군주",
+      "silhouette": "갑옷보다 녹갈색 장포가 넓게 보이는 부드러운 군주형", "signature": "서로 길이가 같은 두 자루의 좁은 검", "face": "긴 얼굴과 부드러운 눈썹, 약간 두드러진 귀", "motion": "두 검을 낮게 벌려 동료를 보호하는 방어적 움직임", "avoid": ["귀를 과장한 희화화", "관우와 같은 진녹색 전신"]
+    },
+    {
+      "id": "zhou-yu", "nameKo": "주유", "nameHanja": "周瑜", "displayFaction": "오", "productionTier": "anchor",
+      "archetype": "오-날카로운 총지휘관", "designState": "needs-redesign", "colorPlan": { "head": "남청 깃", "torso": "청색 상체 갑옷", "lower": "청록 망토+허리천", "personalAccent": "금색 물결 장식 8% 이하" },
+      "chapterCount": 7, "chapters": [44, 45, 46, 47, 48, 49, 50], "role": "연합군 총지휘관",
+      "silhouette": "청색 상체 갑옷, 남청 깃, 짧은 청록 망토가 이어지는 젊고 날렵한 총지휘관형", "signature": "가느다란 직검과 금색 물결 허리 장식", "face": "수염 없는 긴 얼굴, 가늘고 자신감 있는 눈, 살짝 내려간 입꼬리", "motion": "우아하지만 망설임 없는 검격과 짧고 강한 지휘 동작", "avoid": ["둥근 눈", "손권의 군주관", "현재 시제품의 갑옷 배치 복제"]
+    },
+    {
+      "id": "sun-quan", "nameKo": "손권", "nameHanja": "孫權", "displayFaction": "오", "productionTier": "anchor",
+      "archetype": "오-안정적인 군주", "designState": "planned", "colorPlan": { "head": "남청 군주관", "torso": "청색 예복", "lower": "청록 하의", "personalAccent": "금색 호랑이 버클 8% 이하" },
+      "chapterCount": 7, "chapters": [43, 44, 45, 46, 47, 49, 50], "role": "오 진영 군주",
+      "silhouette": "네모난 군주관과 넓은 청금 예복의 안정적인 군주형", "signature": "호랑이 얼굴 허리 버클과 의장용 패검", "face": "넓은 이마와 굵은 눈썹, 짧은 구레나룻", "motion": "칼을 뽑기 전에 전방을 가리키는 결단 동작", "avoid": ["주유의 남청 깃", "전투 장수처럼 가벼운 갑옷"]
+    },
+    {
+      "id": "zhuge-liang", "nameKo": "제갈량", "nameHanja": "諸葛亮", "displayFaction": "촉", "productionTier": "anchor",
+      "archetype": "촉-밝고 정제된 책사", "designState": "planned", "colorPlan": { "head": "비취 두건 끈", "torso": "옅은 녹색 속도포+밝은 겉도포", "lower": "녹색 도포 자락", "personalAccent": "흰 부채+청회색" },
+      "chapterCount": 7, "chapters": [43, 44, 45, 46, 48, 49, 50], "role": "군사·외교가",
+      "silhouette": "높은 학자 두건과 길고 밝은 도포의 가는 세로형", "signature": "흰 깃털 부채", "face": "가늘고 차분한 눈과 짧게 정돈된 수염", "motion": "부채 동작과 바람·깃발 반응으로 계략을 표현한다", "avoid": ["서양식 마법 광선", "노숙의 둥근 관모", "특정 게임의 흰 학자복 복제"]
+    },
+    {
+      "id": "lu-su", "nameKo": "노숙", "nameHanja": "魯肅", "displayFaction": "오", "productionTier": "anchor",
+      "archetype": "오-신중한 중재자", "designState": "planned", "colorPlan": { "head": "남청 관끈", "torso": "청록 도포+청색 옷깃", "lower": "청색 허리띠", "personalAccent": "죽간 갈색" },
+      "chapterCount": 7, "chapters": [43, 44, 45, 46, 47, 48, 49], "role": "외교가·참모",
+      "silhouette": "둥근 문관모와 청록·갈색 긴 도포의 안정적인 문관형", "signature": "묶은 죽간", "face": "둥근 얼굴과 걱정스러운 처진 눈썹", "motion": "죽간을 펼치거나 양 진영을 중재하는 손짓", "avoid": ["깃털 부채", "제갈량과 같은 흰 도포"]
+    },
+    {
+      "id": "gan-ning", "nameKo": "감녕", "nameHanja": "甘寧", "displayFaction": "오", "productionTier": "anchor",
+      "archetype": "오-위험한 수군 돌격대", "designState": "planned", "colorPlan": { "head": "남청 머리띠", "torso": "청색 경갑", "lower": "청록 허리천", "personalAccent": "은색 방울" },
+      "chapterCount": 6, "chapters": [44, 45, 46, 47, 49, 50], "role": "수군 돌격 장수",
+      "silhouette": "남청 머리띠와 비대칭 청색 경갑의 앞으로 기울어진 수군형", "signature": "허리 방울과 짧은 곡도", "face": "짧은 턱수염과 장난기 있는 날카로운 눈", "motion": "낮은 자세에서 빠르게 베고 방울과 띠가 뒤따른다", "avoid": ["주유식 망토", "서양 해적 모자"]
+    },
+    {
+      "id": "huang-gai", "nameKo": "황개", "nameHanja": "黃蓋", "displayFaction": "오", "productionTier": "anchor",
+      "archetype": "오-화공 노장", "designState": "planned", "colorPlan": { "head": "남청 투구끈", "torso": "청색 몸통판", "lower": "청록 허리천", "personalAccent": "철회색+불씨 주황" },
+      "chapterCount": 6, "chapters": [43, 44, 46, 47, 49, 50], "role": "노장·화공 실행자",
+      "silhouette": "넓은 어깨의 두꺼운 수군 갑옷과 낮은 중심의 노장형", "signature": "넓은 군용도와 작은 화공 기름통", "face": "백발과 거친 짧은 흰 수염, 한쪽 눈가의 흉터", "motion": "무거운 베기와 불씨를 던지는 화공 동작", "avoid": ["정보와 같은 장창", "몸 전체를 붉게 칠하는 것"]
+    },
+    {
+      "id": "yuan-shao", "nameKo": "원소", "nameHanja": "袁紹", "displayFaction": "기타", "productionTier": "reference",
+      "chapterCount": 5, "chapters": [43, 44, 45, 48, 50], "role": "과거의 북방 군벌",
+      "silhouette": "자주색 겹예복과 넓은 금관의 화려한 명문가 군주형", "signature": "장식이 많은 의장검", "face": "높은 코와 자존심 강한 치켜뜬 눈썹", "motion": "회상 카드에서는 지휘봉을 들고 정적인 위세를 보인다", "avoid": ["위나라 남색 적용", "조조의 관과 망토 복제"]
+    },
+    {
+      "id": "han-dang", "nameKo": "한당", "nameHanja": "韓當", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 5, "chapters": [44, 45, 48, 49, 50], "role": "고참 수군 장수",
+      "silhouette": "한쪽 어깨만 크게 덮은 적갈 갑옷의 단단한 노장형", "signature": "끝이 넓은 장도", "face": "짧은 회색 수염과 굵은 코", "motion": "몸을 거의 움직이지 않고 장도를 크게 휘두른다", "avoid": ["황개의 백발 중갑", "주유의 젊은 얼굴"]
+    },
+    {
+      "id": "zhou-tai", "nameKo": "주태", "nameHanja": "周泰", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 4, "chapters": [44, 48, 49, 50], "role": "호위 장수",
+      "silhouette": "팔 일부가 드러난 무거운 호위 갑옷의 넓은 체형", "signature": "넓은 직도와 몸의 여러 흉터", "face": "말수 적은 각진 얼굴과 굵은 목", "motion": "공격보다 몸으로 막아내는 전진 동작", "avoid": ["허저의 거대한 체형", "감녕의 방울"]
+    },
+    {
+      "id": "taishi-ci", "nameKo": "태사자", "nameHanja": "太史慈", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 4, "chapters": [44, 45, 49, 50], "role": "무용 장수",
+      "silhouette": "등에 활을 메고 양손 무기가 벌어진 균형형", "signature": "쌍수극과 짧은 활", "face": "곧은 눈과 얇은 콧수염", "motion": "쌍수극을 교차한 뒤 좌우로 연속 타격", "avoid": ["감녕의 곡도", "조운의 단일 장창"]
+    },
+    {
+      "id": "zhang-liao", "nameKo": "장료", "nameHanja": "張遼", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 4, "chapters": [46, 48, 49, 50], "role": "기병 지휘관",
+      "silhouette": "초승달형 투구와 길게 내려온 군청 허리갑의 기병형", "signature": "한쪽 날이 굽은 월아 장극", "face": "넓은 턱과 짧은 콧수염", "motion": "말 없이도 돌격처럼 보이는 긴 전방 찌르기", "avoid": ["조운의 은빛 창병 실루엣", "조조의 군주관"]
+    },
+    {
+      "id": "mao-jie", "nameKo": "모개", "nameHanja": "毛玠", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 4, "chapters": [45, 46, 48, 50], "role": "수군 지휘 담당",
+      "silhouette": "푸른 비늘갑 위에 짧은 지휘 외투를 걸친 문무 혼합형", "signature": "수군 신호봉과 접은 수로도", "face": "마른 얼굴과 아래로 향한 콧수염", "motion": "신호봉으로 함대 방향을 지시한다", "avoid": ["일반 검 장수", "노숙의 죽간"]
+    },
+    {
+      "id": "cheng-pu", "nameKo": "정보", "nameHanja": "程普", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 4, "chapters": [44, 45, 49, 50], "role": "원로 부지휘관",
+      "silhouette": "갈라진 흰 수염과 반쪽 망토, 긴 장창의 세로형 노장", "signature": "철등사모 형태의 장창", "face": "긴 눈썹과 갈라진 흰 수염", "motion": "정확하고 절제된 창 찌르기", "avoid": ["황개의 넓은 군용도", "주유의 붉은 깃"]
+    },
+    {
+      "id": "jiang-qin", "nameKo": "장흠", "nameHanja": "蔣欽", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 4, "chapters": [44, 45, 49, 50], "role": "수군 장수",
+      "silhouette": "짧은 소매와 밧줄 허리띠의 실용적인 수군형", "signature": "갈고리 달린 짧은 군도", "face": "각진 광대와 짧은 턱수염", "motion": "갈고리로 당긴 뒤 가까이 베는 동작", "avoid": ["감녕의 방울과 머리띠", "서양식 갈고리손"]
+    },
+    {
+      "id": "zhao-yun", "nameKo": "조운", "nameHanja": "趙雲", "displayFaction": "촉", "productionTier": "anchor",
+      "archetype": "촉-정확한 기동 호위", "designState": "planned", "colorPlan": { "head": "비취 투구끈", "torso": "은빛 경갑+녹색 속옷", "lower": "청록 허리천", "personalAccent": "흰 목도리" },
+      "chapterCount": 4, "chapters": [43, 45, 49, 50], "role": "호위·기동 장수",
+      "silhouette": "은빛 경갑과 흰 목도리, 곧은 장창의 날렵한 세로형", "signature": "작은 비취 술이 달린 긴 창", "face": "수염이 거의 없는 젊고 침착한 얼굴", "motion": "짧고 정확한 연속 찌르기와 빠른 복귀", "avoid": ["과도한 백색 전신", "관우처럼 큰 체격"]
+    },
+    {
+      "id": "guan-yu", "nameKo": "관우", "nameHanja": "關羽", "displayFaction": "촉", "productionTier": "anchor",
+      "archetype": "촉-절제된 대형 선봉", "designState": "planned", "colorPlan": { "head": "녹색 두건", "torso": "진녹 장포", "lower": "갈녹 하의", "personalAccent": "황동+냉회색 언월도" },
+      "chapterCount": 4, "chapters": [43, 45, 49, 50], "role": "선봉 장수",
+      "silhouette": "긴 수염과 녹색 장포, 큰 언월도가 만드는 가장 긴 세로형", "signature": "청룡 문양을 단 언월도", "face": "붉은 기가 도는 긴 얼굴과 아래로 흐르는 긴 수염", "motion": "큰 원을 그리는 한 번의 절제된 횡베기", "avoid": ["전신을 단일 녹색으로 처리", "조운과 같은 직선 창"]
+    },
+    {
+      "id": "yu-jin", "nameKo": "우금", "nameHanja": "于禁", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 3, "chapters": [45, 46, 48], "role": "규율형 장군·수군 담당",
+      "silhouette": "사각 어깨갑과 곧은 투구가 반복되는 엄격한 보병형", "signature": "작은 군기 술이 달린 장창", "face": "네모난 얼굴과 굳게 다문 입", "motion": "군기 신호 뒤 흐트러짐 없는 직선 찌르기", "avoid": ["장료의 초승달 투구", "모개의 신호봉"]
+    },
+    {
+      "id": "ling-tong", "nameKo": "능통", "nameHanja": "凌統", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [44, 49, 50], "role": "젊은 돌격 장수",
+      "silhouette": "짧은 머리와 가벼운 적갈 경갑, 양손이 벌어진 기동형", "signature": "쌍 단봉", "face": "젊고 곧은 눈, 수염 없음", "motion": "좌우 단봉을 번갈아 빠르게 휘두른다", "avoid": ["감녕의 해적 장식", "태사자의 쌍수극"]
+    },
+    {
+      "id": "lu-bu", "nameKo": "여포", "nameHanja": "呂布", "displayFaction": "기타", "productionTier": "reference",
+      "chapterCount": 3, "chapters": [43, 44, 48], "role": "과거의 맹장",
+      "silhouette": "두 갈래 긴 깃과 매우 긴 방천극의 압도적인 기병형", "signature": "방천화극과 붉은 말꼬리 매듭", "face": "넓은 턱과 오만하게 치켜뜬 눈", "motion": "회상 카드에서 긴 극을 한 손으로 비스듬히 세운다", "avoid": ["특정 게임의 여포 갑옷·관 복제", "현대적인 악마 갑옷"]
+    },
+    {
+      "id": "lu-meng", "nameKo": "여몽", "nameHanja": "呂蒙", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [44, 49, 50], "role": "수군 장수·학습형 지휘관",
+      "silhouette": "짧은 후드형 두건과 수군 경갑 위로 문서 끈이 보이는 혼합형", "signature": "직도와 말아 묶은 병서", "face": "굵은 눈썹과 짧은 수염", "motion": "병서를 접고 바로 전진 베기로 이어간다", "avoid": ["제갈량 같은 학자복", "감녕의 곡도"]
+    },
+    {
+      "id": "xiahou-dun", "nameKo": "하후돈", "nameHanja": "夏侯惇", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 3, "chapters": [43, 48, 50], "role": "중장 지휘관",
+      "silhouette": "한쪽 눈가를 덮은 천과 높은 목가리개, 두꺼운 군청 갑옷", "signature": "넓고 곧은 환두도", "face": "한쪽 눈의 덮개와 굵은 수염", "motion": "어깨로 밀고 들어가는 강한 내려베기", "avoid": ["서양식 안대", "허저처럼 상의를 벗은 체형"]
+    },
+    {
+      "id": "zhang-zhao", "nameKo": "장소", "nameHanja": "張昭", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [43, 44, 46], "role": "원로 문관",
+      "silhouette": "높고 좁은 검은 문관모와 곧게 떨어지는 적갈 예복", "signature": "긴 의례용 홀", "face": "긴 흰 눈썹과 좁은 흰 수염", "motion": "홀을 세우며 반대 의견을 단호히 표시한다", "avoid": ["황개식 중갑", "제갈량의 부채"]
+    },
+    {
+      "id": "zhang-fei", "nameKo": "장비", "nameHanja": "張飛", "displayFaction": "촉", "productionTier": "anchor",
+      "archetype": "촉-폭발적인 맹장", "designState": "planned", "colorPlan": { "head": "녹색 투구끈", "torso": "암녹 몸통", "lower": "갈색 하의", "personalAccent": "붉은 팔띠 8% 이하" },
+      "chapterCount": 3, "chapters": [45, 49, 50], "role": "맹장",
+      "silhouette": "넓은 몸과 거친 검은 수염, 뱀날 창이 바깥으로 휘는 중장형", "signature": "장팔사모와 붉은 팔띠", "face": "둥글게 부릅뜬 눈과 덥수룩한 수염", "motion": "발을 구른 뒤 창을 크게 찌르고 고함치는 자세", "avoid": ["허저의 민소매 갑옷", "관우의 긴 장포"]
+    },
+    {
+      "id": "xu-huang", "nameKo": "서황", "nameHanja": "徐晃", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 3, "chapters": [46, 48, 50], "role": "중장",
+      "silhouette": "낮은 투구와 양손 도끼가 만드는 삼각형 중장형", "signature": "큰 월부", "face": "넓은 코와 짧은 갈색 수염", "motion": "도끼를 뒤로 당겼다가 아래에서 위로 크게 올려친다", "avoid": ["황개의 넓은 칼", "동탁처럼 비대한 체형"]
+    },
+    {
+      "id": "wen-pin", "nameKo": "문빙", "nameHanja": "文聘", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 3, "chapters": [48, 49, 50], "role": "형주 출신 수군 장수",
+      "silhouette": "청록 흔적이 남은 군청 수군 갑옷과 한쪽 큰 어깨갑", "signature": "긴 물결날 창", "face": "긴 얼굴과 아래로 향한 검은 수염", "motion": "창을 낮춰 갑판을 지키는 방어 동작", "avoid": ["순수 위식 각진 전신", "조운의 은빛 장창"]
+    },
+    {
+      "id": "pan-zhang", "nameKo": "반장", "nameHanja": "潘璋", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [44, 49, 50], "role": "추격·포획 장수",
+      "silhouette": "짧은 망토와 허리 사슬이 한쪽으로 늘어진 추격형", "signature": "등이 갈고리처럼 굽은 군도", "face": "좁은 눈과 뾰족한 턱수염", "motion": "갈고리 날로 걸어 당긴 뒤 짧게 베는 동작", "avoid": ["장흠의 밧줄 갈고리", "감녕의 방울"]
+    },
+    {
+      "id": "cheng-yu", "nameKo": "정욱", "nameHanja": "程昱", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 3, "chapters": [48, 49, 50], "role": "원로 책사",
+      "silhouette": "먹청색 긴 학자복과 각진 작은 관의 마른 노년형", "signature": "좁고 긴 전략 홀", "face": "움푹한 볼과 길고 가는 회색 수염", "motion": "홀로 지도를 짚으며 위험을 경고한다", "avoid": ["곽가의 밝은 병약 이미지", "조조의 금색 장식"]
+    },
+    {
+      "id": "yuan-shu", "nameKo": "원술", "nameHanja": "袁術", "displayFaction": "기타", "productionTier": "reference",
+      "chapterCount": 3, "chapters": [43, 44, 48], "role": "과거의 참칭 군벌",
+      "silhouette": "과하게 넓은 황금·자주 예복과 작은 제관의 불안정한 군주형", "signature": "옥새 상자", "face": "얇은 콧수염과 탐욕스럽게 좁힌 눈", "motion": "회상 카드에서 옥새를 품고 주변을 경계한다", "avoid": ["정통 황제처럼 위엄 있게 표현", "원소와 같은 넓은 금관"]
+    },
+    {
+      "id": "zhuge-jin", "nameKo": "제갈근", "nameHanja": "諸葛瑾", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [43, 44, 45], "role": "문관·외교가",
+      "silhouette": "넓은 이마가 드러나는 낮은 관과 갈적색 도포의 긴 문관형", "signature": "접은 외교 서신", "face": "넓고 긴 얼굴과 온화한 짧은 수염", "motion": "서신을 두 손으로 건네는 절제된 동작", "avoid": ["동생 제갈량의 두건·부채", "밝은 흰 도포"]
+    },
+    {
+      "id": "kan-ze", "nameKo": "감택", "nameHanja": "闞澤", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [46, 47, 49], "role": "사신·고육계 전달자",
+      "silhouette": "낮은 둥근 관과 여행용 짧은 적갈 외투의 노년 사신형", "signature": "붉은 봉인이 찍힌 항복서", "face": "짧은 회색 수염과 침착한 반달눈", "motion": "봉서를 품었다가 한 손으로 내미는 동작", "avoid": ["노숙의 묶은 죽간", "전투용 무기"]
+    },
+    {
+      "id": "lu-xun", "nameKo": "육손", "nameHanja": "陸遜", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 3, "chapters": [44, 49, 50], "role": "젊은 참모·장수",
+      "silhouette": "작은 문관 관과 가벼운 적갈 갑옷이 섞인 젊은 문무형", "signature": "얇은 직검과 말아 묶은 작전도", "face": "수염 없는 좁은 얼굴과 집중한 눈", "motion": "작전도를 접고 빠른 직선 검격으로 전환", "avoid": ["제갈량의 부채", "주유의 붉은 깃과 망토"]
+    },
+    {
+      "id": "ding-feng", "nameKo": "정봉", "nameHanja": "丁奉", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 2, "chapters": [49, 50], "role": "젊은 수군 장수",
+      "silhouette": "짧은 머리와 소매 없는 경갑의 작고 단단한 기동형", "signature": "길이가 다른 쌍 단도", "face": "두꺼운 눈썹과 수염 없는 둥근 얼굴", "motion": "낮게 파고들며 두 칼을 엇갈아 벤다", "avoid": ["능통의 쌍 단봉", "감녕의 머리띠"]
+    },
+    {
+      "id": "liu-biao", "nameKo": "유표", "nameHanja": "劉表", "displayFaction": "기타", "productionTier": "reference",
+      "chapterCount": 2, "chapters": [43, 44], "role": "과거의 형주목",
+      "silhouette": "탁한 청록 관복과 넓은 소매의 늙은 지방 군주형", "signature": "형주 지도 두루마리", "face": "긴 흰 수염과 피곤한 처진 눈", "motion": "회상 카드에서 지도 위에 손을 얹은 정적인 자세", "avoid": ["촉 세력 녹색으로 분류", "전투 장군 갑옷"]
+    },
+    {
+      "id": "sun-ce", "nameKo": "손책", "nameHanja": "孫策", "displayFaction": "오", "productionTier": "reference",
+      "chapterCount": 2, "chapters": [44, 48], "role": "오의 선대 군주·맹장",
+      "silhouette": "흰색과 주홍의 가벼운 갑옷, 뒤로 뻗은 짧은 머리 장식의 젊은 기병형", "signature": "호랑이 버클과 긴 창", "face": "밝고 자신감 있는 젊은 얼굴", "motion": "회상 카드에서 창을 어깨에 걸친 전진 자세", "avoid": ["손권의 네모난 군주관", "주유의 직검"]
+    },
+    {
+      "id": "zhang-he", "nameKo": "장합", "nameHanja": "張郃", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [48, 50], "role": "기동 장수",
+      "silhouette": "뒤로 갈라진 날개형 투구와 가는 갑옷의 우아한 창병형", "signature": "잎 모양 창날의 긴 창", "face": "가늘고 자신감 있는 눈과 얇은 수염", "motion": "몸을 회전시키는 가벼운 창 연속기", "avoid": ["장료의 초승달 투구", "조운의 흰 목도리"]
+    },
+    {
+      "id": "xu-sheng", "nameKo": "서성", "nameHanja": "徐盛", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 2, "chapters": [49, 50], "role": "수군 방어 장수",
+      "silhouette": "세로로 긴 작은 방패와 곧은 군도를 든 방어형", "signature": "물결 문양 장방패", "face": "사각 턱과 짧은 검은 수염", "motion": "방패로 막은 뒤 짧게 반격한다", "avoid": ["조인의 거대한 탑방패", "황개의 중갑"]
+    },
+    {
+      "id": "cao-ren", "nameKo": "조인", "nameHanja": "曹仁", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [43, 50], "role": "수비 지휘관",
+      "silhouette": "큰 사각 어깨와 탑방패가 몸 절반을 덮는 요새형", "signature": "검푸른 탑방패와 짧은 중창", "face": "넓은 얼굴과 짧은 네모 수염", "motion": "방패를 세우고 밀어낸 뒤 창을 찌른다", "avoid": ["서성의 가벼운 장방패", "조조의 긴 망토"]
+    },
+    {
+      "id": "cao-hong", "nameKo": "조홍", "nameHanja": "曹洪", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [48, 50], "role": "기병 장수",
+      "silhouette": "말꼬리 술 투구와 넓은 허리갑의 전통 기병형", "signature": "두꺼운 기병도", "face": "굵은 콧수염과 넓은 볼", "motion": "상체를 크게 숙여 앞으로 베고 즉시 물러난다", "avoid": ["장료의 월아 장극", "하후돈의 눈가 덮개"]
+    },
+    {
+      "id": "li-dian", "nameKo": "이전", "nameHanja": "李典", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [48, 50], "role": "신중한 야전 장수",
+      "silhouette": "황동 비늘갑과 낮은 관모의 균형 잡힌 창병형", "signature": "중간 길이 창과 작은 전술 패찰", "face": "차분한 눈과 짧은 턱수염", "motion": "주변을 살핀 뒤 빈틈을 찌르는 절제된 공격", "avoid": ["우금의 군기 장창", "책사처럼 긴 도포"]
+    },
+    {
+      "id": "yue-jin", "nameKo": "악진", "nameHanja": "樂進", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [48, 50], "role": "선봉 돌격 장수",
+      "silhouette": "작은 체구와 짧은 갑옷, 앞쪽으로 모인 무기의 압축형", "signature": "짧은 돌격창과 보조도", "face": "작지만 굵은 눈썹과 다문 입", "motion": "짧은 도움닫기 뒤 빠르게 찌른다", "avoid": ["허저처럼 큰 체격", "장합의 우아한 회전"]
+    },
+    {
+      "id": "jian-yong", "nameKo": "간옹", "nameHanja": "簡雍", "displayFaction": "촉", "productionTier": "support",
+      "chapterCount": 2, "chapters": [45, 49], "role": "외교가·막료",
+      "silhouette": "여행용 갈색 외투와 비취 띠의 느슨한 문관형", "signature": "둥근 편지통과 작은 술병", "face": "웃는 눈과 듬성한 콧수염", "motion": "편지를 내밀며 어깨를 으쓱하는 여유로운 동작", "avoid": ["제갈량 같은 엄숙한 도포", "전투용 장검"]
+    },
+    {
+      "id": "xun-you", "nameKo": "순유", "nameHanja": "荀攸", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [46, 48], "role": "책사",
+      "silhouette": "겹친 군청 학자모와 짧은 청회색 도포의 정제된 문관형", "signature": "여러 장의 전략 패찰", "face": "좁은 눈과 단정한 짧은 수염", "motion": "패찰을 바꾸어 들며 선택지를 제시한다", "avoid": ["정욱의 긴 노년 실루엣", "제갈량의 부채"]
+    },
+    {
+      "id": "xu-chu", "nameKo": "허저", "nameHanja": "許褚", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 2, "chapters": [48, 50], "role": "군주 호위 맹장",
+      "silhouette": "맨팔 일부와 두꺼운 가죽끈이 보이는 가장 넓은 위 장수형", "signature": "짧고 무거운 대도", "face": "둥근 코와 거친 짧은 수염", "motion": "몸통을 비틀어 무거운 칼을 한 번 내려친다", "avoid": ["장비의 뱀창", "서양식 야만전사 털가죽"]
+    },
+    {
+      "id": "gu-yong", "nameKo": "고옹", "nameHanja": "顧雍", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 2, "chapters": [43, 44], "role": "중신 문관",
+      "silhouette": "검은 예복에 가는 붉은 테두리가 흐르는 단정한 문관형", "signature": "비취 의례 홀", "face": "표정 변화가 적은 긴 얼굴", "motion": "홀을 두 손으로 고쳐 들며 조용히 동의한다", "avoid": ["장소의 긴 흰 눈썹", "전투 무기"]
+    },
+    {
+      "id": "pang-tong", "nameKo": "방통", "nameHanja": "龐統", "displayFaction": "촉", "productionTier": "anchor",
+      "archetype": "촉-비정형 책사", "designState": "planned", "colorPlan": { "head": "녹색 두건 매듭", "torso": "암갈 도포+비취 옷깃", "lower": "비취 도포 자락", "personalAccent": "황동 봉황 매듭" },
+      "chapterCount": 2, "chapters": [47, 48], "role": "군사·연환계 제안자",
+      "silhouette": "비대칭 천 두건과 소박한 암갈색 도포의 약간 굽은 책사형", "signature": "굽은 지팡이와 작은 봉황 매듭", "face": "정돈되지 않은 수염과 졸린 듯 날카로운 눈", "motion": "지팡이로 연결점을 짚고 밧줄 매듭 효과를 보인다", "avoid": ["서양식 마법사", "제갈량의 깃털 부채와 흰 도포"]
+    },
+    {
+      "id": "liu-fu", "nameKo": "유복", "nameHanja": "劉馥", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 1, "chapters": [48], "role": "관리·간언자",
+      "silhouette": "장식이 거의 없는 회청색 관리복과 낮은 관의 소박한 문관형", "signature": "짧은 문서판과 붓", "face": "걱정스러운 눈과 얇은 수염", "motion": "문서판을 들고 한 걸음 나서 간언한다", "avoid": ["전투 갑옷", "화려한 금색 장식"]
+    },
+    {
+      "id": "lu-fan", "nameKo": "여범", "nameHanja": "呂範", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [44], "role": "행정·군수 담당",
+      "silhouette": "짧은 적갈 문관복에 문서 주머니가 여러 개 달린 실무형", "signature": "계수목과 군수 장부", "face": "둥근 안경 없이 가늘게 뜬 실무적인 눈", "motion": "계수목을 옮기고 장부에 표시한다", "avoid": ["현대식 주판", "노숙의 죽간"]
+    },
+    {
+      "id": "lu-qian", "nameKo": "여건", "nameHanja": "呂虔", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 1, "chapters": [48], "role": "야전 장수",
+      "silhouette": "짙은 청색 갑옷과 낮은 원형 투구의 실용적인 보병형", "signature": "환두도와 짧은 팔 보호대", "face": "각진 턱과 짧은 콧수염", "motion": "방어 자세에서 짧고 빠르게 베어낸다", "avoid": ["조홍의 말꼬리 투구", "조조의 금색 군주 장식"]
+    },
+    {
+      "id": "yan-jun", "nameKo": "엄준", "nameHanja": "嚴畯", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [43], "role": "학자",
+      "silhouette": "회색과 적갈색의 겹학자복, 넓은 책 소매의 비전투형", "signature": "펼친 경서", "face": "곧고 순한 눈과 가는 수염", "motion": "책장을 넘긴 뒤 고개를 저으며 사양한다", "avoid": ["무기", "제갈량식 계략 효과"]
+    },
+    {
+      "id": "xiahou-yuan", "nameKo": "하후연", "nameHanja": "夏侯淵", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 1, "chapters": [48], "role": "속공 기병 장수",
+      "silhouette": "뒤로 긴 투구끈과 가벼운 군청 기병갑의 전진형", "signature": "짧은 복합궁과 기병도", "face": "넓은 이마와 빠르게 주변을 보는 눈", "motion": "짧게 활을 쏜 뒤 앞으로 파고드는 움직임", "avoid": ["하후돈의 눈 덮개", "태사자의 쌍수극"]
+    },
+    {
+      "id": "sun-qian", "nameKo": "손건", "nameHanja": "孫乾", "displayFaction": "촉", "productionTier": "support",
+      "chapterCount": 1, "chapters": [49], "role": "사신·막료",
+      "silhouette": "녹갈색 여행 도포와 짧은 어깨 보자기의 이동형 문관", "signature": "대나무 편지통", "face": "길고 온화한 얼굴과 얇은 콧수염", "motion": "편지통을 풀어 두 손으로 건넨다", "avoid": ["간옹의 술병", "무장 갑옷"]
+    },
+    {
+      "id": "zhang-wen", "nameKo": "장온", "nameHanja": "張溫", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [43], "role": "논객·문관",
+      "silhouette": "붉은 테두리의 긴 조복과 앞쪽으로 선 학자관의 논객형", "signature": "펼친 얇은 죽간", "face": "날카로운 입매와 치켜뜬 한쪽 눈썹", "motion": "죽간을 접으며 한 손으로 논박한다", "avoid": ["장소의 노년 얼굴", "노숙의 둥근 관"]
+    },
+    {
+      "id": "zhu-zhi", "nameKo": "주치", "nameHanja": "朱治", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [44], "role": "원로 장수",
+      "silhouette": "낮은 투구와 붉은 띠가 달린 오래된 갈철 갑옷의 고참형", "signature": "넓은 환두도", "face": "한쪽 뺨의 흉터와 회색 콧수염", "motion": "검을 세워 후열을 지키는 안정적인 베기", "avoid": ["황개의 백발과 화공 도구", "정보의 장창"]
+    },
+    {
+      "id": "mi-fang", "nameKo": "미방", "nameHanja": "糜芳", "displayFaction": "촉", "productionTier": "support",
+      "chapterCount": 1, "chapters": [49], "role": "군수·수비 장수",
+      "silhouette": "녹갈색 중경갑과 허리 문서갑의 군수형", "signature": "군량 패찰과 짧은 검", "face": "둥근 얼굴과 불안한 눈썹", "motion": "패찰을 확인한 뒤 짧은 방어 검격", "avoid": ["유비의 쌍검", "책사형 긴 도포"]
+    },
+    {
+      "id": "zang-ba", "nameKo": "장패", "nameHanja": "臧霸", "displayFaction": "위", "productionTier": "support",
+      "chapterCount": 1, "chapters": [48], "role": "변방 장수",
+      "silhouette": "거친 갈색 가죽 위에 군청 금속판을 덧댄 넓은 야전형", "signature": "굵은 산악창", "face": "거친 눈썹과 짧고 덥수룩한 수염", "motion": "낮은 자세에서 창자루로 밀친 뒤 찌른다", "avoid": ["서양식 털가죽 야만전사", "허저의 대도"]
+    },
+    {
+      "id": "dong-zhuo", "nameKo": "동탁", "nameHanja": "董卓", "displayFaction": "기타", "productionTier": "reference",
+      "chapterCount": 1, "chapters": [44], "role": "과거의 권신",
+      "silhouette": "검정·탁금의 겹옷과 두꺼운 털깃이 만드는 비대한 권신형", "signature": "무거운 패도와 금색 허리 장식", "face": "넓은 볼과 거칠게 갈라진 수염", "motion": "회상 카드에서 칼집을 짚고 거만하게 기대 선다", "avoid": ["서양 왕관", "특정 게임의 동탁 디자인 복제"]
+    },
+    {
+      "id": "xue-zong", "nameKo": "설종", "nameHanja": "薛綜", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [43], "role": "학자·문관",
+      "silhouette": "둥근 모자와 층이 얕은 적갈 학자복의 온화한 문관형", "signature": "묶지 않은 얇은 서책", "face": "둥근 눈과 가지런한 짧은 수염", "motion": "서책을 펼쳐 근거를 설명한다", "avoid": ["엄준의 넓은 책 소매", "전투 무기"]
+    },
+    {
+      "id": "yu-fan", "nameKo": "우번", "nameHanja": "虞翻", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [43], "role": "직언하는 논객",
+      "silhouette": "앞으로 기운 문관모와 날카로운 붉은 옷깃의 공격적인 문관형", "signature": "위로 치켜든 짧은 홀", "face": "매서운 눈과 뾰족한 회색 수염", "motion": "홀로 상대를 가리키며 강하게 논박한다", "avoid": ["무기 공격", "고옹처럼 무표정한 자세"]
+    },
+    {
+      "id": "guo-jia", "nameKo": "곽가", "nameHanja": "郭嘉", "displayFaction": "위", "productionTier": "reference",
+      "chapterCount": 1, "chapters": [50], "role": "회상되는 책사",
+      "silhouette": "밝은 청회색 도포와 느슨한 학자모의 가늘고 병약한 문관형", "signature": "작은 술잔과 접은 전략서", "face": "창백한 얼굴과 웃음기 있는 가는 눈", "motion": "회상 카드에서 술잔을 들고 조용히 웃는다", "avoid": ["정욱의 어두운 노년형", "전투 갑옷"]
+    },
+    {
+      "id": "lu-ji", "nameKo": "육적", "nameHanja": "陸績", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [43], "role": "젊은 논객",
+      "silhouette": "작은 학자관과 짧은 적갈 도포의 어린 문관형", "signature": "귤빛 향낭과 작은 홀", "face": "앳되고 또렷한 눈, 수염 없음", "motion": "작은 홀을 들고 빠르게 반론한다", "avoid": ["육손의 문무 갑옷", "성인 장수 체격"]
+    },
+    {
+      "id": "luo-tong", "nameKo": "낙통", "nameHanja": "駱統", "displayFaction": "오", "productionTier": "support",
+      "chapterCount": 1, "chapters": [43], "role": "젊은 문관",
+      "silhouette": "좁은 붉은 테두리 도포와 세로 문서함의 단정한 문관형", "signature": "허리에 찬 긴 문서함", "face": "긴 눈과 짧은 검은 콧수염", "motion": "문서함에서 서신을 꺼내 두 손으로 펼친다", "avoid": ["장온의 공격적인 논박 자세", "육적의 어린 얼굴"]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "id": "zhou-yu",
+  "nameKo": "주유",
+  "storyline": "red-cliff",
+  "version": 2,
+  "frame": {
+    "width": 420,
+    "height": 250,
+    "countPerAnimation": 4,
+    "background": "transparent"
+  },
+  "assets": {
+    "base": "/sprites/red-cliff/zhou-yu/zhou-yu-base.png",
+    "sheet": "/sprites/red-cliff/zhou-yu/zhou-yu-sheet-v1.png",
+    "idle": {
+      "src": "/sprites/red-cliff/zhou-yu/zhou-yu-idle.gif",
+      "fps": 2.25
+    },
+    "attack": {
+      "src": "/sprites/red-cliff/zhou-yu/zhou-yu-attack.gif",
+      "fps": 5.0625
+    },
+    "hit": {
+      "src": "/sprites/red-cliff/zhou-yu/zhou-yu-hit.gif",
+      "fps": 3.375
+    },
+    "defeat": {
+      "src": "/sprites/red-cliff/zhou-yu/zhou-yu-defeat.gif",
+      "fps": 3
+    },
+    "victory": {
+      "src": "/sprites/red-cliff/zhou-yu/zhou-yu-victory.gif",
+      "fps": 2.8125
+    }
+  },
+  "design": {
+    "silhouette": "young Wu commander with topknot, red plume, short cape, and straight sword",
+    "palette": ["crimson", "red-brown", "gold", "charcoal", "warm skin"]
+  }
+}

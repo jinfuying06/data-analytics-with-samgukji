@@ -1,0 +1,59 @@
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/coverage/
+frontend/.vercel/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# Local source and generated data
+data/raw/
+data/interim/
+data/processed/
+outputs/
+*.db
+*.sqlite
+*.sqlite3
+!data/seed/red_cliff.db
+
+# Scratch and temporary artifacts
+tmp/
+scratch_bios/
+scratch*.json
+_query_out.json
+sunjian_raw.txt
+.scratch_*
+scripts/_tmp_*
+.claude/
+
+# Rejected faction-flag alternatives (kept locally)
+frontend/public/sprites/factions/*-flag-v2.gif
+frontend/public/sprites/factions/*-flag-v2.png
+frontend/public/sprites/factions/*-flag-strip-v2.png
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

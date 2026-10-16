@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "frame": {
+    "width": 420,
+    "height": 250,
+    "count": 4,
+    "fps": 1.25,
+    "background": "transparent"
+  },
+  "font": {
+    "family": "굴림체",
+    "weight": "bold",
+    "rendering": "single-bit low-resolution, 1 logical pixel outline, 3x nearest-neighbor upscale"
+  },
+  "factions": {
+    "wei": {
+      "labelKo": "위",
+      "palette": ["#8B1E24", "#C33B32", "#171319", "#C79A3A"],
+      "base": "/sprites/factions/wei-flag.png",
+      "strip": "/sprites/factions/wei-flag-strip-v1.png",
+      "animation": "/sprites/factions/wei-flag.gif"
+    },
+    "shu": {
+      "labelKo": "촉",
+      "palette": ["#285943", "#4D7848", "#66452F", "#B4873B"],
+      "base": "/sprites/factions/shu-flag.png",
+      "strip": "/sprites/factions/shu-flag-strip-v1.png",
+      "animation": "/sprites/factions/shu-flag.gif"
+    },
+    "wu": {
+      "labelKo": "오",
+      "palette": ["#173B5B", "#2E6B8A", "#2D7C78", "#D1A348"],
+      "base": "/sprites/factions/wu-flag.png",
+      "strip": "/sprites/factions/wu-flag-strip-v1.png",
+      "animation": "/sprites/factions/wu-flag.gif"
+    }
+  }
+}
