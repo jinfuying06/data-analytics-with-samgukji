@@ -19,19 +19,19 @@ function click(tree,label){const b=button(tree,label);assert.ok(!b.props.disable
 (async()=>{
  let tree=render(true);assert.equal(button(tree,'이야기에서 답 찾으러 가기').props.disabled,true);
  click(tree,'조조');tree=render(true);click(tree,'이야기에서 답 찾으러 가기');assert.equal(route,'/learn/');assert.equal(session.get('samgukji-child-guess'),'曹操');
- state=[];tree=render();assert.equal(button(tree,'실제 기록도 세어 보자').props.disabled,true);
+ state=[];tree=render();assert.equal(button(tree,'실제 기록도 세어 보기').props.disabled,true);
  for(const name of ['조조','제갈량','손권','주유']){click(tree,name);tree=render()}
- click(tree,'내가 만든 표 확인하기');tree=render();assert.equal(button(tree,'실제 기록도 세어 보자').props.disabled,true);
- click(tree,'주유');tree=render();click(tree,'내가 만든 표 확인하기');tree=render();assert.equal(button(tree,'실제 기록도 세어 보자').props.disabled,false);
- click(tree,'실제 기록도 세어 보자');tree=render();assert.equal(button(tree,'이 숫자는 무슨 뜻일까?').props.disabled,true);
- await click(tree,'몇 편에 나오는지 세어 보기');tree=render();assert.ok(text(tree).includes('8편 중 8편'));assert.equal(button(tree,'이 숫자는 무슨 뜻일까?').props.disabled,false);
+ click(tree,'직접 만든 표 확인하기');tree=render();assert.equal(button(tree,'실제 기록도 세어 보기').props.disabled,true);
+ click(tree,'주유');tree=render();click(tree,'직접 만든 표 확인하기');tree=render();assert.equal(button(tree,'실제 기록도 세어 보기').props.disabled,false);
+ click(tree,'실제 기록도 세어 보기');tree=render();assert.equal(button(tree,'이 숫자는 무슨 뜻일까요?').props.disabled,true);
+ await click(tree,'몇 편에 나오는지 세어 보기');tree=render();assert.ok(text(tree).includes('8편 중 8편'));assert.equal(button(tree,'이 숫자는 무슨 뜻일까요?').props.disabled,false);
  const bars=all(tree).filter(n=>n.type==='button'&&n.props['aria-label']?.includes('편. 기록 보기'));assert.equal(bars.length,6);assert.ok(bars[0].props['aria-label'].includes('조조, 8편'));
  click(tree,'숫자 표');tree=render();assert.ok(all(tree).some(n=>n.type==='table'&&text(n).includes('조조8편')));
- const selects=all(tree).filter(n=>n.type==='select');selects[0].props.onChange({target:{value:'50'}});tree=render();assert.equal(button(tree,'이 숫자는 무슨 뜻일까?').props.disabled,true);
+ const selects=all(tree).filter(n=>n.type==='select');selects[0].props.onChange({target:{value:'50'}});tree=render();assert.equal(button(tree,'이 숫자는 무슨 뜻일까요?').props.disabled,true);
  all(tree).filter(n=>n.type==='select')[1].props.onChange({target:{value:'43'}});tree=render();await click(tree,'몇 편에 나오는지 세어 보기');tree=render();assert.ok(text(tree).includes('범위를 다시 골라주세요'));
  all(tree).filter(n=>n.type==='select')[0].props.onChange({target:{value:'43'}});tree=render();all(tree).filter(n=>n.type==='select')[1].props.onChange({target:{value:'50'}});tree=render();await click(tree,'몇 편에 나오는지 세어 보기');tree=render();
- click(tree,'이 숫자는 무슨 뜻일까?');tree=render();assert.equal(button(tree,'오늘의 발견 정리하기').props.disabled,true);
- click(tree,'싸움도 가장 잘했을 거야');tree=render();assert.equal(button(tree,'오늘의 발견 정리하기').props.disabled,true);
- click(tree,'알 수 없어');tree=render();click(tree,'오늘의 발견 정리하기');tree=render();assert.ok(text(tree).includes('너도 첫 데이터 분석을 해냈어'));assert.ok(text(tree).includes('다른 책에도 쓸 수 있어요'));assert.ok(all(tree).some(n=>n.props?.href==='/simulation/'));
+ click(tree,'이 숫자는 무슨 뜻일까요?');tree=render();assert.equal(button(tree,'오늘의 발견 정리하기').props.disabled,true);
+ click(tree,'싸움도 가장 잘했을 것 같아요');tree=render();assert.equal(button(tree,'오늘의 발견 정리하기').props.disabled,true);
+ click(tree,'알 수 없어요');tree=render();click(tree,'오늘의 발견 정리하기');tree=render();assert.ok(text(tree).includes('첫 데이터 분석을 마치셨어요'));assert.ok(text(tree).includes('다른 책에도 쓸 수 있어요'));assert.ok(all(tree).some(n=>n.props?.href==='/simulation/'));
  console.log('PASS learning flow: prediction, practice correction, real counts, chart/table, stale/invalid filters, interpretation gating, completion and optional experiment');
 })().catch(e=>{console.error(e);process.exitCode=1});
