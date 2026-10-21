@@ -12,6 +12,18 @@
 - `data/seed/red_cliff.db`: 적벽대전 8개 회차만 포함한 공개용 SQLite seed DB
 - `scripts/build_red_cliff_seed.py`: 로컬 전체 DB에서 공개용 seed DB를 재생성하는 스크립트
 - `docs/`: PRD, 데이터 구조, 픽셀 캐릭터 제작 규칙
+- `prototype/red-cliff-lab/`: 「삼국지로 배우는 데이터분석 — 적벽대전 편」 단일 HTML 학습 웹앱 (seed DB 기반 6단계 + What-if)
+
+## 학습 웹앱 프로토타입 (적벽대전 편)
+
+서버 없이 `prototype/red-cliff-lab/index.html`을 브라우저로 열면 된다.
+참전 명단 만들기 → 평균의 함정 → 맞춤 지표 → 민감도 → 지표 검증 → What-if 여섯 단계로,
+모든 숫자는 `data/seed/red_cliff.db`에서 계산한다. 설계와 지표 정의는 `docs/RED_CLIFF_LAB.md` 참고.
+
+```sh
+python scripts/build_red_cliff_lab_data.py   # seed DB → 학습 데이터
+sh prototype/red-cliff-lab/build.sh          # src/ → index.html
+```
 
 ## 빠른 시작
 
