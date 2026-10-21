@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { NetworkData } from "@/lib/api";
 
+import snapshot from "@/lib/network-snapshot.json";
+
 type GraphNode = NetworkData["nodes"][number];
 type GraphLink = NetworkData["links"][number];
 
@@ -20,6 +22,11 @@ export default function NetworkPage() {
   const router = useRouter();
 
   useEffect(() => {
+    if(process.env.NEXT_PUBLIC_STATIC_PROTOTYPE === "1") {
+      const links=snapshot.links.filter(l=>l.value>=minCount);
+      const ids=new Set(links.flatMap(l=>[l.source,l.target]));
+      setData({nodes:snapshot.nodes.filter(n=>ids.has(n.id)),links}); return;
+    }
     fetch(`/api/network?min_count=${minCount}`)
       .then((r) => r.json())
       .then(setData);

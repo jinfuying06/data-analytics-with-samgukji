@@ -176,3 +176,23 @@ def get_network(min_count: int = 5):
     nodes = [{"id": n, "count": appearances.get(n, 0)} for n in node_names]
 
     return {"nodes": nodes, "links": links}
+
+
+@app.get('/api/analytics/appearances')
+def get_appearances(chapter_start: int = 43, chapter_end: int = 50, limit: int = 63):
+    if not 43 <= chapter_start <= chapter_end <= 50 or not 1 <= limit <= 63:
+        raise HTTPException(status_code=422, detail='회차는 43~50, 시작 ≤ 종료, limit는 1~63이어야 합니다.')
+    conn = get_connection()
+    results = [dict(r) for r in conn.execute(
+        'SELECT name, COUNT(DISTINCT chapter) AS chapter_count FROM yeonui_mentions '
+        'WHERE chapter BETWEEN ? AND ? GROUP BY name ORDER BY chapter_count DESC, name LIMIT ?',
+        (chapter_start, chapter_end, limit))]
+    records = [dict(r) for r in conn.execute(
+        'SELECT * FROM yeonui_mentions WHERE chapter BETWEEN ? AND ? ORDER BY chapter, name',
+        (chapter_start, chapter_end))]
+    conn.close()
+    for record in records:
+        record['excerpt'] = json.loads(record['excerpt'])
+    return {'results': results, 'rows': records, 'chapter_start': chapter_start,
+            'chapter_end': chapter_end, 'source': 'data/seed/red_cliff.db',
+            'metric': 'COUNT(DISTINCT chapter)'}

@@ -1,7 +1,12 @@
 import { notFound } from "next/navigation";
 import { API_BASE, PersonDetail } from "@/lib/api";
 
+import snapshot from "@/lib/person-snapshot.json";
+
+export function generateStaticParams() {return snapshot.map(p=>({name:p.name}))}
+
 async function getPerson(name: string) {
+  if(process.env.STATIC_PROTOTYPE === "1") return snapshot.find(p=>p.name===name) as PersonDetail | undefined;
   const res = await fetch(
     `${API_BASE}/api/persons/${encodeURIComponent(name)}`,
     { cache: "no-store" }
