@@ -13,3 +13,10 @@ fs.writeFileSync('.test-results/analytics-results.json',JSON.stringify(results))
 assert.equal(aggregateRows([],43,50).length,0);
 assert.equal(aggregateRows([{name:'A',chapter:43},{name:'A',chapter:43}],43,50)[0].chapter_count,1);
 console.log(`PASS model baseline, ${count} deterministic combinations, 4 outcomes; 36 analytics ranges exported`);
+const {checkPractice}=load('lesson');
+const names=['曹操','諸葛亮','孫權','周瑜'];
+for(let mask=0;mask<16;mask++){
+ const marked=names.filter((_,i)=>mask&(1<<i));
+ assert.equal(checkPractice(marked),mask===7,'Only the three names in the story can complete the exercise');
+}
+console.log('PASS 16 practice answer combinations; unrelated names and missing marks cannot complete the activity');

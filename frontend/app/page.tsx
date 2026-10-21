@@ -1,2 +1,2 @@
-import Lab from '../components/Lab';
-export default function Page(){return <Lab mode="home"/>}
+import LearningJourney from '../components/learning/LearningJourney';
+export default function Page(){return <LearningJourney home/>}
