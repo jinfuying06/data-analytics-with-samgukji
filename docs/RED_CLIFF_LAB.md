@@ -42,7 +42,7 @@
 - 민감도: 연의·합계 215/215, 정사 본문·1인당 203/215
 - 조조의 화공 18은 불에 당한 장면의 동시 출현
 - 촉의 점수 비중: 연의 20% → 정사 본문 14%
-- 제갈량→위: 연의 83→72, 정사 81→77, 바람을 제갈량의 능력으로 보면 81→57
+- 제갈량→위: 연의 83→72, 정사 81→77, 정사 본문에서 바람을 제갈량의 능력으로 보면 56, 연의에서 바람을 제갈량의 능력으로 보면 52
 
 ## 한계
 
@@ -62,10 +62,13 @@ sh prototype/red-cliff-lab/build.sh          # src/* → index.html
 | 파일 | 내용 |
 |---|---|
 | `00-head.html` | 제목, 폰트, 기본 스타일, 아이콘 |
-| `10-styles-course.html` / `11-styles-stages.html` | 단계 화면 스타일 |
+| `10-styles-course.html` / `11-styles-stages.html` / `12-styles-journey.html` | 단계 화면 스타일 |
+| `13-styles-simple.html` | 단순화한 단계 화면 스타일 |
 | `20-markup.html` | 앱 골격, 오프닝, 탭바 |
 | `30-data.js` | 생성 데이터 (직접 수정하지 않음) |
 | `40-app.js` | 여섯 단계 화면과 계산 |
+| `70-learning-journey.js` | 홈 질문·예상, 단계 연결 |
+| `80-simplify.js` | 단계마다 '행동 → 결과 → 개념 이름' 화면 (계산은 40-app 그대로) |
 | `50-fx.js` / `60-intro.js` | 씬 배경 효과, 오프닝 |
 
 진행 상황은 브라우저 `localStorage`(`redcliff-v8`)에만 저장된다.
