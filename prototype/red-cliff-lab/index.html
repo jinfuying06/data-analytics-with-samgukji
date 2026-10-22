@@ -848,17 +848,17 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .ibars i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#b8323f,#e8763c);width:calc(var(--v) * 1%);transform-origin:left;animation:ibar 1.4s 1.4s var(--ease-film) both}
 .ibars b{font-size:15px;color:#f2e9da;text-align:right}
 @keyframes ibar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-.isteps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(560px,100%)}
-.isteps li{display:grid;gap:2px;padding:12px 10px;border-radius:10px;background:rgba(236,230,217,.05);border:1px solid rgba(236,230,217,.08);counter-increment:st;animation:fadeup .8s var(--ease-film) both}
+.isteps{list-style:none;padding:0;display:grid;gap:4px;width:min(620px,100%);text-align:left}
+.isteps li{display:grid;grid-template-columns:40px auto 1fr;column-gap:12px;align-items:baseline;padding:8px 14px;border-radius:8px;background:rgba(236,230,217,.04);counter-increment:st;animation:fadeup .8s var(--ease-film) both}.isteps li span{text-align:right}
 .isteps li::before{content:"第" counter(st);font-family:var(--f-display);font-size:11px;letter-spacing:.15em;color:#e8763c}
 .isteps li:nth-child(1){animation-delay:.6s}.isteps li:nth-child(2){animation-delay:.8s}.isteps li:nth-child(3){animation-delay:1s}.isteps li:nth-child(4){animation-delay:1.2s}.isteps li:nth-child(5){animation-delay:1.4s}.isteps li:nth-child(6){animation-delay:1.6s}
-.isteps b{font-size:16px;color:#f2e9da}.isteps span{font-size:12px;color:#a59f93}
+.isteps b{font-size:15.5px;color:#f2e9da;font-weight:600}.isteps span{font-size:12.5px;color:#a59f93}.isteps li:last-child{background:rgba(232,118,60,.12)}.isteps li:last-child b{color:#ffb489}
 .isteps{counter-reset:st}
 .idots{position:absolute;z-index:4;top:calc(11vh + 22px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);display:flex;gap:6px;justify-content:center}
 .idots i{width:22px;height:4px;border-radius:2px;background:rgba(236,230,217,.16)}
 .idots i.on{background:#e8763c}
 .intro .enter{animation:fadeup .8s 1.2s var(--ease-film) both}
-@media (max-width:760px){.isteps{grid-template-columns:repeat(2,minmax(0,1fr))}.intro .intro-in{min-height:0}}
+@media (max-width:760px){.isteps li{padding:8px 12px;grid-template-columns:34px 1fr}.isteps li span{display:none}.intro .intro-in{padding-top:30px}.isteps b{font-size:14.5px}.intro .intro-in{min-height:0}}
 @media (prefers-reduced-motion:reduce){.iscene .l,.iscene .it,.ibars i,.isteps li,.intro .enter{animation:none}}
 
 /* ===== buttons: one shape everywhere, a slightly rounded square ===== */
@@ -868,7 +868,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .intro .enter{padding:12px 30px;min-width:132px;letter-spacing:.08em}
 
 /* ===== breathing room: buttons sit apart from the text above and below ===== */
-.intro .enter{margin-top:40px}
+.intro .enter{margin-top:32px}
 .prediction-form button{margin-top:28px}
 .main .pane .btn:not(:first-child),.main .pane .pick:not(:first-child),.main .pane .ctrls:not(:first-child){margin-top:20px}
 .main .pane .btn+div:not(:empty),.main .pane .pick+div:not(:empty),.main .pane .pick+.btn{margin-top:20px}
@@ -986,16 +986,16 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
       <p class="l">제갈량을 조조 편으로 옮기면, <b>이 숫자들도 조조 편으로 옮겨 갑니다.</b><br>그다음 두 편의 점수를 다시 비교하면 됩니다.</p>
     </section>
     <section class="iscene" data-heat=".2" hidden>
-      <p class="l k">삼국지로 하는 데이터 분석</p>
+      <p class="l k">그래서, 이렇게 따져 봅니다</p>
       <ol class="l isteps">
-        <li><b>세기</b><span>누구를 셀까</span></li>
-        <li><b>비교</b><span>평균의 함정</span></li>
-        <li><b>점수</b><span>무엇으로 잴까</span></li>
-        <li><b>흔들기</b><span>점수를 바꿔도 같을까</span></li>
-        <li><b>확인</b><span>원문 읽기</span></li>
-        <li><b>바꾸기</b><span>What-if</span></li>
+        <li><b>두 편에 누가 있었을까?</b><span>셀 사람 정하기</span></li>
+        <li><b>평균만 보면 속지 않을까?</b><span>제갈량 한 명이 숫자를 얼마나 흔드는지</span></li>
+        <li><b>무엇으로 강함을 잴까?</b><span>배·불·계책으로 점수 만들기</span></li>
+        <li><b>점수를 바꿔도 같을까?</b><span>내 점수만 맞는 답인지 확인</span></li>
+        <li><b>그 숫자, 정말 그 뜻일까?</b><span>원문 읽어 보기</span></li>
+        <li><b>제갈량을 조조 편으로 옮기면?</b><span>처음 질문에 답하기</span></li>
       </ol>
-      <p class="l">답은 '이겼다 · 졌다'가 아니라<br><b>'이 기록과 이 가정이라면 이렇다'</b>입니다.</p>
+      <p class="l">답은 '이겼다 · 졌다'가 아니라 <b>'이 기록과 이 가정이라면 이렇다'</b>입니다.</p>
     </section>
     <button class="enter">다음</button>
   </div>
