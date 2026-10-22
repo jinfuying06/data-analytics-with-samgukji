@@ -17,12 +17,17 @@
 ## 학습 웹앱 프로토타입 (적벽대전 편)
 
 서버 없이 `prototype/red-cliff-lab/index.html`을 브라우저로 열면 된다.
-참전 명단 만들기 → 평균의 함정 → 맞춤 지표 → 민감도 → 지표 검증 → What-if 여섯 단계로,
-모든 숫자는 `data/seed/red_cliff.db`에서 계산한다. 설계와 지표 정의는 `docs/RED_CLIFF_LAB.md` 참고.
+『삼국지연의』의 기록으로 인물 구성 → 등장 기록 → 비교 지표 → 계산 기준 점검 → 원문 근거 → What-if를 분석합니다.
+처음 남긴 예상과 실험 결과를 비교하고, 정사는 실험 이후 선택형 확장 활동에서 대조합니다.
+선정 기준을 바꾸면 명단·인원·등장 문단 합계·평균의 변화를 확인할 수 있습니다.
+현재 UI/UX와 학습 흐름은 `docs/WHATIF_LEARNING_JOURNEY.md`를 참고하세요.
+기본 데이터는 `data/seed/red_cliff.db`에서 추출하며, 비교 점수와 바람 보너스는 학습용 계산 규칙입니다. 설계와 지표 정의는 `docs/RED_CLIFF_LAB.md` 참고.
 
 ```sh
 python scripts/build_red_cliff_lab_data.py   # seed DB → 학습 데이터
-sh prototype/red-cliff-lab/build.sh          # src/ → index.html
+npm run build:standalone                   # 현재 UI + 기존 국기 내장 → index.html
+npm run build                              # 정적 호스팅용 dist/
+npm run build:next                         # 기존 Next.js 프로토타입
 ```
 
 ## 빠른 시작

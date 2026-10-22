@@ -1,1 +1,9 @@
-{"name":"samgukji-review-prototype","private":true,"scripts":{"build":"node scripts/build-prototype.mjs"}}
+{
+  "name": "samgukji-review-prototype",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-imported-site.mjs",
+    "build:next": "node scripts/build-prototype.mjs",
+    "build:standalone": "node scripts/build-standalone.mjs"
+  }
+}

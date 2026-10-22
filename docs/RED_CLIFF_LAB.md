@@ -1,5 +1,7 @@
 # 삼국지로 배우는 데이터분석 — 적벽대전 편 (프로토타입)
 
+> 이 문서의 단계 설명은 초기 설계 기록입니다. 현재 여섯 단계와 선택형 정사 확장의 구성은 [WHATIF_LEARNING_JOURNEY.md](WHATIF_LEARNING_JOURNEY.md)를 기준으로 합니다.
+
 `prototype/red-cliff-lab/index.html` 하나로 동작하는 학습 웹앱. 서버 없이 브라우저에서 바로 열린다.
 데이터는 모두 공개 seed DB(`data/seed/red_cliff.db`)에서 계산했다.
 

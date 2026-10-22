@@ -1,7 +1,7 @@
 const RM=!!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches);
 const FX=new Set();
 function fx(cv,mode){
-  const ctx=cv&&cv.getContext&&cv.getContext("2d");if(!ctx)return()=>{};let w=0,h=0,raf=0,alive=true;const dpr=Math.min(2,devicePixelRatio||1);
+  let ctx;try{ctx=cv&&cv.getContext&&cv.getContext("2d")}catch{return()=>{}}if(!ctx)return()=>{};let w=0,h=0,raf=0,alive=true;const dpr=Math.min(2,devicePixelRatio||1);
   const size=()=>{const r=cv.getBoundingClientRect();w=r.width;h=r.height;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};size();
   const rnd=(a,b)=>a+Math.random()*(b-a);
   const fog=[...Array(7)].map(()=>({x:rnd(-.2,1.2),y:rnd(.35,1),r:rnd(.25,.5),v:rnd(.00004,.00012)*(Math.random()<.5?-1:1),a:rnd(.05,.12)}));
