@@ -854,7 +854,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .isteps li:nth-child(1){animation-delay:.6s}.isteps li:nth-child(2){animation-delay:.8s}.isteps li:nth-child(3){animation-delay:1s}.isteps li:nth-child(4){animation-delay:1.2s}.isteps li:nth-child(5){animation-delay:1.4s}.isteps li:nth-child(6){animation-delay:1.6s}
 .isteps b{font-size:16px;color:#f2e9da}.isteps span{font-size:12px;color:#a59f93}
 .isteps{counter-reset:st}
-.idots{display:flex;gap:6px;justify-content:center;margin-top:6px}
+.idots{position:absolute;z-index:4;top:calc(11vh + 22px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);display:flex;gap:6px;justify-content:center}
 .idots i{width:22px;height:4px;border-radius:2px;background:rgba(236,230,217,.16)}
 .idots i.on{background:#e8763c}
 .intro .enter{animation:fadeup .8s 1.2s var(--ease-film) both}
@@ -940,6 +940,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 <div class="scrim" id="scrim" data-close-notes></div>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="오프닝" hidden>
   <canvas id="introFx" aria-hidden="true"></canvas>
+  <div class="idots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="intro-in" aria-live="polite">
     <section class="iscene" data-heat=".15">
       <p class="l k">建安十三年 · 서기 208년 겨울</p>
@@ -979,7 +980,6 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
       </ol>
       <p class="l">답은 '이겼다 · 졌다'가 아니라<br><b>'이 기록과 이 가정이라면 이렇다'</b>입니다.</p>
     </section>
-    <div class="idots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
     <button class="enter">다음</button>
   </div>
   <button class="skip">건너뛰기</button>
