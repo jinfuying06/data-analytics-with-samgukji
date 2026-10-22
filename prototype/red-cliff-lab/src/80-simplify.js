@@ -10,7 +10,7 @@ journeyHome=function(){
  main.querySelector('.experiment-river figcaption')?.remove();
  main.querySelector('.experiment-edition').textContent='『삼국지연의』로 해 보는 데이터 실험';
  main.querySelector('.experiment-heading').insertAdjacentHTML('beforeend',
-  `<p class="simple-story">208년 겨울, 손권·유비 연합군은 불로 조조군을 물리쳤습니다.<br><b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
+  `<p class="simple-story">208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다.<br><b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
  main.querySelector('.prediction-form legend').textContent='먼저 예상해 보세요';
  for(const sel of ['.journey-background','.journey-condition','.background-method'])main.querySelector(sel)?.remove();
  const status=$("#prediction-status");if(status&&!Number.isInteger(S.prediction))status.textContent='';
