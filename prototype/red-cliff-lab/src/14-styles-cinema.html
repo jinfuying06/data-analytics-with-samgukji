@@ -45,15 +45,22 @@
 .named,.big-change,.simple-result,#s6pred>.prediction-review,#allRes{animation:fadeup .7s var(--ease-film) both}
 
 /* home figure: no box of its own; the flags stand in the shared river scene */
-.experiment-river{background:none;border:0;box-shadow:none;border-radius:0;padding:0;overflow:visible}
+.experiment-river{container-type:inline-size;background:none;border:0;box-shadow:none;border-radius:0;padding:0;overflow:visible}
 .experiment-river .river-lines{display:none}
 .river-caption{color:#a59f93;padding:0 6px}
 .river-divider{color:#e8763c;opacity:.85;font-family:var(--f-display);font-size:22px;font-weight:700;letter-spacing:.08em;align-self:center;transform:translateY(30px)}
-.river-armies{grid-template-columns:1fr 34px 1.5fr;min-height:250px;align-items:end}
-/* the sprite is mostly transparent margin: crop to the flag so it reads at full size */
-.river-side img{aspect-ratio:1/1;object-fit:cover;object-position:52% 50%;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(232,118,60,calc(.1 + .25*var(--heat))))}
+.river-armies{--flag-size:min(156px,calc((100cqw - 34px)/2.65));grid-template-columns:minmax(0,1fr) 34px minmax(0,1.65fr);min-height:250px;align-items:end}
+/* One shared frame size for all factions. Normalize transparent sprite margins
+   so the visible flag height also matches; stagger the allied flags by only 12px. */
+.river-side picture{width:var(--flag-size);height:var(--flag-size);flex:0 0 var(--flag-size)}
+.river-side.wei{justify-items:center}
+.river-side img{width:100%;height:100%;max-height:none;aspect-ratio:1/1;object-fit:cover;object-position:52% 50%;filter:drop-shadow(0 10px 18px rgba(0,0,0,.55)) drop-shadow(0 0 22px rgba(232,118,60,calc(.1 + .25*var(--heat))))}
 .river-side b{margin-top:6px;font-size:13px;color:#ece6d9;text-shadow:0 1px 8px rgba(0,0,0,.8)}
-.alliance-flags{gap:4px}
+.river-side.wei img{transform:scale(1.055556)}
+.alliance-flags{gap:0;margin:0;justify-content:center;min-height:var(--flag-size)}
+.alliance-flags picture:first-child{transform:translateY(-6px)}
+.alliance-flags picture+picture{margin-left:calc(var(--flag-size)*-.35);transform:translateY(6px)}
+.alliance-flags picture+picture img{transform:scale(1.096154)}
 
 /* remove separator lines that carried no meaning; group with surfaces instead */
 .experiment-opening{border-bottom:0}
@@ -67,7 +74,7 @@
 .main.simple>.simple-todo{animation:fadeup .7s .35s var(--ease-film) both}
 .main.simple>.stepsec{animation:fadeup .7s .5s var(--ease-film) both}
 
-@media (max-width:760px){.scene-hero .hero-in{padding:26px 18px 20px}.scene-hero h1{font-size:clamp(22px,6.4vw,28px)}.river-armies{min-height:180px;grid-template-columns:1fr 30px 1.5fr}.river-divider{font-size:17px;transform:translateY(22px)}.river-side img{max-height:none}.scene-hero .lb::before,.scene-hero .lb::after{height:10px}@keyframes film-bars{from{height:50%}to{height:10px}}.experiment-opening>.cinema-bg{inset:-32px -16px -16px;width:calc(100% + 32px);height:calc(100% + 48px)}}
+@media (max-width:760px){.scene-hero .hero-in{padding:26px 18px 20px}.scene-hero h1{font-size:clamp(22px,6.4vw,28px)}.river-armies{--flag-size:min(156px,calc((100cqw - 30px)/2.65));min-height:180px;grid-template-columns:minmax(0,1fr) 30px minmax(0,1.65fr)}.river-divider{font-size:17px;transform:translateY(22px)}.river-side img{max-height:none}.scene-hero .lb::before,.scene-hero .lb::after{height:10px}@keyframes film-bars{from{height:50%}to{height:10px}}.experiment-opening>.cinema-bg{inset:-32px -16px -16px;width:calc(100% + 32px);height:calc(100% + 48px)}}
 @media (prefers-reduced-motion:reduce){
   .scene-hero h1,.scene-hero .hero-meta,.experiment-opening h1,.scene-hero .lb::before,.scene-hero .lb::after,.named,.big-change,.simple-result,#s6pred>.prediction-review,#allRes,.main.simple>.simple-todo,.main.simple>.stepsec{animation:none}
   }
