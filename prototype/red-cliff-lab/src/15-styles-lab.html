@@ -1,0 +1,32 @@
+<style>
+/* ===== What-if lab (pairs with 90-whatif-lab.js) ===== */
+.wi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wi-card{display:grid;gap:6px;text-align:left;padding:14px 16px;border-radius:var(--r);border:1px solid rgba(236,228,212,.1);background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer;min-height:96px;align-content:start;transition:border-color .2s,background .2s}
+.wi-card:hover{border-color:rgba(232,118,60,.45)}
+.wi-card[aria-pressed="true"]{border-color:var(--flame);background:rgba(232,118,60,.08)}
+.wi-card b{font-size:15px;line-height:1.45;word-break:keep-all}
+.wi-card small{font-size:11.5px;color:var(--ink-3)}
+.wi-card.tried small::after{content:" · 해 봄";color:var(--good)}
+.wi-kind{font-size:11px;letter-spacing:.08em;color:var(--flame);font-weight:600}
+.wi-panel{margin-top:12px;display:grid;gap:10px;animation:fadeup .6s var(--ease-film,ease) both}
+.wi-panel h3{font-size:clamp(18px,2vw,22px);word-break:keep-all}
+.wi-step{font-size:13px;color:var(--ink-2);margin-top:4px}
+.pick.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wi-meter .pin.ghost{background:rgba(236,230,217,.35);box-shadow:none}
+.wi-hit{font-size:14px;color:var(--bad)}.wi-hit.ok{color:var(--good)}
+.wi-assume{font-size:13px;color:var(--ink-2);line-height:1.6;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.03)}
+.wi-assume b{color:var(--mark);margin-right:6px}
+.wi-builder{display:grid;gap:14px}
+.wi-builder .ctrls{display:grid;gap:12px}
+.wi-question{font-family:var(--f-display);font-weight:700;font-size:clamp(18px,2.2vw,24px);color:#f2e9da;word-break:keep-all;line-height:1.45}
+.wi-ask{display:grid;gap:14px}
+.wi-ask-row{display:grid;gap:8px}
+.wi-ask-row>p:first-child{font-size:15px}
+.lab-link{display:grid;gap:4px;padding:18px 20px;margin-top:16px;text-decoration:none;color:var(--ink);border:1px solid rgba(232,118,60,.4);background:rgba(232,118,60,.07);border-radius:var(--r)}
+.lab-link b{font-size:17px}.lab-link small{color:var(--ink-2);font-size:13px}
+.lab-link.slim{margin-top:10px;padding:14px 16px;grid-template-columns:auto 1fr;align-items:baseline;gap:12px}
+.lab-link.slim b{font-size:15px}
+.lab-back{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+@media (max-width:900px){.wi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.wi-grid,.pick.three{grid-template-columns:minmax(0,1fr)}.lab-link.slim{grid-template-columns:1fr}}
+</style>

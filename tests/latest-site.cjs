@@ -5,7 +5,7 @@ const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://exam
 const w=dom.window,d=w.document,e=s=>w.eval(s),click=s=>{const el=d.querySelector(s);assert.ok(el,s);el.click()},route=s=>e(`location.hash=${JSON.stringify('#'+s)};route()`),answer=()=>click('#vbox .opt[data-i="1"]');
 try{
  assert.equal(errors.length,0,errors.map(e=>e.message).join('\n'));
- assert.equal(d.documentElement.lang,'ko');assert.ok(d.querySelector('meta[name="viewport"]'));assert.equal(d.querySelectorAll('style').length,7);assert.equal(d.querySelectorAll('#navE a').length,6);
+ assert.equal(d.documentElement.lang,'ko');assert.ok(d.querySelector('meta[name="viewport"]'));assert.equal(d.querySelectorAll('style').length,8);assert.equal(d.querySelectorAll('#navE a').length,6);
  assert.equal(e('DB.length'),63);assert.equal(e('EDGES.length'),1340);assert.equal(e('roster().length'),42);
  assert.deepEqual(JSON.parse(e('JSON.stringify(FS.map(f=>roster().filter(n=>PP[n].f===f).length))')),[15,20,7]);
  assert.equal(e('fs("yy").wu+fs("yy").shu'),1255);assert.equal(e('fs("yy").wei'),467);

@@ -830,6 +830,68 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 @media (prefers-reduced-motion:reduce){
   .scene-hero h1,.scene-hero .hero-meta,.experiment-opening h1,.scene-hero .lb::before,.scene-hero .lb::after,.named,.big-change,.simple-result,#s6pred>.prediction-review,#allRes,.main.simple>.simple-todo,.main.simple>.stepsec{animation:none}
   }
+
+/* ===== opening: five scenes, lines arrive one by one ===== */
+.intro .intro-in{max-width:52em;min-height:min(70vh,560px);align-content:center;gap:18px}
+.iscene{display:grid;gap:14px;justify-items:center;text-align:center}
+.iscene[hidden]{display:none}
+.iscene .l{animation:fadeup 1s var(--ease-film) both;margin:0}
+.iscene .l:nth-child(1){animation-delay:.2s}.iscene .l:nth-child(2){animation-delay:.9s}.iscene .l:nth-child(3){animation-delay:1.6s}.iscene .l:nth-child(4){animation-delay:2.3s}.iscene .l:nth-child(5){animation-delay:3s}
+.iscene .it{animation:title 1.8s .5s var(--ease-film) both;margin:4px 0 8px}
+.iscene .k{font-family:var(--f-display);letter-spacing:.2em;font-size:13px;color:#e8763c}
+.iscene .big{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.6vw,36px);color:#f2e9da;line-height:1.4;word-break:keep-all}
+.iscene .q{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,4.2vw,46px);line-height:1.35;color:#f2e9da;word-break:keep-all;text-shadow:0 0 40px rgba(232,118,60,.35)}
+.iscene .q em{font-style:normal;color:#ff9a5c}.iscene .nw{white-space:nowrap}.iscene>.q,.iscene>.big{justify-self:stretch;display:block}
+.iscene b{color:#f2e9da}
+.ibars{display:grid;gap:10px;width:min(420px,100%);margin:6px 0}
+.ibars div{display:grid;grid-template-columns:56px 1fr 34px;gap:12px;align-items:center;text-align:left;font-size:14px;color:#cfc8ba}
+.ibars i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#b8323f,#e8763c);width:calc(var(--v) * 1%);transform-origin:left;animation:ibar 1.4s 1.4s var(--ease-film) both}
+.ibars b{font-size:15px;color:#f2e9da;text-align:right}
+@keyframes ibar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.isteps{list-style:none;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;width:min(560px,100%)}
+.isteps li{display:grid;gap:2px;padding:12px 10px;border-radius:10px;background:rgba(236,230,217,.05);border:1px solid rgba(236,230,217,.08);counter-increment:st;animation:fadeup .8s var(--ease-film) both}
+.isteps li::before{content:"第" counter(st);font-family:var(--f-display);font-size:11px;letter-spacing:.15em;color:#e8763c}
+.isteps li:nth-child(1){animation-delay:.6s}.isteps li:nth-child(2){animation-delay:.8s}.isteps li:nth-child(3){animation-delay:1s}.isteps li:nth-child(4){animation-delay:1.2s}.isteps li:nth-child(5){animation-delay:1.4s}.isteps li:nth-child(6){animation-delay:1.6s}
+.isteps b{font-size:16px;color:#f2e9da}.isteps span{font-size:12px;color:#a59f93}
+.isteps{counter-reset:st}
+.idots{display:flex;gap:6px;justify-content:center;margin-top:6px}
+.idots i{width:22px;height:4px;border-radius:2px;background:rgba(236,230,217,.16)}
+.idots i.on{background:#e8763c}
+.intro .enter{animation:fadeup .8s 1.2s var(--ease-film) both}
+@media (max-width:760px){.isteps{grid-template-columns:repeat(2,minmax(0,1fr))}.intro .intro-in{min-height:0}}
+@media (prefers-reduced-motion:reduce){.iscene .l,.iscene .it,.ibars i,.isteps li,.intro .enter{animation:none}}
+</style>
+<style>
+/* ===== What-if lab (pairs with 90-whatif-lab.js) ===== */
+.wi-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.wi-card{display:grid;gap:6px;text-align:left;padding:14px 16px;border-radius:var(--r);border:1px solid rgba(236,228,212,.1);background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer;min-height:96px;align-content:start;transition:border-color .2s,background .2s}
+.wi-card:hover{border-color:rgba(232,118,60,.45)}
+.wi-card[aria-pressed="true"]{border-color:var(--flame);background:rgba(232,118,60,.08)}
+.wi-card b{font-size:15px;line-height:1.45;word-break:keep-all}
+.wi-card small{font-size:11.5px;color:var(--ink-3)}
+.wi-card.tried small::after{content:" · 해 봄";color:var(--good)}
+.wi-kind{font-size:11px;letter-spacing:.08em;color:var(--flame);font-weight:600}
+.wi-panel{margin-top:12px;display:grid;gap:10px;animation:fadeup .6s var(--ease-film,ease) both}
+.wi-panel h3{font-size:clamp(18px,2vw,22px);word-break:keep-all}
+.wi-step{font-size:13px;color:var(--ink-2);margin-top:4px}
+.pick.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wi-meter .pin.ghost{background:rgba(236,230,217,.35);box-shadow:none}
+.wi-hit{font-size:14px;color:var(--bad)}.wi-hit.ok{color:var(--good)}
+.wi-assume{font-size:13px;color:var(--ink-2);line-height:1.6;padding:10px 12px;border-radius:8px;background:rgba(255,255,255,.03)}
+.wi-assume b{color:var(--mark);margin-right:6px}
+.wi-builder{display:grid;gap:14px}
+.wi-builder .ctrls{display:grid;gap:12px}
+.wi-question{font-family:var(--f-display);font-weight:700;font-size:clamp(18px,2.2vw,24px);color:#f2e9da;word-break:keep-all;line-height:1.45}
+.wi-ask{display:grid;gap:14px}
+.wi-ask-row{display:grid;gap:8px}
+.wi-ask-row>p:first-child{font-size:15px}
+.lab-link{display:grid;gap:4px;padding:18px 20px;margin-top:16px;text-decoration:none;color:var(--ink);border:1px solid rgba(232,118,60,.4);background:rgba(232,118,60,.07);border-radius:var(--r)}
+.lab-link b{font-size:17px}.lab-link small{color:var(--ink-2);font-size:13px}
+.lab-link.slim{margin-top:10px;padding:14px 16px;grid-template-columns:auto 1fr;align-items:baseline;gap:12px}
+.lab-link.slim b{font-size:15px}
+.lab-back{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+@media (max-width:900px){.wi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.wi-grid,.pick.three{grid-template-columns:minmax(0,1fr)}.lab-link.slim{grid-template-columns:1fr}}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -878,13 +940,47 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 <div class="scrim" id="scrim" data-close-notes></div>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="오프닝" hidden>
   <canvas id="introFx" aria-hidden="true"></canvas>
-  <div class="intro-in">
-    <p class="l l1">建安十三年 · 서기 208년 겨울</p>
-    <p class="l l2">적벽에서 조조군과 손권·유비 연합군이 맞섰습니다.</p>
-    <p class="l l3">만약 제갈량이 조조의 편이었다면, 결과도 달라졌을까요?</p>
-    <h2 class="it">赤壁</h2>
-    <p class="l l4">『삼국지연의』의 기록으로 두 진영을 비교하고,<br>소속을 바꾸었을 때 계산 결과가 어떻게 달라지는지 살펴봅니다.</p>
-    <button class="enter">시작하기</button>
+  <div class="intro-in" aria-live="polite">
+    <section class="iscene" data-heat=".15">
+      <p class="l k">建安十三年 · 서기 208년 겨울</p>
+      <h2 class="it">赤壁</h2>
+      <p class="l">조조의 대군이 장강을 따라 내려옵니다.</p>
+      <p class="l">손권과 유비는 손을 잡고, 적벽에서 맞섭니다.</p>
+    </section>
+    <section class="iscene" data-heat=".9" hidden>
+      <p class="l k">그날 밤</p>
+      <p class="l big">바람이 동남쪽으로 바뀌었습니다.</p>
+      <p class="l">불붙은 배들이 조조의 함대로 들어갔고,</p>
+      <p class="l">연합군이 이겼습니다.</p>
+    </section>
+    <section class="iscene" data-heat=".45" hidden>
+      <p class="l k">그런데, 만약</p>
+      <p class="l q">제갈량이 <span class="nw"><em>조조 휘하</em>에</span> 있었다면,<br>조조가 이겼을까요?</p>
+    </section>
+    <section class="iscene" data-heat=".25" hidden>
+      <p class="l k">이 질문을 숫자로 바꿀 수 있을까요?</p>
+      <p class="l">『삼국지연의』 적벽 편 여덟 회에는 63명의 이름이 나옵니다.</p>
+      <div class="l ibars" aria-label="이름이 나온 문단 수">
+        <div><span>제갈량</span><i style="--v:90"></i><b class="num">90</b></div>
+        <div><span>조조</span><i style="--v:89"></i><b class="num">89</b></div>
+        <div><span>주유</span><i style="--v:88"></i><b class="num">88</b></div>
+      </div>
+      <p class="l">누가 몇 번, 어떤 장면에 나왔는지는 <b>셀 수 있습니다.</b></p>
+    </section>
+    <section class="iscene" data-heat=".2" hidden>
+      <p class="l k">삼국지로 하는 데이터 분석</p>
+      <ol class="l isteps">
+        <li><b>세기</b><span>누구를 셀까</span></li>
+        <li><b>비교</b><span>평균의 함정</span></li>
+        <li><b>점수</b><span>무엇으로 잴까</span></li>
+        <li><b>흔들기</b><span>점수를 바꿔도 같을까</span></li>
+        <li><b>확인</b><span>원문 읽기</span></li>
+        <li><b>바꾸기</b><span>What-if</span></li>
+      </ol>
+      <p class="l">답은 '이겼다 · 졌다'가 아니라<br><b>'이 기록과 이 가정이라면 이렇다'</b>입니다.</p>
+    </section>
+    <div class="idots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="enter">다음</button>
   </div>
   <button class="skip">건너뛰기</button>
 </div>
@@ -1686,7 +1782,7 @@ function startHeroFx(){const h=$(".scene-hero");if(h)fx(h.querySelector("canvas"
 /* ===== cinema: one night on the river, the fire growing stage by stage =====
    Every page uses the same scene (river mist, embers) and the same
    cuts. Only the heat changes: calm at the start, full blaze at the What-if. */
-const HEAT={home:.18,s1:.18,s2:.3,s3:.45,s4:.6,s5:.78,s6:1,compare:.12,src:.12};
+const HEAT={home:.18,s1:.18,s2:.3,s3:.45,s4:.6,s5:.78,s6:1,compare:.12,src:.12,lab:.9};
 const SCENE_NO=["一","二","三","四","五","六"];
 
 function nightFx(cv,heat){
@@ -1739,6 +1835,122 @@ startHeroFx=function(){
   cinemaCut();
 };
 
+/* ===== What-if lab: many questions, one calculation =====
+   Each What-if is one row of data: what to change (people, wind, scoring, record).
+   The calculation is the same as stage 6, so a new question needs no new code. */
+const WI_W={base:null,fire0:{ship:3,fire:0,plan:2},ship:{ship:5,fire:0,plan:0},plan:{ship:0,fire:0,plan:5}};
+const WI_WIND={env:"바람은 날씨 (연합군 +10)",zg:"바람은 제갈량이 부름 (제갈량 편 +10)",none:"바람 없음"};
+const WI_KIND={move:"인물 옮기기",drop:"인물 빼기",cond:"조건 바꾸기",multi:"여러 조건",source:"기록 바꾸기"};
+const WHATIFS=[
+ {id:"zg",kind:"move",q:"제갈량이 조조 편이었다면?",mut:{"諸葛亮":"wei"},review:"6단계"},
+ {id:"zy",kind:"move",q:"주유가 조조 편이었다면?",mut:{"周瑜":"wei"},review:"6단계"},
+ {id:"hg",kind:"move",q:"황개의 거짓 항복이 진짜였다면?",mut:{"黃蓋":"wei"},review:"6단계",note:"황개는 거짓으로 항복한 뒤 불붙은 배로 조조의 함대에 들어갔습니다."},
+ {id:"zyout",kind:"drop",q:"주유가 병으로 빠졌다면?",mut:{"周瑜":null},review:"2단계 · 한 사람의 무게"},
+ {id:"ptout",kind:"drop",q:"방통이 없었다면?",mut:{"龐統":null},review:"2단계 · 한 사람의 무게",note:"방통은 조조에게 배를 서로 묶으라고 권한 인물입니다."},
+ {id:"nowind",kind:"cond",q:"바람이 불지 않았다면?",wind:"none",review:"6단계 · 가정"},
+ {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"5단계 · 숫자의 뜻",note:"5단계에서 본 것처럼, 조조의 '불' 점수는 불을 지른 기록이 아니라 불에 당한 기록이었습니다."},
+ {id:"combo",kind:"multi",q:"주유·황개가 조조 편이고, 바람도 없었다면?",mut:{"周瑜":"wei","黃蓋":"wei"},wind:"none",review:"종합"},
+ {id:"jb",kind:"source",q:"소설 대신 역사책(정사)으로 센다면?",lens:"jb",review:"5단계 · 근거"}
+];
+const WI_UNANSWERABLE=[
+ {q:"황개가 진짜 항복했다면 점수는 어떻게 바뀔까?",ok:true,why:"사람을 옮기고 같은 방식으로 다시 세면 됩니다."},
+ {q:"조조가 이겼다면 삼국은 더 빨리 통일됐을까?",ok:false,why:"적벽 이후의 일은 이 기록(43~50회)에 없습니다."},
+ {q:"제갈량이 조조 밑에서 어떤 계책을 냈을까?",ok:false,why:"일어나지 않은 장면은 셀 수 없습니다. 데이터는 있었던 기록만 셉니다."}
+];
+function wiCalc({mut={},wind="env",w=null,lens="yy"}={}){
+ const r=roster(),wt=w?WI_W[w]||w:S.w,s=fs(lens,wt,r,mut),A=s.wu+s.shu,W=s.wei;
+ let i=A+W?A/(A+W)*100:50;
+ if(wind==="env")i+=10;
+ else if(wind==="zg"&&r.includes("諸葛亮")){const f=mut["諸葛亮"]!==undefined?mut["諸葛亮"]:PP["諸葛亮"].f;if(f==="wei")i-=10;else if(f)i+=10}
+ return {i:Math.max(0,Math.min(100,Math.round(i))),A,W};
+}
+const wiVerdict=i=>i>=65?"연합군이 크게 앞섬":i>=45?"비슷함":"조조군이 앞섬";
+const wiJosa=(w,a,b)=>{const c=w.charCodeAt(w.length-1)-44032;return c>=0&&c<11172&&c%28?a:b};
+function wiAssume(x){
+ const wt=x.w?WI_W[x.w]:S.w;
+ const moves=Object.entries(x.mut||{}).map(([n,f])=>f===null?`${PP[n].ko} 빼기`:`${PP[n].ko} → ${f==="wei"?"조조군":"연합군"}`);
+ return [moves.length?moves.join(", "):"인물 그대로",WI_WIND[x.wind||"env"],`점수 배${wt.ship}·불${wt.fire}·계책${wt.plan}`,x.lens==="jb"?"기록: 역사책(정사) 본문":"기록: 『삼국지연의』",`명단: ${S.rule.min}회 이상${S.rule.dead?", 사망자 제외":""}`].join(" · ");
+}
+function wiMeter(base,now){
+ return `<div class="meter wi-meter"><div class="meter-row"><span class="big num">${base.i} → ${now.i}</span><span class="verdict">${wiVerdict(now.i)}</span></div><div class="track" aria-hidden="true"><i class="pin ghost" style="left:calc(${base.i}% - 2px)"></i><i class="pin" style="left:calc(${now.i}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>
+ <p class="simple-note">연합군 점수 ${base.A.toLocaleString()} → <b>${now.A.toLocaleString()}</b> · 조조군 점수 ${base.W.toLocaleString()} → <b>${now.W.toLocaleString()}</b></p>`;
+}
+const wiDir=(base,now)=>Math.abs(now.i-base.i)<=3?"same":now.i>base.i?"up":"down";
+const WI_PRED=[["up","연합군이 더 유리해진다"],["same","거의 그대로다"],["down","조조군이 더 유리해진다"]];
+
+VIEWS.push({id:"lab"});
+const LAB_VIEW=VIEWS.length-1;
+RENDER[LAB_VIEW]=()=>{
+ if(typeof missionResultObserver!=="undefined"&&missionResultObserver){missionResultObserver.disconnect();missionResultObserver=null}
+ document.body.classList.remove("experiment-home");TASKS=[];
+ const L=S.t.lab=S.t.lab||{pred:{},b:{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"}};
+ const base=wiCalc();
+ const tried=()=>Object.keys(L.pred).length;
+ const card=x=>`<button class="wi-card${L.pred[x.id]?" tried":""}" data-id="${x.id}" aria-pressed="false"><span class="wi-kind">${WI_KIND[x.kind]}</span><b>${esc(x.q)}</b><small>복습 · ${esc(x.review)}</small></button>`;
+ const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
+ $("#main").innerHTML=`${hero({hz:"實驗室",where:"6단계를 마친 뒤",title:"다른 What-if도 계산해 볼까요?",sub:"",fx:"fire"})}
+ <section class="simple-todo"><span>할 일</span><p>질문을 하나 고르고, 결과를 먼저 예상한 뒤 계산해 보세요.</p><span class="why-l">왜</span><p class="why">계산 방법은 6단계와 같습니다. 바꾸는 조건만 다릅니다. 무엇을 바꾸느냐에 따라 답이 얼마나 달라지는지 비교해 보세요.</p><span class="key-l">중요한 점</span><p class="key">What-if의 답에는 항상 '무엇을 가정했는지'를 함께 적습니다.</p></section>
+ ${step(1,"질문 고르기",`기준: 기록대로 계산하면 <b>${base.i}</b> (${wiVerdict(base.i)}) · <span id="labCount">${tried()}</span> / ${WHATIFS.length} 해 봄`,`<div class="wi-grid" id="wiGrid">${WHATIFS.map(card).join("")}</div><div id="wiPanel"></div>`)}
+ ${step(2,"직접 만들기","사람, 바람, 점수, 기록을 골라 나만의 질문을 만드세요.",`<section class="card pane wi-builder">
+   <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
+   <div class="field">어떻게${seg("wbAct",[["wei","조조 편으로"],["ally","연합군 편으로"],["out","빼기"],["keep","그대로"]],L.b.act,"인물 변경")}</div>
+   <div class="field">바람${seg("wbWind",[["env","날씨"],["zg","제갈량이 부름"],["none","없음"]],L.b.wind,"바람 가정")}</div>
+   <div class="field">점수${seg("wbW",[["base","내 점수"],["fire0","불 0"],["ship","배만"],["plan","계책만"]],L.b.w,"점수 규칙")}</div>
+   <div class="field">기록${seg("wbLens",[["yy","연의(소설)"],["jb","정사(역사책)"]],L.b.lens,"기록")}</div></div>
+   <p class="wi-question" id="wbQ"></p><div id="wbRes"></div></section>`)}
+ ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답할 수 있다</button><button data-v="0">답할 수 없다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
+ <p class="lab-back"><a class="btn ghost" href="#s6">6단계로 돌아가기</a> <a class="btn ghost" href="#home">처음 화면</a></p>`;
+
+ $("#main .scene-hero .hero-sub")?.remove();
+
+ // 1) curated questions
+ const open=id=>{
+  const x=WHATIFS.find(v=>v.id===id);$$("#wiGrid .wi-card").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.id===id)));
+  const p=L.pred[id];
+  $("#wiPanel").innerHTML=`<section class="card pane wi-panel"><span class="wi-kind">${WI_KIND[x.kind]}</span><h3>${esc(x.q)}</h3>${x.note?`<p class="simple-note">${esc(x.note)}</p>`:""}
+   <p class="wi-step">먼저 예상해 보세요</p><div class="pick wide three" id="wiPred">${WI_PRED.map(([v,t])=>`<button data-v="${v}" aria-pressed="${p===v}">${t}</button>`).join("")}</div><div id="wiOut"></div></section>`;
+  const show=()=>{const now=wiCalc(x),d=wiDir(base,now),hit=L.pred[id]===d;
+   $("#wiOut").innerHTML=`${wiMeter(base,now)}<p class="wi-hit ${hit?"ok":""}">${hit?"예상대로입니다.":"예상과 다릅니다. 점수가 어디서 바뀌었는지 위 숫자를 보세요."}</p><p class="wi-assume"><b>이 결과의 가정</b> ${esc(wiAssume(x))}</p>`};
+  if(p)show();
+  onSeg("wiPred",v=>{L.pred[id]=v;save();$(`#wiGrid .wi-card[data-id="${id}"]`).classList.add("tried");$("#labCount").textContent=tried();show()});
+ };
+ $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(b)open(b.dataset.id)});
+
+ // 2) builder: the question sentence is written from the choices
+ const build=()=>{
+  const b=L.b,n=b.who,ko=PP[n].ko,mut={};
+  if(b.act==="wei"&&PP[n].f!=="wei")mut[n]="wei";else if(b.act==="ally"&&PP[n].f==="wei")mut[n]="wu";else if(b.act==="out")mut[n]=null;
+  const parts=[];
+  if(b.act==="out")parts.push(`${ko}${wiJosa(ko,"이","가")} 없었다면`);
+  else if(n in mut)parts.push(`${ko}${wiJosa(ko,"이","가")} ${mut[n]==="wei"?"조조":"연합군"} 편이었다면`);
+  if(b.wind==="none")parts.push("바람이 불지 않았다면");else if(b.wind==="zg")parts.push("바람을 제갈량이 불렀다면");
+  if(b.w==="fire0")parts.push("화공이 통하지 않았다면");else if(b.w==="ship")parts.push("배 싸움만 따진다면");else if(b.w==="plan")parts.push("계책만 따진다면");
+  if(b.lens==="jb")parts.push("역사책(정사)으로 센다면");
+  const sameSide=(b.act==="wei"&&PP[n].f==="wei")||(b.act==="ally"&&PP[n].f!=="wei");
+  $("#wbQ").innerHTML=parts.length?`만약 ${parts.map(esc).join(" · ")}?`:`<span class="simple-note">${sameSide?`${esc(ko)}${wiJosa(ko,"은","는")} 이미 그 편입니다. 다른 조건을 골라 보세요.`:"바꿀 조건을 하나 이상 골라 보세요."}</span>`;
+  const x={mut,wind:b.wind,w:b.w==="base"?null:b.w,lens:b.lens};
+  $("#wbRes").innerHTML=parts.length?`${wiMeter(base,wiCalc(x))}<p class="wi-assume"><b>이 결과의 가정</b> ${esc(wiAssume(x))}</p>`:"";
+  save();
+ };
+ $("#wbWho").onchange=e=>{L.b.who=e.target.value;build()};
+ onSeg("wbAct",v=>{L.b.act=v;build()});onSeg("wbWind",v=>{L.b.wind=v;build()});onSeg("wbW",v=>{L.b.w=v;build()});onSeg("wbLens",v=>{L.b.lens=v;build()});
+ build();
+
+ // 3) which questions can data answer?
+ $("#wiAsk").addEventListener("click",e=>{const btn=e.target.closest(".pick button");if(!btn)return;const row=btn.closest(".wi-ask-row"),x=WI_UNANSWERABLE[+row.dataset.k],right=(btn.dataset.v==="1")===x.ok;
+  row.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));const tip=row.querySelector(".pcard-tip");tip.hidden=false;tip.innerHTML=`<b>${right?"맞아요.":"다시 생각해 보세요."}</b> ${esc(x.why)}`});
+ if(L.last)open(L.last);
+ $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(b){L.last=b.dataset.id;save()}});
+};
+
+/* entry points: after the stage 6 comparison, and on the home outline */
+(()=>{
+ const r6=RENDER[6];
+ RENDER[6]=function(){r6.apply(this,arguments);$("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><span class="wi-kind">다음</span><b>다른 What-if도 계산해 보기</b><small>주유·황개·바람·화공… 9가지 질문과 직접 만들기</small></a>`)};
+ const r0=RENDER[0];
+ RENDER[0]=function(){r0.apply(this,arguments);const o=$("#main .journey-outline");if(o)o.insertAdjacentHTML("afterend",`<a class="lab-link slim" href="#lab"><b>What-if 실험실</b><small>다른 질문도 계산해 보기</small></a>`)};
+})();
+
 /* ===== intro ===== */
 let introStop=null,introReturnFocus=null;
 function closeIntro(remember=true){
@@ -1751,24 +1963,40 @@ function closeIntro(remember=true){
     if(target){if(!target.hasAttribute("tabindex"))target.setAttribute("tabindex","-1");target.focus({preventScroll:true})}}
   introReturnFocus=null;
 }
+/* the opening is a short film in five scenes: the battle, the fire, the question,
+   counting, and how the analysis will go. "다음" moves on; the last one starts. */
+let introAt=0;
+function introScene(k){
+  const el=$("#intro");if(!el)return;const scenes=[...el.querySelectorAll(".iscene")];introAt=Math.max(0,Math.min(k,scenes.length-1));
+  scenes.forEach((s,j)=>{s.hidden=j!==introAt;s.classList.toggle("on",j===introAt)});
+  el.querySelectorAll(".idots i").forEach((d,j)=>d.classList.toggle("on",j<=introAt));
+  const last=introAt===scenes.length-1,enter=el.querySelector(".enter");enter.textContent=last?"시작하기":"다음";
+  enter.style.animation="none";void enter.offsetWidth;enter.style.animation="";
+  if(introStop){const stop=introStop;introStop=null;try{stop()}catch{}finally{FX.delete(stop)}}
+  const heat=+(scenes[introAt]?.dataset.heat||.3);
+  try{introStop=typeof nightFx==="function"?nightFx($("#introFx"),heat):fx($("#introFx"),"embers")}catch{introStop=null}
+  el.style.setProperty("--heat",heat);
+}
+function introNext(){const el=$("#intro");if(!el)return;const n=el.querySelectorAll(".iscene").length;if(introAt>=n-1)closeIntro();else introScene(introAt+1)}
 function intro(force=false){
   const el=$("#intro");if(!el)return;
   // Bind actions on every initialization, including returning visits, before optional effects.
   const enter=el.querySelector(".enter"),skip=el.querySelector(".skip");
   enter.type="button";skip.type="button";
-  enter.onclick=()=>closeIntro();skip.onclick=()=>closeIntro();
-  if(!force){closeIntro(false);return}
+  enter.onclick=()=>introNext();skip.onclick=()=>closeIntro();
+  if(!force&&S.seenIntro){closeIntro(false);return}
   if(introStop){const stop=introStop;introStop=null;try{stop()}catch{}finally{FX.delete(stop)}}
   introReturnFocus=force&&document.activeElement?.closest("[data-intro]")?document.activeElement:null;
   el.hidden=false;el.style.display="grid";el.setAttribute("aria-hidden","false");el.classList.remove("out");document.body.style.overflow="hidden";
-  el.querySelectorAll(".l,.it,.enter").forEach(x=>{x.style.animation="none";void x.offsetWidth;x.style.animation=""});
-  try{introStop=fx($("#introFx"),"embers")}catch{introStop=null}
+  introScene(0);
   enter.focus({preventScroll:true});
 }
 document.addEventListener("click",e=>{if(e.target.closest("[data-intro]"))intro(true)});
 document.addEventListener("keydown",e=>{
   const el=$("#intro");if(!el||el.hidden)return;
   if(e.key==="Escape"){e.preventDefault();closeIntro();return}
+  if(e.key==="ArrowRight"){e.preventDefault();introNext();return}
+  if(e.key==="ArrowLeft"){e.preventDefault();introScene(introAt-1);return}
   if(e.key!=="Tab")return;
   const first=el.querySelector(".enter"),last=el.querySelector(".skip");
   if(e.shiftKey&&(document.activeElement===first||!el.contains(document.activeElement))){e.preventDefault();last.focus()}

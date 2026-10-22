@@ -1,7 +1,7 @@
 /* ===== cinema: one night on the river, the fire growing stage by stage =====
    Every page uses the same scene (river mist, embers) and the same
    cuts. Only the heat changes: calm at the start, full blaze at the What-if. */
-const HEAT={home:.18,s1:.18,s2:.3,s3:.45,s4:.6,s5:.78,s6:1,compare:.12,src:.12};
+const HEAT={home:.18,s1:.18,s2:.3,s3:.45,s4:.6,s5:.78,s6:1,compare:.12,src:.12,lab:.9};
 const SCENE_NO=["一","二","三","四","五","六"];
 
 function nightFx(cv,heat){

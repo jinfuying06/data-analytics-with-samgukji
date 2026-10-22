@@ -25,13 +25,47 @@
 <div class="scrim" id="scrim" data-close-notes></div>
 <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="오프닝" hidden>
   <canvas id="introFx" aria-hidden="true"></canvas>
-  <div class="intro-in">
-    <p class="l l1">建安十三年 · 서기 208년 겨울</p>
-    <p class="l l2">적벽에서 조조군과 손권·유비 연합군이 맞섰습니다.</p>
-    <p class="l l3">만약 제갈량이 조조의 편이었다면, 결과도 달라졌을까요?</p>
-    <h2 class="it">赤壁</h2>
-    <p class="l l4">『삼국지연의』의 기록으로 두 진영을 비교하고,<br>소속을 바꾸었을 때 계산 결과가 어떻게 달라지는지 살펴봅니다.</p>
-    <button class="enter">시작하기</button>
+  <div class="intro-in" aria-live="polite">
+    <section class="iscene" data-heat=".15">
+      <p class="l k">建安十三年 · 서기 208년 겨울</p>
+      <h2 class="it">赤壁</h2>
+      <p class="l">조조의 대군이 장강을 따라 내려옵니다.</p>
+      <p class="l">손권과 유비는 손을 잡고, 적벽에서 맞섭니다.</p>
+    </section>
+    <section class="iscene" data-heat=".9" hidden>
+      <p class="l k">그날 밤</p>
+      <p class="l big">바람이 동남쪽으로 바뀌었습니다.</p>
+      <p class="l">불붙은 배들이 조조의 함대로 들어갔고,</p>
+      <p class="l">연합군이 이겼습니다.</p>
+    </section>
+    <section class="iscene" data-heat=".45" hidden>
+      <p class="l k">그런데, 만약</p>
+      <p class="l q">제갈량이 <span class="nw"><em>조조 휘하</em>에</span> 있었다면,<br>조조가 이겼을까요?</p>
+    </section>
+    <section class="iscene" data-heat=".25" hidden>
+      <p class="l k">이 질문을 숫자로 바꿀 수 있을까요?</p>
+      <p class="l">『삼국지연의』 적벽 편 여덟 회에는 63명의 이름이 나옵니다.</p>
+      <div class="l ibars" aria-label="이름이 나온 문단 수">
+        <div><span>제갈량</span><i style="--v:90"></i><b class="num">90</b></div>
+        <div><span>조조</span><i style="--v:89"></i><b class="num">89</b></div>
+        <div><span>주유</span><i style="--v:88"></i><b class="num">88</b></div>
+      </div>
+      <p class="l">누가 몇 번, 어떤 장면에 나왔는지는 <b>셀 수 있습니다.</b></p>
+    </section>
+    <section class="iscene" data-heat=".2" hidden>
+      <p class="l k">삼국지로 하는 데이터 분석</p>
+      <ol class="l isteps">
+        <li><b>세기</b><span>누구를 셀까</span></li>
+        <li><b>비교</b><span>평균의 함정</span></li>
+        <li><b>점수</b><span>무엇으로 잴까</span></li>
+        <li><b>흔들기</b><span>점수를 바꿔도 같을까</span></li>
+        <li><b>확인</b><span>원문 읽기</span></li>
+        <li><b>바꾸기</b><span>What-if</span></li>
+      </ol>
+      <p class="l">답은 '이겼다 · 졌다'가 아니라<br><b>'이 기록과 이 가정이라면 이렇다'</b>입니다.</p>
+    </section>
+    <div class="idots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="enter">다음</button>
   </div>
   <button class="skip">건너뛰기</button>
 </div>
