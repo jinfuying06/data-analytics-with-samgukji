@@ -842,9 +842,9 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .iscene .big{font-family:var(--f-display);font-weight:700;font-size:clamp(24px,3.6vw,36px);color:#f2e9da;line-height:1.4;word-break:keep-all}
 .iscene .q{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,4.2vw,46px);line-height:1.35;color:#f2e9da;word-break:keep-all;text-shadow:0 0 40px rgba(232,118,60,.35)}
 .iscene .q em{font-style:normal;color:#ff9a5c}.iscene .nw{white-space:nowrap}.iscene>.q,.iscene>.big{justify-self:stretch;display:block}
-.iscene b{color:#f2e9da}
-.ibars{display:grid;gap:10px;width:min(420px,100%);margin:6px 0}
-.ibars div{display:grid;grid-template-columns:56px 1fr 34px;gap:12px;align-items:center;text-align:left;font-size:14px;color:#cfc8ba}
+.iscene b{color:#f2e9da}.iscene .l{word-break:keep-all}
+.ibars{display:grid;gap:10px;width:min(460px,100%);margin:6px 0}
+.ibars div{display:grid;grid-template-columns:92px 1fr 34px;white-space:nowrap;gap:12px;align-items:center;text-align:left;font-size:14px;color:#cfc8ba}
 .ibars i{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,#b8323f,#e8763c);width:calc(var(--v) * 1%);transform-origin:left;animation:ibar 1.4s 1.4s var(--ease-film) both}
 .ibars b{font-size:15px;color:#f2e9da;text-align:right}
 @keyframes ibar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
@@ -976,13 +976,14 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
     </section>
     <section class="iscene" data-heat=".25" hidden>
       <p class="l k">이 질문을 숫자로 바꿀 수 있을까요?</p>
-      <p class="l">『삼국지연의』 적벽 편에는 63명의 이름이 나옵니다.</p>
-      <div class="l ibars" aria-label="이름이 나온 문단 수">
-        <div><span>제갈량</span><i style="--v:90"></i><b class="num">90</b></div>
-        <div><span>조조</span><i style="--v:89"></i><b class="num">89</b></div>
-        <div><span>주유</span><i style="--v:88"></i><b class="num">88</b></div>
+      <p class="l">소설에 남은 제갈량의 기록을 세어 봅니다.</p>
+      <div class="l ibars" aria-label="제갈량이 나온 문단 수">
+        <div><span>등장한 문단</span><i style="--v:100"></i><b class="num">90</b></div>
+        <div><span>'배'와 함께</span><i style="--v:24.4"></i><b class="num">22</b></div>
+        <div><span>'불'과 함께</span><i style="--v:11.1"></i><b class="num">10</b></div>
+        <div><span>'계책'과 함께</span><i style="--v:50"></i><b class="num">45</b></div>
       </div>
-      <p class="l">누가 몇 번, 어떤 장면에 나왔는지는 <b>셀 수 있습니다.</b></p>
+      <p class="l">제갈량을 조조 편으로 옮기면, <b>이 숫자들도 조조 편으로 옮겨 갑니다.</b><br>그다음 두 편의 점수를 다시 비교하면 됩니다.</p>
     </section>
     <section class="iscene" data-heat=".2" hidden>
       <p class="l k">삼국지로 하는 데이터 분석</p>
