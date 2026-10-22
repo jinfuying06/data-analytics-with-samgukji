@@ -866,6 +866,16 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .btn,.intro .enter,.pick button,.presets .chip,.stepper a,.lab-link,.wi-card,.journey-outline,.opt{border-radius:var(--r-btn)}
 .seg{border-radius:calc(var(--r-btn) + 2px)}.seg button{border-radius:calc(var(--r-btn) - 2px)}
 .intro .enter{padding:12px 30px;min-width:132px;letter-spacing:.08em}
+
+/* ===== breathing room: buttons sit apart from the text above and below ===== */
+.intro .enter{margin-top:40px}
+.prediction-form button{margin-top:28px}
+.main .pane .btn:not(:first-child),.main .pane .pick:not(:first-child),.main .pane .ctrls:not(:first-child){margin-top:20px}
+.main .pane .btn+div:not(:empty),.main .pane .pick+div:not(:empty),.main .pane .pick+.btn{margin-top:20px}
+.pcard .pick{margin-top:14px}
+.wi-panel .wi-step{margin-top:12px}
+.lab-back{margin-top:28px}
+@media (max-width:760px){.intro .enter{margin-top:32px}}
 </style>
 <style>
 /* ===== What-if lab (pairs with 90-whatif-lab.js) ===== */
