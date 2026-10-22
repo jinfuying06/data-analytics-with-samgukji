@@ -31,3 +31,11 @@ DOM 검사: 별도 테스트 환경에 jsdom을 설치한 뒤 `SAMGUKJI_JSDOM_PA
 - `npm run build:standalone` 또는 `sh prototype/red-cliff-lab/build.sh`: 위 빌드를 실행하고 국기 에셋을 내장한 `prototype/red-cliff-lab/index.html`도 생성한다.
 - `npm run build:next`: 기존 Next.js 프로토타입 빌드 경로를 유지한다.
 - 최신 학습 흐름은 `docs/WHATIF_LEARNING_JOURNEY.md`를 기준으로 한다. 이 문서의 초기 가져오기 검증 수치는 원본 계산과의 대조 기록이다.
+
+## 실행 경로 통합
+
+문구는 원본 `src/20-markup.html`과 `src/40-app.js`에도 직접 반영했다. 빌드 시 치환은 제거했으며 `site-copy.json`은 이전 편집 이력이다. 현재 학습 흐름은 `70-learning-journey.js`가 구성한다.
+
+`npm run dev` 또는 `cd frontend && npm run dev`로 실행하면 `/`, `/learn`, `/simulation`이 동일한 최신 학습 HTML을 각각 홈·1단계·실험 화면으로 연다. Next.js는 `LearningPrototype`을 통해 같은 출처의 `/learning/index.html`을 임베드하며, 기존 컴포넌트와 API 코드는 보존한다. `predev`와 `prebuild`에서 공통 소스를 재생성하므로 복사 파일이 낡은 채로 남지 않는다. 직접 열기용 단일 HTML은 `npm run build:standalone`으로 재생성한다.
+
+빌드 결과와 Next.js 공개 HTML은 같은 내용이며, 단일 HTML은 국기 경로만 데이터 URI로 바꾼다. 이 통합은 정적 UI/UX 프로토타입을 연결한 것으로, Next.js 경유 시에도 실시간 FastAPI 연결이 추가되지는 않는다.

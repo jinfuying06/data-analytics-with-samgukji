@@ -1,11 +1,11 @@
 <header class="appbar">
-  <div class="brand"><span class="logo">赤</span><div><b>삼국지로 배우는 데이터분석</b><small>— 적벽대전 편 —</small></div></div>
-  <button class="btn ghost nb-open" data-open-notes aria-label="배운 것 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
+  <div class="brand"><span class="logo">赤</span><div><b>삼국지로 배우는 데이터 분석</b><small>— 적벽대전 편 —</small></div></div>
+  <button class="btn ghost nb-open" data-open-notes aria-label="학습 기록 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
 </header>
 
 <div class="shell">
   <aside class="sidebar card" aria-label="과정 목록">
-    <div class="brand"><span class="logo">赤</span><div><b>삼국지로 배우는 데이터분석</b><small>— 적벽대전 편 —</small></div></div>
+    <div class="brand"><span class="logo">赤</span><div><b>삼국지로 배우는 데이터 분석</b><small>— 적벽대전 편 —</small></div></div>
     <div class="prog"><span id="progTxt">완료한 단계 0 / 6</span><div class="bar"><i id="progBar"></i></div></div>
     <nav class="navgrp"><p>시작</p><ul class="navlist" id="navH"></ul></nav>
     <nav class="navgrp"><p>여섯 단계</p><ul class="navlist" id="navE"></ul></nav>
@@ -15,9 +15,9 @@
 
   <main class="main" id="main"></main>
 
-  <aside class="notebook card" id="notebook" aria-label="배운 것">
-    <div class="nb-h"><div><h2>배운 것</h2><small>단계를 마칠 때마다 확인한 숫자와 결론이 여기에 남아요.</small></div>
-      <button class="btn ghost nb-close" data-close-notes aria-label="배운 것 닫기"><svg class="ico"><use href="#i-x"/></svg></button></div>
+  <aside class="notebook card" id="notebook" aria-label="학습 기록">
+    <div class="nb-h"><div><h2>학습 기록</h2><small>각 단계에서 확인한 수치와 해석이 이곳에 저장됩니다.</small></div>
+      <button class="btn ghost nb-close" data-close-notes aria-label="학습 기록 닫기"><svg class="ico"><use href="#i-x"/></svg></button></div>
     <ol class="board" id="board"></ol>
     <div id="boardSum"></div>
   </aside>
@@ -27,10 +27,10 @@
   <canvas id="introFx" aria-hidden="true"></canvas>
   <div class="intro-in">
     <p class="l l1">建安十三年 · 서기 208년 겨울</p>
-    <p class="l l2">장강 적벽에서 일어난 한 번의 불길이 천하를 셋으로 나누었다.</p>
-    <p class="l l3">이 이야기도 숫자로 바꿀 수 있을까?</p>
+    <p class="l l2">적벽에서 조조군과 손권·유비 연합군이 맞섰습니다.</p>
+    <p class="l l3">만약 제갈량이 조조의 편이었다면, 결과도 달라졌을까요?</p>
     <h2 class="it">赤壁</h2>
-    <p class="l l4">기록을 세어 두 진영의 전력을 재고,<br>그 사람이 다른 편이었다면 어땠을지 계산해 보자.</p>
+    <p class="l l4">『삼국지연의』의 기록으로 두 진영을 비교하고,<br>소속을 바꾸었을 때 계산 결과가 어떻게 달라지는지 살펴봅니다.</p>
     <button class="enter">시작하기</button>
   </div>
   <button class="skip">건너뛰기</button>
@@ -39,6 +39,6 @@
 <nav class="tabbar" aria-label="주요 화면">
   <a href="#home" id="tabH"><svg class="ico"><use href="#i-scroll"/></svg>단계</a>
   <a href="#src" id="tabS"><svg class="ico"><use href="#i-book"/></svg>데이터</a>
-  <button data-open-notes id="tabN"><svg class="ico"><use href="#i-note"/></svg>배운 것<span class="badge num" id="nbBadge">0</span></button>
+  <button data-open-notes id="tabN"><svg class="ico"><use href="#i-note"/></svg>학습 기록<span class="badge num" id="nbBadge">0</span></button>
 </nav>
 

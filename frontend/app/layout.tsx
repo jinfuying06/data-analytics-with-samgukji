@@ -1,4 +1,4 @@
 import type { Metadata } from 'next';
 import './globals.css';
-export const metadata:Metadata={title:'삼국지 데이터 원정대 | 이야기로 시작하는 첫 데이터 탐험',description:'삼국지를 몰라도 괜찮아요. 이야기에서 이름을 찾아 표로 만들고, 숫자와 그래프로 답을 찾아보세요.'};
+export const metadata:Metadata={title:'삼국지 데이터 원정대 | 적벽대전 데이터 실험',description:'삼국지연의의 기록으로 인물 구성과 역할을 분석하고, 조건을 바꾸어 What-if 결과를 비교합니다.'};
 export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="ko"><body>{children}</body></html>}

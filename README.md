@@ -27,7 +27,8 @@
 python scripts/build_red_cliff_lab_data.py   # seed DB → 학습 데이터
 npm run build:standalone                   # 현재 UI + 기존 국기 내장 → index.html
 npm run build                              # 정적 호스팅용 dist/
-npm run build:next                         # 기존 Next.js 프로토타입
+npm run build:next                         # Next.js 빌드 (최신 학습 화면 포함)
+npm run dev                                # Next.js 개발 서버로 최신 화면 열기
 ```
 
 ## 빠른 시작

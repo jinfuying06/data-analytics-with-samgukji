@@ -4,6 +4,7 @@
   "scripts": {
     "build": "node scripts/build-imported-site.mjs",
     "build:next": "node scripts/build-prototype.mjs",
-    "build:standalone": "node scripts/build-standalone.mjs"
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "dev": "npm --prefix frontend run dev"
   }
 }

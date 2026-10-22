@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "predev": "node ../scripts/build-imported-site.mjs",
+    "prebuild": "node ../scripts/build-imported-site.mjs"
   },
   "dependencies": {
     "next": "16.3.7",
