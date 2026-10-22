@@ -22,7 +22,7 @@ try{
 
  // Every stage: a one-line task, explanation folded, no jargon walls.
  for(let i=1;i<=6;i++){route('s'+i);const m=d.querySelector('#main');
-  assert.ok(m.querySelector('.simple-todo'),'s'+i+' task line');assert.equal(m.querySelector('.simple-todo details').open,false);
+  assert.ok(m.querySelector('.simple-todo'),'s'+i+' task line');assert.ok(m.querySelector('.simple-todo .why').textContent.length>10,'s'+i+' why is visible');assert.ok(m.querySelector('.simple-todo .key').textContent.length>5,'s'+i+' key point is visible');
   assert.equal(m.querySelector('.mission-brief'),null);assert.equal(m.querySelector('.experiment-stage-context'),null);assert.equal(m.querySelector('.subtitle'),null);
   assert.ok(visible(m)<600,'s'+i+' visible text '+visible(m))}
 
@@ -49,5 +49,5 @@ try{
  ev('S.done={1:"완료"}');route('home');click('#prediction-form input[value="1"]');click('#prediction-form button');assert.equal(w.location.hash,'#s2');
  ev('S.done={1:"완료",2:"완료",3:"완료",4:"완료",5:"완료",6:"완료"}');route('home');click('#prediction-form button');assert.equal(w.location.hash,'#s6');route('home');click('#reset');assert.equal(ev('S.prediction'),undefined);assert.equal(ev('S.reflection'),undefined);assert.equal(d.querySelector('#prediction-form button').disabled,true);
  assert.equal(errors.length,0,errors.join('\n'));
- console.log('PASS mission journey: short question-first home; one-line task per stage with folded explanations; concrete-first stage 1; move-then-assume stage 6; persisted prediction and reflection; optional source pages; routing and reset.');
+ console.log('PASS mission journey: short question-first home; task, why and key point visible per stage; concrete-first stage 1; move-then-assume stage 6; persisted prediction and reflection; optional source pages; routing and reset.');
 }finally{dom.window.close()}

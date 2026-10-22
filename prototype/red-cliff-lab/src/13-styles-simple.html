@@ -8,6 +8,9 @@
 .simple-todo>span{font-size:12px;letter-spacing:.12em;color:var(--seal);font-weight:600}
 .simple-todo>p{font-family:var(--f-display);font-size:clamp(16px,1.6vw,19px);color:#f0e6d3;line-height:1.5}
 .simple-todo details{grid-column:2}
+.simple-todo>.why-l,.simple-todo>.key-l{font-size:12px;letter-spacing:.06em;color:var(--ink-3);font-weight:600;white-space:nowrap}
+.simple-todo>p.why{font-family:inherit;font-size:14.5px;color:var(--ink-2)}
+.simple-todo>p.key{font-family:inherit;font-size:14.5px;color:var(--mark);font-weight:600}
 .step-more>summary{cursor:pointer;font-size:13px;color:var(--ink-3);min-height:32px;display:flex;align-items:center;gap:6px;list-style:none}
 .step-more>summary::-webkit-details-marker{display:none}
 .step-more>summary::before{content:"＋";font-family:var(--f-data);font-size:12px;color:var(--ink-3)}
@@ -28,7 +31,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .simple-result .side .sub{font-size:12px;color:var(--ink-3)}
 .simple-note{font-size:14px;color:var(--ink-2)}
 .names-fold .roster{margin-top:10px}
-@media (max-width:760px){.simple-todo{grid-template-columns:1fr}.simple-todo details{grid-column:1}}
+@media (max-width:760px){.simple-todo{grid-template-columns:1fr}.simple-todo>.why-l,.simple-todo>.key-l{margin-top:6px}.simple-todo details{grid-column:1}}
 .simple #recs tr:nth-child(n+2){display:none}
 .simple .taskbar{display:none}
 @media (min-width:1024px) and (max-width:1279px){.simple .taskbar{display:flex;justify-content:flex-end}}

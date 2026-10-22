@@ -28,13 +28,22 @@ const SIMPLE_TODO=[
  "제갈량을 조조 편으로 옮기고, 처음 예상과 결과를 비교하세요."
 ];
 ST[0].q="누구를 세어야 할까요?";ST[0].where="첫 번째 데이터 만들기";
+/* why each stage matters for the final question, and the one idea to keep (shown, not folded) */
+const SIMPLE_WHY=[
+ ["누구를 세느냐에 따라 두 편의 인원이 달라집니다. 마지막 What-if도 여기서 정한 명단으로 계산합니다.","기록에 이름이 있다고 모두 이 싸움에 나온 사람은 아닙니다."],
+ ["제갈량 한 명을 옮기는 실험을 하려면, 한 사람이 숫자를 얼마나 흔드는지 먼저 알아야 합니다.","평균은 한 사람 때문에 크게 달라질 수 있습니다."],
+ ["어느 편이 더 강했는지 비교하려면 무엇으로 잴지부터 정해야 합니다. 제갈량을 옮길 때 이 점수가 함께 옮겨 갑니다.","무엇을 세느냐가 결론을 정합니다."],
+ ["내가 정한 점수에서만 나오는 결론이라면, What-if 결과도 믿기 어렵습니다.","점수를 바꿔도 같은 결론이면 믿을 만합니다."],
+ ["숫자가 높아도 그 뜻이 생각과 다를 수 있습니다. 무엇을 센 숫자인지 확인해야 엉뚱한 결론을 피합니다.","숫자는 원문으로 확인합니다."],
+ ["앞에서 만든 명단과 점수로 처음 질문에 답해 보는 단계입니다.","답은 어떤 가정을 하느냐에 따라 달라집니다. 가정도 함께 적습니다."]
+];
 function simplifyStage(i){
  const main=$("#main");main.classList.add("simple");
  main.querySelector('.experiment-stage-context')?.remove();
  main.querySelector('.scene-hero .hero-sub')?.remove();
  main.querySelector('.subtitle')?.remove();
  const brief=main.querySelector('.mission-brief')||main.querySelector('.brief3');
- if(brief)brief.outerHTML=`<section class="simple-todo"><span>할 일</span><p>${esc(SIMPLE_TODO[i-1])}</p><details><summary>왜 하나요?</summary><p>${esc(ST[i-1].why)}</p></details></section>`;
+ if(brief){const [why,key]=SIMPLE_WHY[i-1];brief.outerHTML=`<section class="simple-todo"><span>할 일</span><p>${esc(SIMPLE_TODO[i-1])}</p><span class="why-l">왜</span><p class="why">${esc(why)}</p><span class="key-l">중요한 점</span><p class="key">${esc(key)}</p></section>`}
  main.querySelectorAll('.step-h p').forEach(p=>{if(p.textContent.length>60){const t=p.textContent;p.outerHTML=`<details class="step-more"><summary>설명 보기</summary><p>${esc(t)}</p></details>`}});
 }
 const stageFull=stage;
