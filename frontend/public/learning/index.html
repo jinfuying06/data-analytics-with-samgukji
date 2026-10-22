@@ -744,6 +744,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .pick.wide{grid-template-columns:1fr 1fr;max-width:640px}
 .pick.wide button[aria-pressed="true"]{background:rgba(236,228,212,.12);border-color:var(--ink);color:var(--ink);font-weight:600}
 @media (max-width:760px){.kcount,.pcards.three,.pick.wide{grid-template-columns:minmax(0,1fr)}}
+.pcard-why{display:block;margin-top:4px;font-size:12px;color:var(--ink-3,#9aa)}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1362,14 +1363,14 @@ const PEOPLE1=[
  {n:"曹操",fact:"8회 중 8회 모두 나옴",tip:"위나라 대장. 빼면 조조군에 대장이 없어집니다."},
  {n:"許褚",fact:"2회 나옴",tip:"조조의 호위 장수. 두 번 나와 싸움에 함께한 인물입니다."},
  {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 번 스치듯 언급됩니다. 셀지 말지는 정하기 나름입니다."},
- {n:"袁紹",fact:"5회 나옴 · 그런데 6년 전에 이미 사망",tip:"다른 사람의 대화 속에 이름만 나옵니다. 이 싸움에는 없었습니다."}
+ {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적<small class=\"pcard-why\">데이터에 '위'로 들어간 이유: 역사책(정사)이 원소의 전기를 「위서」에 실어서</small>",tip:"조조에게 패한 적장이라 조조군이 아닙니다. 대화 속에 이름만 나오고, 이 싸움에는 없었습니다. 분류를 그대로 믿고 세면 조조군 숫자가 부풀어요."}
 ];
 const rosterTotals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==='wei').length;return {all:r.length,wei:w,ally:r.length-w}};
 RENDER[1]=()=>{
  const L=S.t.s1d=S.t.s1d||{};
  const cards=PEOPLE1.map(p=>`<div class="pcard" data-n="${p.n}"><div class="pcard-h"><i class="dot" style="background:${fcol(PP[p.n].f)}"></i><b>${PP[p.n].ko}</b><span>${FN[PP[p.n].f]}</span></div><p class="pcard-fact">${p.fact}</p><div class="pick" role="group" aria-label="${PP[p.n].ko}"><button data-v="1">셀래요</button><button data-v="0">뺄래요</button></div><p class="pcard-tip" hidden>${p.tip}</p></div>`).join('');
  originalStageRenderer(1,[["s1","cards","네 사람 정하기"]],
-  step(1,"이 사람도 조조군으로 셀까요?","",`<div class="pcards" id="pcards">${cards}</div>`)+
+  step(1,"데이터에 '위'로 분류된 네 사람, 모두 조조군으로 셀까요?","",`<div class="pcards" id="pcards">${cards}</div>`)+
   `<section class="stepsec" id="s1reveal" hidden></section>`,
   {q:"해 보니 어떤가요?",opts:["누구를 셀지는 기록이 알아서 정해 준다","누구를 셀지에 따라 숫자가 달라진다","이름이 나온 사람은 모두 싸움에 나왔다"],ok:1,
    good:"기록에 이름이 있다고 다 세면 숫자가 부풀거나 엉뚱해집니다. 그래서 먼저 '누구를 셀지'를 정합니다.",bad:"원소처럼 이름만 나온 사람을 떠올려 보세요.",
