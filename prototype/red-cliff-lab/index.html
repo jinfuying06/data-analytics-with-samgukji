@@ -860,6 +860,12 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .intro .enter{animation:fadeup .8s 1.2s var(--ease-film) both}
 @media (max-width:760px){.isteps{grid-template-columns:repeat(2,minmax(0,1fr))}.intro .intro-in{min-height:0}}
 @media (prefers-reduced-motion:reduce){.iscene .l,.iscene .it,.ibars i,.isteps li,.intro .enter{animation:none}}
+
+/* ===== buttons: one shape everywhere, a slightly rounded square ===== */
+:root{--r-btn:8px}
+.btn,.intro .enter,.pick button,.presets .chip,.stepper a,.lab-link,.wi-card,.journey-outline,.opt{border-radius:var(--r-btn)}
+.seg{border-radius:calc(var(--r-btn) + 2px)}.seg button{border-radius:calc(var(--r-btn) - 2px)}
+.intro .enter{padding:12px 30px;min-width:132px;letter-spacing:.08em}
 </style>
 <style>
 /* ===== What-if lab (pairs with 90-whatif-lab.js) ===== */
