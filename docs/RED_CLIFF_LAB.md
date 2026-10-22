@@ -64,6 +64,7 @@ sh prototype/red-cliff-lab/build.sh          # src/* → index.html
 | `00-head.html` | 제목, 폰트, 기본 스타일, 아이콘 |
 | `10-styles-course.html` / `11-styles-stages.html` / `12-styles-journey.html` | 단계 화면 스타일 |
 | `13-styles-simple.html` | 단순화한 단계 화면 스타일 |
+| `14-styles-cinema.html` / `85-cinema.js` | 공통 시네마틱 연출: 모든 화면이 같은 '강 위의 밤' 장면을 쓰고, 단계가 진행될수록 불길(`--heat`)이 커진다. 화면 전환 컷, 레터박스, 결과 공개 효과를 통일. 움직임 줄이기 설정을 따른다 |
 | `20-markup.html` | 앱 골격, 오프닝, 탭바 |
 | `30-data.js` | 생성 데이터 (직접 수정하지 않음) |
 | `40-app.js` | 여섯 단계 화면과 계산 |
