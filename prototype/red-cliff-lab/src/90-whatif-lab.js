@@ -240,7 +240,17 @@ RENDER[LAB_VIEW]=()=>{
  const r6=RENDER[6];
  RENDER[6]=function(){r6.apply(this,arguments);$("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><b>다른 가정도 살펴보기</b></a>`)};
  const r0=RENDER[0];
- RENDER[0]=function(){r0.apply(this,arguments);};
+ // home footer: start button on its own line, then the six stages laid out openly (no folded box)
+ RENDER[0]=function(){r0.apply(this,arguments);
+  const main=$("#main"),form=$("#prediction-form"),prog=main.querySelector(".home-progress");if(!form||!prog)return;
+  const btn=prog.querySelector('button[type="submit"]'),footer=form.querySelector(".prediction-footer");
+  if(btn&&footer){footer.append(btn);btn.classList.add("home-start")}
+  prog.remove();main.querySelector(".journey-outline")?.remove();
+  const next=ST.findIndex((e,i)=>!S.done[i+1]);
+  const steps=`<nav class="home-steps" aria-label="학습 단계">${ST.map((e,i)=>{const done=!!S.done[i+1],now=i===next;return `<a href="#${e.id}" class="${done?"done":""}${now?" now":""}"${now?' aria-current="step"':""}><span class="num">${done?ic("check"):String(i+1).padStart(2,"0")}</span><b>${esc(e.short)}</b></a>`}).join("")}</nav>`;
+  form.insertAdjacentHTML("afterend",steps);
+  const replay=main.querySelector(".experiment-replay");if(replay)main.querySelector(".home-steps").after(replay);
+ };
 })();
 
 addEventListener("popstate",route);

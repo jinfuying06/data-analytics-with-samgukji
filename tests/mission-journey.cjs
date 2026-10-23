@@ -8,12 +8,12 @@ const visible=root=>{let t='';const walk=n=>{for(const c of n.childNodes){if(c.n
 try{
  // Home: one story line, the question, a prediction. No method essay up front.
  const home=d.querySelector('#main');assert.ok(home.querySelector('h1').textContent.includes('만약 제갈량이'));
- assert.equal(home.firstElementChild.className,'experiment-opening');assert.ok(d.body.classList.contains('experiment-home'));assert.ok(d.querySelector('.home-progress .journey-outline'));assert.ok(d.querySelector('.home-progress-count').textContent.includes('진행단계'));assert.equal(d.querySelectorAll('.home-progress svg').length,0);assert.ok(d.querySelector('.home-progress button[type="submit"]'));assert.ok(!d.querySelector('#main').textContent.includes('약 30분'));assert.equal(d.querySelectorAll('#prediction-form button[type="submit"]').length,1);
+ assert.equal(home.firstElementChild.className,'experiment-opening');assert.ok(d.body.classList.contains('experiment-home'));assert.equal(d.querySelector('.home-progress'),null,'no boxed progress panel');assert.equal(d.querySelectorAll('.home-steps a').length,6);assert.ok(d.querySelector('.home-steps a.now[href="#s1"]'));assert.ok(d.querySelector('.prediction-footer button.home-start[type="submit"]'));assert.ok(!d.querySelector('#main').textContent.includes('약 30분'));assert.equal(d.querySelectorAll('#prediction-form button[type="submit"]').length,1);
  assert.ok(home.querySelector('.simple-story').textContent.includes('208년 겨울'));
  for(const gone of ['.experiment-intro','.background-method','.journey-condition','.journey-background'])assert.equal(home.querySelector(gone),null,gone);
  assert.equal(home.querySelectorAll('.river-armies img').length,3);
  for(const image of home.querySelectorAll('.river-armies img'))assert.ok(fs.existsSync('dist'+image.getAttribute('src')));
- assert.equal(home.querySelector('.journey-outline').open,false);assert.equal(home.querySelectorAll('.journey-outline li').length,6);
+ assert.equal(home.querySelector('.journey-outline'),null,'stages are laid out, not folded');
  assert.ok(visible(home)<400,'home should stay short');
  assert.equal(d.querySelector('#intro').hidden,true);
  assert.equal(d.querySelector('#prediction-form button').disabled,true);
