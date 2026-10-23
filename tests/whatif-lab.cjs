@@ -92,6 +92,7 @@ try{
   if(lv===3){
    assert.equal(q('#move6'),null,id+' level 3 sets assumptions instead');assert.ok(q('#d6text').textContent.startsWith('만약 '));
    assert.equal(d.querySelectorAll('.lv-decided dt').length,5,id+' the conclusion lists the five decisions');
+   assert.equal(q('#lvNudge'),null,'no nudge once 순서 1–5 are done');
    answer();assert.equal(e('!!S.done[6]'),false);assert.equal(q('#d6save').disabled,true,'needs a limit and the checklist');
    (q('#d6fire button[data-v="zero"]')||q('#d6wind button[data-v="zg"]')).click();click('#d6limit button[data-v="2"]');
    for(const box of d.querySelectorAll('#d6checks input')){box.checked=true;box.dispatchEvent(new w.Event('change',{bubbles:true}))}
@@ -134,6 +135,10 @@ try{
  assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('다시 생각해 보시지요.'));assert.ok(q('.pcard[data-n="劉表"] .pick button[data-v="0"]').classList.contains('nudge'));
  click('.pcard[data-n="劉表"] .pick button[data-v="0"]');assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('그렇지요.'));assert.equal(q('.pcard[data-n="劉表"] .nudge'),null);
  route('lab?question=zg');route('s1');e('S.t.s1d={}');route('s1');click('.pcard[data-n="夏侯淵"] .pick button[data-v="1"]');assert.ok(q('.pcard[data-n="夏侯淵"] .pcard-tip').textContent.includes('빼는 편을 권합니다'));
+
+ // 단계 3: skipping ahead to the conclusion suggests going back, but does not block
+ route('lab?question=jb');e('delete S.t.s2r;delete S.t.s4r;S.t.s6c&&delete S.t.s6c.skip');route('s6');assert.ok(q('#lvNudge').textContent.includes('순서 2·4'));assert.equal(q('#lvNudge a').getAttribute('href'),'#s2');assert.ok(q('#d6text'),'the conclusion stays usable');
+ click('#lvSkip');assert.equal(q('#lvNudge'),null);route('s6');assert.equal(q('#lvNudge'),null,'skipping is remembered');route('lab?question=zg');
 
  // builder: a sandbox that writes the question from the choices
  route('lab');q('.lab-tools').open=true;

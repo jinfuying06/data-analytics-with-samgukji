@@ -334,6 +334,12 @@ function lv3Stage5({x,c}){
  if(L.pick!==undefined)open();
 }
 
+/* 순서 1–5 not yet done at 단계 3: a gentle nudge above the conclusion, never a lock */
+function lv3Missing(){const t=S.t,x=scenario(),recs=LV3_RECORDS[x.id];
+ return [[1,t.s1r&&t.s1r.why!==undefined],[2,t.s2r&&t.s2r.m],[3,t.s3r&&t.s3r.why!==undefined],[4,t.s4r&&t.s4r.th],[5,recs&&t.s5r&&t.s5r.pick!==undefined]].filter(r=>!r[1]).map(r=>r[0])}
+function lv3Nudge(){const miss=lv3Missing(),D=S.t.s6c||{};if(!miss.length||D.skip)return "";
+ return `<section class="lv-nudge" id="lvNudge"><p>앞 순서에서 정한 것이 이 결론에 그대로 들어갑니다. ${miss.length===5?"아직 앞 순서를 하나도 하지 않으셨군요.":`아직 순서 ${miss.join("·")}${lvJ(String(miss[miss.length-1]),"을","를")} 마치지 않으셨군요.`} 먼저 해 보시기를 권합니다. 그래도 바로 쓰시겠습니까?</p><div class="lv-nudge-act"><a class="btn ghost" href="#s${miss[0]}">순서 ${miss[0]}로 가기</a><button class="linkbtn" id="lvSkip">그래도 바로 쓰기</button></div></section>`}
+
 /* what 단계 3 decided before the conclusion (read by lv3Stage6) */
 function lv3Decided(){
  const t=S.t,rows=[];

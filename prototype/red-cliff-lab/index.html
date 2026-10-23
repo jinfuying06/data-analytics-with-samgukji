@@ -1099,6 +1099,12 @@ body.experiment-home .lab-tools{margin-top:24px}
 .lv-decided dt{font-size:12.5px;color:var(--ink-3)}.lv-decided dd{margin:0;font-size:14px;color:var(--ink-2);line-height:1.55}
 .named-wrap>.pick+.pcard-tip,.card.pane>.pick+.pcard-tip{margin-top:10px}
 #measWhySec{margin-top:18px}
+.main.simple>.lv-nudge{margin-top:44px;padding:4px 0 4px 20px;border-left:2px solid var(--wind);max-width:52em;display:grid;gap:14px}
+.lv-nudge p{font-size:15px;line-height:1.65;color:var(--ink);word-break:keep-all}
+.lv-nudge-act a{text-decoration:none}
+.lv-nudge-act{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.lv-nudge .linkbtn{background:none;border:0;padding:0;color:var(--ink-3);font-size:13.5px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.main.simple>.lv-nudge+.stepsec{margin-top:40px}
 .pick.stack{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}.pick.stack button{text-align:left;justify-content:flex-start;padding:12px 16px}
 @media (max-width:560px){.lv-table th,.lv-table td{padding:8px 4px}.lv-table td{font-size:15px}.lv-decided>div{grid-template-columns:1fr;gap:2px}}
 </style>
@@ -2758,7 +2764,7 @@ function lv3Stage6(){
   return parts.map((p,i)=>i<parts.length-1?p.replace(/다$/,"고"):p).join(", ")};
  const sentence=()=>{const v=cur(),lim=D.limit==="own"?D.own.trim():LIMITS[D.limit];return `만약 ${q.replace(/\?$/,"")}, ${assume()}고 가정할 때 연합군 우세 지수는 ${v}(${wiVerdict(v)})입니다.${lim?` 다만 ${lim}`:""}`};
  originalStageRenderer(6,[["s6","move","가정 정하기"],["s6","wind","결론 남기기"]],
-  step(1,"가정을 직접 정해 보시지요","",`<section class="card pane wi-builder"><div class="ctrls">
+  (typeof lv3Nudge==="function"?lv3Nudge():"")+step(1,"가정을 직접 정해 보시지요","",`<section class="card pane wi-builder"><div class="ctrls">
     ${SHOW.includes("wind")?`<div class="field">바람${seg("d6wind",[["env","날씨"],["zg","제갈량이 부름"],["none","없음"]],D.wind,"바람")}</div>
     <div class="field" id="d6bonusF">바람 보너스${seg("d6bonus",[[0,"0"],[5,"5"],[10,"10"],[15,"15"],[20,"20"]],D.bonus,"바람 보너스")}</div>`:""}
     ${SHOW.includes("fire")?`<div class="field">불${seg("d6fire",[["keep","그대로"],["zero","번지지 않음 (0)"]],D.fire,"불 점수")}</div>`:""}
@@ -2783,6 +2789,7 @@ function lv3Stage6(){
   $("#d6save").disabled=!ok;
  };
  const touch=()=>{setT("s6","move");save();draw()};
+ $("#lvSkip")?.addEventListener("click",()=>{D.skip=1;save();$("#lvNudge").remove()});
  if($("#d6wind")){onSeg("d6wind",v=>{D.wind=v;touch()});onSeg("d6bonus",v=>{D.bonus=+v;touch()})}if($("#d6fire"))onSeg("d6fire",v=>{D.fire=v;touch()});onSeg("d6lens",v=>{D.lens=v;touch()});
  $("#d6limit").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;D.limit=b.dataset.v==="own"?"own":+b.dataset.v;save();draw()});
  $("#d6own").oninput=e=>{D.own=e.target.value;save();draw()};
@@ -3140,6 +3147,12 @@ function lv3Stage5({x,c}){
  $("#use5").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;L.use=+b.dataset.v;save();drawUse()});
  if(L.pick!==undefined)open();
 }
+
+/* 순서 1–5 not yet done at 단계 3: a gentle nudge above the conclusion, never a lock */
+function lv3Missing(){const t=S.t,x=scenario(),recs=LV3_RECORDS[x.id];
+ return [[1,t.s1r&&t.s1r.why!==undefined],[2,t.s2r&&t.s2r.m],[3,t.s3r&&t.s3r.why!==undefined],[4,t.s4r&&t.s4r.th],[5,recs&&t.s5r&&t.s5r.pick!==undefined]].filter(r=>!r[1]).map(r=>r[0])}
+function lv3Nudge(){const miss=lv3Missing(),D=S.t.s6c||{};if(!miss.length||D.skip)return "";
+ return `<section class="lv-nudge" id="lvNudge"><p>앞 순서에서 정한 것이 이 결론에 그대로 들어갑니다. ${miss.length===5?"아직 앞 순서를 하나도 하지 않으셨군요.":`아직 순서 ${miss.join("·")}${lvJ(String(miss[miss.length-1]),"을","를")} 마치지 않으셨군요.`} 먼저 해 보시기를 권합니다. 그래도 바로 쓰시겠습니까?</p><div class="lv-nudge-act"><a class="btn ghost" href="#s${miss[0]}">순서 ${miss[0]}로 가기</a><button class="linkbtn" id="lvSkip">그래도 바로 쓰기</button></div></section>`}
 
 /* what 단계 3 decided before the conclusion (read by lv3Stage6) */
 function lv3Decided(){

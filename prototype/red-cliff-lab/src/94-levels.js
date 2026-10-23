@@ -117,7 +117,7 @@ function lv3Stage6(){
   return parts.map((p,i)=>i<parts.length-1?p.replace(/다$/,"고"):p).join(", ")};
  const sentence=()=>{const v=cur(),lim=D.limit==="own"?D.own.trim():LIMITS[D.limit];return `만약 ${q.replace(/\?$/,"")}, ${assume()}고 가정할 때 연합군 우세 지수는 ${v}(${wiVerdict(v)})입니다.${lim?` 다만 ${lim}`:""}`};
  originalStageRenderer(6,[["s6","move","가정 정하기"],["s6","wind","결론 남기기"]],
-  step(1,"가정을 직접 정해 보시지요","",`<section class="card pane wi-builder"><div class="ctrls">
+  (typeof lv3Nudge==="function"?lv3Nudge():"")+step(1,"가정을 직접 정해 보시지요","",`<section class="card pane wi-builder"><div class="ctrls">
     ${SHOW.includes("wind")?`<div class="field">바람${seg("d6wind",[["env","날씨"],["zg","제갈량이 부름"],["none","없음"]],D.wind,"바람")}</div>
     <div class="field" id="d6bonusF">바람 보너스${seg("d6bonus",[[0,"0"],[5,"5"],[10,"10"],[15,"15"],[20,"20"]],D.bonus,"바람 보너스")}</div>`:""}
     ${SHOW.includes("fire")?`<div class="field">불${seg("d6fire",[["keep","그대로"],["zero","번지지 않음 (0)"]],D.fire,"불 점수")}</div>`:""}
@@ -142,6 +142,7 @@ function lv3Stage6(){
   $("#d6save").disabled=!ok;
  };
  const touch=()=>{setT("s6","move");save();draw()};
+ $("#lvSkip")?.addEventListener("click",()=>{D.skip=1;save();$("#lvNudge").remove()});
  if($("#d6wind")){onSeg("d6wind",v=>{D.wind=v;touch()});onSeg("d6bonus",v=>{D.bonus=+v;touch()})}if($("#d6fire"))onSeg("d6fire",v=>{D.fire=v;touch()});onSeg("d6lens",v=>{D.lens=v;touch()});
  $("#d6limit").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;D.limit=b.dataset.v==="own"?"own":+b.dataset.v;save();draw()});
  $("#d6own").oninput=e=>{D.own=e.target.value;save();draw()};
