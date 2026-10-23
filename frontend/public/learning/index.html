@@ -755,6 +755,10 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 #pcards .pcard-tip{grid-row:4}
 #pcards .pick button{white-space:nowrap;font-size:12.5px;padding:10px 4px;min-width:0;min-height:44px}
 @supports(grid-template-rows:subgrid){#pcards>.pcard{grid-row:span 4;grid-template-rows:subgrid}}
+.pcard-tip b.warn{color:var(--bad)}.pcard-tip b.ok{color:var(--good)}.pcard-tip span{color:var(--ink-3)}
+.pcard.doubt{border-color:rgba(242,182,114,.45)}
+.pcard.doubt .pick button[aria-pressed="true"]{border-color:rgba(242,182,114,.5);background:rgba(242,182,114,.08);color:var(--bad);box-shadow:none}
+.pick button.nudge{border-color:var(--mark);color:var(--ink);box-shadow:0 0 0 1px var(--mark) inset}
 </style>
 <style>
 /* ===== cinema: one look for every page (pairs with 85-cinema.js) ===== */
@@ -2462,8 +2466,29 @@ function scStage5({x,c}){
  $("#open5").onclick=open;drawGuess();if(tk("s5","victim"))open();
 }
 
+/* stage 1 guidance: when a card is doubtful (already dead, or only one passing mention),
+   steer toward leaving it out instead of simply confirming the choice */
+const MAIN_ROLES={"曹操":"core","許褚":"two","夏侯淵":"one","袁紹":"dead"};
+const CARD_SAY={
+ dead:{1:["다시 생각해 보시지요.","이미 세상을 떠난 사람입니다. 이름은 나오지만 이 싸움에 참여할 수는 없었지요. 명단에서 빼는 편이 맞겠습니다."],0:["그렇지요.","이름만 언급된 사람은 이 싸움의 기록으로 세지 않습니다."]},
+ one:{1:["다시 생각해 보시지요.","딱 한 번 이름만 스친 사람입니다. 이것만으로 싸움에 참여했다고 보기는 어렵지요. 빼는 편을 권합니다."],0:["그렇지요.","한 번 스친 이름까지 세면 명단이 흐려집니다."]},
+ core:{0:["다시 생각해 보시지요.","이번 질문의 중심이 되는 사람입니다. 빼면 비교 자체가 어려워지지요. 명단에 넣어 두시지요."]}
+};
+function cardGuide(){
+ const L=S.t.s1d||{};
+ for(const card of $$("#pcards .pcard")){
+  const n=card.dataset.n,role=card.dataset.role||MAIN_ROLES[n],v=L[n],tip=card.querySelector(".pcard-tip");if(!tip)continue;
+  if(card.dataset.tip===undefined)card.dataset.tip=tip.innerHTML;
+  card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt");
+  if(v===undefined)continue;
+  const say=(CARD_SAY[role]||{})[v];
+  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}<br><span>${card.dataset.tip}</span>`:card.dataset.tip;
+  if(say&&!say[0].startsWith("그렇")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
+ }
+}
 const SC_RENDER=[null,scStage1,scStage2,scStage3,scStage4,scStage5];
-for(let i=1;i<=5;i++){const main=RENDER[i];RENDER[i]=function(){const sc=scnFor();if(!sc)return main.apply(this,arguments);applyScenarioText();SC_RENDER[i](sc);markScenario()}}
+for(let i=1;i<=5;i++){const main=RENDER[i];RENDER[i]=function(){const sc=scnFor();if(!sc)main.apply(this,arguments);else{applyScenarioText();SC_RENDER[i](sc);markScenario()}
+ if(i===1){const box=$("#pcards");if(box){box.addEventListener("click",()=>cardGuide());cardGuide()}}}}
 
 /* Five scenes, with controls available only after the current scene is revealed. */
 let introStop=null,introReturnFocus=null,introTimer=0,introAt=0,introReady=false;

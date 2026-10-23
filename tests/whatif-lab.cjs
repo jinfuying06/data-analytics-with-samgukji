@@ -74,6 +74,11 @@ try{
  route('lab?question=ptout');e('S.t.s1d={}');route('s1');for(const card of d.querySelectorAll('#pcards .pcard'))card.querySelector(`.pick button[data-v="${card.dataset.role==='core'?1:0}"]`).click();
  assert.ok(q('#s1reveal .wi-hit').textContent.includes('방통'),'removing 방통 by rule is flagged');
  route('lab?question=zg');
+ // doubtful cards (already dead, one passing mention) steer toward leaving them out
+ route('lab?question=nowind');e('S.t.s1d={}');route('s1');click('.pcard[data-n="劉表"] .pick button[data-v="1"]');
+ assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('다시 생각해 보시지요.'));assert.ok(q('.pcard[data-n="劉表"] .pick button[data-v="0"]').classList.contains('nudge'));
+ click('.pcard[data-n="劉表"] .pick button[data-v="0"]');assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('그렇지요.'));assert.equal(q('.pcard[data-n="劉表"] .nudge'),null);
+ route('lab?question=zg');route('s1');e('S.t.s1d={}');route('s1');click('.pcard[data-n="夏侯淵"] .pick button[data-v="1"]');assert.ok(q('.pcard[data-n="夏侯淵"] .pcard-tip').textContent.includes('빼는 편을 권합니다'));
 
  // builder: a sandbox that writes the question from the choices
  route('lab');q('.lab-tools').open=true;
