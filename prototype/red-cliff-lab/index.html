@@ -2425,14 +2425,14 @@ function scStage2({x,c}){
   const avgOf=without=>avg(mem.filter(n=>!without||!drop.includes(n)).map(n=>PP[n].pa));
   const P=c.who.map(scKo).join("·");
   originalStageRenderer(2,[["s2","drop",`${P} 빼 보기`]],
-   step(1,`${label} 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="memBars"></div>${drop.length?`<button class="btn" id="dropTop">${esc(P)} 빼고 다시 계산하기</button>`:`<p class="wi-hit">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 지금 명단에 없습니다. 1단계에서 기준을 다시 골라 보시지요.</p>`}<div id="dropRes"></div></section>`)+reveal('s2name'),
+   step(1,`${label} 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="memBars"></div><p class="big-change" id="avgNow">${label} 평균 <b class="num">${fmt1(avgOf())}</b> <span class="simple-note">(${mem.length}명)</span></p>${drop.length?`<button class="btn" id="dropTop">${esc(P)} 빼고 다시 계산하기</button>`:`<p class="wi-hit">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 지금 명단에 없습니다. 1단계에서 기준을 다시 골라 보시지요.</p>`}<div id="dropRes"></div></section>`)+reveal('s2name'),
    {q:`${P}${scJosa(scKo(c.who[c.who.length-1]),"을","를")} 빼자 평균이 달라진 까닭은?`,opts:["모두가 똑같이 나와서","빠진 사람의 숫자가 평균과 많이 달라서","사람 수가 많아서"],ok:1,
     good:"평균과 크게 다른 사람이 빠지면 평균이 크게 움직입니다. 그 사람이 평균보다 적게 나왔다면 오히려 올라가기도 하지요.",bad:"막대에서 빠진 사람이 다른 사람들과 얼마나 다른지 다시 살펴보시지요.",
     ev:()=>`${label} 평균 ${fmt1(avgOf())} → ${P} 빼면 ${fmt1(avgOf(1))} · 중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))}`});
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
   const done=()=>{const a=avgOf(),b=avgOf(1),up=b>a,small=!up&&a-b<a*0.1;
-   $("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔군요. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔군요. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔군요. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
+   $("#avgNow").hidden=true;$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔군요. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔군요. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔군요. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
    show('s2name',named(up?"평균보다 작은 한 사람":small?"한 사람의 무게":"평균의 함정",small?`${esc(P)}의 숫자는 ${label} 평균과 크게 다르지 않아서, 빼도 평균이 조금만 움직입니다. 한 사람이 결과를 얼마나 흔들지는, 그 사람의 숫자가 평균과 얼마나 다른지에 달려 있지요.`:up?`${esc(P)}의 숫자는 ${label} 평균보다 작습니다. 그래서 빼면 평균이 올라가지요. 한 사람을 옮기거나 뺄 때는, 그 사람의 숫자가 평균보다 큰지 작은지부터 보아야 합니다.`:`${esc(P)}의 숫자가 커서 ${label} 평균을 끌어올리고 있었습니다. 이런 사람을 옮기거나 빼면 결과가 크게 흔들리지요. 가운데 값(중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))})도 함께 살펴야 합니다.`))};
   const btn=$("#dropTop");if(btn)btn.onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped&&btn)done();
   return;
