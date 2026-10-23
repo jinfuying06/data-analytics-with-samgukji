@@ -58,7 +58,7 @@ function drawChrome(){
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
-  $("#progTxt").textContent=`완료한 단계 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
+  $("#progTxt").textContent=`마친 장 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
   $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`${n}/6`;
@@ -86,13 +86,13 @@ const step=(n,title,sub,body)=>`<section class="stepsec"><header class="step-h">
 function hero({hz,where,title,sub,fx,say}){return `<section class="scene-hero" data-fx="${fx}"><canvas class="fx" aria-hidden="true"></canvas><div class="lb" aria-hidden="true"></div><div class="hero-in"><p class="hero-meta"><span class="hz">${hz}</span><span>${where}</span></p><h1>${title}</h1><p class="hero-sub">${sub}</p>${say?`<figure class="subtitle"><blockquote>${say[3]}</blockquote><figcaption><span class="face ${say[1]}" aria-hidden="true">${say[2]}</span>${say[0]} · 학습용 질문</figcaption></figure>`:""}</div></section>`}
 function stage(i,tasks,steps,chk){
   const e=ST[i-1];TASKS=tasks;
-  const stepper=`<nav class="stepper" aria-label="단계 목록">${ST.map((x,j)=>`<a href="#${x.id}" class="${S.done[j+1]?"done":""}" ${j+1===i?'aria-current="page"':""}><span class="st">${S.done[j+1]?ic("check"):j+1}</span>${x.short}</a>`).join("")}</nav>`;
+  const stepper=`<nav class="stepper" aria-label="장 목록">${ST.map((x,j)=>`<a href="#${x.id}" class="${S.done[j+1]?"done":""}" ${j+1===i?'aria-current="page"':""}><span class="st">${S.done[j+1]?ic("check"):j+1}</span>${x.short}</a>`).join("")}</nav>`;
   const nsteps=steps.split('class="stepsec"').length;
-  $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">단계 ${i} / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
+  $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">${i}장 / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}학습 기록 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
   ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
-  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: ${i-1}단계">${ic("left")}${i-1}단계로 이동</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: ${i+1}단계">${i+1}단계로 이동${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
+  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: ${i-1}장">${ic("left")}${i-1}장으로 이동</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: ${i+1}장">${i+1}장으로 이동${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");
   box.innerHTML=`<h3>${chk.q}</h3><p class="lockline">${ic("lock")}위의 활동을 모두 마치면 답을 선택할 수 있습니다.</p><div class="opts">${chk.opts.map((o,k)=>`<button class="opt" data-i="${k}"><span class="k">${"ABC"[k]}</span><span>${o}</span></button>`).join("")}</div><div class="fbx" aria-live="polite"></div>`;
@@ -113,14 +113,14 @@ const inG=(n,g)=>g==="ally"?PP[n].f!=="wei":PP[n].f===g;
 function home(){
   TASKS=[];const n=Object.keys(S.done).length,next=ST.findIndex((e,i)=>!S.done[i+1]);
   $("#main").innerHTML=`${hero({hz:"赤 壁",where:"208년 겨울 · 장강",title:"삼국지의 기록으로 무엇을 분석할 수 있을까요?",sub:`<span class="reg rec">삼국지로 배우는 데이터 분석</span>적벽대전 편`,fx:"embers"})}
-  <section class="card pane home-lead"><p>『삼국지연의』와 정사 『삼국지』의 기록을 같은 기준으로 세어 비교합니다. 분석 대상을 정하고, 평균과 지표를 살펴본 뒤, 조건을 바꾸어 결과를 확인합니다. 총 6단계이며 단계별로 약 5분이 걸립니다.</p>
-    <a class="btn" href="#${ST[next<0?0:next].id}" style="text-decoration:none">${n?(n===6?"전체 과정 다시 보기":`${next+1}단계 이어하기`):"1단계 시작하기"}${ic("right")}</a></section>
+  <section class="card pane home-lead"><p>『삼국지연의』와 정사 『삼국지』의 기록을 같은 기준으로 세어 비교합니다. 분석 대상을 정하고, 평균과 지표를 살펴본 뒤, 조건을 바꾸어 결과를 확인합니다. 총 6장이며 장별로 약 5분이 걸립니다.</p>
+    <a class="btn" href="#${ST[next<0?0:next].id}" style="text-decoration:none">${n?(n===6?"전체 과정 다시 보기":`${next+1}장 이어하기`):"1장 시작하기"}${ic("right")}</a></section>
   <section class="card pane primer"><div class="pane-h"><h2>${ic("book")}시작 전에 알아두기</h2><a class="meta" href="#src">데이터 더 보기</a></div>
     <div class="primer-row"><div><span>적벽대전</span><p>조조군과 손권·유비 연합군이 장강에서 맞선 전투입니다. 이 학습에서는 위·오·촉을 인물의 소속을 구분하는 표시로 사용합니다. 촉 표시는 당시 촉한이 존재했다는 뜻이 아닙니다.</p></div>
     <div><span>사용하는 기록</span><p>${srcB("yy","삼국지연의")} 삼국 시대를 소재로 한 소설입니다. 전체 120회 중 적벽대전 주변 이야기를 다룬 <b>43~50회</b>를 사용합니다.</p><p>${srcB("jb","정사 삼국지")} 인물별 전기인 열전으로 구성된 역사책입니다. 소설과 구분하여 비교 자료로 사용합니다.</p></div></div>
     <ol class="chap-strip">${[["43","설전"],["44","주유 설득"],["45","장간의 실수"],["46","화살 10만 개"],["47","거짓 항복"],["48","강 위의 잔치"],["49","동남풍과 불"],["50","화용도"]].map(([a,b])=>`<li><b class="num">${a}회</b><span>${b}</span></li>`).join("")}</ol></section>
-  <section class="eplist">${ST.map((e,i)=>`<a class="card epcard" href="#${e.id}"><span class="epno">단계 ${i+1} · ${e.skill}</span><b>${e.q}</b>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a>`).join("")}</section>
-  ${n===6?`<section class="card pane"><div class="pane-h"><h2>${ic("note")}여섯 단계에서 학습 기록</h2></div><ol class="sumlist">${ST.map((e,i)=>`<li><span class="vchip v-t">${i+1}</span><span><b>${e.q}</b><small>${esc(S.done[i+1]||"")}</small></span></li>`).join("")}</ol><button class="btn ghost" id="reset">${ic("reset")}학습 기록 초기화하기</button></section>`:""}`;
+  <section class="eplist">${ST.map((e,i)=>`<a class="card epcard" href="#${e.id}"><span class="epno">${i+1}장 · ${e.skill}</span><b>${e.q}</b>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a>`).join("")}</section>
+  ${n===6?`<section class="card pane"><div class="pane-h"><h2>${ic("note")}여섯 장에서 학습 기록</h2></div><ol class="sumlist">${ST.map((e,i)=>`<li><span class="vchip v-t">${i+1}</span><span><b>${e.q}</b><small>${esc(S.done[i+1]||"")}</small></span></li>`).join("")}</ol><button class="btn ghost" id="reset">${ic("reset")}학습 기록 초기화하기</button></section>`:""}`;
   $("#reset")&&($("#reset").onclick=()=>{S={done:{},t:{},rule:{min:2,dead:1},w:{ship:3,fire:3,plan:2},seenIntro:1};save();location.hash="#s1";route()});
 }
 
@@ -132,7 +132,7 @@ function s1(){
     `<section class="card pane"><div class="pane-h"><h2>${ic("table")}등장 기록 186건 중 일부</h2>${srcB("yy","연의 43–50회")}</div>
       <div class="tscroll"><table class="data rec"><thead><tr><th>인물</th><th>진영</th><th class="n">회차</th><th class="n">문단 수</th><th>근거 문단 발췌 · 한국어 번역</th></tr></thead><tbody id="recs"></tbody></table></div>
       <button class="btn ghost" id="more">${ic("search")}다른 기록 보기</button></section>`)+
-    step(2,"분석 대상의 포함 기준 정하기","최소 등장 회차 수와 사망 인물 포함 여부를 정합니다. 여기서 선택한 명단을 2~6단계의 계산에 사용합니다.",
+    step(2,"분석 대상의 포함 기준 정하기","최소 등장 회차 수와 사망 인물 포함 여부를 정합니다. 여기서 선택한 명단을 2~6장의 계산에 사용합니다.",
     `<div class="cols"><section class="card pane"><div class="pane-h"><h2>${ic("sliders")}대상 선정 기준</h2></div>
       <div class="field">최소 몇 회에 등장한 인물을 포함할까요?${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"],[4,"4회 이상"]],S.rule.min,"최소 등장 회차 수")}</div>
       <div class="field">사망 인물로 분류된 인물을 포함할까요?${seg("rDead",[[1,"제외"],[0,"포함"]],S.rule.dead,"사망 인물 포함 여부")}</div>
@@ -194,9 +194,9 @@ const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
 function s3(){
   const L=S.t.s3x=S.t.s3x||{g:"ally",sel:"周瑜",k:"fire"};
   stage(3,[["s3","weight","가중치 정하기"],["s3","evid","근거 문단 확인하기"]],
-    step(1,"기록에서 지표 만들기","인물의 이름이 포함된 문단에 아래 글자 중 하나가 함께 나오면 해당 지표에 1을 더합니다. 바람(風)은 비교 점수에서 제외하고, 6단계에서 별도의 조건으로 다룹니다.",
+    step(1,"기록에서 지표 만들기","인물의 이름이 포함된 문단에 아래 글자 중 하나가 함께 나오면 해당 지표에 1을 더합니다. 바람(風)은 비교 점수에서 제외하고, 6장에서 별도의 조건으로 다룹니다.",
     `<section class="card pane"><div class="pane-h"><h2>${ic("note")}지표 정의</h2>${srcB("yy","연의 문단 원문")}</div>
-      <div class="kdef">${["ship","fire","plan"].map(k=>`<div><b>${KN[k]}</b><span class="num">${KW[k]}</span></div>`).join("")}<div class="muted"><b>바람</b><span class="num">${KW.wind}</span><small>환경 조건 · 6단계에서 별도 조건으로 사용</small></div></div></section>`)+
+      <div class="kdef">${["ship","fire","plan"].map(k=>`<div><b>${KN[k]}</b><span class="num">${KW[k]}</span></div>`).join("")}<div class="muted"><b>바람</b><span class="num">${KW.wind}</span><small>환경 조건 · 6장에서 별도 조건으로 사용</small></div></div></section>`)+
     step(2,"가중치를 정해 비교 점수 계산하기","가중치는 각 지표에 부여하는 점수입니다. 수전·화공·계책에 얼마나 큰 비중을 둘지 선택합니다. 가중치에는 분석자의 판단이 반영됩니다.",
     `<div class="cols"><section class="card pane asm"><div class="pane-h"><h2>${ic("sliders")}가중치</h2><span class="reg asm">선택한 가중치</span></div>
       <div class="weights" id="wts"></div><div class="formula" id="wform"></div></section>
@@ -206,7 +206,7 @@ function s3(){
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">수전</th><th class="n">화공</th><th class="n">계책</th><th class="n">점수</th></tr></thead><tbody id="ptab"></tbody></table></div></section>
       <section class="card pane" id="evbox" aria-live="polite"></section></div>`),
     {q:"이 비교 점수는 실제로 무엇을 나타낼까요?",opts:["인물의 실제 전투 능력","인물의 이름과 수전·화공·계책 관련 글자가 함께 나온 정도","전투에서 세운 공입니다.의 크기"],ok:1,
-     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 5단계에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 기록을 다시 살펴보시지요.",
+     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 5장에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 기록을 다시 살펴보시지요.",
      ev:()=>{const s=fs("yy");return `연의 비교 점수(수전 ${S.w.ship}·화공 ${S.w.fire}·계책 ${S.w.plan}점): 연합 ${s.wu+s.shu} vs 위 ${s.wei}`}});
   function dW(){
     const row=(k)=>`<div class="w"><span>${KN[k]} 1회당</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${KN[k]} 줄이기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${KN[k]} 늘리기">+</button></span></div>`;
@@ -299,7 +299,7 @@ function s5(){
 function s6(){
   const L=S.t.s6x=S.t.s6x||{who:"諸葛亮",act:"wei",lens:"yy",wind:1,wmode:"env",wb:10,runs:[]};
   stage(6,[["s6","run","조건이 다른 시나리오 2개 기록하기"],["s6","lens","분석 자료 바꾸기"],["s6","wmode","바람에 관한 가정 바꾸기"]],
-    step(1,"변경할 조건 선택하기","인물 한 명의 소속을 바꾸거나 분석 대상에서 제외합니다. 1단계의 명단과 3단계의 가중치는 현재 설정을 유지합니다.",
+    step(1,"변경할 조건 선택하기","인물 한 명의 소속을 바꾸거나 분석 대상에서 제외합니다. 1장의 명단과 3장의 가중치는 현재 설정을 유지합니다.",
     `<section class="card pane"><div class="pane-h"><h2>${ic("sliders")}변경 시나리오</h2><span class="meta">빠른 선택</span></div>
       <div class="presets" id="presets">${[["諸葛亮","wei","제갈량을 위로 이동"],["龐統","out","방통을 분석 대상에서 제외"],["周瑜","wei","주유를 위로 이동"],["黃蓋","out","황개를 분석 대상에서 제외"],["曹操","wu","조조를 오로 이동"]].map(([n,a,t])=>`<button class="chip" data-n="${n}" data-a="${a}">${t}</button>`).join("")}</div>
       <div class="ctrls"><label class="field">인물<select id="who"></select></label><div class="field">변경할 소속${seg("act",[["wei","위로 이동"],["wu","오로 이동"],["shu","촉으로 이동"],["out","분석 대상에서 제외"]],L.act,"이동")}</div></div>
@@ -352,7 +352,7 @@ function s6(){
   function dRuns(){$("#runs6").innerHTML=L.runs.length?L.runs.map((x,i)=>`<tr><td class="n">${i+1}</td><td style="white-space:normal">${x.t}</td><td>${x.lens==="yy"?"연의":"정사"} · ${x.wd}</td><td class="n"><b>${x.i}</b></td></tr>`).join(""):`<tr><td colspan="4" class="empty">기록한 시나리오를 이곳에서 비교할 수 있습니다.</td></tr>`;if(new Set(L.runs.map(x=>x.t+"|"+x.lens+"|"+x.wd)).size>=2)setT("s6","run")}
   $("#who").addEventListener("change",e=>{L.who=e.target.value;save();d()});
   onSeg("act",v=>{L.act=v;save();d()});onSeg("lens6",v=>{L.lens=v;setT("s6","lens");save();d()});onSeg("wind",v=>{L.wind=+v;save();d()});onSeg("wmode",v=>{L.wmode=v;setT("s6","wmode");save();d()});
-  $("#presets").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;if(!r.includes(b.dataset.n)){$("#r6").innerHTML="이 인물은 현재 분석 대상에 포함되어 있지 않습니다. 1단계에서 선정 기준을 확인해 주세요.";return}L.who=b.dataset.n;L.act=b.dataset.a;$("#who").value=L.who;$$("#act button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===L.act));save();d()});
+  $("#presets").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b)return;if(!r.includes(b.dataset.n)){$("#r6").innerHTML="이 인물은 현재 분석 대상에 포함되어 있지 않습니다. 1장에서 선정 기준을 확인해 주세요.";return}L.who=b.dataset.n;L.act=b.dataset.a;$("#who").value=L.who;$$("#act button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.v===L.act));save();d()});
   $("#rec6").onclick=()=>{const mut={[L.who]:L.act==="out"?null:L.act},x=idxOf(L.lens,mut,zgSideOf(mut));L.runs.push({t:`${PP[L.who].ko} ${L.act==="out"?"없음":"→ "+FN[L.act]}`,lens:L.lens,wd:L.wind?(L.wmode==="env"?"환경 조건":"제갈량 연동"):"바람 없음",i:x.i});if(L.runs.length>8)L.runs.shift();save();dRuns()};
   d();dRuns();
 }
@@ -362,7 +362,7 @@ function lib(){
   TASKS=[];
   $("#main").innerHTML=`${hero({hz:"史 料",where:"공개 데이터",title:"데이터와 집계 기준",sub:`<span class="reg rec">참고</span>자료와 집계 기준`,fx:"mist"})}
     <section class="card pane"><div class="pane-h"><h2>${ic("table")}공개 데이터의 구성</h2></div>
-      <div class="tscroll"><table class="data lib"><thead><tr><th>데이터</th><th>내용</th><th>쓰는 단계</th></tr></thead><tbody>
+      <div class="tscroll"><table class="data lib"><thead><tr><th>데이터</th><th>내용</th><th>쓰는 장</th></tr></thead><tbody>
         <tr><td>${srcB("yy","연의 등장 기록")}</td><td>제43–50회에서 추출한 인물 63명의 기록 186건입니다. 각 기록에는 해당 인물의 이름이 포함된 문단이 연결되어 있습니다.</td><td>1 명단 · 2 등장 문단 수 · 3 지표</td></tr>
         <tr><td>${srcB("jb","정사 열전")}</td><td>인물 63명의 전기 본문입니다. 인물의 진영은 정사의 위·촉·오 분류를 따릅니다.</td><td>1 진영 · 5 · 6 정사 자료</td></tr>
         <tr><td>${srcB("jn","배송지 주석")}</td><td>배송지가 덧붙인 주석으로, 『강표전』 등 다른 문헌의 인용이 포함되어 있습니다. 이 데이터에서 바람의 방향에 관한 설명은 주석에 나타납니다.</td><td>5 본문+주석</td></tr>
@@ -370,6 +370,6 @@ function lib(){
         <tr><td><span class="sb yy">번역 문단</span></td><td>연의 문단의 한국어 번역 210개입니다. 근거 문단을 제시할 때 사용합니다.</td><td>1 · 3 · 5</td></tr>
       </tbody></table></div></section>
     <section class="card pane"><div class="pane-h"><h2>${ic("note")}지표를 만든 규칙</h2></div>
-      <ol class="rules"><li><b>등장 문단 수</b> = 이름이 포함된 문단 수입니다. 같은 문단에서 여러 번 나와도 1로 셉니다.</li><li><b>수전·화공·계책</b> = 이름이 포함된 문단(정사는 문장)에 船·舟·水軍·艦 / 火·燒·焚 / 計·謀·策 중 하나가 함께 나온 횟수입니다.</li><li><b>바람</b>(風)은 비교 점수에서는 제외하고, 6단계에서 별도의 조건으로 적용합니다.</li><li>연의는 문단, 정사는 문장을 단위로 합니다. 두 자료의 횟수를 직접 비교하지 않고 진영별 비중을 비교합니다.</li></ol></section>`;
+      <ol class="rules"><li><b>등장 문단 수</b> = 이름이 포함된 문단 수입니다. 같은 문단에서 여러 번 나와도 1로 셉니다.</li><li><b>수전·화공·계책</b> = 이름이 포함된 문단(정사는 문장)에 船·舟·水軍·艦 / 火·燒·焚 / 計·謀·策 중 하나가 함께 나온 횟수입니다.</li><li><b>바람</b>(風)은 비교 점수에서는 제외하고, 6장에서 별도의 조건으로 적용합니다.</li><li>연의는 문단, 정사는 문장을 단위로 합니다. 두 자료의 횟수를 직접 비교하지 않고 진영별 비중을 비교합니다.</li></ol></section>`;
 }
 const RENDER=[home,s1,s2,s3,s4,s5,s6,lib];

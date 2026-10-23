@@ -13,7 +13,7 @@ try{
  route('s1');
  for(let i=1;i<6;i++){
   const next=d.querySelector('#main>.pager a:last-child');assert.equal(next.getAttribute('href'),'#s'+(i+1));
-  assert.ok(next.textContent.includes((i+1)+'단계로 이동'));
+  assert.ok(next.textContent.includes((i+1)+'장으로 이동'));
   const event=new w.MouseEvent('click',{bubbles:true,cancelable:true,button:0});
   assert.equal(next.dispatchEvent(event),false,'internal stage link prevents a full-document navigation');
   assert.equal(w.location.hash,'#s'+(i+1));assert.equal(e('cur'),i+1);assert.equal(d.querySelector('.experiment-opening'),null,'next step must not render the home question');

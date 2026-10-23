@@ -34,7 +34,7 @@ applyScenarioText=function(){
  const grid=$("#wiGrid");if(!grid)return;
  const cards=[...grid.querySelectorAll(".wi-card")];
  grid.classList.remove("wi-grid");grid.classList.add("lab-levels");
- grid.innerHTML=[1,2,3].map(lv=>`<section class="lab-level" data-level="${lv}"><header><span class="num">${lv}</span><h2>${LEVELS[lv].name}</h2></header><div class="wi-grid"></div></section>`).join("");
+ grid.innerHTML=[1,2,3].map(lv=>`<section class="lab-level" data-level="${lv}"><header><span class="num">레벨 ${lv}</span><h2>${LEVELS[lv].name}</h2></header><div class="wi-grid"></div></section>`).join("");
  cards.forEach(c=>{const x=WHATIFS.find(w=>w.id===c.dataset.id);grid.querySelector(`.lab-level[data-level="${x.level}"] .wi-grid`).append(c)});
 }})();
 

@@ -5,15 +5,15 @@ const WI_W={base:null,fire0:{ship:3,fire:0,plan:2},ship:{ship:5,fire:0,plan:0},p
 const WI_WIND={env:"바람은 날씨 (연합군 +10)",zg:"바람은 제갈량이 부름 (제갈량 편 +10)",none:"바람 없음"};
 const WI_KIND={move:"인물 옮기기",drop:"인물 빼기",cond:"조건 바꾸기",multi:"여러 조건",source:"기록 바꾸기"};
 const WHATIFS=[
- {id:"zg",kind:"move",q:"제갈량이 조조 편이었다면?",mut:{"諸葛亮":"wei"},review:"6단계"},
- {id:"zy",kind:"move",q:"주유가 조조 편이었다면?",mut:{"周瑜":"wei"},review:"6단계"},
- {id:"hg",kind:"move",q:"황개의 거짓 항복이 진짜였다면?",mut:{"黃蓋":"wei"},review:"6단계",note:"황개는 거짓으로 항복한 뒤 불붙은 배로 조조의 함대에 들어갔습니다."},
- {id:"zyout",kind:"drop",q:"주유가 병으로 빠졌다면?",mut:{"周瑜":null},review:"2단계 · 한 사람의 무게"},
- {id:"ptout",kind:"drop",q:"방통이 없었다면?",mut:{"龐統":null},review:"2단계 · 한 사람의 무게",note:"방통은 조조에게 배를 서로 묶으라고 권한 인물입니다."},
- {id:"nowind",kind:"cond",q:"바람이 불지 않았다면?",wind:"none",review:"6단계 · 가정"},
- {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"5단계 · 숫자의 뜻",note:"조조의 '불' 점수는 불을 지른 기록이 아니라 불에 당한 기록이었습니다."},
+ {id:"zg",kind:"move",q:"제갈량이 조조 편이었다면?",mut:{"諸葛亮":"wei"},review:"6장"},
+ {id:"zy",kind:"move",q:"주유가 조조 편이었다면?",mut:{"周瑜":"wei"},review:"6장"},
+ {id:"hg",kind:"move",q:"황개의 거짓 항복이 진짜였다면?",mut:{"黃蓋":"wei"},review:"6장",note:"황개는 거짓으로 항복한 뒤 불붙은 배로 조조의 함대에 들어갔습니다."},
+ {id:"zyout",kind:"drop",q:"주유가 병으로 빠졌다면?",mut:{"周瑜":null},review:"2장 · 한 사람의 무게"},
+ {id:"ptout",kind:"drop",q:"방통이 없었다면?",mut:{"龐統":null},review:"2장 · 한 사람의 무게",note:"방통은 조조에게 배를 서로 묶으라고 권한 인물입니다."},
+ {id:"nowind",kind:"cond",q:"바람이 불지 않았다면?",wind:"none",review:"6장 · 가정"},
+ {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"5장 · 숫자의 뜻",note:"조조의 '불' 점수는 불을 지른 기록이 아니라 불에 당한 기록이었습니다."},
  {id:"combo",kind:"multi",q:"주유·황개가 조조 편이고, 바람도 없었다면?",mut:{"周瑜":"wei","黃蓋":"wei"},wind:"none",review:"종합"},
- {id:"jb",kind:"source",q:"소설 대신 역사책(정사)으로 센다면?",lens:"jb",review:"5단계 · 근거"}
+ {id:"jb",kind:"source",q:"소설 대신 역사책(정사)으로 센다면?",lens:"jb",review:"5장 · 근거"}
 ];
 const WI_STORIES={
  zg:{teaser:"제갈량의 소속을 바꾸어 봅니다",story:"소설 속 제갈량은 손권과 유비가 힘을 모으는 데 관여하고, 적벽에서는 계책을 펼칩니다.",change:"제갈량의 점수를 연합군에서 빼고 조조군에 더합니다. 다른 인물과 바람의 조건은 그대로 둡니다.",method:"제갈량의 점수를 옮겨 두 진영을 견주어 봅시다",person:"諸葛亮",metric:"plan"},
@@ -191,7 +191,7 @@ RENDER[LAB_VIEW]=()=>{
  const L=S.t.lab=S.t.lab||{b:{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"}};L.b=L.b||{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"};
  const base=wiCalc(),cur=scenario().id;
  const prog=id=>{const pack=id===cur?{prediction:S.prediction,done:S.done}:(S.scen||{})[id]||{};return {n:Object.keys(pack.done||{}).length,p:Number.isInteger(pack.prediction)}};
- const status=id=>{const {n,p}=prog(id);return n>=6?"끝까지 살펴봄":n?`${n} / 6단계`:p?"짐작을 골랐음":""};
+ const status=id=>{const {n,p}=prog(id);return n>=6?"끝까지 살펴봄":n?`${n} / 6장`:p?"짐작을 골랐음":""};
  const tried=()=>WHATIFS.filter(x=>status(x.id)).length;
  // progress is shown, not written: a check when finished, a quiet n/6 while going, an accent edge on the current question
  const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark" aria-hidden="true">${ic("check")}</i>`:n?`<i class="wi-mark num" aria-hidden="true">${n}/6</i>`:""}</button>`};
@@ -247,7 +247,7 @@ RENDER[LAB_VIEW]=()=>{
   if(btn&&footer){footer.append(btn);btn.classList.add("home-start")}
   prog.remove();main.querySelector(".journey-outline")?.remove();
   const next=ST.findIndex((e,i)=>!S.done[i+1]);
-  const steps=`<nav class="home-steps" aria-label="학습 단계">${ST.map((e,i)=>{const done=!!S.done[i+1],now=i===next;return `<a href="#${e.id}" class="${done?"done":""}${now?" now":""}"${now?' aria-current="step"':""}><span class="num">${done?ic("check"):String(i+1).padStart(2,"0")}</span><b>${esc(e.short)}</b></a>`}).join("")}</nav>`;
+  const steps=`<nav class="home-steps" aria-label="학습 장">${ST.map((e,i)=>{const done=!!S.done[i+1],now=i===next;return `<a href="#${e.id}" class="${done?"done":""}${now?" now":""}"${now?' aria-current="step"':""}><span class="num">${done?ic("check"):String(i+1).padStart(2,"0")}</span><b>${esc(e.short)}</b></a>`}).join("")}</nav>`;
   form.insertAdjacentHTML("afterend",steps);
   const replay=main.querySelector(".experiment-replay");if(replay)main.querySelector(".home-steps").after(replay);
  };

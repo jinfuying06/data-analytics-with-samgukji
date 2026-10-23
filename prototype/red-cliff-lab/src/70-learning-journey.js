@@ -8,7 +8,7 @@ const MISSION_STEPS=[
  {short:"점수의 근거 확인하기",q:"기록에서 만든 점수는 무엇까지 설명할 수 있을까요?",where:"마지막 실험을 해석할 범위",why:"인물의 점수를 옮긴다고 해서 실제 능력이 그대로 이동하는 것은 아닙니다. 연의의 근거 문단을 직접 읽고, 마지막 실험에서 말할 수 있는 범위를 정합니다.",gain:"비교 점수의 근거와 해석의 한계",card:"연의의 근거 문단을 읽고, 점수로 설명할 수 있는 것과 없는 것을 구분합니다.",say:"불에 피해를 입은 장면도 화공 점수에 포함된다면, 그 점수를 어떻게 해석해야 할까요?"},
  {short:"What-if 실험하기",q:"제갈량이 조조의 편이라면 계산 결과는 어떻게 달라질까요?",where:"준비한 기준으로 조건 변경 실험",why:"앞에서 정한 명단·지표·가중치를 사용합니다. 제갈량의 소속과 바람에 관한 가정을 바꾸고, 어떤 조건에서 결과가 달라지는지 확인합니다.",gain:"연의의 기록·조건·계산 결과를 함께 설명하는 분석 문장",card:"준비한 명단·지표·가중치로 소속을 바꾸어 계산하고, 결과가 달라진 이유를 설명합니다.",say:"어떤 자료와 가정을 사용했는지 밝히며, 소속 변경 전후의 차이를 남겨 주십시오."}
 ];
-MISSION_STEPS.forEach((m,i)=>Object.assign(ST[i],{short:m.short,q:m.q,why:m.why,gain:m.gain,where:m.where,hz:`단계 ${i+1}`,say:[ST[i].say[0],ST[i].say[1],ST[i].say[2],m.say]}));
+MISSION_STEPS.forEach((m,i)=>Object.assign(ST[i],{short:m.short,q:m.q,why:m.why,gain:m.gain,where:m.where,hz:`${i+1}장`,say:[ST[i].say[0],ST[i].say[1],ST[i].say[2],m.say]}));
 let missionResultObserver=null;
 const originalStageRenderer=stage;
 stage=function(i,tasks,steps,check){
@@ -18,13 +18,13 @@ stage=function(i,tasks,steps,check){
  const main=$("#main"),scene=main.querySelector('.scene-hero');
  scene.insertAdjacentHTML('beforebegin',`<p class="experiment-stage-context">『삼국지연의』 실험 01 <span aria-hidden="true">/</span> ${MISSION_QUESTION}</p>`);
  const brief=main.querySelector('.brief3');brief.classList.add('mission-brief');
- brief.innerHTML=`<div><span>이번 활동이 필요한 이유</span><p>${esc(ST[i-1].why)}</p></div><details><summary>${i===6?'실험 후 설명할 것':'이 단계에서 남길 것'}</summary><p>${esc(ST[i-1].gain)}</p></details>`;
+ brief.innerHTML=`<div><span>이번 활동이 필요한 이유</span><p>${esc(ST[i-1].why)}</p></div><details><summary>${i===6?'실험 후 설명할 것':'이 장에서 남길 것'}</summary><p>${esc(ST[i-1].gain)}</p></details>`;
  const caption=main.querySelector('.subtitle');if(caption)caption.remove();
  if(i===1){
   const activities=main.querySelectorAll('.stepsec'),records=activities[0],composition=activities[1];
   records.before(composition);
   composition.querySelector('.sno').textContent='STEP 1';composition.querySelector('.step-h h2').textContent='진영별 인물 구성을 확인하고 명단 정하기';composition.querySelector('.step-h p').textContent='위로 분류된 조조군과 오·촉으로 분류된 손권·유비 연합군의 인물을 살펴보세요. 등장 기준을 바꾸면 각 진영에 포함되는 인물이 어떻게 달라지는지도 확인합니다.';
-  records.querySelector('.sno').textContent='STEP 2';records.querySelector('.step-h h2').textContent='인물이 어떤 기록에 등장하는지 확인하기';records.querySelector('.step-h p').textContent='명단에 있는 인물이 소설의 어느 회차와 문단에 등장하는지 확인합니다. 다음 단계에서는 이 등장 기록을 진영별로 비교합니다.';
+  records.querySelector('.sno').textContent='STEP 2';records.querySelector('.step-h h2').textContent='인물이 어떤 기록에 등장하는지 확인하기';records.querySelector('.step-h p').textContent='명단에 있는 인물이 소설의 어느 회차와 문단에 등장하는지 확인합니다. 다음 장에서는 이 등장 기록을 진영별로 비교합니다.';
   const rosterPane=main.querySelector('#roster').closest('.pane'),rulesPane=main.querySelector('#rMin').closest('.pane');rulesPane.before(rosterPane);
   rosterPane.querySelector('h2').textContent='진영별 인물 명단';
  }
@@ -48,7 +48,7 @@ function journeyHome(){
  </section>
  <section class="journey-background" aria-labelledby="story-title"><div class="journey-story"><span class="journey-eyebrow">이야기</span><h2 id="story-title">적벽에서는 어떤 일이 있었을까요?</h2><p>조조군이 남쪽으로 내려오자 손권과 유비는 힘을 모았습니다. 연합군은 거짓 항복과 화공을 준비했고, 동남풍을 타고 번진 불길에 조조군은 물러났습니다. 제갈량은 이 과정에서 연합군의 계책과 바람에 관여합니다.</p><small>『삼국지연의』 제43–50회의 이야기를 학습을 위해 요약했습니다.</small></div></section>
  <section class="journey-condition" aria-labelledby="condition-title"><div><span class="journey-eyebrow">바꾸어 볼 조건</span><h2 id="condition-title">제갈량의 소속이 바뀌면 이야기도 달라질까요?</h2><p>이번에는 제갈량이 조조의 편에 있다고 가정합니다. 같은 인물들의 기록을 두고 소속만 바꾸면, 두 진영의 비교 결과는 어떻게 달라질까요?</p></div><div class="condition-change"><div><span>이야기 속 소속</span><b>손권·유비 연합군</b></div><span aria-hidden="true">→</span><div><span>바꾸어 볼 소속</span><b>조조군</b></div></div></section>
- <section class="background-method" aria-labelledby="method-title"><span class="journey-eyebrow">확인 방법</span><h2 id="method-title">예상을 어떻게 확인할까요?</h2><ol class="method-actions"><li><span>01</span><h3>먼저, 두 진영을 살펴봅니다.</h3><p>누가 있는지 확인하고, 각 인물의 등장 기록과 역할을 비교합니다.</p></li><li><span>02</span><h3>같은 기준으로 비교합니다.</h3><p>배·불·계책 관련 기록으로 점수를 만들고, 계산 기준과 근거를 점검합니다.</p></li><li><span>03</span><h3>소속을 바꾸어 계산합니다.</h3><p>앞에서 정한 기준을 유지한 채 제갈량의 소속을 바꾸고, 처음 예상과 결과를 비교합니다.</p></li></ol><p class="background-meta">기본 학습 6단계</p><p class="method-extension">실험 뒤에는 정사의 기록과 대조하며, 자료에 따라 해석이 달라지는지도 살펴볼 수 있습니다.</p><a href="#src">자료와 집계 기준 ${ic('right')}</a></section>
+ <section class="background-method" aria-labelledby="method-title"><span class="journey-eyebrow">확인 방법</span><h2 id="method-title">예상을 어떻게 확인할까요?</h2><ol class="method-actions"><li><span>01</span><h3>먼저, 두 진영을 살펴봅니다.</h3><p>누가 있는지 확인하고, 각 인물의 등장 기록과 역할을 비교합니다.</p></li><li><span>02</span><h3>같은 기준으로 비교합니다.</h3><p>배·불·계책 관련 기록으로 점수를 만들고, 계산 기준과 근거를 점검합니다.</p></li><li><span>03</span><h3>소속을 바꾸어 계산합니다.</h3><p>앞에서 정한 기준을 유지한 채 제갈량의 소속을 바꾸고, 처음 예상과 결과를 비교합니다.</p></li></ol><p class="background-meta">기본 학습 6장</p><p class="method-extension">실험 뒤에는 정사의 기록과 대조하며, 자료에 따라 해석이 달라지는지도 살펴볼 수 있습니다.</p><a href="#src">자료와 집계 기준 ${ic('right')}</a></section>
  <details class="journey-outline"><summary>전체 학습 과정 <span>${count} / 6 완료 ${ic('right')}</span></summary><ol>${ST.map((entry,i)=>`<li><a href="#${entry.id}"><span>${String(i+1).padStart(2,'0')}</span><b>${entry.short}</b><small>${S.done[i+1]?'완료':entry.skill}</small>${ic('right')}</a></li>`).join('')}</ol></details><button class="linkbtn experiment-replay" data-intro>처음으로 돌아가기</button>
  ${count===6?`<section class="journey-completed"><h2>이번 실험에서 남긴 학습 기록</h2><ol class="sumlist">${ST.map((entry,i)=>`<li><span class="vchip v-t">${i+1}</span><span><b>${entry.short}</b><small>${esc(S.done[i+1]||'')}</small></span></li>`).join('')}</ol><button class="btn ghost" id="reset">${ic('reset')}학습 기록 초기화하기</button></section>`:''}`;
  const form=$("#prediction-form");form.onchange=()=>{S.prediction=Number(new FormData(form).get('prediction'));save();form.querySelector('button').disabled=false;$("#prediction-status").textContent='짐작을 골랐습니다. 마지막에 결과와 비교합니다.'};
@@ -60,11 +60,11 @@ const originalRosterRenderer=RENDER[1];
 RENDER[1]=()=>{
  originalRosterRenderer();
  const pane=$("#rMin").closest('.pane');pane.querySelector('h2').textContent='누구의 기록을 비교에 포함할까요?';
- pane.querySelector('.pane-h').insertAdjacentHTML('afterend','<p class="roster-guide-intro">포함한 인물의 기록만 다음 단계에서 합치고 평균을 냅니다. 명단을 바꾸면 인원수뿐 아니라 비교에 쓰이는 기록도 달라집니다.</p>');
+ pane.querySelector('.pane-h').insertAdjacentHTML('afterend','<p class="roster-guide-intro">포함한 인물의 기록만 다음 장에서 합치고 평균을 냅니다. 명단을 바꾸면 인원수뿐 아니라 비교에 쓰이는 기록도 달라집니다.</p>');
  $("#rMin").insertAdjacentHTML('afterend','<p class="roster-control-help">기준을 낮추면 잠깐 언급된 인물도 포함됩니다. 높이면 여러 회에 등장하는 인물 위주가 되지만, 적게 등장해도 중요한 역할을 한 인물을 놓칠 수 있습니다.</p>');
  $("#rDead").insertAdjacentHTML('afterend','<p class="roster-control-help">소설에는 이미 사망한 인물의 이름도 언급됩니다. 제외하면 그 인물의 기록은 계산에서 빠집니다. 전투 당시 인물 구성을 살펴볼 때와, 이야기의 모든 언급을 셀 때는 포함 목적이 다릅니다.</p>');
  pane.querySelector('.cap').textContent='이번에는 소속 변경 전후를 비교할 명단을 정합니다. 이름이 등장했다는 사실만으로 실제 참전을 확인할 수는 없습니다.';
- const composition=$("#roster").closest('.cols');composition.insertAdjacentHTML('afterend',`<section class="roster-impact" aria-labelledby="roster-impact-title"><div class="roster-impact-heading"><span class="journey-eyebrow">기준을 바꾸면 달라지는 것</span><h3 id="roster-impact-title">명단이 바뀌면 비교에 쓰이는 숫자도 바뀝니다.</h3><p>먼저 ‘1회 이상’을 선택하고, 사망 인물을 ‘포함’했을 때도 살펴보세요. 아래에서 인원과 등장 기록의 변화를 함께 확인할 수 있습니다.</p></div><div id="roster-impact-result" aria-live="polite"></div><div class="roster-next"><b>어떤 기준을 남겨야 할까요?</b><p>주로 등장하는 인물을 볼지, 모든 언급을 볼지에 맞춰 명단을 정해 보시지요. 다음 단계의 합계·평균과 마지막 실험의 비교 점수는 이 명단으로 계산합니다. 조건 변경 전후에는 같은 명단을 사용해야 소속을 바꾼 영향을 비교할 수 있습니다.</p></div></section>`);
+ const composition=$("#roster").closest('.cols');composition.insertAdjacentHTML('afterend',`<section class="roster-impact" aria-labelledby="roster-impact-title"><div class="roster-impact-heading"><span class="journey-eyebrow">기준을 바꾸면 달라지는 것</span><h3 id="roster-impact-title">명단이 바뀌면 비교에 쓰이는 숫자도 바뀝니다.</h3><p>먼저 ‘1회 이상’을 선택하고, 사망 인물을 ‘포함’했을 때도 살펴보세요. 아래에서 인원과 등장 기록의 변화를 함께 확인할 수 있습니다.</p></div><div id="roster-impact-result" aria-live="polite"></div><div class="roster-next"><b>어떤 기준을 남겨야 할까요?</b><p>주로 등장하는 인물을 볼지, 모든 언급을 볼지에 맞춰 명단을 정해 보시지요. 다음 장의 합계·평균과 마지막 실험의 비교 점수는 이 명단으로 계산합니다. 조건 변경 전후에는 같은 명단을 사용해야 소속을 바꾼 영향을 비교할 수 있습니다.</p></div></section>`);
  let previous=[...roster()];
  const stats=names=>{const groups=[['조조군',names.filter(n=>PP[n].f==='wei')],['손권·유비 연합군',names.filter(n=>PP[n].f!=='wei')]];return groups.map(([label,list])=>{const total=list.reduce((sum,n)=>sum+PP[n].pa,0);return {label,n:list.length,total,mean:list.length?total/list.length:0}})};
  const draw=(before,initial=false)=>{const current=[...roster()],a=stats(before),b=stats(current),added=current.filter(n=>!before.includes(n)),removed=before.filter(n=>!current.includes(n));
