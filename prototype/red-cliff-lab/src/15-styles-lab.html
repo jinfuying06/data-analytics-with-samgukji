@@ -44,8 +44,9 @@
 body.experiment-home #wiPanel{margin-top:12px}
 body.experiment-home .lab-tools{margin-top:24px}
 .wi-card[hidden]{display:none!important}
-.hero-question{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;justify-self:start;padding:6px 12px;margin:2px 0 4px;border-radius:var(--r-btn,8px);background:rgba(232,118,60,.12);border:1px solid rgba(232,118,60,.35);text-decoration:none;color:#f2e9da;font-size:14px;line-height:1.4;animation:fadeup .8s .15s var(--ease-film,ease) both}
-.hero-question span{font-size:11px;letter-spacing:.1em;color:var(--flame)}
-.hero-question b{font-weight:600;word-break:keep-all}
+/* the question being tested: a quiet title line above the scene, not a button */
+.hero-question{justify-self:start;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 2px;text-decoration:none;color:var(--film-ink,#ece6d9);font-family:var(--f-display);font-size:clamp(15px,1.5vw,18px);font-weight:600;letter-spacing:-.005em;line-height:1.4;word-break:keep-all;opacity:.92;transition:opacity .2s;animation:fadeup .8s .05s var(--ease-film,ease) both}
+.hero-question span{font-family:var(--f-data,inherit);font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--flame);text-transform:uppercase}
+.hero-question:hover{opacity:1}.hero-question:focus-visible{outline:2px solid var(--wind);outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.hero-question{animation:none}}
 </style>

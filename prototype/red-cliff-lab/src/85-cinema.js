@@ -51,7 +51,7 @@ startHeroFx=function(){
     const n=/^s([1-6])$/.exec(id);
     const meta=hero.querySelector(".hero-meta .hz");
     if(n&&meta){const i=+n[1];meta.textContent=`第${SCENE_NO[i-1]}場`;
-      if(!hero.querySelector(".reel"))hero.querySelector(".hero-in")?.insertAdjacentHTML("afterbegin",`<div class="reel" aria-hidden="true">${SCENE_NO.map((_,k)=>`<i class="${k<i-1?"past":k===i-1?"now":""}"></i>`).join("")}</div>`)}
+    }  // the stage tabs already show where we are, so no extra scene counter
     nightFx(hero.querySelector("canvas"),heat);
   }else{
     const open=main.querySelector(".experiment-opening");

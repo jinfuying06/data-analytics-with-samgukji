@@ -108,7 +108,7 @@ function markScenario(){
  const x=scenario(),k=String(WHATIFS.indexOf(x)+1).padStart(2,"0"),hero=$("#main .scene-hero .hero-in");
  if(!hero||hero.querySelector(".hero-question"))return;
  const t=x.q.replace(/\s*\(.*\)\s*$/,"");
- hero.querySelector("h1")?.insertAdjacentHTML("beforebegin",`<a class="hero-question" href="#home"><span>가정 실험 ${k}</span><b>만약 ${esc(t)}</b></a>`);
+ hero.insertAdjacentHTML("afterbegin",`<a class="hero-question" href="#home"><span>가정 실험 ${k}</span>만약 ${esc(t)}</a>`);
 }
 for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText();const out=r.apply(this,arguments);if(i>=1&&i<=5)markScenario();return out}}
 
