@@ -12,7 +12,7 @@ try{
  // the lab is a list of questions; nothing is calculated there
  route('lab');assert.equal(q('#main h1').textContent,'어느 이야기를 바꾸어 보시겠습니까?');
  assert.equal(d.querySelectorAll('.wi-card').length,9);assert.equal(q('#wiPanel'),null);assert.equal(q('#wiOut'),null);
- assert.ok(q('.wi-card[data-id="zg"]').textContent.includes('지금 실험 중'));
+ assert.ok(q('.wi-card[data-id="zg"]').classList.contains('current'));assert.ok(q('.wi-card[data-id="zg"]').getAttribute('aria-label').includes('지금 실험 중'));assert.equal(q('.wi-card small'),null,'no status sentences on cards');
 
  // every question runs the same six-stage journey, but stages 1–5 look at the records that matter for it
  const expected={
@@ -63,7 +63,7 @@ try{
  assert.ok(s1Titles.size>=5,'stage 1 differs by question');assert.equal(s5Titles.size,9,'stage 5 differs by question');
 
  // each question keeps its own progress, rule and weights
- route('lab');assert.equal(q('#labCount').textContent,'9');assert.ok(q('.wi-card[data-id="zy"]').textContent.includes('끝까지 살펴봄'));
+ route('lab');assert.equal(q('#labCount').textContent,'9');assert.ok(q('.wi-card[data-id="zy"]').classList.contains('finished'));assert.ok(q('.wi-card[data-id="zy"] .wi-mark .ico'));
  e('S.w.ship=5');route('lab?question=zg');assert.equal(e('S.scenario'),'zg');assert.equal(w.location.hash,'#home');assert.equal(e('S.w.ship'),3,'weights belong to each question');
  route('s6');assert.ok(q('#mv6 .big-change').textContent.endsWith('72'),'main question keeps its own progress');assert.deepEqual(JSON.parse(e('JSON.stringify(S.t.s6d.tried)')).sort(),['env','zg']);
  assert.equal(e('S.t.s6x.who'),'諸葛亮');assert.equal(e('S.t.s6x.act'),'wei');
