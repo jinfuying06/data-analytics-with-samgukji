@@ -1,9 +1,8 @@
 /* ===== Three levels of What-if =====
    Level 1 · 세어 보기      choose among what is given (the six stages as they are)
-   Level 2 · 숫자 의심하기  find things out: sort the records before scoring (stage 3),
-                            hunt for the rule that moves the answer most (stage 4)
-   Level 3 · 가정 설계하기  set the assumptions yourself and write the conclusion (stage 6)
-   Each question keeps the same six stages; the level changes what the learner does in them. */
+   Level 2 · 숫자 의심하기  sort the records before scoring (순서 3), hunt for the lowest index (순서 4)
+   Level 3 · 가정 설계하기  set the assumptions and write the conclusion (순서 6)
+   The other 순서 of levels 2 and 3 live in 96-level-paths.js. */
 const LEVEL_OF={zg:1,zyout:1,ptout:1,zy:2,hg:2,nofire:2,nowind:3,combo:3,jb:3};
 const LEVELS=[null,{name:"세어 보기",does:"주어진 것 중에서 고릅니다"},{name:"숫자 의심하기",does:"값을 바꿔 가며 찾아냅니다"},{name:"가정 설계하기",does:"조건을 정하고 결론을 씁니다"}];
 WHATIFS.forEach(x=>x.level=LEVEL_OF[x.id]||1);
@@ -124,12 +123,12 @@ function lv3Stage6(){
     ${SHOW.includes("fire")?`<div class="field">불${seg("d6fire",[["keep","그대로"],["zero","번지지 않음 (0)"]],D.fire,"불 점수")}</div>`:""}
     ${SHOW.includes("layer")?`<div class="field">정사의 층${seg("d6lens",[["jb","본문"],["all","본문+주석"]],D.lens,"기록")}</div>`:`<div class="field">기록${seg("d6lens",[["yy","연의"],["jb","정사 본문"]],D.lens,"기록")}</div>`}</div>
     <div id="d6meter"></div></section>`)+
-  step(2,"결론을 한 문장으로 남겨 보시지요","",`<section class="card pane conclusion"><p class="conclusion-text" id="d6text"></p>
+  step(2,"결론을 한 문장으로 남겨 보시지요","",`<section class="card pane conclusion">${lv3Decided()}<p class="conclusion-text" id="d6text"></p>
     <div class="field">한계 하나를 덧붙이기<div class="pick limits" id="d6limit">${LIMITS.map((t,i)=>`<button data-v="${i}">${t}</button>`).join("")}<button data-v="own">직접 쓰기</button></div><textarea id="d6own" rows="2" maxlength="300" hidden placeholder="이 결론의 한계를 한 줄로 적어 주세요">${esc(D.own)}</textarea></div>
     <fieldset class="checks" id="d6checks"><label><input type="checkbox" data-k="assume"> 어떤 가정을 했는지 적었다</label><label><input type="checkbox" data-k="range"> 어떤 기록을 셌는지 적었다</label><label><input type="checkbox" data-k="hedge"> ‘이겼다’고 단정하지 않았다</label></fieldset>
     <button class="btn" id="d6save" disabled>결론 남기기</button></section>`)+
   reveal('s6name')+`<div class="named-wrap" id="s6pred" hidden></div>`,
-  {q:"좋은 What-if 결론의 조건은?",opts:["숫자 하나로 승패를 말합니다.","어떤 가정과 기록에서 나온 숫자인지, 그리고 한계를 함께 말합니다.","가정은 적지 않아도 됩니다."],ok:1,
+  {q:`‘${q}’에 대한 결론으로 가장 알맞은 것은?`,opts:[`${q.replace(/\?$/,"")}, 조조가 이겼을 것입니다.`,`정한 가정과 기록에서 지수는 ${cur()}(${wiVerdict(cur())})이고, 글자를 센 숫자라는 한계가 있습니다.`,"가정마다 숫자가 달라지므로 아무 말도 할 수 없습니다."],ok:1,
    good:"가정과 기록과 한계를 함께 적으면, 다른 사람도 같은 계산을 다시 해 볼 수 있습니다.",bad:"방금 쓴 결론에 무엇이 들어 있었는지 다시 살펴보시지요.",ev:()=>S.reflection||sentence()});
  simplifyStage(6);
  const draw=()=>{

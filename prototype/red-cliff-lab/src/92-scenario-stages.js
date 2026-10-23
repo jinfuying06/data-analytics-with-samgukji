@@ -141,8 +141,8 @@ function scStage1({x,c}){
  const must=(c.who||[]);
  originalStageRenderer(1,[["s1","cards","네 사람 정하기"]],
   step(1,esc(c.s1.title),"",`<div class="pcards" id="pcards">${cards}</div>`)+`<section class="stepsec" id="s1reveal" hidden></section>`,
-  {q:"기록을 살펴보니, 무엇을 알 수 있었습니까?",opts:["기록만 보면 셀 사람이 저절로 정해집니다.","누구를 명단에 올리느냐에 따라 숫자가 달라집니다.","이름이 나온 사람은 모두 싸움에 참여했습니다."],ok:1,
-   good:"이름이 나온 사람을 모두 세면 분석에 맞지 않는 인물도 포함되지요. 먼저 누구를 셀지 정해야 하는 까닭입니다.",bad:"이미 세상을 떠난 사람처럼, 이름만 언급된 인물을 다시 떠올려 보시지요.",
+  {q:(()=>{const dn=scKo(c.s1.cards.find(r=>r[1]==="dead")[0]);return `이미 세상을 떠난 ${dn}까지 명단에 넣으면 어떻게 될까요?`})(),opts:["명단이 더 정확해집니다.","이 싸움에 없던 사람의 기록까지 숫자에 섞입니다.","아무것도 달라지지 않습니다."],ok:1,
+   good:"이름이 나왔다고 모두 이 싸움에 있던 것은 아니지요. 누구를 세느냐에 따라 숫자가 달라지므로, 먼저 기준을 정합니다.",bad:"이미 세상을 떠난 사람이 이 싸움에 나올 수 있었는지 다시 생각해 보시지요.",
    ev:()=>{const t=rosterTotals();return `내 기준: ${S.rule.min}회 이상 · 죽은 사람 ${S.rule.dead?'뺌':'셈'} → 조조군 ${t.wei}명, 연합군 ${t.ally}명`}});
  simplifyStage(1);
  const role=r=>c.s1.cards.find(cd=>cd[1]===r)[0];
@@ -222,8 +222,11 @@ function scStage3({x,c}){
  originalStageRenderer(3,[["s3","weight","점수 정하기"]],
   step(1,c.who?`${c.who.map(scKo).join("·")}의 기록을 셉니다`:c.topic==="wind"?"바람도 세어 봅니다":c.topic==="fire"?"두 사람의 ‘불’ 기록":"두 책에서 같은 사람을 셉니다","",`<section class="card pane">${examples}${note}</section>`)+
   step(2,"무엇에 무게를 둘지 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 정하기</button></section><section class="card pane simple-result"><p class="simple-note">두 진영의 점수${lens==="jb"?" (정사 본문)":""}</p><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+reveal('s3name'),
-  {q:"이 점수가 재는 것은 무엇일까요?",opts:["장수의 실제 능력입니다.","인물의 이름과 배·불·계책 글자가 함께 나온 정도입니다.","전투에서 세운 공입니다."],ok:1,
-   good:"글자를 센 숫자이지 실력 그 자체는 아닙니다. 그래도 모두에게 같은 규칙을 쓰면 비교할 수 있습니다.",bad:"첫 활동에서 무엇을 세었는지 떠올려 보시지요.",
+  {...(c.who?{q:`${c.who.map(scKo).join("·")}의 점수가 ${c.verb==="빼기"?"빠지면":"옮겨 가면"}, 무엇이 함께 움직일까요?`,opts:["그 사람의 실제 능력이 움직입니다.","그 사람의 이름과 배·불·계책 글자가 함께 나온 기록이 움직입니다.","두 편의 점수는 그대로입니다."],ok:1,
+    good:"옮겨 가거나 빠지는 것은 사람의 실력이 아니라, 기록에서 센 숫자입니다. 그래서 무엇을 셌는지가 결론의 뜻을 정하지요.",bad:"점수를 무엇으로 만들었는지 다시 떠올려 보시지요."}
+   :c.topic==="wind"?{q:"바람을 배·불·계책 점수에 넣지 않은 까닭은?",opts:["바람은 기록에 나오지 않아서","바람이 사람의 능력인지 날씨인지 기록만으로 정할 수 없어서","바람은 결과와 관계없어서"],ok:1,good:"해석이 갈리는 것은 점수에 섞지 않고, 따로 가정으로 둡니다.",bad:"바람이 누구의 것인지 기록이 말해 주는지 다시 생각해 보시지요."}
+   :c.topic==="fire"?{q:"‘불’에 준 점수가 클수록 이번 질문은 어떻게 될까요?",opts:["불 점수를 0으로 둘 때 달라지는 폭이 커집니다.","아무 차이가 없습니다.","연합군 점수만 줄어듭니다."],ok:0,good:"불에 무게를 많이 둘수록, 불을 없애는 가정의 영향도 커집니다.",bad:"불 점수를 0으로 바꾸면 무엇이 빠지는지 다시 보시지요."}
+   :{q:"소설과 정사의 점수를 그대로 견주지 않는 까닭은?",opts:["정사가 더 정확해서","소설은 문단을, 정사는 문장을 세어 단위가 다르기 때문에","두 책의 인물이 달라서"],ok:1,good:"단위가 다른 숫자는 비중(%)으로 바꾸어 견줍니다.",bad:"두 책에서 무엇을 세었는지 다시 보시지요."}),
    ev:()=>{const s=fs(lens);return `점수(배 ${S.w.ship}·불 ${S.w.fire}·계책 ${S.w.plan}): 연합군 ${s.wu+s.shu} vs 조조군 ${s.wei}`}});
  simplifyStage(3);
  const draw=()=>{
@@ -250,7 +253,7 @@ function scStage4({x,c}){
  originalStageRenderer(4,[["s4","run","모든 점수 규칙 계산하기"]],
   step(1,c.topic==="wind"?"바람 보너스를 달리 두면":"이런 점수 규칙도 생각해 볼 수 있지요","",`<div class="pcards three" id="friends">${FRIENDS.map(([t,w],i)=>`<div class="pcard"><div class="pcard-h"><b>“${t}”</b></div><p class="pcard-fact">${typeof w==="number"?`바람 +${w}`:`배 ${w.ship} · 불 ${w.fire} · 계책 ${w.plan}`}</p><button class="btn ghost" data-i="${i}">이 규칙으로 계산</button><p class="pcard-tip" hidden></p></div>`).join('')}</div>`)+
   step(2,"가능한 점수 규칙을 모두 살펴보시지요","",`<section class="card pane"><p class="simple-note">${c.topic==="fire"?"불 점수를 0으로 둔 채, 배·계책에 0~5점을 주는 모든 경우는 "+combos.length+"가지입니다.":"배·불·계책에 0~5점을 주는 모든 경우는 215가지입니다."} 각 경우마다 이번 질문의 조건을 적용해 계산합니다.</p><button class="btn" id="runAll">${combos.length}가지 전부 계산하기</button><div id="allRes"></div></section>`)+reveal('s4name'),
-  {q:"점수 규칙을 다 바꿔 봐도 같은 판정이 많이 나왔다면?",opts:["점수 규칙은 어떻게 정해도 상관없습니다.","살펴본 범위에서 이번 질문의 결론이 점수 규칙에 크게 흔들리지 않습니다.","결론이 반드시 맞습니다."],ok:1,
+  {q:c.topic==="wind"?"바람 보너스와 점수 규칙을 바꿔 봐도 판정이 같다면, ‘바람이 불지 않았다면?’에 대해 말할 수 있는 것은?":`점수 규칙을 다 바꿔 봐도 ‘${x.q.replace(/\s*\(.*\)\s*$/,"").replace(/\?$/,"")}’의 판정이 대부분 같았다면?`,opts:["점수 규칙은 어떻게 정해도 상관없습니다.","살펴본 범위에서 이번 질문의 결론이 점수 규칙에 크게 흔들리지 않습니다.","결론이 반드시 맞습니다."],ok:1,
    good:"규칙을 바꿔도 같은 답이 나오면 그 답을 더 믿을 수 있습니다. 다만 '이 기록으로 센 점수'라는 조건은 남습니다.",bad:"전부 계산한 결과를 다시 살펴보시지요.",
    ev:()=>`${L4.tot}가지 중 ${L4.same}가지에서 판정 '${curV}' 유지 · 범위 ${L4.min}~${L4.max}`});
  simplifyStage(4);

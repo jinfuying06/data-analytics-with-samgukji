@@ -2,7 +2,7 @@ const {JSDOM,VirtualConsole}=require(process.env.SAMGUKJI_JSDOM_PATH||'jsdom');
 const fs=require('node:fs'),assert=require('node:assert/strict');
 const errors=[];const vc=new VirtualConsole();vc.on('jsdomError',e=>errors.push(e.message));
 const dom=new JSDOM(fs.readFileSync('dist/index.html','utf8'),{url:'https://example.test/',runScripts:'dangerously',pretendToBeVisual:true,virtualConsole:vc,beforeParse(w){w.matchMedia=()=>({matches:true});w.scrollTo=()=>{};w.HTMLCanvasElement.prototype.getContext=()=>null;w.localStorage.setItem('redcliff-v8',JSON.stringify({done:{},t:{},rule:{min:2,dead:1},w:{ship:3,fire:3,plan:2},seenIntro:1}))}});
-const w=dom.window,d=w.document,ev=s=>w.eval(s),route=id=>ev(`location.hash='#${id}';route()`),click=s=>{assert.ok(d.querySelector(s),s);d.querySelector(s).click()},answer=()=>click('#vbox .opt[data-i="1"]');
+const w=dom.window,d=w.document,ev=s=>w.eval(s),route=id=>ev(`location.hash='#${id}';route()`),click=s=>{assert.ok(d.querySelector(s),s);d.querySelector(s).click()},answer=()=>click('#vbox .opt[data-i="'+d.querySelector('#vbox').dataset.ok+'"]');
 // Visible text length: skips hidden nodes and the bodies of closed <details>.
 const visible=root=>{let t='';const walk=n=>{for(const c of n.childNodes){if(c.nodeType===3){t+=c.textContent;continue}if(c.nodeType!==1||['SCRIPT','STYLE','svg','CANVAS','NAV'].includes(c.tagName)||c.hidden)continue;if(c.tagName==='DETAILS'&&!c.open){t+=c.querySelector(':scope>summary')?.textContent||'';continue}walk(c)}};walk(root);return t.replace(/\s+/g,' ').trim().length};
 try{
