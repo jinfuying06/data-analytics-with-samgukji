@@ -10,7 +10,7 @@ journeyHome=function(){
  main.querySelector('.experiment-river figcaption')?.remove();
  main.querySelector('.experiment-edition').textContent='『삼국지연의』로 해 보는 데이터 실험';
  main.querySelector('.experiment-heading').insertAdjacentHTML('beforeend',
-  `<p class="simple-story"><span class="keeper-welcome">오셨군요. 지난날의 기록을 함께 펼쳐 보시지요.</span>208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다.<br><b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
+  `<p class="simple-story"><span class="keeper-welcome">오셨군요. 지난날의 기록을 함께 펼쳐 보시지요.</span>208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다. <b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
  main.querySelector('.prediction-form legend').textContent='먼저 짐작해 보시지요';
  for(const sel of ['.journey-background','.journey-condition','.background-method'])main.querySelector(sel)?.remove();
  const status=$("#prediction-status");if(status&&!Number.isInteger(S.prediction))status.textContent='';
@@ -63,7 +63,7 @@ const PEOPLE1=[
  {n:"曹操",fact:"적벽 편 모든 회에 나옴",tip:"조조군을 이끈 인물이지요. 명단에서 빼면 조조의 기록도 계산에서 빠집니다."},
  {n:"許褚",fact:"2회 나옴",tip:"조조의 호위 장수이지요. 이 이야기에서는 두 회에 등장합니다."},
  {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급되는군요. 이번 분석에 포함할지 생각해 보시지요."},
- {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적<small class=\"pcard-why\">데이터에 '위'로 들어간 이유: 역사책(정사)이 원소의 전기를 「위서」에 실어서</small>",tip:"원소는 조조의 옛 적이지요. 여기서는 이름만 언급됩니다. 자료의 ‘위’ 분류를 곧바로 조조군 소속으로 읽어서는 곤란하겠지요."}
+ {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적<small class=\"pcard-why\">데이터에 '위'로 들어간 이유: 역사책⁠(정사)이 원소의 전기를 「위서」에 실어서</small>",tip:"원소는 조조의 옛 적이지요. 여기서는 이름만 언급됩니다. 자료의 ‘위’ 분류를 곧바로 조조군 소속으로 읽어서는 곤란하겠지요."}
 ];
 const rosterTotals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==='wei').length;return {all:r.length,wei:w,ally:r.length-w}};
 RENDER[1]=()=>{

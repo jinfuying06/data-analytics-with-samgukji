@@ -13,7 +13,7 @@ const WHATIFS=[
  {id:"nowind",kind:"cond",q:"바람이 불지 않았다면?",wind:"none",review:"순서 6 · 가정"},
  {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"순서 5 · 숫자의 뜻",note:"조조의 '불' 점수는 불을 지른 기록이 아니라 불에 당한 기록이었습니다."},
  {id:"combo",kind:"multi",q:"주유·황개가 조조 편이고, 바람도 없었다면?",mut:{"周瑜":"wei","黃蓋":"wei"},wind:"none",review:"종합"},
- {id:"jb",kind:"source",q:"소설 대신 역사책(정사)으로 센다면?",lens:"jb",review:"순서 5 · 근거"}
+ {id:"jb",kind:"source",q:"소설 대신 역사책⁠(정사)으로 센다면?",lens:"jb",review:"순서 5 · 근거"}
 ];
 const WI_STORIES={
  zg:{teaser:"제갈량의 소속을 바꾸어 봅니다",story:"소설 속 제갈량은 손권과 유비가 힘을 모으는 데 관여하고, 적벽에서는 계책을 펼칩니다.",change:"제갈량의 점수를 연합군에서 빼고 조조군에 더합니다. 다른 인물과 바람의 조건은 그대로 둡니다.",method:"제갈량의 점수를 옮겨 두 진영을 견주어 봅시다",person:"諸葛亮",metric:"plan"},
@@ -43,7 +43,7 @@ const wiJosa=(w,a,b)=>{const c=w.charCodeAt(w.length-1)-44032;return c>=0&&c<111
 function wiAssume(x){
  const wt=x.w?WI_W[x.w]:S.w;
  const moves=Object.entries(x.mut||{}).map(([n,f])=>f===null?`${PP[n].ko} 빼기`:`${PP[n].ko} → ${f==="wei"?"조조군":"연합군"}`);
- return [moves.length?moves.join(", "):"인물 그대로",WI_WIND[x.wind||"env"],`점수 배${wt.ship}·불${wt.fire}·계책${wt.plan}`,x.lens==="jb"?"기록: 역사책(정사) 본문":"기록: 『삼국지연의』",`명단: ${S.rule.min}회 이상${S.rule.dead?", 사망자 제외":""}`].join(" · ");
+ return [moves.length?moves.join(", "):"인물 그대로",WI_WIND[x.wind||"env"],`점수 배${wt.ship}·불${wt.fire}·계책${wt.plan}`,x.lens==="jb"?"기록: 역사책⁠(정사) 본문":"기록: 『삼국지연의』",`명단: ${S.rule.min}회 이상${S.rule.dead?", 사망자 제외":""}`].join(" · ");
 }
 function wiMeter(base,now){
  return `<div class="meter wi-meter"><div class="meter-row"><span class="big num">${base.i} → ${now.i}</span><span class="verdict">${wiVerdict(now.i)}</span></div><div class="track" aria-hidden="true"><i class="pin ghost" style="left:calc(${base.i}% - 2px)"></i><i class="pin" style="left:calc(${now.i}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>
@@ -59,7 +59,7 @@ const WI_PRED=[["up","연합군에 더 유리해질 것 같습니다"],["same","
    Each question keeps its own progress, roster rule and weights; stages 1–5 look at
    the records that matter for it (see 92-scenario-stages.js). */
 const WI_JOURNEY={
- zg:{title:"제갈량이<br>조조의 편이었다면?",act:"제갈량을 조조 편으로 옮기기",did:"제갈량의 점수가 조조군으로 옮겨 갔습니다. 바람은 그대로 연합군 편이라고 두었습니다.",todo:"제갈량을 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"제갈량을 옮기기 전에",uses:"제갈량을 옮기면 이 점수도 옮겨 갑니다.",
+ zg:{title:"제갈량이 조조의 편이었다면?",act:"제갈량을 조조 편으로 옮기기",did:"제갈량의 점수가 조조군으로 옮겨 갔습니다. 바람은 그대로 연합군 편이라고 두었습니다.",todo:"제갈량을 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"제갈량을 옮기기 전에",uses:"제갈량을 옮기면 이 점수도 옮겨 갑니다.",
   altQ:"그런데 바람은 누가 불게 했을까요?",opts:[["env","바람은 환경 조건입니다","바람이 그냥 날씨라면, 제갈량이 옮겨 가도 바람은 그대로 연합군 편입니다.",{}],["zg","바람이 제갈량을 따라갑니다","제갈량이 바람을 부른다면, 바람도 조조군 편으로 붑니다.",{wind:"zg"}]]},
  zy:{act:"주유를 조조 편으로 옮기기",did:"주유의 점수가 조조군으로 옮겨 갔습니다. 바람은 날씨로 두었습니다.",todo:"주유를 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"주유를 옮기기 전에",uses:"주유를 옮기면 이 점수도 옮겨 갑니다.",
   altQ:"그날 밤 바람마저 불지 않았다면?",opts:[["env","바람은 그대로 불었습니다","바람은 날씨로 두고, 연합군에 더한 +10을 그대로 둡니다.",{}],["none","바람도 불지 않았습니다","바람 보너스까지 빼면 이렇게 됩니다.",{wind:"none"}]]},
@@ -73,9 +73,9 @@ const WI_JOURNEY={
   altQ:"바람이 없으면 불도 번지지 않았을까요?",opts:[["keep","불 점수는 그대로입니다","기록 속 ‘불’ 점수는 그대로 둡니다.",{}],["fire0","불 점수도 0으로 둡니다","바람이 없어 불도 번지지 않았다고 보면 이렇게 됩니다.",{w:"fire0"}]]},
  nofire:{title:"화공이 통하지 않았다면?",act:"불 점수를 0으로 바꾸기",did:"두 진영 모두 ‘불’ 기록의 점수를 0으로 바꾸었습니다. 바람은 날씨로 두었습니다.",todo:"불 점수를 0으로 바꾼 뒤, 다른 점수 가정도 바꾸어 보시지요.",before:"불 점수를 바꾸기 전에",uses:"불 점수를 0으로 두면 이 점수가 다시 계산됩니다.",
   altQ:"불 대신 배 싸움으로만 겨루었다면?",opts:[["keep","배·계책 점수는 그대로입니다","배와 계책 점수는 앞에서 정한 대로 둡니다.",{}],["ship","배 점수만 남깁니다","배 싸움만 따진다면 이렇게 됩니다.",{w:"ship"}]]},
- combo:{title:"주유·황개가 조조 편이고,<br>바람도 없었다면?",act:"주유·황개를 옮기고 바람 빼기",did:"주유와 황개의 점수가 조조군으로 옮겨 갔고, 바람 보너스도 뺐습니다.",todo:"두 사람을 옮기고 바람을 뺀 뒤, 바람 가정을 되돌려 보시지요.",before:"두 사람을 옮기기 전에",uses:"주유와 황개를 옮기면 이 점수도 옮겨 갑니다.",
+ combo:{title:"주유·황개가 조조 편이고, 바람도 없었다면?",act:"주유·황개를 옮기고 바람 빼기",did:"주유와 황개의 점수가 조조군으로 옮겨 갔고, 바람 보너스도 뺐습니다.",todo:"두 사람을 옮기고 바람을 뺀 뒤, 바람 가정을 되돌려 보시지요.",before:"두 사람을 옮기기 전에",uses:"주유와 황개를 옮기면 이 점수도 옮겨 갑니다.",
   altQ:"바람만은 그대로 불었다면?",opts:[["none","바람도 불지 않았습니다","질문대로 바람 보너스를 뺍니다.",{}],["env","바람은 그대로 불었습니다","바람을 날씨로 되돌리면 이렇게 됩니다.",{wind:"env"}]]},
- jb:{title:"소설 대신<br>역사책(정사)으로 센다면?",act:"정사 본문으로 바꿔 세기",did:"같은 명단과 점수 규칙으로 정사 본문을 다시 세었습니다.",todo:"정사 본문으로 바꿔 센 뒤, 주석까지 넣어 보시지요.",before:"기록을 바꾸기 전에",uses:"정사로 세면 이 점수가 다시 계산됩니다.",
+ jb:{title:"소설 대신 역사책⁠(정사)으로 센다면?",act:"정사 본문으로 바꿔 세기",did:"같은 명단과 점수 규칙으로 정사 본문을 다시 세었습니다.",todo:"정사 본문으로 바꿔 센 뒤, 주석까지 넣어 보시지요.",before:"기록을 바꾸기 전에",uses:"정사로 세면 이 점수가 다시 계산됩니다.",
   altQ:"배송지의 주석까지 함께 센다면?",opts:[["jb","정사 본문만 셉니다","정사 본문의 문장만 셉니다.",{}],["all","주석까지 함께 셉니다","배송지 주석까지 더해 세면 이렇게 됩니다.",{lens:"all"}]]}
 };
 const scenario=()=>WHATIFS.find(x=>x.id===S.scenario)||WHATIFS[0];
@@ -121,7 +121,7 @@ for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText()
   const ed=main.querySelector(".experiment-edition");if(ed)ed.innerHTML=`『삼국지연의』로 해 보는 데이터 실험 <span>${String(k).padStart(2,"0")}</span>`;
   if(x.id!=="zg"){
    main.querySelector("#experiment-title").innerHTML=`만약 ${j.title||esc(x.q.replace(/\s*\(.*\)\s*$/,""))}`;
-   const st=main.querySelector(".simple-story");const hi=st?.querySelector(".keeper-welcome")?.outerHTML||"";if(st)st.innerHTML=`${hi}${esc(WI_STORIES[x.id].story)}<br><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,"").replace(/\?$/,""))}</b>, 결과는 어떻게 달라졌을까요?`;
+   const st=main.querySelector(".simple-story");const hi=st?.querySelector(".keeper-welcome")?.outerHTML||"";if(st)st.innerHTML=`${hi}${esc(WI_STORIES[x.id].story)} <b>${esc(x.q.replace(/\s*\(.*\)\s*$/,"").replace(/\?$/,""))}</b>, 결과는 어떻게 달라졌을까요?`;
   }
   // a new question always starts with its own prediction
   const form=$("#prediction-form");
@@ -197,7 +197,7 @@ RENDER[LAB_VIEW]=()=>{
  const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark" aria-hidden="true">${ic("check")}</i>`:n?`<i class="wi-mark num" aria-hidden="true">${n}/6</i>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
- $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를<br>바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
+ $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
  <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  <details class="lab-tools"><summary>직접 질문을 만들거나 기록의 범위 살펴보기</summary>
  ${step(2,"직접 만들기","인물·바람·점수·기록을 골라, 궁금하신 질문을 만들어 보시지요.",`<section class="card pane wi-builder">
@@ -221,7 +221,7 @@ RENDER[LAB_VIEW]=()=>{
   else if(n in mut)parts.push(`${ko}${wiJosa(ko,"이","가")} ${mut[n]==="wei"?"조조":"연합군"} 편이었다면`);
   if(b.wind==="none")parts.push("바람이 불지 않았다면");else if(b.wind==="zg")parts.push("바람을 제갈량이 불렀다면");
   if(b.w==="fire0")parts.push("화공이 통하지 않았다면");else if(b.w==="ship")parts.push("배 싸움만 따진다면");else if(b.w==="plan")parts.push("계책만 따진다면");
-  if(b.lens==="jb")parts.push("역사책(정사)으로 센다면");
+  if(b.lens==="jb")parts.push("역사책⁠(정사)으로 센다면");
   const sameSide=(b.act==="wei"&&PP[n].f==="wei")||(b.act==="ally"&&PP[n].f!=="wei");
   $("#wbQ").innerHTML=parts.length?`만약 ${parts.map(esc).join(" · ")}?`:`<span class="simple-note">${sameSide?`${esc(ko)}${wiJosa(ko,"은","는")} 이미 그 편입니다. 다른 조건을 골라 보시지요.`:"바꿀 조건을 하나 이상 골라 보시지요."}</span>`;
   const x={mut,wind:b.wind,w:b.w==="base"?null:b.w,lens:b.lens};
