@@ -56,8 +56,8 @@ const WI_PRED=[["up","연합군에 더 유리해질 것 같습니다"],["same","
    Picking a question makes it the active scenario. The home screen, the six stages
    and the stage 6 experiment then use that question: story → prediction → stages →
    apply the change → change one assumption → compare with the prediction.
-   Stages 1–5 build the shared roster and score, so they are done once; the
-   prediction, reflection and stage 6 progress belong to each question. */
+   Each question keeps its own progress, roster rule and weights; stages 1–5 look at
+   the records that matter for it (see 92-scenario-stages.js). */
 const WI_JOURNEY={
  zg:{title:"제갈량이<br>조조의 편이었다면?",act:"제갈량을 조조 편으로 옮기기",did:"제갈량의 점수가 조조군으로 옮겨 갔습니다. 바람은 그대로 연합군 편이라고 두었습니다.",todo:"제갈량을 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"제갈량을 옮기기 전에",uses:"제갈량을 옮기면 이 점수도 옮겨 갑니다.",
   altQ:"그런데 바람은 누가 불게 했을까요?",opts:[["env","바람은 환경 조건입니다","바람이 그냥 날씨라면, 제갈량이 옮겨 가도 바람은 그대로 연합군 편입니다.",{}],["zg","바람이 제갈량을 따라갑니다","제갈량이 바람을 부른다면, 바람도 조조군 편으로 붑니다.",{wind:"zg"}]]},
@@ -82,11 +82,15 @@ const scenario=()=>WHATIFS.find(x=>x.id===S.scenario)||WHATIFS[0];
 function setScenario(id){
  const next=WHATIFS.find(x=>x.id===id)?id:"zg",cur=S.scenario||"zg";
  if(next===cur){S.scenario=cur;return}
+ // each question is its own journey: roster rule, weights, stage progress, prediction and notes
+ const keep={lab:S.t.lab,sourceScope:S.t.sourceScope},t={...S.t};delete t.lab;delete t.sourceScope;
  S.scen=S.scen||{};
- S.scen[cur]={prediction:S.prediction,reflection:S.reflection,done6:S.done[6],s6:S.t.s6,s6d:S.t.s6d,s6x:S.t.s6x};
+ S.scen[cur]={prediction:S.prediction,reflection:S.reflection,done:{...S.done},t,rule:{...S.rule},w:{...S.w}};
  const n=S.scen[next]||{};
- const put=(o,k,v)=>{if(v===undefined)delete o[k];else o[k]=v};
- put(S,"prediction",n.prediction);put(S,"reflection",n.reflection);put(S.done,6,n.done6);put(S.t,"s6",n.s6);put(S.t,"s6d",n.s6d);put(S.t,"s6x",n.s6x);
+ if(n.prediction===undefined)delete S.prediction;else S.prediction=n.prediction;
+ if(n.reflection===undefined)delete S.reflection;else S.reflection=n.reflection;
+ S.done={...(n.done||{})};S.t={...(n.t||{})};if(keep.lab)S.t.lab=keep.lab;if(keep.sourceScope)S.t.sourceScope=keep.sourceScope;
+ S.rule={...(n.rule||{min:2,dead:1})};S.w={...(n.w||{ship:3,fire:3,plan:2})};
  S.scenario=next;save();
 }
 /* stage texts that name the question follow the active scenario */
@@ -187,13 +191,13 @@ RENDER[LAB_VIEW]=()=>{
  document.body.classList.remove("experiment-home");TASKS=[];
  const L=S.t.lab=S.t.lab||{b:{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"}};L.b=L.b||{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"};
  const base=wiCalc(),cur=scenario().id;
- const status=id=>{const pack=id===cur?{prediction:S.prediction,done6:S.done[6]}:(S.scen||{})[id]||{};return pack.done6?"끝까지 살펴봄":Number.isInteger(pack.prediction)?"짐작을 남김":""};
+ const status=id=>{const pack=id===cur?{prediction:S.prediction,done:S.done}:(S.scen||{})[id]||{};const n=Object.keys(pack.done||{}).length;return n>=6?"끝까지 살펴봄":n?`${n} / 6단계`:Number.isInteger(pack.prediction)?"짐작을 골랐음":""};
  const tried=()=>WHATIFS.filter(x=>status(x.id)).length;
  const card=(x,i)=>{const st=status(x.id);return `<button class="wi-card${st?" tried":""}" data-id="${x.id}" ${x.id===cur?'aria-current="true"':''}><span class="wi-kind">기록 실험 ${String(i+1).padStart(2,"0")}${x.id===cur?" · 지금 실험 중":""}</span><b>${esc(x.q)}</b><small>${esc(WI_STORIES[x.id].teaser)}${st?" · "+st:""}</small></button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
  $("#main").innerHTML=`${hero({hz:"假定",where:"적벽대전 · 기록 실험",title:"어느 이야기를 바꾸어 보시겠습니까?",sub:"",fx:"fire"})}
- <div class="lab-choice-nav"><span>질문을 고르면 처음 화면에서 이야기와 짐작으로 시작합니다. 명단과 점수는 한 번 만들면 모든 질문에 이어집니다.</span><span><span id="labCount">${tried()}</span> / ${WHATIFS.length} 살펴봄</span></div>
+ <div class="lab-choice-nav"><span>질문을 고르면 처음 화면에서 이야기와 짐작으로 시작합니다. 질문마다 살펴볼 기록과 분석 방법이 다릅니다.</span><span><span id="labCount">${tried()}</span> / ${WHATIFS.length} 살펴봄</span></div>
  <section class="stepsec lab-catalog"><header class="step-h"><h2>궁금한 질문부터 펼쳐 보시지요</h2></header><div class="wi-grid" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  <details class="lab-tools"><summary>직접 질문을 만들거나 기록의 범위 살펴보기</summary>
  ${step(2,"직접 만들기","인물·바람·점수·기록을 골라, 궁금하신 질문을 만들어 보시지요.",`<section class="card pane wi-builder">

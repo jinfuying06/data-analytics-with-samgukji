@@ -14,44 +14,66 @@ try{
  assert.equal(d.querySelectorAll('.wi-card').length,9);assert.equal(q('#wiPanel'),null);assert.equal(q('#wiOut'),null);
  assert.ok(q('.wi-card[data-id="zg"]').textContent.includes('지금 실험 중'));
 
- // finish stages 1–5 once with the main question; they are shared by every question
- for(let i=1;i<=5;i++)e(`S.done[${i}]="완료"`);e('save()');
-
- // every question runs the same journey: home story + prediction → stage 6 step by step → compare
- const expected={zg:['72','52'],zy:['69','59'],hg:['77','67'],zyout:['79','69'],ptout:['82','72'],nowind:['73','75'],nofire:['85','83'],combo:['54','64'],jb:['81','80']};
- for(const [id,[changed,alt]] of Object.entries(expected)){
+ // every question runs the same six-stage journey, but stages 1–5 look at the records that matter for it
+ const expected={
+  zg:{cards:['조조','허저','하후연','원소'],s5:'조조',changed:'72',alt:'52'},
+  zy:{cards:['주유','서성','여범','손책'],s2:'평균의 함정',s5:'주유',changed:'69',alt:'59'},
+  hg:{cards:['황개','정봉','엄준','손책'],s2:'한 사람의 무게',s5:'황개',changed:'77',alt:'67'},
+  zyout:{cards:['주유','서성','여범','손책'],s2:'평균의 함정',s5:'주유',changed:'79',alt:'69'},
+  ptout:{cards:['유비','방통','손건','유표'],s2:'평균보다 작은 한 사람',s5:'방통',changed:'82',alt:'72'},
+  nowind:{cards:['제갈량','서성','하후연','유표'],s2:'여러 사람에게 퍼진 기록',s5:'제갈량',changed:'73',alt:'75'},
+  nofire:{cards:['황개','정봉','하후연','유표'],s2:'한 사람에게 몰린 기록',s5:'조조',changed:'85',alt:'83'},
+  combo:{cards:['주유','정봉','여범','손책'],s2:'평균의 함정',s5:'황개',changed:'54',alt:'64'},
+  jb:{cards:['제갈량','서성','여범','손책'],s2:'같은 사람, 다른 기록',changed:'81',alt:'80'}};
+ const s1Titles=new Set(),s5Titles=new Set();
+ for(const [id,x] of Object.entries(expected)){
   route('lab');click(`.wi-card[data-id="${id}"]`);e('route()');
   assert.equal(w.location.hash,'#home',id+' opens on the home screen');assert.equal(e('S.scenario'),id);
   assert.ok(q('#main>.experiment-opening'));assert.equal(d.querySelectorAll('.experiment-river img').length,3);
   assert.ok(q('#experiment-title').textContent.startsWith('만약 '),id);assert.ok(q('.simple-story').textContent.length>30);
-  const start=q('#prediction-form button[type="submit"]');assert.equal(start.disabled,true,id+' asks for its own prediction first');
+  const start=q('#prediction-form button[type="submit"]');assert.equal(start.disabled,true,id+' asks for its own prediction first');assert.equal(start.textContent.trim(),'시작하기');
   q('#prediction-form').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal(w.location.hash,'#home','no prediction, no start');
   q('#prediction-form input[value="0"]').click();q('#prediction-form').dispatchEvent(new w.Event('change'));assert.equal(start.disabled,false);
-  q('#prediction-form').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal(w.location.hash,'#s6',id+' continues to the experiment once stages 1–5 are done');
+  q('#prediction-form').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal(w.location.hash,'#s1',id+' starts its own stage 1');
+  // stage 1: the four cards belong to the question
+  route('s1');assert.deepEqual([...d.querySelectorAll('#pcards .pcard-h b')].map(b=>b.textContent),x.cards,id+' stage 1 cards');s1Titles.add(q('.stepsec h2').textContent);
+  if(id!=='zg')assert.ok(q('.scene-hero .hero-question').textContent.includes('만약'),id+' keeps the question in view');
+  for(const card of d.querySelectorAll('#pcards .pcard')){const n=card.dataset.n,role=card.dataset.role||({'曹操':'core','許褚':'two','夏侯淵':'one','袁紹':'dead'})[n];card.querySelector(`.pick button[data-v="${role==='core'||role==='two'?1:0}"]`).click()}
+  answer();assert.ok(e('!!S.done[1]'),id+' stage 1');assert.equal(e('roster().length'),42);
+  // stage 2: one person's weight, a concentrated record, or two books
+  route('s2');click('#dropTop');if(x.s2)assert.equal(q('#s2name h3').textContent,x.s2,id+' stage 2 lesson');answer();assert.ok(e('!!S.done[2]'),id+' stage 2');
+  route('s3');click('#fixW');answer();assert.ok(e('!!S.done[3]'),id+' stage 3');
+  route('s4');click('#runAll');assert.ok(q('#allRes').textContent.length>10);answer();assert.ok(e('!!S.done[4]'),id+' stage 4');
+  // stage 5: the record behind the number that matters for this question
+  route('s5');s5Titles.add(q('#main h1').textContent);
+  if(id==='zg'){click('#guess5 button[data-v="1"]')}else click('#guess5 button[data-v="0"]');click('#open5');
+  if(x.s5)assert.ok(q('#txt5').textContent.includes(x.s5),id+' stage 5 reads '+x.s5);else assert.ok(q('#txt5').textContent.includes('주석'));
+  answer();assert.ok(e('!!S.done[5]'),id+' stage 5');
+  // stage 6: apply the change, then try both versions of one assumption
   route('s6');assert.equal(q('#main h1').textContent,e(`WHATIFS.find(x=>x.id==="${id}").q`).replace(/\s*\(.*\)\s*$/,''));
   assert.equal(q('#mv6').textContent,'','result waits for the change to be applied');assert.equal(q('#wind6sec').hidden,true);
   answer();assert.equal(e('!!S.done[6]'),false,'check stays locked before the experiment');
-  click('#move6');assert.ok(q('#mv6 .big-change').textContent.endsWith(changed),id+' '+q('#mv6 .big-change').textContent);
+  click('#move6');assert.ok(q('#mv6 .big-change').textContent.endsWith(x.changed),id+' '+q('#mv6 .big-change').textContent);
   assert.equal(q('#s6pred').hidden,true,'comparison waits for the second assumption');
   const opts=d.querySelectorAll('#wind6 button');assert.equal(opts.length,2);opts[1].click();opts[0].click();
-  assert.ok(q('#s6name .named p').textContent.includes(changed)&&q('#s6name .named p').textContent.includes(alt),id+' names both assumptions');
+  assert.ok(q('#s6name .named p').textContent.includes(x.changed)&&q('#s6name .named p').textContent.includes(x.alt),id+' names both assumptions');
   assert.equal(q('#s6pred').hidden,false);assert.equal(q('[data-original-prediction]').textContent,'조조 쪽에 더 유리해질 것 같습니다');
   answer();assert.ok(e('!!S.done[6]'),id+' completes its own stage 6');
  }
+ assert.ok(s1Titles.size>=5,'stage 1 differs by question');assert.equal(s5Titles.size,9,'stage 5 differs by question');
 
- // prediction and stage 6 progress belong to each question; stages 1–5 are shared
+ // each question keeps its own progress, rule and weights
  route('lab');assert.equal(q('#labCount').textContent,'9');assert.ok(q('.wi-card[data-id="zy"]').textContent.includes('끝까지 살펴봄'));
- e('S.t.s6d.w="none"');route('lab?question=zg');assert.equal(e('S.scenario'),'zg');assert.equal(w.location.hash,'#home');
+ e('S.w.ship=5');route('lab?question=zg');assert.equal(e('S.scenario'),'zg');assert.equal(w.location.hash,'#home');assert.equal(e('S.w.ship'),3,'weights belong to each question');
  route('s6');assert.ok(q('#mv6 .big-change').textContent.endsWith('72'),'main question keeps its own progress');assert.deepEqual(JSON.parse(e('JSON.stringify(S.t.s6d.tried)')).sort(),['env','zg']);
  assert.equal(e('S.t.s6x.who'),'諸葛亮');assert.equal(e('S.t.s6x.act'),'wei');
- for(let i=1;i<=5;i++)assert.ok(e(`!!S.done[${i}]`));
-
- // a fresh question with unfinished stages starts at stage 1
- e('S.done={}');e('save()');route('lab');click('.wi-card[data-id="jb"]');e('route()');e('delete S.prediction');route('home');
- q('#prediction-form input[value="1"]').click();q('#prediction-form').dispatchEvent(new w.Event('change'));q('#prediction-form').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal(w.location.hash,'#s1');
- route('s2');assert.ok(q('.simple-todo .why').textContent.startsWith('기록을 바꾸기 전에'),'stage texts follow the active question');
- for(const st of ['s1','s2','s3','s4','s5']){route(st);assert.ok(q('.scene-hero .hero-question').textContent.includes('만약 소설 대신 역사책(정사)으로 센다면?'),st+' keeps the question in view')}
+ for(let i=1;i<=6;i++)assert.ok(e(`!!S.done[${i}]`));
+ route('lab?question=jb');route('s2');assert.ok(q('.simple-todo .why').textContent.startsWith('기록을 바꾸면'),'stage texts follow the active question');
  route('lab?question=zg');route('s2');assert.ok(q('.simple-todo .why').textContent.startsWith('제갈량을 옮기기 전에'));
+ // a question whose person drops out of the roster says so
+ route('lab?question=ptout');e('S.t.s1d={}');route('s1');for(const card of d.querySelectorAll('#pcards .pcard'))card.querySelector(`.pick button[data-v="${card.dataset.role==='core'?1:0}"]`).click();
+ assert.ok(q('#s1reveal .wi-hit').textContent.includes('방통'),'removing 방통 by rule is flagged');
+ route('lab?question=zg');
 
  // builder: a sandbox that writes the question from the choices
  route('lab');q('.lab-tools').open=true;
@@ -71,5 +93,5 @@ try{
  assert.ok(!fs.readFileSync('prototype/red-cliff-lab/src/10-styles-course.html','utf8').includes('repeat(3,1fr)!important'));
  route('lab?topic=people');assert.equal(d.querySelectorAll('.wi-card').length,9);assert.equal(q('.lab-topics'),null);
  assert.equal(errors.length,0,errors.join('\n'));
- console.log('PASS What-if lab: 9 questions each run the main journey (home story and prediction → shared stages 1–5 → apply the change → change one assumption → compare): 72/52, 69/59, 77/67, 79/69, 82/72, 73/75, 85/83, 54/64, 81/80; per-question prediction and stage 6 progress; stage texts follow the question; builder and answerable-question check.');
+ console.log('PASS What-if lab: 9 questions each run their own six-stage journey (question-specific roster cards, weight/concentration lesson, score, sensitivity and source reading; then apply the change and vary one assumption): 72/52, 69/59, 77/67, 79/69, 82/72, 73/75, 85/83, 54/64, 81/80; per-question progress, rule and weights; builder and answerable-question check.');
 }finally{dom.window.close()}

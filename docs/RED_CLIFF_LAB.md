@@ -64,6 +64,7 @@ sh prototype/red-cliff-lab/build.sh          # src/* → index.html
 | `00-head.html` | 제목, 폰트, 기본 스타일, 아이콘 |
 | `10-styles-course.html` / `11-styles-stages.html` / `12-styles-journey.html` | 단계 화면 스타일 |
 | `13-styles-simple.html` | 단순화한 단계 화면 스타일 |
+| `92-scenario-stages.js` | 질문별 1~5단계: 질문마다 다른 카드·기록·원문으로 같은 분석 기술을 연습 |
 | `15-styles-lab.html` / `90-whatif-lab.js` | What-if 실험실: 질문 9개, 직접 만들기, 답할 수 있는 질문 고르기 |
 | `14-styles-cinema.html` / `85-cinema.js` | 공통 시네마틱 연출: 모든 화면(홈 그림 포함)이 같은 '강 위의 밤' 색과 장면(안개·불티)을 쓰고, 단계가 진행될수록 불길(`--heat`)이 커진다. 화면 전환 컷, 레터박스, 결과 공개 효과를 통일. 의미 없는 장식선은 쓰지 않는다. 움직임 줄이기 설정을 따른다 |
 | `20-markup.html` | 앱 골격, 오프닝, 탭바 |
