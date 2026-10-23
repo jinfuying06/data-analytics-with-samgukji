@@ -117,7 +117,7 @@ RENDER[2]=()=>{
  const top=f=>facMembers(f).sort((a,b)=>PP[b].pa-PP[a].pa)[0];
  const shuTop=top('shu');
  originalStageRenderer(2,[["s2","drop","가장 많이 나온 사람 빼 보기"]],
-  step(1,"한 사람이 평균 몇 번 나올까요?","",`<section class="card pane"><div class="avgs" id="avgs"></div><p class="simple-note">숫자 = 한 사람이 평균 몇 개 문단에 나오는지</p></section>`)+
+  step(1,"한 사람이 평균 몇 문단에 나올까요?","",`<section class="card pane"><div class="avgs" id="avgs"></div></section>`)+
   step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
   reveal('s2name'),
   {q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,

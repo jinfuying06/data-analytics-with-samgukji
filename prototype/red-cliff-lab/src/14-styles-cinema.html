@@ -153,4 +153,12 @@
 .stepper a .st,.stepper a.done .st{background:none;border-radius:0;color:var(--ink-3);width:auto;min-width:18px;height:24px}
 .stepper a[aria-current="page"] .st{color:var(--flame)}
 @media(max-width:560px){.pager>a.btn{padding:12px 16px;font-size:13px}.main>.pager{gap:16px;margin-block:24px}}
+
+/* ===== fewer labels: headings, numbers and position carry the meaning ===== */
+.scene-hero .hero-meta,.step-h .sno,.named-tag,.experiment-edition,.simple-todo>span{display:none}
+.simple-todo{grid-template-columns:minmax(0,1fr)!important;gap:6px}
+#navH small,#navE small,.navlist a small,#board li small,.prediction-review>.journey-eyebrow{display:none}
+.simple-todo>p.why,.simple-todo>p.key,.simple-todo details{grid-column:1}
+.lab-choice-nav>span:empty{display:none}.lab-choice-nav{justify-content:flex-end}
+#prediction-status,#wiStatus{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 </style>

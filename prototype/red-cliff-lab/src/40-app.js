@@ -91,7 +91,7 @@ function stage(i,tasks,steps,chk){
   $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">단계 ${i} / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}학습 기록 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
-  ${steps}${step(nsteps,"학습 내용 확인하기","함께 살펴본 내용을 가장 잘 설명하는 문장을 골라 보시지요.",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
+  ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
   <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: ${i-1}단계">${ic("left")}${i-1}단계로 이동</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: ${i+1}단계">${i+1}단계로 이동${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");

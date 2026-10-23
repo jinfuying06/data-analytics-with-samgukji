@@ -298,7 +298,7 @@ function cardGuide(){
   card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt");
   if(v===undefined)continue;
   const say=(CARD_SAY[role]||{})[v];
-  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}<br><span>${card.dataset.tip}</span>`:card.dataset.tip;
+  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
   if(say&&!say[0].startsWith("그렇")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
  }
 }

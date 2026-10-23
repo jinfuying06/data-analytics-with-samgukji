@@ -915,6 +915,14 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .stepper a .st,.stepper a.done .st{background:none;border-radius:0;color:var(--ink-3);width:auto;min-width:18px;height:24px}
 .stepper a[aria-current="page"] .st{color:var(--flame)}
 @media(max-width:560px){.pager>a.btn{padding:12px 16px;font-size:13px}.main>.pager{gap:16px;margin-block:24px}}
+
+/* ===== fewer labels: headings, numbers and position carry the meaning ===== */
+.scene-hero .hero-meta,.step-h .sno,.named-tag,.experiment-edition,.simple-todo>span{display:none}
+.simple-todo{grid-template-columns:minmax(0,1fr)!important;gap:6px}
+#navH small,#navE small,.navlist a small,#board li small,.prediction-review>.journey-eyebrow{display:none}
+.simple-todo>p.why,.simple-todo>p.key,.simple-todo details{grid-column:1}
+.lab-choice-nav>span:empty{display:none}.lab-choice-nav{justify-content:flex-end}
+#prediction-status,#wiStatus{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 </style>
 <style>
 /* ===== What-if lab (pairs with 90-whatif-lab.js) ===== */
@@ -1000,13 +1008,13 @@ body.experiment-home .lab-tools{margin-top:24px}
     <nav class="navgrp"><p>시작</p><ul class="navlist" id="navH"></ul></nav>
     <nav class="navgrp"><p>여섯 단계</p><ul class="navlist" id="navE"></ul></nav>
     <nav class="navgrp"><p>참고</p><ul class="navlist" id="navS"></ul></nav>
-    <p class="sidefoot"><button class="linkbtn" data-intro>적벽의 기록 다시 펼치기</button><br>기본: 『삼국지연의』 43–50회 · 인물 63명 · 기록 186줄<br>확장: 정사 『삼국지』 열전과 배송지 주석</p>
+    <p class="sidefoot"><button class="linkbtn" data-intro>적벽의 기록 다시 펼치기</button></p>
   </aside>
 
   <main class="main" id="main"></main>
 
   <aside class="notebook card" id="notebook" aria-label="학습 기록">
-    <div class="nb-h"><div><h2>학습 기록</h2><small>각 단계에서 확인한 수치와 해석이 이곳에 저장됩니다.</small></div>
+    <div class="nb-h"><div><h2>학습 기록</h2></div>
       <button class="btn ghost nb-close" data-close-notes aria-label="학습 기록 닫기"><svg class="ico"><use href="#i-x"/></svg></button></div>
     <ol class="board" id="board"></ol>
     <div id="boardSum"></div>
@@ -1169,7 +1177,7 @@ function stage(i,tasks,steps,chk){
   $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">단계 ${i} / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}학습 기록 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
-  ${steps}${step(nsteps,"학습 내용 확인하기","함께 살펴본 내용을 가장 잘 설명하는 문장을 골라 보시지요.",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
+  ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
   <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: ${i-1}단계">${ic("left")}${i-1}단계로 이동</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: ${i+1}단계">${i+1}단계로 이동${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");
@@ -1705,7 +1713,7 @@ RENDER[2]=()=>{
  const top=f=>facMembers(f).sort((a,b)=>PP[b].pa-PP[a].pa)[0];
  const shuTop=top('shu');
  originalStageRenderer(2,[["s2","drop","가장 많이 나온 사람 빼 보기"]],
-  step(1,"한 사람이 평균 몇 번 나올까요?","",`<section class="card pane"><div class="avgs" id="avgs"></div><p class="simple-note">숫자 = 한 사람이 평균 몇 개 문단에 나오는지</p></section>`)+
+  step(1,"한 사람이 평균 몇 문단에 나올까요?","",`<section class="card pane"><div class="avgs" id="avgs"></div></section>`)+
   step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
   reveal('s2name'),
   {q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,
@@ -2045,7 +2053,7 @@ function markScenario(){
  const x=scenario(),k=String(WHATIFS.indexOf(x)+1).padStart(2,"0"),hero=$("#main .scene-hero .hero-in");
  if(!hero||hero.querySelector(".hero-question"))return;
  const t=x.q.replace(/\s*\(.*\)\s*$/,"");
- hero.insertAdjacentHTML("afterbegin",`<a class="hero-question" href="#home"><span>가정 실험 ${k}</span>만약 ${esc(t)}</a>`);
+ hero.insertAdjacentHTML("afterbegin",`<a class="hero-question" href="#home">만약 ${esc(t)}</a>`);
 }
 for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText();const out=r.apply(this,arguments);if(i>=1&&i<=5)markScenario();return out}}
 
@@ -2060,7 +2068,7 @@ for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText()
    main.querySelector("#experiment-title").innerHTML=`만약 ${j.title||esc(x.q.replace(/\s*\(.*\)\s*$/,""))}`;
    const st=main.querySelector(".simple-story");const hi=st?.querySelector(".keeper-welcome")?.outerHTML||"";if(st)st.innerHTML=`${hi}${esc(WI_STORIES[x.id].story)}<br><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,"").replace(/\?$/,""))}</b>, 결과는 어떻게 달라졌을까요?`;
   }
-  main.querySelector(".experiment-heading")?.insertAdjacentHTML("afterbegin",`<a class="linkbtn scenario-switch" href="#lab">${x.id==="zg"?"다른 질문 고르기":"다른 질문 고르기 · 지금은 실험 "+String(k).padStart(2,"0")}</a>`);
+  main.querySelector(".experiment-heading")?.insertAdjacentHTML("afterbegin",`<a class="linkbtn scenario-switch" href="#lab">다른 질문</a>`);
   // a new question always starts with its own prediction
   const form=$("#prediction-form");
   if(form){const btn=form.querySelector('button[type="submit"]');if(btn&&!Number.isInteger(S.prediction))btn.disabled=true;
@@ -2087,7 +2095,7 @@ RENDER[6]=function(){
    good:"같은 질문이라도 가정을 바꾸면 숫자가 달라집니다. 그래서 What-if의 답에는 가정을 함께 적습니다.",bad:"두 가정에서 숫자가 어떻게 달랐는지 다시 살펴보시지요."};
  check.ev=()=>`기록대로 ${base} → ${j.act.replace(/기$/,"")}(${j.opts[0][1]}) ${v0} · (${j.opts[1][1]}) ${v1}`;
  originalStageRenderer(6,[["s6","move",j.act],["s6","wind","가정 하나 바꾸기"]],
-  step(1,"지금 기록대로 계산하면","",`<section class="card pane">${meter(base,"앞 단계에서 정한 명단과 점수로 계산한 '연합군이 앞서는 정도' (0~100)")}<button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
+  step(1,"지금 기록대로 계산하면","",`<section class="card pane">${meter(base)}<button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
   `<div class="named-wrap" id="wind6sec" hidden>${step(2,esc(j.altQ),"",`<section class="card pane"><div class="pick wide" id="wind6">${j.opts.map(o=>`<button data-v="${o[0]}">${esc(o[1])}</button>`).join("")}</div><div id="wr6"></div></section>`)}</div>`+
   reveal('s6name')+`<div class="named-wrap" id="s6pred" hidden></div>`,check);
  simplifyStage(6);
@@ -2130,12 +2138,12 @@ RENDER[LAB_VIEW]=()=>{
  const base=wiCalc(),cur=scenario().id;
  const status=id=>{const pack=id===cur?{prediction:S.prediction,done:S.done}:(S.scen||{})[id]||{};const n=Object.keys(pack.done||{}).length;return n>=6?"끝까지 살펴봄":n?`${n} / 6단계`:Number.isInteger(pack.prediction)?"짐작을 골랐음":""};
  const tried=()=>WHATIFS.filter(x=>status(x.id)).length;
- const card=(x,i)=>{const st=status(x.id);return `<button class="wi-card${st?" tried":""}" data-id="${x.id}" ${x.id===cur?'aria-current="true"':''}><span class="wi-kind">기록 실험 ${String(i+1).padStart(2,"0")}${x.id===cur?" · 지금 실험 중":""}</span><b>${esc(x.q)}</b><small>${esc(WI_STORIES[x.id].teaser)}${st?" · "+st:""}</small></button>`};
+ const card=(x,i)=>{const st=status(x.id);return `<button class="wi-card${st?" tried":""}" data-id="${x.id}" ${x.id===cur?'aria-current="true"':''}><b>${esc(x.q)}</b>${st||x.id===cur?`<small>${x.id===cur?"지금 실험 중":""}${x.id===cur&&st?" · ":""}${st}</small>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
  $("#main").innerHTML=`${hero({hz:"假定",where:"적벽대전 · 기록 실험",title:"어느 이야기를 바꾸어 보시겠습니까?",sub:"",fx:"fire"})}
- <div class="lab-choice-nav"><span>질문을 고르면 처음 화면에서 이야기와 짐작으로 시작합니다. 질문마다 살펴볼 기록과 분석 방법이 다릅니다.</span><span><span id="labCount">${tried()}</span> / ${WHATIFS.length} 살펴봄</span></div>
- <section class="stepsec lab-catalog"><header class="step-h"><h2>궁금한 질문부터 펼쳐 보시지요</h2></header><div class="wi-grid" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
+ <div class="lab-choice-nav"><span></span><span><span id="labCount">${tried()}</span> / ${WHATIFS.length} 살펴봄</span></div>
+ <section class="stepsec lab-catalog"><div class="wi-grid" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  <details class="lab-tools"><summary>직접 질문을 만들거나 기록의 범위 살펴보기</summary>
  ${step(2,"직접 만들기","인물·바람·점수·기록을 골라, 궁금하신 질문을 만들어 보시지요.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
@@ -2176,9 +2184,9 @@ RENDER[LAB_VIEW]=()=>{
 /* entry points: after the stage 6 comparison, and on the home outline */
 (()=>{
  const r6=RENDER[6];
- RENDER[6]=function(){r6.apply(this,arguments);$("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><span class="wi-kind">다음</span><b>다른 가정도 살펴보기</b><small>주유·황개·바람·화공… 9가지 질문과 직접 만들기</small></a>`)};
+ RENDER[6]=function(){r6.apply(this,arguments);$("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><b>다른 가정도 살펴보기</b></a>`)};
  const r0=RENDER[0];
- RENDER[0]=function(){r0.apply(this,arguments);const o=$("#main .experiment-opening");if(o)o.insertAdjacentHTML("afterend",`<a class="lab-link slim" href="#lab"><b>What-if 실험실</b><small>학습 순서와 관계없이, 궁금한 주제부터 실험하기</small></a>`)};
+ RENDER[0]=function(){r0.apply(this,arguments);const o=$("#main .experiment-opening");if(o)o.insertAdjacentHTML("afterend",`<a class="lab-link slim" href="#lab"><b>다른 가정 실험</b></a>`)};
 })();
 
 addEventListener("popstate",route);
@@ -2483,7 +2491,7 @@ function cardGuide(){
   card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt");
   if(v===undefined)continue;
   const say=(CARD_SAY[role]||{})[v];
-  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}<br><span>${card.dataset.tip}</span>`:card.dataset.tip;
+  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
   if(say&&!say[0].startsWith("그렇")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
  }
 }
