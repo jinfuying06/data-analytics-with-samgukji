@@ -42,8 +42,18 @@ try{
   answer();assert.ok(e('!!S.done[1]'),id+' stage 1');assert.equal(e('roster().length'),42);
   // stage 2: one person's weight, a concentrated record, or two books
   route('s2');click('#dropTop');if(x.s2)assert.equal(q('#s2name h3').textContent,x.s2,id+' stage 2 lesson');answer();assert.ok(e('!!S.done[2]'),id+' stage 2');
-  route('s3');click('#fixW');answer();assert.ok(e('!!S.done[3]'),id+' stage 3');
-  route('s4');click('#runAll');assert.ok(q('#allRes').textContent.length>10);answer();assert.ok(e('!!S.done[4]'),id+' stage 4');
+  const lv=e(`WHATIFS.find(x=>x.id==="${id}").level`);
+  route('s3');
+  if(lv===2){assert.ok(q('#sort3'),id+' level 2 sorts the records first');assert.equal(q('#s3score').hidden,true);
+   for(const [n,v] of [['曹操','attack'],['周瑜','attack'],['黃蓋','said']])click(`.sort-item[data-n="${n}"] button[data-v="${v}"]`);
+   assert.ok(q('.sort-item[data-n="曹操"] .pcard-tip').textContent.startsWith('다시 읽어'));assert.equal(q('#s3score').hidden,true,'scoring waits for a correct sort');
+   click('.sort-item[data-n="曹操"] button[data-v="hurt"]');assert.equal(q('#s3score').hidden,false)}
+  else assert.equal(q('#sort3'),null);
+  click('#fixW');answer();assert.ok(e('!!S.done[3]'),id+' stage 3');
+  route('s4');
+  if(lv===2){assert.equal(q('#runAll'),null,id+' level 2 hunts instead of computing everything');for(let k=0;k<3;k++)click('#wts4 button[data-w="ship"][data-d="1"]');assert.equal(q('#reveal4').hidden,false);click('#reveal4');assert.ok(/\d+~\d+/.test(q('#best4').textContent))}
+  else{click('#runAll');assert.ok(q('#allRes').textContent.length>10)}
+  answer();assert.ok(e('!!S.done[4]'),id+' stage 4');
   // stage 5: the record behind the number that matters for this question
   route('s5');s5Titles.add(q('#main h1').textContent);
   if(id==='zg'){click('#guess5 button[data-v="1"]')}else click('#guess5 button[data-v="0"]');click('#open5');
@@ -51,6 +61,14 @@ try{
   answer();assert.ok(e('!!S.done[5]'),id+' stage 5');
   // stage 6: apply the change, then try both versions of one assumption
   route('s6');assert.equal(q('#main h1').textContent,e(`WHATIFS.find(x=>x.id==="${id}").q`).replace(/\s*\(.*\)\s*$/,''));
+  if(lv===3){
+   assert.equal(q('#move6'),null,id+' level 3 sets assumptions instead');assert.ok(q('#d6text').textContent.startsWith('만약 '));
+   answer();assert.equal(e('!!S.done[6]'),false);assert.equal(q('#d6save').disabled,true,'needs a limit and the checklist');
+   (q('#d6fire button[data-v="zero"]')||q('#d6wind button[data-v="zg"]')).click();click('#d6limit button[data-v="2"]');
+   for(const box of d.querySelectorAll('#d6checks input')){box.checked=true;box.dispatchEvent(new w.Event('change',{bubbles:true}))}
+   assert.equal(q('#d6save').disabled,false);click('#d6save');assert.equal(q('#s6name h3').textContent,'결론 쓰기');
+   assert.ok(e('S.reflection').includes('가정할 때')&&e('S.reflection').includes('다만'),id+' conclusion has assumption and limit');
+   assert.equal(q('[data-original-prediction]').textContent,'조조 쪽에 더 유리해질 것 같습니다');answer();assert.ok(e('!!S.done[6]'),id+' completes level 3 stage 6');continue}
   assert.equal(q('#mv6').textContent,'','result waits for the change to be applied');assert.equal(q('#wind6sec').hidden,true);
   answer();assert.equal(e('!!S.done[6]'),false,'check stays locked before the experiment');
   click('#move6');assert.ok(q('#mv6 .big-change').textContent.endsWith(x.changed),id+' '+q('#mv6 .big-change').textContent);
@@ -61,6 +79,7 @@ try{
   answer();assert.ok(e('!!S.done[6]'),id+' completes its own stage 6');
  }
  assert.ok(s1Titles.size>=5,'stage 1 differs by question');assert.equal(s5Titles.size,9,'stage 5 differs by question');
+ route('lab');assert.deepEqual([...d.querySelectorAll('.lab-level h2')].map(h=>h.textContent),['세어 보기','숫자 의심하기','가정 설계하기']);assert.deepEqual([...d.querySelectorAll('.lab-level[data-level="3"] .wi-card')].map(c=>c.dataset.id),['nowind','combo','jb']);
 
  // each question keeps its own progress, rule and weights
  route('lab');assert.equal(q('#labCount').textContent,'9');assert.ok(q('.wi-card[data-id="zy"]').classList.contains('finished'));assert.ok(q('.wi-card[data-id="zy"] .wi-mark .ico'));
@@ -98,5 +117,5 @@ try{
  assert.ok(!fs.readFileSync('prototype/red-cliff-lab/src/10-styles-course.html','utf8').includes('repeat(3,1fr)!important'));
  route('lab?topic=people');assert.equal(d.querySelectorAll('.wi-card').length,9);assert.equal(q('.lab-topics'),null);
  assert.equal(errors.length,0,errors.join('\n'));
- console.log('PASS What-if lab: 9 questions each run their own six-stage journey (question-specific roster cards, weight/concentration lesson, score, sensitivity and source reading; then apply the change and vary one assumption): 72/52, 69/59, 77/67, 79/69, 82/72, 73/75, 85/83, 54/64, 81/80; per-question progress, rule and weights; builder and answerable-question check.');
+ console.log('PASS What-if lab: three levels (choose · find · design and write the conclusion); 9 questions each run their own six-stage journey (question-specific roster cards, weight/concentration lesson, score, sensitivity and source reading; then apply the change and vary one assumption): 72/52, 69/59, 77/67, 79/69, 82/72, 73/75, 85/83, 54/64, 81/80; per-question progress, rule and weights; builder and answerable-question check.');
 }finally{dom.window.close()}
