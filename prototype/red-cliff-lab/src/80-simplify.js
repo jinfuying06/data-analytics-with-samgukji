@@ -224,7 +224,7 @@ RENDER[6]=()=>{
  const meter=(i,label)=>`<div class="meter"><div class="meter-row"><span class="big num">${i}</span><span class="verdict">${vd(i)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${i}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div>${label?`<p class="simple-note">${label}</p>`:''}</div>`;
  const moved={"諸葛亮":"wei"};
  originalStageRenderer(6,[["s6","move","제갈량 옮기기"],["s6","wind","바람 생각 바꾸기"]],
-  step(1,"지금 기록대로 계산하면","",`<section class="card pane">${meter(idx(null,'env'),"앞 장에서 정한 명단과 점수로 계산한 '연합군이 앞서는 정도' (0~100)")}<button class="btn" id="move6">제갈량을 조조 편으로 옮기기</button><div id="mv6"></div></section>`)+
+  step(1,"지금 기록대로 계산하면","",`<section class="card pane">${meter(idx(null,'env'),"앞 순서에서 정한 명단과 점수로 계산한 '연합군이 앞서는 정도' (0~100)")}<button class="btn" id="move6">제갈량을 조조 편으로 옮기기</button><div id="mv6"></div></section>`)+
   `<div class="named-wrap" id="wind6sec" hidden>${step(2,"그런데 바람은 누가 불게 했을까요?","",`<section class="card pane"><div class="pick wide" id="wind6"><button data-v="env">바람은 환경 조건입니다</button><button data-v="zg">바람이 제갈량을 따라갑니다</button></div><div id="wr6"></div></section>`)}</div>`+
   reveal('s6name')+
   `<div class="named-wrap" id="s6pred" hidden></div>`,
