@@ -86,4 +86,62 @@ body.experiment-home .lab-tools{margin-top:24px}
 .checks{border:0;padding:0;margin:0;display:grid;gap:8px;font-size:14px;color:var(--ink-2)}
 .checks label{display:flex;gap:10px;align-items:center;cursor:pointer}
 .checks input{width:18px;height:18px;accent-color:var(--flame)}
+
+/* ===== chapter layout: one rhythm for every 장 =====
+   scene → lead line → steps (heading + one surface) → check → pager.
+   Space separates parts; boxes are kept only where something is worked on. */
+.main.simple{gap:0}
+.main.simple>*{margin-top:0}
+.main.simple>.scene-hero+*,.main.simple>.simple-todo{margin-top:28px}
+.main.simple>.stepsec,.main.simple>.named-wrap:not([hidden]):not(:empty){margin-top:52px}
+.main.simple>.simple-todo+.stepsec{margin-top:44px}
+.main.simple .stepsec{display:grid;gap:16px;align-content:start}
+.main.simple .stepsec>.named-wrap:empty{display:none}
+.main.simple .step-h{padding:0}
+.main.simple .step-h h2{font-size:clamp(19px,1.9vw,22px);line-height:1.4;word-break:keep-all;color:#f2e9da}
+/* the lead: an unboxed opening line under the scene */
+.main.simple>.simple-todo{display:grid;grid-template-columns:1fr;gap:8px;padding:2px 0 2px 20px;border:0;border-left:2px solid var(--flame);border-radius:0;background:none;max-width:52em}
+.main.simple>.simple-todo>p:first-of-type{font-size:clamp(17px,1.7vw,20px)}
+.main.simple>.simple-todo>p.key{font-size:14.5px}
+.main.simple>.simple-todo>p.why{font-size:14.5px}
+.main.simple>.simple-todo details{grid-column:1}
+/* working surfaces: one quiet panel per step */
+.main.simple .stepsec>.card.pane,.main.simple .stepsec>.card:not(.q){padding:22px 24px;border-radius:var(--r);border:1px solid rgba(236,228,212,.08);background:rgba(18,23,28,.62)}
+.main.simple .card.pane .card.pane:not(.sort-item){padding:0;border:0;background:none}
+.main.simple .stepsec>.card:has(.sort-list){padding:0;border:0;background:none}
+.main.simple .sort-list{gap:14px}
+.main.simple .card.pane>:first-child{margin-top:0}
+.main.simple .card.pane>.btn,.main.simple .card.pane>.pick{margin-top:18px}
+/* naming a finding: a margin note, not another box */
+.main.simple .named,.main.simple .stepsec .named{margin-top:4px;padding:4px 0 4px 20px!important;border:0!important;border-left:2px solid var(--mark)!important;border-radius:0;background:none!important;max-width:52em}
+.main.simple .named h3{font-size:19px}
+.main.simple .named p{font-size:15px;color:var(--ink-2)}
+.main.simple>.named-wrap>.named,.main.simple .stepsec+.named{margin-top:0}
+/* side-by-side cards (people, rules): equal height, button at the foot */
+.main.simple .pcards{gap:14px}
+.main.simple .pcard{grid-template-rows:auto 1fr auto auto;align-content:stretch;padding:18px 18px 16px;border-color:rgba(236,228,212,.08);background:rgba(18,23,28,.62)}
+.main.simple .pcard>.pick,.main.simple .pcard>.btn{align-self:end;margin-top:6px}
+.main.simple .pcard>.btn{justify-self:start}
+.main.simple .pcard-fact{font-size:13.5px;color:var(--ink-2);line-height:1.55}
+/* the check: the options are the surface, no frame around them */
+.main.simple .card.q{padding:0;border:0;background:none;box-shadow:none;gap:14px}
+.main.simple .card.q h3{font-family:var(--f-display);font-size:clamp(17px,1.7vw,19px);line-height:1.5;color:#f2e9da;word-break:keep-all}
+.main.simple .card.q .opts{gap:10px}
+/* the end of a chapter */
+.main.simple>.pager{margin-block:64px 8px;padding-block:0}
+.main.simple>.lab-link{margin-top:28px;padding:0;border:0;background:none;justify-self:end;color:var(--wind)}
+.main.simple>.lab-link b{font-size:14px;font-weight:600}
+.main.simple>.lab-link:hover b{text-decoration:underline;text-underline-offset:4px}
+/* the narrow-desktop tool row must not open a gap above the lead */
+@media (min-width:1024px) and (max-width:1279px){.main.simple{position:relative}.main.simple>.taskbar{position:absolute;top:10px;right:12px;z-index:3;padding:0;margin:0}}
+@media (max-width:760px){
+  .main.simple>.scene-hero+*,.main.simple>.simple-todo{margin-top:22px}
+  .main.simple>.stepsec,.main.simple>.named-wrap:not([hidden]):not(:empty){margin-top:40px}
+  .main.simple>.simple-todo+.stepsec{margin-top:34px}
+  .main.simple>.simple-todo{padding-left:16px}
+  .main.simple .stepsec>.card.pane,.main.simple .stepsec>.card:not(.q){padding:18px 16px}
+  .main.simple .named,.main.simple .stepsec .named{padding-left:16px!important}
+  .main.simple>.pager{margin-block:48px 4px}
+  .main.simple>.lab-link{justify-self:center}
+}
 </style>
