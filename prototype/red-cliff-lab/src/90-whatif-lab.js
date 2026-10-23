@@ -123,7 +123,6 @@ for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText()
    main.querySelector("#experiment-title").innerHTML=`만약 ${j.title||esc(x.q.replace(/\s*\(.*\)\s*$/,""))}`;
    const st=main.querySelector(".simple-story");const hi=st?.querySelector(".keeper-welcome")?.outerHTML||"";if(st)st.innerHTML=`${hi}${esc(WI_STORIES[x.id].story)}<br><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,"").replace(/\?$/,""))}</b>, 결과는 어떻게 달라졌을까요?`;
   }
-  main.querySelector(".experiment-heading")?.insertAdjacentHTML("afterbegin",`<a class="linkbtn scenario-switch" href="#lab">다른 질문</a>`);
   // a new question always starts with its own prediction
   const form=$("#prediction-form");
   if(form){const btn=form.querySelector('button[type="submit"]');if(btn&&!Number.isInteger(S.prediction))btn.disabled=true;
@@ -241,7 +240,7 @@ RENDER[LAB_VIEW]=()=>{
  const r6=RENDER[6];
  RENDER[6]=function(){r6.apply(this,arguments);$("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><b>다른 가정도 살펴보기</b></a>`)};
  const r0=RENDER[0];
- RENDER[0]=function(){r0.apply(this,arguments);const o=$("#main .experiment-opening");if(o)o.insertAdjacentHTML("afterend",`<a class="lab-link slim" href="#lab"><b>다른 가정 실험</b></a>`)};
+ RENDER[0]=function(){r0.apply(this,arguments);};
 })();
 
 addEventListener("popstate",route);

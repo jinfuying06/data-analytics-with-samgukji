@@ -6,7 +6,7 @@ const w=dom.window,d=w.document,q=s=>d.querySelector(s),e=s=>w.eval(s),route=id=
 const answer=()=>click('#vbox .opt[data-i="1"]');
 try{
  // entry points
- route('home');assert.ok(q('#main .lab-link[href="#lab"]'),'home links to the lab');assert.ok(q('#main .scenario-switch[href="#lab"]'));
+ route('home');assert.equal(q('#main .lab-link'),null,'home relies on the tab bar for the lab');assert.equal(q('#main .scenario-switch'),null);assert.ok(q('#tabL[href="#lab"]'));
  route('s6');assert.ok(q('#main .lab-link[href="#lab"]'),'stage 6 links to the lab');
 
  // the lab is a list of questions; nothing is calculated there
