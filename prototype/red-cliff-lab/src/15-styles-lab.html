@@ -55,4 +55,17 @@ body.experiment-home .lab-tools{margin-top:24px}
 .wi-mark{position:absolute;top:14px;right:14px;font-style:normal;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
 .wi-mark .ico{width:16px;height:16px;color:var(--good)}
 .wi-card.tried small::after{content:none}
+/* the lab opens in the same river scene as home: no boxed banner, the cards sit in the night */
+.lab-opening{position:relative;isolation:isolate;display:grid;gap:26px;padding:48px 0 28px;background:radial-gradient(ellipse at 70% 60%,rgba(122,48,25,calc(.08 + .14*var(--heat))),transparent 70%)}
+.lab-opening>.cinema-bg{position:absolute;inset:-48px -40px -24px;width:calc(100% + 80px);height:calc(100% + 72px);z-index:-1;pointer-events:none;-webkit-mask-image:radial-gradient(closest-side,#000 50%,transparent 100%);mask-image:radial-gradient(closest-side,#000 50%,transparent 100%)}
+.lab-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.lab-head h1{font-size:clamp(30px,4.6vw,52px);line-height:1.25;color:#f2e9da;word-break:keep-all;text-shadow:0 2px 30px rgba(0,0,0,.6);animation:film-title 1.2s .2s var(--ease-film,ease) both}
+.lab-count{font-size:13px;color:var(--ink-3);white-space:nowrap}.lab-count span{color:var(--ink)}
+.lab-opening .wi-card{background:rgba(12,16,20,.55);border-color:rgba(236,228,212,.1);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fadeup .7s var(--ease-film,ease) both}
+.lab-opening .wi-card:nth-child(3n+2){animation-delay:.08s}.lab-opening .wi-card:nth-child(3n){animation-delay:.16s}
+.lab-opening .wi-card:hover{background:rgba(40,22,14,.6)}
+.lab-opening .wi-card.current{background:rgba(48,24,12,.6)}
+.lab-tools{border-top:0}
+@media (max-width:760px){.lab-opening .wi-card{min-height:0;padding-top:16px;padding-bottom:16px}.lab-opening{padding:30px 0 20px;gap:20px}.lab-opening>.cinema-bg{inset:-32px -16px -16px;width:calc(100% + 32px);height:calc(100% + 48px)}}
+@media (prefers-reduced-motion:reduce){.lab-head h1,.lab-opening .wi-card{animation:none}}
 </style>

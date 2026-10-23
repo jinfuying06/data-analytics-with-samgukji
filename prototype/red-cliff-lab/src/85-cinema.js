@@ -54,7 +54,7 @@ startHeroFx=function(){
     }  // the stage tabs already show where we are, so no extra scene counter
     nightFx(hero.querySelector("canvas"),heat);
   }else{
-    const open=main.querySelector(".experiment-opening");
+    const open=main.querySelector(".experiment-opening,.lab-opening");
     if(open&&!open.querySelector(".cinema-bg")){open.insertAdjacentHTML("afterbegin",'<canvas class="cinema-bg" aria-hidden="true"></canvas>');nightFx(open.querySelector(".cinema-bg"),heat)}
   }
   cinemaCut();

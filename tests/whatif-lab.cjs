@@ -10,7 +10,7 @@ try{
  route('s6');assert.ok(q('#main .lab-link[href="#lab"]'),'stage 6 links to the lab');
 
  // the lab is a list of questions; nothing is calculated there
- route('lab');assert.equal(q('#main h1').textContent,'어느 이야기를 바꾸어 보시겠습니까?');
+ route('lab');assert.ok(q('#main h1').textContent.endsWith('바꾸어 보시겠습니까?'));
  assert.equal(d.querySelectorAll('.wi-card').length,9);assert.equal(q('#wiPanel'),null);assert.equal(q('#wiOut'),null);
  assert.ok(q('.wi-card[data-id="zg"]').classList.contains('current'));assert.ok(q('.wi-card[data-id="zg"]').getAttribute('aria-label').includes('지금 실험 중'));assert.equal(q('.wi-card small'),null,'no status sentences on cards');
 
@@ -93,7 +93,7 @@ try{
  click('#wiAsk .wi-ask-row[data-k="0"] button[data-v="0"]');assert.ok(q('#wiAsk .wi-ask-row[data-k="0"] .pcard-tip').textContent.startsWith('기록의 범위를 다시 살펴보시지요.'));
 
  // navigation and old URLs
- route('lab?question=missing');assert.equal(q('#main h1').textContent,'어느 이야기를 바꾸어 보시겠습니까?');
+ route('lab?question=missing');assert.ok(q('#main h1').textContent.endsWith('바꾸어 보시겠습니까?'));
  route('lab');assert.equal(q('.lab-topics'),null);assert.equal(d.querySelectorAll('.tabbar>*').length,4);assert.ok(q('#tabL .ico'));assert.equal(q('#tabL').getAttribute('aria-current'),'page');
  assert.ok(!fs.readFileSync('prototype/red-cliff-lab/src/10-styles-course.html','utf8').includes('repeat(3,1fr)!important'));
  route('lab?topic=people');assert.equal(d.querySelectorAll('.wi-card').length,9);assert.equal(q('.lab-topics'),null);

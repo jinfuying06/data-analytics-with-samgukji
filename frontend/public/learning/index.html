@@ -981,6 +981,19 @@ body.experiment-home .lab-tools{margin-top:24px}
 .wi-mark{position:absolute;top:14px;right:14px;font-style:normal;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
 .wi-mark .ico{width:16px;height:16px;color:var(--good)}
 .wi-card.tried small::after{content:none}
+/* the lab opens in the same river scene as home: no boxed banner, the cards sit in the night */
+.lab-opening{position:relative;isolation:isolate;display:grid;gap:26px;padding:48px 0 28px;background:radial-gradient(ellipse at 70% 60%,rgba(122,48,25,calc(.08 + .14*var(--heat))),transparent 70%)}
+.lab-opening>.cinema-bg{position:absolute;inset:-48px -40px -24px;width:calc(100% + 80px);height:calc(100% + 72px);z-index:-1;pointer-events:none;-webkit-mask-image:radial-gradient(closest-side,#000 50%,transparent 100%);mask-image:radial-gradient(closest-side,#000 50%,transparent 100%)}
+.lab-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.lab-head h1{font-size:clamp(30px,4.6vw,52px);line-height:1.25;color:#f2e9da;word-break:keep-all;text-shadow:0 2px 30px rgba(0,0,0,.6);animation:film-title 1.2s .2s var(--ease-film,ease) both}
+.lab-count{font-size:13px;color:var(--ink-3);white-space:nowrap}.lab-count span{color:var(--ink)}
+.lab-opening .wi-card{background:rgba(12,16,20,.55);border-color:rgba(236,228,212,.1);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);animation:fadeup .7s var(--ease-film,ease) both}
+.lab-opening .wi-card:nth-child(3n+2){animation-delay:.08s}.lab-opening .wi-card:nth-child(3n){animation-delay:.16s}
+.lab-opening .wi-card:hover{background:rgba(40,22,14,.6)}
+.lab-opening .wi-card.current{background:rgba(48,24,12,.6)}
+.lab-tools{border-top:0}
+@media (max-width:760px){.lab-opening .wi-card{min-height:0;padding-top:16px;padding-bottom:16px}.lab-opening{padding:30px 0 20px;gap:20px}.lab-opening>.cinema-bg{inset:-32px -16px -16px;width:calc(100% + 32px);height:calc(100% + 48px)}}
+@media (prefers-reduced-motion:reduce){.lab-head h1,.lab-opening .wi-card{animation:none}}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1942,7 +1955,7 @@ startHeroFx=function(){
     }  // the stage tabs already show where we are, so no extra scene counter
     nightFx(hero.querySelector("canvas"),heat);
   }else{
-    const open=main.querySelector(".experiment-opening");
+    const open=main.querySelector(".experiment-opening,.lab-opening");
     if(open&&!open.querySelector(".cinema-bg")){open.insertAdjacentHTML("afterbegin",'<canvas class="cinema-bg" aria-hidden="true"></canvas>');nightFx(open.querySelector(".cinema-bg"),heat)}
   }
   cinemaCut();
@@ -2148,9 +2161,8 @@ RENDER[LAB_VIEW]=()=>{
  const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark" aria-hidden="true">${ic("check")}</i>`:n?`<i class="wi-mark num" aria-hidden="true">${n}/6</i>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
- $("#main").innerHTML=`${hero({hz:"假定",where:"적벽대전 · 기록 실험",title:"어느 이야기를 바꾸어 보시겠습니까?",sub:"",fx:"fire"})}
- <div class="lab-choice-nav"><span></span><span><span id="labCount">${tried()}</span> / ${WHATIFS.length} 살펴봄</span></div>
- <section class="stepsec lab-catalog"><div class="wi-grid" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
+ $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를<br>바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
+ <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  <details class="lab-tools"><summary>직접 질문을 만들거나 기록의 범위 살펴보기</summary>
  ${step(2,"직접 만들기","인물·바람·점수·기록을 골라, 궁금하신 질문을 만들어 보시지요.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
@@ -2162,7 +2174,6 @@ RENDER[LAB_VIEW]=()=>{
  ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
  <p class="lab-back"><a class="btn ghost" href="#home">처음 화면</a></p>`;
- $("#main .scene-hero .hero-sub")?.remove();
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
 
  // builder: a sandbox that writes the question from the choices

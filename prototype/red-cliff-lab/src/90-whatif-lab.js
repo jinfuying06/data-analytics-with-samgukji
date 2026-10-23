@@ -198,9 +198,8 @@ RENDER[LAB_VIEW]=()=>{
  const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark" aria-hidden="true">${ic("check")}</i>`:n?`<i class="wi-mark num" aria-hidden="true">${n}/6</i>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
- $("#main").innerHTML=`${hero({hz:"假定",where:"적벽대전 · 기록 실험",title:"어느 이야기를 바꾸어 보시겠습니까?",sub:"",fx:"fire"})}
- <div class="lab-choice-nav"><span></span><span><span id="labCount">${tried()}</span> / ${WHATIFS.length} 살펴봄</span></div>
- <section class="stepsec lab-catalog"><div class="wi-grid" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
+ $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를<br>바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
+ <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  <details class="lab-tools"><summary>직접 질문을 만들거나 기록의 범위 살펴보기</summary>
  ${step(2,"직접 만들기","인물·바람·점수·기록을 골라, 궁금하신 질문을 만들어 보시지요.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
@@ -212,7 +211,6 @@ RENDER[LAB_VIEW]=()=>{
  ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
  <p class="lab-back"><a class="btn ghost" href="#home">처음 화면</a></p>`;
- $("#main .scene-hero .hero-sub")?.remove();
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
 
  // builder: a sandbox that writes the question from the choices
