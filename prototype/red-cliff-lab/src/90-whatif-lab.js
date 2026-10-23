@@ -99,7 +99,14 @@ function applyScenarioText(){
  SIMPLE_WHY[2][0]=`두 진영의 기록을 비교하려면 셀 대상을 정해야겠지요. ${j.uses}`;
  ST[5].q=x.q.replace(/\s*\(.*\)\s*$/,"");ST[5].short="가정 바꾸어 계산하기";
 }
-for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText();return r.apply(this,arguments)}}
+/* the question being tested stays visible at the top of every stage */
+function markScenario(){
+ const x=scenario(),k=String(WHATIFS.indexOf(x)+1).padStart(2,"0"),hero=$("#main .scene-hero .hero-in");
+ if(!hero||hero.querySelector(".hero-question"))return;
+ const t=x.q.replace(/\s*\(.*\)\s*$/,"");
+ hero.querySelector("h1")?.insertAdjacentHTML("beforebegin",`<a class="hero-question" href="#home"><span>가정 실험 ${k}</span><b>만약 ${esc(t)}</b></a>`);
+}
+for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText();const out=r.apply(this,arguments);if(i>=1&&i<=5)markScenario();return out}}
 
 /* home: the same opening for every question */
 (()=>{

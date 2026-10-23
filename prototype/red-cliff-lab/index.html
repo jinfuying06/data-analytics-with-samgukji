@@ -958,6 +958,10 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 body.experiment-home #wiPanel{margin-top:12px}
 body.experiment-home .lab-tools{margin-top:24px}
 .wi-card[hidden]{display:none!important}
+.hero-question{display:inline-flex;align-items:baseline;gap:10px;flex-wrap:wrap;justify-self:start;padding:6px 12px;margin:2px 0 4px;border-radius:var(--r-btn,8px);background:rgba(232,118,60,.12);border:1px solid rgba(232,118,60,.35);text-decoration:none;color:#f2e9da;font-size:14px;line-height:1.4;animation:fadeup .8s .15s var(--ease-film,ease) both}
+.hero-question span{font-size:11px;letter-spacing:.1em;color:var(--flame)}
+.hero-question b{font-weight:600;word-break:keep-all}
+@media (prefers-reduced-motion:reduce){.hero-question{animation:none}}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -2027,7 +2031,14 @@ function applyScenarioText(){
  SIMPLE_WHY[2][0]=`두 진영의 기록을 비교하려면 셀 대상을 정해야겠지요. ${j.uses}`;
  ST[5].q=x.q.replace(/\s*\(.*\)\s*$/,"");ST[5].short="가정 바꾸어 계산하기";
 }
-for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText();return r.apply(this,arguments)}}
+/* the question being tested stays visible at the top of every stage */
+function markScenario(){
+ const x=scenario(),k=String(WHATIFS.indexOf(x)+1).padStart(2,"0"),hero=$("#main .scene-hero .hero-in");
+ if(!hero||hero.querySelector(".hero-question"))return;
+ const t=x.q.replace(/\s*\(.*\)\s*$/,"");
+ hero.querySelector("h1")?.insertAdjacentHTML("beforebegin",`<a class="hero-question" href="#home"><span>가정 실험 ${k}</span><b>만약 ${esc(t)}</b></a>`);
+}
+for(let i=0;i<=6;i++){const r=RENDER[i];RENDER[i]=function(){applyScenarioText();const out=r.apply(this,arguments);if(i>=1&&i<=5)markScenario();return out}}
 
 /* home: the same opening for every question */
 (()=>{

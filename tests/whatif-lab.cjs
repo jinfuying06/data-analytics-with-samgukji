@@ -50,6 +50,7 @@ try{
  e('S.done={}');e('save()');route('lab');click('.wi-card[data-id="jb"]');e('route()');e('delete S.prediction');route('home');
  q('#prediction-form input[value="1"]').click();q('#prediction-form').dispatchEvent(new w.Event('change'));q('#prediction-form').dispatchEvent(new w.Event('submit',{cancelable:true}));assert.equal(w.location.hash,'#s1');
  route('s2');assert.ok(q('.simple-todo .why').textContent.startsWith('기록을 바꾸기 전에'),'stage texts follow the active question');
+ for(const st of ['s1','s2','s3','s4','s5']){route(st);assert.ok(q('.scene-hero .hero-question').textContent.includes('만약 소설 대신 역사책(정사)으로 센다면?'),st+' keeps the question in view')}
  route('lab?question=zg');route('s2');assert.ok(q('.simple-todo .why').textContent.startsWith('제갈량을 옮기기 전에'));
 
  // builder: a sandbox that writes the question from the choices
