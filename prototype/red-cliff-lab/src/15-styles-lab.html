@@ -29,4 +29,19 @@
 .lab-back{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
 @media (max-width:900px){.wi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.wi-grid,.pick.three{grid-template-columns:minmax(0,1fr)}.lab-link.slim{grid-template-columns:1fr}}
+
+/* A selected question is the whole experiment view, not a panel below its catalogue. */
+.lab-catalog[hidden],#wiPanel[hidden],.lab-choice-nav a[hidden]{display:none!important}
+.lab-choice-nav{display:flex;align-items:center;justify-content:space-between;gap:15px;color:var(--ink-3);font-size:12px}
+.lab-choice-nav>a{display:flex;align-items:center;gap:7px;text-decoration:none;color:var(--wind)}
+#wiPanel .wi-panel{margin:0;padding:25px;display:grid;gap:18px}#wiPanel .wi-step{font-size:17px;font-family:var(--f-display);color:var(--ink)}
+.lab-tools{border-top:1px solid var(--rule);padding:16px 0}.lab-tools>summary{cursor:pointer;font-size:13px;color:var(--ink-3);line-height:1.9}.lab-tools[open]{display:grid;gap:20px}.lab-tools:not([open])>.stepsec{display:none}.lab-tools .stepsec{margin-top:20px}
+@media(max-width:760px){#wiPanel .wi-panel{padding:20px}.lab-choice-nav{font-size:11px;align-items:flex-start}}
+.wi-experiment{display:grid;gap:18px;padding:24px 0;scroll-margin-top:20px}
+.wi-experiment[hidden]{display:none!important}
+.wi-next{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.experiment-heading>.linkbtn{display:inline-block;margin-bottom:18px}
+body.experiment-home #wiPanel{margin-top:12px}
+body.experiment-home .lab-tools{margin-top:24px}
+.wi-card[hidden]{display:none!important}
 </style>

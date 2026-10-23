@@ -54,7 +54,7 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 /* ===== chrome ===== */
 function drawChrome(){
   const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${done?ic("check"):hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
-  $("#navH").innerHTML=a("home","始","처음 화면","학습 과정 안내",0,false);
+  $("#navH").innerHTML=a("home","始","처음 화면","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
@@ -62,14 +62,23 @@ function drawChrome(){
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
   $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`${n}/6`;
-  ["tabH","tabS"].forEach(id=>$("#"+id).removeAttribute("aria-current"));
-  $(cur===7?"#tabS":"#tabH").setAttribute("aria-current","page");
+  ["tabH","tabS","tabL"].forEach(id=>$("#"+id).removeAttribute("aria-current"));
+  $(VIEWS[cur]?.id==="lab"?"#tabL":cur===7?"#tabS":"#tabH").setAttribute("aria-current","page");
 }
 function notes(open){$("#notebook").classList.toggle("open",open);$("#scrim").classList.toggle("open",open)}
 document.addEventListener("click",e=>{if(e.target.closest("[data-open-notes]"))notes(true);else if(e.target.closest("[data-close-notes]"))notes(false);else if(e.target.closest("#board a"))notes(false)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")notes(false)});
-function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();startHeroFx();window.scrollTo?.({top:0})}
+function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();startHeroFx();window.scrollTo?.({top:0})}
 addEventListener("hashchange",route);
+// Explicit internal navigation keeps pager targets inside this learning app, including embeds.
+document.addEventListener("click",e=>{
+ const link=e.target.closest?.(".pager a,.stepper a");
+ if(!link||e.defaultPrevented||e.button!==0||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||link.target==="_blank")return;
+ const target=link.getAttribute("href");
+ if(!target?.startsWith("#")||!VIEWS.some(v=>v.id===target.slice(1)))return;
+ e.preventDefault();history.pushState(null,"",target);route();
+ const title=$("#main h1");if(title){title.setAttribute("tabindex","-1");title.focus({preventScroll:true})}
+});
 
 /* ===== shared ui ===== */
 function drawTasks(){const el=$("#tasks");if(!el)return;el.innerHTML=TASKS.map(([m,k,l])=>`<span class="task ${tk(m,k)?"ok":""}"><span class="tk">${tk(m,k)?ic("check"):""}</span>${l}</span>`).join("");const q=$("#qbox");if(q)q.classList.toggle("locked",!TASKS.every(([m,k])=>tk(m,k)))}
@@ -82,14 +91,14 @@ function stage(i,tasks,steps,chk){
   $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">단계 ${i} / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}학습 기록 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
-  ${steps}${step(nsteps,"학습 내용 확인하기","앞의 활동에서 확인한 내용을 가장 잘 설명하는 문장을 선택해 보세요.",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
-  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}">${ic("left")}단계 ${i-1}</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}">단계 ${i+1}${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
+  ${steps}${step(nsteps,"학습 내용 확인하기","함께 살펴본 내용을 가장 잘 설명하는 문장을 골라 보시지요.",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
+  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: ${i-1}단계">${ic("left")}${i-1}단계로 이동</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: ${i+1}단계">${i+1}단계로 이동${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");
   box.innerHTML=`<h3>${chk.q}</h3><p class="lockline">${ic("lock")}위의 활동을 모두 마치면 답을 선택할 수 있습니다.</p><div class="opts">${chk.opts.map((o,k)=>`<button class="opt" data-i="${k}"><span class="k">${"ABC"[k]}</span><span>${o}</span></button>`).join("")}</div><div class="fbx" aria-live="polite"></div>`;
   const show=k=>{const ok=k===chk.ok;box.querySelectorAll(".opt").forEach(o=>{o.classList.remove("wrong");if(ok&&+o.dataset.i===chk.ok)o.classList.add("right")});if(!ok)box.querySelector(`.opt[data-i="${k}"]`).classList.add("wrong");
     const ev=typeof chk.ev==="function"?chk.ev():chk.ev;
-    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>적절한 해석입니다.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>다시 확인해 보세요.</b> ${chk.bad}</div>`;
+    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>그렇게 읽을 수 있겠군요.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>기록을 다시 살펴보시지요.</b> ${chk.bad}</div>`;
     if(ok){box.querySelectorAll(".opt").forEach(o=>o.disabled=true);S.done[i]=ev;save();drawChrome()}};
   box.querySelector(".opts").addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled||!TASKS.every(([m,k])=>tk(m,k)))return;show(+b.dataset.i)});
   if(S.done[i])show(chk.ok);
@@ -131,7 +140,7 @@ function s1(){
       <div class="callout" id="rRead" aria-live="polite"></div></section>
       <section class="card pane"><div class="pane-h"><h2>${ic("note")}현재 분석 대상</h2><span class="meta" id="rCnt"></span></div><div class="roster" id="roster"></div></section></div>`),
     {q:"분석 대상 명단을 가장 잘 설명한 것은 무엇일까요?",opts:["자료가 분석 대상 명단을 하나로 정해 줍니다.","선택한 기준에 따라 분석 대상이 달라집니다.","이름이 나온 인물은 모두 실제로 참전했습니다."],ok:1,
-     good:"같은 기록을 사용해도 포함 기준을 바꾸면 분석 대상이 달라집니다. 따라서 결과를 비교할 때는 어떤 기준으로 대상을 선정했는지 함께 밝혀야 합니다.",bad:"등장 기준과 사망 인물 포함 여부를 바꿀 때, 명단의 인원수가 어떻게 달라지는지 확인해 보세요.",
+     good:"같은 기록이어도 누구를 포함하느냐에 따라 숫자가 달라지지요. 결과와 함께 선정 기준도 남겨 주십시오.",bad:"등장 기준과 사망 인물 포함 여부를 바꿀 때, 명단의 인원수가 어떻게 달라지는지 확인해 보세요.",
      ev:()=>{const r=roster();return `대상 선정 기준(${S.rule.min}회 이상${S.rule.dead?", 사망 인물 제외":""}) → 위 ${r.filter(n=>PP[n].f==="wei").length} · 오 ${r.filter(n=>PP[n].f==="wu").length} · 촉 ${r.filter(n=>PP[n].f==="shu").length}명`}});
   const pool=Object.keys(EVID).filter(n=>PP[n]);let off=0;
   function recs(){const pick=[0,1,2].map(j=>pool[(off+j*7)%pool.length]);
@@ -196,8 +205,8 @@ function s3(){
     <div class="cols"><section class="card pane"><div class="pane-h"><h2>${ic("table")}인물별 지표</h2><span class="meta">인물을 선택하면 근거 문단 표시</span></div>
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">수전</th><th class="n">화공</th><th class="n">계책</th><th class="n">점수</th></tr></thead><tbody id="ptab"></tbody></table></div></section>
       <section class="card pane" id="evbox" aria-live="polite"></section></div>`),
-    {q:"이 비교 점수는 실제로 무엇을 나타낼까요?",opts:["인물의 실제 전투 능력","인물의 이름과 수전·화공·계책 관련 글자가 함께 나온 정도","전투에서 세운 공의 크기"],ok:1,
-     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 5단계에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 다시 확인해 보세요.",
+    {q:"이 비교 점수는 실제로 무엇을 나타낼까요?",opts:["인물의 실제 전투 능력","인물의 이름과 수전·화공·계책 관련 글자가 함께 나온 정도","전투에서 세운 공입니다.의 크기"],ok:1,
+     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 5단계에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 기록을 다시 살펴보시지요.",
      ev:()=>{const s=fs("yy");return `연의 비교 점수(수전 ${S.w.ship}·화공 ${S.w.fire}·계책 ${S.w.plan}점): 연합 ${s.wu+s.shu} vs 위 ${s.wei}`}});
   function dW(){
     const row=(k)=>`<div class="w"><span>${KN[k]} 1회당</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${KN[k]} 줄이기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${KN[k]} 늘리기">+</button></span></div>`;
@@ -262,13 +271,13 @@ function s5(){
     `<div class="cols"><section class="card pane"><div class="pane-h"><h2>${ic("table")}화공 지표 상위</h2>${srcB("yy")}</div><div class="bars" id="firetop"></div></section>
       <section class="card pane"><div class="pane-h"><h2>${ic("scroll")}조조 · 화공 근거</h2>${srcB("yy",`연의 ${(EVID["曹操"]||{}).fire?.[0]||""}회`)}</div>
         <button class="btn ghost" id="openv">${ic("search")}근거 문단 열기</button><div id="vict"></div></section></div>`)+
-    step(2,"같은 지표로 다른 자료 비교하기","정사 열전에서도 같은 글자를 셉니다. 연의는 문단, 정사는 문장을 단위로 하므로 횟수를 직접 비교하지 않고 진영별 비중(%)을 살펴봅니다.",
+    step(2,"같은 지표로 다른 자료 비교하기","정사 열전에서도 같은 글자를 세어 보시지요. 연의는 문단, 정사는 문장을 단위로 하므로 횟수를 직접 비교하지 않고 진영별 비중(%)을 살펴봅니다.",
     `<section class="card pane"><div class="pane-h"><h2>${ic("chart")}진영별 점수 비중</h2>${seg("lay5",[["jb","정사 본문"],["all","본문 + 주석"]],L.lay||"jb","정사 자료 범위")}</div>
       <div class="cmp5" id="cmp5"></div><div class="callout" id="r5" aria-live="polite"></div></section>
     <section class="card pane"><div class="pane-h"><h2>${ic("table")}인물별 비교</h2><span class="meta">연의 문단 · 정사 문장</span></div>
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">연의 수전</th><th class="n">정사 수전</th><th class="n">연의 화공</th><th class="n">정사 화공</th><th class="n">연의 계책</th><th class="n">정사 계책</th></tr></thead><tbody id="ptab5"></tbody></table></div></section>`),
     {q:"조조의 화공 관련 지표가 높게 나온 이유는 무엇일까요?",opts:["조조가 화공에 가장 뛰어났기 때문입니다.","조조가 불에 피해를 입은 장면에도 관련 글자가 나오기 때문입니다.","데이터가 잘못 입력되었기 때문입니다."],ok:1,
-     good:"관련 글자가 함께 나왔다는 사실만으로 공격한 쪽과 피해를 입은 쪽을 구분할 수는 없습니다. 자료를 바꾸면 같은 지표의 비중도 달라집니다. 따라서 수치의 정의와 출처를 함께 확인해야 합니다.",bad:"근거 문단에서 조조가 불을 지르는지, 불을 피해 달아나는지 다시 확인해 보세요.",
+     good:"관련 글자가 함께 나왔다는 사실만으로 공격한 쪽과 피해를 입은 쪽을 구분할 수는 없습니다. 자료를 바꾸면 같은 지표의 비중도 달라집니다. 따라서 수치의 정의와 출처를 함께 확인해야 합니다.",bad:"근거 문단에서 조조가 불을 지르는지, 불을 피해 달아나는지 기록을 다시 살펴보시지요.",
      ev:()=>{const a=share("yy"),b=share("jb");return `조조의 화공 지표 ${PP["曹操"].yy[1]}: 피해 장면도 포함 · 촉 비중 연의 ${a.shu}% → 정사 본문 ${b.shu}%`}});
   const r=roster(),ft=r.map(n=>({n,v:PP[n].yy[1]})).sort((a,b)=>b.v-a.v).slice(0,6);
   bars($("#firetop"),ft.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),ft[0].v,"문단");

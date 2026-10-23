@@ -1,17 +1,21 @@
 /* ===== cinema: one night on the river, the fire growing stage by stage =====
    Every page uses the same scene (river mist, embers) and the same
    cuts. Only the heat changes: calm at the start, full blaze at the What-if. */
-const HEAT={home:.18,s1:.18,s2:.3,s3:.45,s4:.6,s5:.78,s6:1,compare:.12,src:.12,lab:.9};
+const OPENING_HEAT=.46;
+const HEAT={home:OPENING_HEAT,s1:.18,s2:.3,s3:.45,s4:.6,s5:.78,s6:1,compare:.12,src:.12,lab:OPENING_HEAT};
 const SCENE_NO=["一","二","三","四","五","六"];
 
 function nightFx(cv,heat){
   let ctx;try{ctx=cv&&cv.getContext&&cv.getContext("2d")}catch{return()=>{}}if(!ctx)return()=>{};
+  let targetHeat=heat,lastFrame=0;
   let w=0,h=0,raf=0,alive=true;const dpr=Math.min(2,devicePixelRatio||1);
   const size=()=>{const r=cv.getBoundingClientRect();w=r.width;h=r.height;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};size();
   const rnd=(a,b)=>a+Math.random()*(b-a);
   const fog=[...Array(6)].map(()=>({x:rnd(-.2,1.2),y:rnd(.2,.8),r:rnd(.3,.55),v:rnd(.00003,.0001)*(Math.random()<.5?-1:1)}));
   const sparks=[...Array(Math.round(12+70*heat))].map(()=>({x:rnd(0,1),y:rnd(0,1.2),r:rnd(.6,2),vy:rnd(.0002,.0008)*(.6+heat),vx:rnd(-.0002,.0002),ph:rnd(0,6.28)}));
   function draw(t){
+    const dt=lastFrame?Math.min(64,t-lastFrame):16;lastFrame=t;
+    heat=RM?targetHeat:heat+(targetHeat-heat)*(1-Math.exp(-dt/650));
     ctx.clearRect(0,0,w,h);
     // fire glow on the far bank: grows with heat, breathes slowly
     const breathe=1+.08*Math.sin(t/900);
@@ -26,7 +30,9 @@ function nightFx(cv,heat){
   const loop=t=>{if(!alive)return;if(!document.hidden)draw(t);raf=requestAnimationFrame(loop)};
   if(RM)draw(0);else raf=requestAnimationFrame(loop);
   const ro=window.ResizeObserver?new ResizeObserver(()=>{size();if(RM)draw(0)}):null;ro&&ro.observe(cv);
-  const stop=()=>{alive=false;cancelAnimationFrame(raf);ro&&ro.disconnect()};FX.add(stop);return stop;
+  const stop=()=>{alive=false;cancelAnimationFrame(raf);ro&&ro.disconnect()};
+  stop.setHeat=value=>{targetHeat=value;if(RM)draw(0)};
+  FX.add(stop);return stop;
 }
 
 function cinemaCut(){
@@ -36,7 +42,7 @@ function cinemaCut(){
 }
 
 startHeroFx=function(){
-  const id=(location.hash||"#home").slice(1)||"home",heat=HEAT[id]??.2;
+  const id=(location.hash||"#home").slice(1).split("?")[0]||"home",heat=HEAT[id]??.2;
   document.documentElement.style.setProperty("--heat",heat);
   const main=$("#main");if(!main)return;
   const hero=main.querySelector(".scene-hero");

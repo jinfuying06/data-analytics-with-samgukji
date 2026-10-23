@@ -10,7 +10,7 @@
     <nav class="navgrp"><p>시작</p><ul class="navlist" id="navH"></ul></nav>
     <nav class="navgrp"><p>여섯 단계</p><ul class="navlist" id="navE"></ul></nav>
     <nav class="navgrp"><p>참고</p><ul class="navlist" id="navS"></ul></nav>
-    <p class="sidefoot"><button class="linkbtn" data-intro>오프닝 다시 보기</button><br>기본: 『삼국지연의』 43–50회 · 인물 63명 · 기록 186줄<br>확장: 정사 『삼국지』 열전과 배송지 주석</p>
+    <p class="sidefoot"><button class="linkbtn" data-intro>적벽의 기록 다시 펼치기</button><br>기본: 『삼국지연의』 43–50회 · 인물 63명 · 기록 186줄<br>확장: 정사 『삼국지』 열전과 배송지 주석</p>
   </aside>
 
   <main class="main" id="main"></main>
@@ -23,56 +23,59 @@
   </aside>
 </div>
 <div class="scrim" id="scrim" data-close-notes></div>
-<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="오프닝" hidden>
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="오프닝" tabindex="-1" hidden>
   <canvas id="introFx" aria-hidden="true"></canvas>
   <div class="idots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="intro-in" aria-live="polite">
-    <section class="iscene" data-heat=".15">
+    <section class="iscene" data-heat=".38">
       <p class="l k">建安十三年 · 서기 208년 겨울</p>
       <h2 class="it">赤壁</h2>
-      <p class="l">조조의 대군이 장강을 따라 내려옵니다.</p>
-      <p class="l">손권과 유비는 손을 잡고, 적벽에서 맞섭니다.</p>
+      <p class="l">오셨습니까. 저는 지난날의 기록을 살피는 기록관입니다.</p>
+      <p class="l">자, 조조의 대군이 장강을 따라 내려오는군요.</p>
+      <p class="l">손권과 유비는 손을 잡고 적벽에서 맞섰지요.</p>
     </section>
-    <section class="iscene" data-heat=".9" hidden>
+    <section class="iscene" data-heat=".68" hidden>
       <p class="l k">그날 밤</p>
-      <p class="l big">바람이 동남쪽으로 바뀌었습니다.</p>
+      <p class="l big">그날 밤, 동남풍이 불어왔습니다.</p>
       <p class="l">불붙은 배들이 조조의 함대로 들어갔고,</p>
-      <p class="l">연합군이 이겼습니다.</p>
+      <p class="l">이 기록에서는 연합군이 승리를 거두었지요.</p>
     </section>
-    <section class="iscene" data-heat=".45" hidden>
-      <p class="l k">그런데, 만약</p>
-      <p class="l q">제갈량이 <span class="nw"><em>조조 휘하</em>에</span> 있었다면,<br>조조가 이겼을까요?</p>
+    <section class="iscene" data-heat=".58" hidden>
+      <p class="l k">이야기를 읽다 이런 상상을 해 보셨습니까?</p>
+      <p class="l q"><em>만약 그때,</em><br>다른 선택을 했다면?</p>
+      <p class="l">인물이 다른 편에 섰다면, 바람이 불지 않았다면…<br>이야기가 어떻게 달라졌을지 궁금해지는 순간이 있지요.</p>
+      <p class="l intro-bridge">그 상상을 기록과 숫자로 풀어보면 어떻겠습니까?</p>
     </section>
-    <section class="iscene" data-heat=".25" hidden>
-      <p class="l k">이 질문을 숫자로 바꿀 수 있을까요?</p>
-      <p class="l">소설에 남은 제갈량의 기록을 세어 봅니다.</p>
-      <div class="l ibars" aria-label="제갈량이 나온 문단 수">
-        <div><span>등장한 문단</span><i style="--v:100"></i><b class="num">90</b></div>
-        <div><span>'배'와 함께</span><i style="--v:24.4"></i><b class="num">22</b></div>
-        <div><span>'불'과 함께</span><i style="--v:11.1"></i><b class="num">10</b></div>
-        <div><span>'계책'과 함께</span><i style="--v:50"></i><b class="num">45</b></div>
-      </div>
-      <p class="l">제갈량을 조조 편으로 옮기면, <b>이 숫자들도 조조 편으로 옮겨 갑니다.</b><br>그다음 두 편의 점수를 다시 비교하면 됩니다.</p>
-    </section>
-    <section class="iscene" data-heat=".2" hidden>
-      <p class="l k">그래서, 이렇게 따져 봅니다</p>
-      <ol class="l isteps">
-        <li><b>두 편에 누가 있었을까?</b><span>셀 사람 정하기</span></li>
-        <li><b>평균만 보면 속지 않을까?</b><span>제갈량 한 명이 숫자를 얼마나 흔드는지</span></li>
-        <li><b>무엇으로 강함을 잴까?</b><span>배·불·계책으로 점수 만들기</span></li>
-        <li><b>점수를 바꿔도 같을까?</b><span>내 점수만 맞는 답인지 확인</span></li>
-        <li><b>그 숫자, 정말 그 뜻일까?</b><span>원문 읽어 보기</span></li>
-        <li><b>제갈량을 조조 편으로 옮기면?</b><span>처음 질문에 답하기</span></li>
+    <section class="iscene" data-heat=".48" hidden>
+      <p class="l k">예를 들어 봅시다.</p>
+      <p class="l"><b>제갈량이 조조 편이었다면?</b><br>이 물음을 살펴보려면, 먼저 두 진영의 기록을 같은 기준으로 비교해야겠지요.</p>
+      <ol class="l intro-method">
+        <li><b>기록을 셉니다</b><span>인물의 이름과 배·불·계책이 함께 나오는 문단을 셉니다.</span></li>
+        <li><b>비교 점수를 만듭니다</b><span>모든 인물의 기록에 같은 점수 규칙을 적용합니다.</span></li>
+        <li><b>제갈량의 소속을 바꿉니다</b><span>각 인물의 점수는 그대로 두고 소속만 옮깁니다.</span></li>
       </ol>
-      <p class="l">답은 '이겼다 · 졌다'가 아니라 <b>'이 기록과 이 가정이라면 이렇다'</b>입니다.</p>
+      <p class="l intro-bridge">제갈량의 점수를 <b>연합군 합계에서 빼고 조조군 합계에 더한 뒤,</b><br>소속을 바꾸기 전과 후에 두 진영의 차이가 얼마나 달라지는지 살펴보려는 것이지요.</p>
     </section>
-    <button class="enter">다음</button>
+    <section class="iscene" data-heat=".4" hidden>
+      <p class="l k">이제 다음 순서로 기록을 살펴보시지요</p>
+      <ol class="l isteps">
+        <li><b>조조군과 연합군의 인물 명단 정하기</b><span>어느 인물의 기록을 셀지 정하기</span></li>
+        <li><b>평균에는 무엇이 가려져 있을까요?</b><span>제갈량 한 명이 숫자를 얼마나 흔드는지</span></li>
+        <li><b>무엇으로 기록을 비교할까요?</b><span>배·불·계책으로 점수 만들기</span></li>
+        <li><b>점수를 바꾸어도 같을까요?</b><span>내 점수만 맞는 답인지 확인</span></li>
+        <li><b>그 숫자는 무엇을 뜻할까요?</b><span>원문 펼치기</span></li>
+        <li><b>조건을 달리하면 무엇이 바뀔까요?</b><span>앞서 세운 기준으로 실험하기</span></li>
+      </ol>
+      <p class="l intro-bridge">차례로 배워도 좋고, 궁금한 질문의 실험부터 시작해도 좋습니다.</p>
+    </section>
+    <div class="intro-controls"><button class="enter">다음</button><button class="intro-prev" type="button" disabled>이전</button></div>
   </div>
   <button class="skip">건너뛰기</button>
 </div>
 
 <nav class="tabbar" aria-label="주요 화면">
   <a href="#home" id="tabH"><svg class="ico"><use href="#i-scroll"/></svg>단계</a>
+  <a href="#lab" id="tabL"><svg class="ico"><use href="#i-flask"/></svg>가정 실험</a>
   <a href="#src" id="tabS"><svg class="ico"><use href="#i-book"/></svg>데이터</a>
   <button data-open-notes id="tabN"><svg class="ico"><use href="#i-note"/></svg>학습 기록<span class="badge num" id="nbBadge">0</span></button>
 </nav>

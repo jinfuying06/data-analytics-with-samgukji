@@ -36,7 +36,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .simple .taskbar{display:none}
 @media (min-width:1024px) and (max-width:1279px){.simple .taskbar{display:flex;justify-content:flex-end}}
 .simple .taskbar .tasks{display:none}
-.pcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.pcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:12px}
 .pcard{display:grid;gap:10px;align-content:start;padding:16px;border-radius:var(--r);background:linear-gradient(180deg,rgba(27,33,39,.86),rgba(16,21,26,.9));border:1px solid var(--rule);transition:border-color .2s}
 .pcard.chosen{border-color:rgba(236,228,212,.28)}
 .pcard-h{display:flex;align-items:center;gap:8px}
@@ -51,7 +51,7 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .pcard-tip{font-size:13px;color:var(--ink-2);line-height:1.5;border-top:1px solid var(--rule);padding-top:8px}
 .rule-line{font-family:var(--f-display);font-size:18px;color:#f0e6d3}
 .rule-line b{color:#f6d9b4}
-@media (max-width:900px){.pcards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 @media (max-width:420px){.pcards{grid-template-columns:minmax(0,1fr)}}
 .named-wrap{display:grid;gap:12px}
 .named{border-color:rgba(231,185,88,.4)!important;background:linear-gradient(180deg,rgba(231,185,88,.08),rgba(16,21,26,.9))!important;gap:6px}
@@ -77,4 +77,10 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 @media (max-width:760px){.kcount,.pcards.three,.pick.wide{grid-template-columns:minmax(0,1fr)}}
 .pcard-why{display:block;margin-top:4px;font-size:12px;color:var(--ink-3,#9aa)}
 .evq .kw-fire{font-weight:800;color:var(--flame)}
+/* Share content rows so all roster choices align with the tallest card in their row. */
+#pcards>.pcard{grid-template-rows:auto 1fr auto auto;align-content:stretch;min-width:0}
+#pcards .pick{grid-row:3;align-self:end}
+#pcards .pcard-tip{grid-row:4}
+#pcards .pick button{white-space:nowrap;font-size:12.5px;padding:10px 4px;min-width:0;min-height:44px}
+@supports(grid-template-rows:subgrid){#pcards>.pcard{grid-row:span 4;grid-template-rows:subgrid}}
 </style>

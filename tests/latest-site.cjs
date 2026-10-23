@@ -9,6 +9,25 @@ try{
  assert.equal(e('DB.length'),63);assert.equal(e('EDGES.length'),1340);assert.equal(e('roster().length'),42);
  assert.deepEqual(JSON.parse(e('JSON.stringify(FS.map(f=>roster().filter(n=>PP[n].f===f).length))')),[15,20,7]);
  assert.equal(e('fs("yy").wu+fs("yy").shu'),1255);assert.equal(e('fs("yy").wei'),467);
+ // Exercise the actual pager links, including the reported stage 5 → stage 6 path.
+ route('s1');
+ for(let i=1;i<6;i++){
+  const next=d.querySelector('#main>.pager a:last-child');assert.equal(next.getAttribute('href'),'#s'+(i+1));
+  assert.ok(next.textContent.includes((i+1)+'단계로 이동'));
+  const event=new w.MouseEvent('click',{bubbles:true,cancelable:true,button:0});
+  assert.equal(next.dispatchEvent(event),false,'internal stage link prevents a full-document navigation');
+  assert.equal(w.location.hash,'#s'+(i+1));assert.equal(e('cur'),i+1);assert.equal(d.querySelector('.experiment-opening'),null,'next step must not render the home question');
+  assert.equal(d.querySelector('.stepper [aria-current="page"]').getAttribute('href'),'#s'+(i+1));
+ }
+ assert.ok(d.querySelector('#move6'),'stage 6 has the experiment controls');
+ click('#main>.pager a:first-child');assert.equal(w.location.hash,'#s5');assert.ok(d.querySelector('#guess5'));
+ click('.stepper a[href="#s6"]');assert.equal(w.location.hash,'#s6');assert.ok(d.querySelector('#move6'));
+ // Opening questions use the same medium-intensity treatment.
+ route('home');const homeHeat=d.documentElement.style.getPropertyValue('--heat');
+ assert.equal(d.querySelector('[data-intro].experiment-replay').textContent,'처음으로 돌아가기');
+ route('lab?question=zy');assert.equal(d.documentElement.style.getPropertyValue('--heat'),homeHeat);assert.ok(d.querySelector('.experiment-opening>.cinema-bg'));
+ assert.equal(d.querySelector('#main h1').textContent,'주유가 조조 편이었다면?');
+
  route('s1');answer();assert.equal(e('Object.keys(S.done).length'),0,'unfinished activity must reject keyboard/programmatic activation');for(const [n,v] of [['曹操',1],['許褚',1],['夏侯淵',0],['袁紹',0]])click(`.pcard[data-n="${n}"] .pick button[data-v="${v}"]`);assert.equal(e('JSON.stringify(S.rule)'),JSON.stringify({min:2,dead:1}));assert.equal(e('roster().length'),42);answer();assert.ok(e('!!S.done[1]'));
  route('s2');answer();assert.ok(!e('!!S.done[2]'));click('#dropTop');assert.ok(d.querySelector('#dropRes').textContent.includes('22.9'));assert.ok(d.querySelector('#dropRes').textContent.includes('11.7'));answer();assert.ok(e('!!S.done[2]'));
  route('s3');assert.ok(d.querySelector('#score3').textContent.includes('1,255')||d.querySelector('#score3').textContent.includes('1255'));click('#fixW');answer();assert.ok(e('!!S.done[3]'));
@@ -21,7 +40,7 @@ try{
  assert.ok(!d.querySelector('#main').textContent.includes('할 수 있을까?'));
  assert.ok(d.querySelector('#main').textContent.includes('조조의 편이었다면?'));
  for(const id of ['s1','s2','s3','s4','s5','s6','src']){route(id);const clone=d.querySelector('#main').cloneNode(true);clone.querySelectorAll('.evq,.excerpt').forEach(n=>n.remove());const text=clone.textContent;assert.ok(!/(?:정해요는|해요다|기댄다|주마|보아라|돌려 보기|소설이 키운 쪽)/.test(text),id);}
- route('s1');assert.ok(d.querySelector('#main').textContent.includes('누구를 세어야'));assert.equal(d.querySelector('.subtitle'),null);
+ route('s1');assert.ok(d.querySelector('#main').textContent.includes('명단에 올릴 인물'));assert.equal(d.querySelector('.subtitle'),null);
  route('compare');assert.ok(d.querySelector('#source-reading-result').textContent.includes('사건의 사실 여부를 판단할 수는 없습니다.'));assert.equal(d.querySelectorAll('#source-counts tr').length,e('roster().length')*2);click('#compare-scope [data-v="all"]');assert.ok(d.querySelector('#source-shares').textContent.includes('주석'));assert.equal(e('Object.keys(S.done).length'),6);
  console.log('PASS latest app: 63 persons, 1340 edges, 42-person roster, scores 1255/467, YY sensitivity 215/215, simulator 83→72 and wind assumption 52, six hands-on activities without a historical-source gate, optional source comparison, completion gate, saved progress and source view.');
 }finally{dom.window.close()}

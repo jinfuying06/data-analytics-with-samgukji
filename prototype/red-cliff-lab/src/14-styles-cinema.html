@@ -31,7 +31,7 @@
 .reel i.now{background:var(--flame);box-shadow:0 0 10px rgba(255,122,61,.8)}
 
 /* home: the same river scene behind the question */
-.experiment-opening{position:relative;isolation:isolate}
+.experiment-opening{position:relative;isolation:isolate;background:radial-gradient(ellipse at 75% 55%,rgba(122,48,25,.12),transparent 72%)}
 .experiment-opening>.cinema-bg{position:absolute;inset:-48px -40px -24px;width:calc(100% + 80px);height:calc(100% + 72px);z-index:-1;pointer-events:none;
   -webkit-mask-image:radial-gradient(closest-side,#000 45%,transparent 100%);mask-image:radial-gradient(closest-side,#000 45%,transparent 100%)}
 .experiment-opening h1{word-break:keep-all;animation:film-title 1.2s .2s var(--ease-film) both}
@@ -80,6 +80,7 @@
   }
 
 /* ===== opening: five scenes, lines arrive one by one ===== */
+.intro{background:radial-gradient(ellipse at 82% 95%,rgba(133,43,30,.32),transparent 66%),radial-gradient(ellipse at 5% 15%,rgba(99,34,30,.18),transparent 62%),#07090b}
 .intro .intro-in{max-width:52em;min-height:min(70vh,560px);align-content:center;gap:18px}
 .iscene{display:grid;gap:14px;justify-items:center;text-align:center}
 .iscene[hidden]{display:none}
@@ -105,9 +106,11 @@
 .idots{position:absolute;z-index:4;top:calc(11vh + 22px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);display:flex;gap:6px;justify-content:center}
 .idots i{width:22px;height:4px;border-radius:2px;background:rgba(236,230,217,.16)}
 .idots i.on{background:#e8763c}
-.intro .enter{animation:fadeup .8s 1.2s var(--ease-film) both}
+.intro .intro-controls{visibility:hidden;opacity:0;pointer-events:none;transition:opacity .3s ease}
+.intro.ready .intro-controls{visibility:visible;opacity:1;pointer-events:auto}
+.intro.revealed .iscene.on .l,.intro.revealed .iscene.on .it,.intro.revealed .iscene.on .isteps li{animation:none!important;opacity:1;transform:none;filter:none}
 @media (max-width:760px){.isteps li{padding:8px 12px;grid-template-columns:34px 1fr}.isteps li span{display:none}.intro .intro-in{padding-top:30px}.isteps b{font-size:14.5px}.intro .intro-in{min-height:0}}
-@media (prefers-reduced-motion:reduce){.iscene .l,.iscene .it,.ibars i,.isteps li,.intro .enter{animation:none}}
+@media (prefers-reduced-motion:reduce){.iscene .l,.iscene .it,.ibars i,.isteps li,.intro .intro-controls{animation:none}}
 
 /* ===== buttons: one shape everywhere, a slightly rounded square ===== */
 :root{--r-btn:8px}
@@ -124,4 +127,30 @@
 .wi-panel .wi-step{margin-top:12px}
 .lab-back{margin-top:28px}
 @media (max-width:760px){.intro .enter{margin-top:32px}}
+.keeper-welcome{display:block;margin-bottom:10px;color:var(--mark);font-size:.9em}
+
+.intro-controls{display:grid;justify-items:center;gap:9px;margin-top:18px}.intro-controls .enter{margin:0}.intro-prev{background:none;border:0;padding:5px 18px;min-height:32px;color:#bcb4a5;font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}.intro-prev:disabled{visibility:hidden}.intro-prev:focus-visible{outline:2px solid var(--wind);outline-offset:3px}
+.intro-method{list-style:none;margin:18px auto;padding:0;display:grid;gap:14px;text-align:left;max-width:480px}.intro-method li{border-left:2px solid var(--mark);padding-left:15px;display:grid;gap:4px}.intro-method b{font-size:16px;color:#ece6d9}.intro-method span{font-size:13px;color:#bcb4a5}.intro .intro-bridge{font-size:14px;line-height:1.9}
+.prediction-footer{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.home-progress{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;gap:18px;padding:16px 20px;border:1px solid var(--rule);border-radius:var(--r);background:rgba(255,255,255,.025);width:100%;box-sizing:border-box}.home-progress .journey-outline{padding:0;background:none;border:0}.home-progress .journey-outline>summary{padding:13px 0;gap:18px}.home-progress .journey-outline>summary>.home-progress-count{color:var(--ink);font-size:13px}.home-progress .journey-outline>summary>span:last-child{font-size:11px}.home-progress>button{margin:0;align-self:start;min-height:48px}.home-progress .journey-outline ol{padding:8px 0 0}.home-progress .journey-outline li a{gap:12px;font-size:12px}.home-progress .journey-outline li a>small{display:none}
+@media(max-width:760px){.home-progress{grid-template-columns:minmax(0,1fr);gap:7px;padding:12px 16px}.home-progress>button{width:100%;justify-content:space-between}.intro-method{gap:11px;margin:14px auto}.intro-method b{font-size:14px}.intro-method span{font-size:12px}.intro .intro-bridge{font-size:12px;line-height:1.9}.intro-controls{margin-top:13px;gap:6px}}
+
+/* Stack all scenes in one grid cell. Hidden scenes reserve their natural height,
+   so the tallest scene fixes the navigation row for every step and viewport. */
+.intro .intro-in{width:min(52em,100%);grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto}
+.intro .intro-in>.iscene{grid-area:1 / 1;align-self:center;width:100%;min-width:0}
+.intro .intro-in>.iscene[hidden]{display:grid;visibility:hidden;pointer-events:none}
+.intro .iscene[hidden] .l,.intro .iscene[hidden] .it{animation:none}
+.intro .intro-in>.intro-controls{grid-area:2 / 1;align-self:start;width:100%}
+@media(max-height:700px){.intro{align-items:start;overflow-y:auto}.intro .intro-in{margin-block:20px}}
+/* Keep stage navigation separate from the activity above and from the fixed tabs. */
+.main>.pager{gap:24px;margin-block:28px 24px;padding-block:12px;align-items:center}
+.pager>a.btn{min-height:48px;white-space:nowrap;padding:12px 20px;flex:0 0 auto}
+.pager .ico{flex-shrink:0}
+/* The stage list is a continuous underline tab strip. */
+.stepper{gap:0;border-bottom:1px solid var(--rule);padding:0;margin:0}
+.stepper a,.stepper a[aria-current="page"]{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;padding:10px 14px;white-space:nowrap}
+.stepper a[aria-current="page"]{border-bottom-color:var(--flame);color:var(--ink)}
+.stepper a .st,.stepper a.done .st{background:none;border-radius:0;color:var(--ink-3);width:auto;min-width:18px;height:24px}
+.stepper a[aria-current="page"] .st{color:var(--flame)}
+@media(max-width:560px){.pager>a.btn{padding:12px 16px;font-size:13px}.main>.pager{gap:16px;margin-block:24px}}
 </style>
