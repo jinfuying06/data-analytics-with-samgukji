@@ -1,0 +1,14 @@
+{
+  "name": "삼국지 데이터 원정대",
+  "short_name": "원정대",
+  "description": "삼국지연의의 기록으로 인물 구성과 역할을 분석하고, 조건을 바꾸어 What-if 결과를 비교합니다.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#192329",
+  "theme_color": "#192329",
+  "icons": [
+    {"src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
