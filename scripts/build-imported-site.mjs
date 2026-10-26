@@ -15,6 +15,7 @@ const scripts=[readFileSync(base+'30-data.js','utf8'),app,readFileSync(base+'70-
 const html=`<!doctype html>\n<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="description" content="삼국지연의의 기록으로 배우는 데이터 분석: 명단, 평균, 지표, 민감도, 출처 검증, What-if 실험.">${head}</head><body>${symbols}${markup}<script>${scripts}</script></body></html>`;
 rmSync('dist',{recursive:true,force:true});mkdirSync('dist',{recursive:true});writeFileSync('dist/index.html',html);
 cpSync('frontend/public/sprites/factions','dist/sprites/factions',{recursive:true});
+cpSync('frontend/public/images','dist/images',{recursive:true});
 mkdirSync('frontend/public/learning',{recursive:true});
 writeFileSync('frontend/public/learning/index.html',html);
 console.log('Built latest GitHub six-stage app from 5113da1, from canonical source, with shared Next.js and static entry points.');
