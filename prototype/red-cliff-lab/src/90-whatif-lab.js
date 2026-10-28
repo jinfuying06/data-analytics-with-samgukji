@@ -170,7 +170,7 @@ RENDER[6]=function(){
    const other=()=>{const n=$("#who6").value,to=$$("#to6 button").find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.v||'wei';const m={[n]:to==='out'?null:to==='ally'?(PP[n].f==='wei'?'wu':PP[n].f):'wei'};$("#other6").textContent=`${PP[n].ko}: ${base} → ${wiCalc({mut:m}).i} (바람=날씨)`};
    $("#who6").onchange=other;onSeg("to6",other);other();
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
-   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>${isZg?`바람=날씨 ${v0} (${vd(v0)}) · 바람=제갈량 ${v1} (${vd(v1)})`:`${esc(j.opts[0][1])} ${v0} (${vd(v0)}) · ${esc(j.opts[1][1])} ${v1} (${vd(v1)})`}</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
+   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>${isZg?`바람=날씨 ${v0} (${vd(v0)}) · 바람=제갈량 ${v1} (${vd(v1)})`:`${esc(j.opts[0][1])} ${v0} (${vd(v0)}) · ${esc(j.opts[1][1])} ${v1} (${vd(v1)})`}</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
    $("#prediction-reflection").oninput=e=>{S.reflection=e.target.value;save()};
   }
  };
@@ -209,7 +209,7 @@ RENDER[LAB_VIEW]=()=>{
    <p class="wi-question" id="wbQ"></p><div id="wbRes"></div></section>`)}
  ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
- <p class="lab-back"><a class="btn ghost" href="#home">처음 화면</a></p>`;
+ <p class="lab-back"><a class="btn ghost" href="#home">처음으로</a></p>`;
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
 
  // builder: a sandbox that writes the question from the choices

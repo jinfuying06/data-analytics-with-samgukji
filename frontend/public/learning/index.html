@@ -1164,7 +1164,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 
 <header class="appbar">
   <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
-  <nav class="appnav" aria-label="주요 화면"><a href="#home" id="anH">처음 화면</a><a href="#lab" id="anL">가정 실험</a><a href="#src" id="anS">자료와 집계 기준</a></nav>
+  <nav class="appnav" aria-label="주요 화면"><a href="#home" id="anH">처음</a><a href="#lab" id="anL">가정 실험</a><a href="#src" id="anS">자료와 집계 기준</a></nav>
   <button class="btn ghost nb-open" data-open-notes aria-label="순서 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
 </header>
 
@@ -1175,7 +1175,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
     <nav class="navgrp"><p>시작</p><ul class="navlist" id="navH"></ul></nav>
     <nav class="navgrp"><p>순서</p><ul class="navlist" id="navE"></ul></nav>
     <nav class="navgrp"><p>참고</p><ul class="navlist" id="navS"></ul></nav>
-    <p class="sidefoot"><button class="linkbtn" data-intro>시작 장면 다시 보기</button></p>
+    <p class="sidefoot"><button class="linkbtn" data-intro>서막 다시 보기</button></p>
   </aside>
 
   <main class="main" id="main"></main>
@@ -1188,7 +1188,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
   </aside>
 </div>
 <div class="scrim" id="scrim" data-close-notes></div>
-<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="시작 장면" tabindex="-1" hidden>
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="서막" tabindex="-1" hidden>
   <canvas id="introFx" aria-hidden="true"></canvas>
   <div class="idots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
   <div class="intro-in" aria-live="polite">
@@ -1239,7 +1239,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 </div>
 
 <nav class="tabbar" aria-label="주요 화면">
-  <a href="#home" id="tabH"><svg class="ico"><use href="#i-scroll"/></svg>홈</a>
+  <a href="#home" id="tabH"><svg class="ico"><use href="#i-scroll"/></svg>처음</a>
   <a href="#lab" id="tabL"><svg class="ico"><use href="#i-flask"/></svg>가정 실험</a>
   <a href="#src" id="tabS"><svg class="ico"><use href="#i-book"/></svg>데이터</a>
   <button data-open-notes id="tabN"><svg class="ico"><use href="#i-note"/></svg>순서<span class="badge num" id="nbBadge">0</span></button>
@@ -1306,7 +1306,7 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 /* ===== chrome ===== */
 function drawChrome(){
   const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${done?ic("check"):hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
-  $("#navH").innerHTML=a("home","始","처음 화면","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
+  $("#navH").innerHTML=a("home","始","처음","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
@@ -1321,7 +1321,7 @@ function drawChrome(){
 function notes(open){$("#notebook").classList.toggle("open",open);$("#scrim").classList.toggle("open",open)}
 document.addEventListener("click",e=>{if(e.target.closest("[data-open-notes]"))notes(true);else if(e.target.closest("[data-close-notes]"))notes(false);else if(e.target.closest("#board a"))notes(false)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")notes(false)});
-function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();if(i>=1&&i<=6)document.body.classList.remove("experiment-home");startHeroFx();window.scrollTo?.({top:0})}
+function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();document.body.classList.toggle("experiment-home",VIEWS.findIndex(v=>v.id===(location.hash||"#home").slice(1).split("?")[0])<=0);startHeroFx();window.scrollTo?.({top:0})}
 addEventListener("hashchange",route);
 // Explicit internal navigation keeps pager targets inside this learning app, including embeds.
 document.addEventListener("click",e=>{
@@ -1345,7 +1345,7 @@ function stage(i,tasks,steps,chk){
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}순서 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
   ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
-  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
+  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음으로</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">처음으로${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");
   const sid=typeof scenario==="function"?scenario().id:"",turn=[...(sid+i+chk.q)].reduce((a,ch)=>a+ch.charCodeAt(0),0)%chk.opts.length,order=chk.opts.map((_,k)=>(k+turn)%chk.opts.length);
@@ -1680,7 +1680,7 @@ function journeyHome(){
  <section class="journey-background" aria-labelledby="story-title"><div class="journey-story"><span class="journey-eyebrow">이야기</span><h2 id="story-title">적벽에서는 어떤 일이 있었을까요?</h2><p>조조군이 남쪽으로 내려오자 손권과 유비는 힘을 모았습니다. 연합군은 거짓 항복과 화공을 준비했고, 동남풍을 타고 번진 불길에 조조군은 물러났습니다. 제갈량은 이 과정에서 연합군의 계책과 바람에 관여합니다.</p><small>『삼국지연의』 제43–50회의 이야기를 학습을 위해 요약했습니다.</small></div></section>
  <section class="journey-condition" aria-labelledby="condition-title"><div><span class="journey-eyebrow">바꾸어 볼 조건</span><h2 id="condition-title">제갈량의 소속이 바뀌면 이야기도 달라질까요?</h2><p>이번에는 제갈량이 조조의 편에 있다고 가정합니다. 같은 인물들의 기록을 두고 소속만 바꾸면, 두 진영의 비교 결과는 어떻게 달라질까요?</p></div><div class="condition-change"><div><span>이야기 속 소속</span><b>손권·유비 연합군</b></div><span aria-hidden="true">→</span><div><span>바꾸어 볼 소속</span><b>조조군</b></div></div></section>
  <section class="background-method" aria-labelledby="method-title"><span class="journey-eyebrow">확인 방법</span><h2 id="method-title">예상을 어떻게 확인할까요?</h2><ol class="method-actions"><li><span>01</span><h3>먼저, 두 진영을 살펴봅니다.</h3><p>누가 있는지 확인하고, 각 인물의 등장 기록과 역할을 비교합니다.</p></li><li><span>02</span><h3>같은 기준으로 비교합니다.</h3><p>배·불·계책 관련 기록으로 점수를 만들고, 계산 기준과 근거를 점검합니다.</p></li><li><span>03</span><h3>소속을 바꾸어 계산합니다.</h3><p>앞에서 정한 기준을 유지한 채 제갈량의 소속을 바꾸고, 처음 예상과 결과를 비교합니다.</p></li></ol><p class="background-meta">기본 학습 6개 순서</p><p class="method-extension">실험 뒤에는 정사의 기록과 대조하며, 자료에 따라 해석이 달라지는지도 살펴볼 수 있습니다.</p><a href="#src">자료와 집계 기준 ${ic('right')}</a></section>
- <details class="journey-outline"><summary>전체 학습 과정 <span>${count} / 6 완료 ${ic('right')}</span></summary><ol>${ST.map((entry,i)=>`<li><a href="#${entry.id}"><span>${String(i+1).padStart(2,'0')}</span><b>${entry.short}</b><small>${S.done[i+1]?'완료':entry.skill}</small>${ic('right')}</a></li>`).join('')}</ol></details><button class="linkbtn experiment-replay" data-intro>시작 장면 다시 보기</button>
+ <details class="journey-outline"><summary>전체 학습 과정 <span>${count} / 6 완료 ${ic('right')}</span></summary><ol>${ST.map((entry,i)=>`<li><a href="#${entry.id}"><span>${String(i+1).padStart(2,'0')}</span><b>${entry.short}</b><small>${S.done[i+1]?'완료':entry.skill}</small>${ic('right')}</a></li>`).join('')}</ol></details><button class="linkbtn experiment-replay" data-intro>서막 다시 보기</button>
  ${count===6?`<section class="journey-completed"><h2>이번 실험에서 남긴 학습 기록</h2><ol class="sumlist">${ST.map((entry,i)=>`<li><span class="vchip v-t">${i+1}</span><span><b>${entry.short}</b><small>${esc(S.done[i+1]||'')}</small></span></li>`).join('')}</ol><button class="btn ghost" id="reset">${ic('reset')}학습 기록 초기화하기</button></section>`:''}`;
  const form=$("#prediction-form");form.onchange=()=>{S.prediction=Number(new FormData(form).get('prediction'));save();form.querySelector('button').disabled=false;$("#prediction-status").textContent='짐작을 골랐습니다. 마지막에 결과와 비교합니다.'};
  form.onsubmit=e=>{e.preventDefault();if(count===0&&(!Number.isInteger(S.prediction)||!PREDICTIONS[S.prediction]))return;location.hash='#'+destination};
@@ -2027,7 +2027,7 @@ RENDER[6]=()=>{
    const other=()=>{const n=$("#who6").value,to=$$("#to6 button").find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.v||'wei';const m={[n]:to==='out'?null:to==='ally'?(PP[n].f==='wei'?'wu':PP[n].f):'wei'};$("#other6").textContent=`${PP[n].ko}: ${idx(null,'env')} → ${idx(m,'env')} (바람=날씨)`};
    $("#who6").onchange=other;onSeg("to6",other);other();
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
-   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>바람=날씨 ${idx(moved,'env')} (${vd(idx(moved,'env'))}) · 바람=제갈량 ${idx(moved,'zg')} (${vd(idx(moved,'zg'))})</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
+   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>바람=날씨 ${idx(moved,'env')} (${vd(idx(moved,'env'))}) · 바람=제갈량 ${idx(moved,'zg')} (${vd(idx(moved,'zg'))})</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
    $("#prediction-reflection").oninput=e=>{S.reflection=e.target.value;save()};
   }
  };
@@ -2298,7 +2298,7 @@ RENDER[6]=function(){
    const other=()=>{const n=$("#who6").value,to=$$("#to6 button").find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.v||'wei';const m={[n]:to==='out'?null:to==='ally'?(PP[n].f==='wei'?'wu':PP[n].f):'wei'};$("#other6").textContent=`${PP[n].ko}: ${base} → ${wiCalc({mut:m}).i} (바람=날씨)`};
    $("#who6").onchange=other;onSeg("to6",other);other();
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
-   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>${isZg?`바람=날씨 ${v0} (${vd(v0)}) · 바람=제갈량 ${v1} (${vd(v1)})`:`${esc(j.opts[0][1])} ${v0} (${vd(v0)}) · ${esc(j.opts[1][1])} ${v1} (${vd(v1)})`}</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
+   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>${isZg?`바람=날씨 ${v0} (${vd(v0)}) · 바람=제갈량 ${v1} (${vd(v1)})`:`${esc(j.opts[0][1])} ${v0} (${vd(v0)}) · ${esc(j.opts[1][1])} ${v1} (${vd(v1)})`}</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
    $("#prediction-reflection").oninput=e=>{S.reflection=e.target.value;save()};
   }
  };
@@ -2337,7 +2337,7 @@ RENDER[LAB_VIEW]=()=>{
    <p class="wi-question" id="wbQ"></p><div id="wbRes"></div></section>`)}
  ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
- <p class="lab-back"><a class="btn ghost" href="#home">처음 화면</a></p>`;
+ <p class="lab-back"><a class="btn ghost" href="#home">처음으로</a></p>`;
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
 
  // builder: a sandbox that writes the question from the choices
@@ -2846,7 +2846,7 @@ function lv3Stage6(){
  const saved=()=>{
   show('s6name',named("결론 쓰기",`가정 실험의 답은 <b>가정 + 기록 + 숫자 + 한계</b>로 이루어집니다. 방금 남기신 문장이 그 형태이지요.`));
   const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
-  const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>남긴 결론</h3><p>${esc(S.reflection)}</p></div></div></section>`;
+  const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>남긴 결론</h3><p>${esc(S.reflection)}</p></div></div></section>`;
  };
  $("#d6save").onclick=()=>{S.reflection=sentence();save();setT("s6","wind");saved()};
  draw();if(tk("s6","wind")&&S.reflection)saved();
@@ -3053,7 +3053,7 @@ function lv2Stage6(){
   if(L.seen.length>=4){setT("s6","wind");
    show('s6name',named("판정이 바뀌는 곳",flips.length?`바람 보너스가 <b>${flips[0][0]}점</b>일 때는 ‘${wiVerdict(at(flips[0][0]))}’, <b>${flips[0][1]}점</b>일 때는 ‘${wiVerdict(at(flips[0][1]))}’입니다. 이 질문의 결론은 바람을 얼마로 보느냐에 기대고 있지요. 결론에는 이 경계를 함께 적습니다.`:`바람 보너스를 0점에서 30점까지 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다. 이 질문의 결론은 바람 가정에 크게 기대지 않습니다.`));
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction],p=$("#s6pred");p.hidden=false;
-   p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>찾은 범위</h3><p>바람 보너스 0~30점 · 지수 ${at(0)}~${at(30)}</p></div></div></section>`}};
+   p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>찾은 범위</h3><p>바람 보너스 0~30점 · 지수 ${at(0)}~${at(30)}</p></div></div></section>`}};
  $("#move6").onclick=afterMove;onSeg("bonus6",v=>{L.b=+v;save();draw()});
  if(tk("s6","move"))afterMove();
  $("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><b>다른 가정도 살펴보기</b></a>`);

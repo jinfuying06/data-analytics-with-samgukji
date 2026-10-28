@@ -150,7 +150,7 @@ function lv3Stage6(){
  const saved=()=>{
   show('s6name',named("결론 쓰기",`가정 실험의 답은 <b>가정 + 기록 + 숫자 + 한계</b>로 이루어집니다. 방금 남기신 문장이 그 형태이지요.`));
   const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
-  const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>남긴 결론</h3><p>${esc(S.reflection)}</p></div></div></section>`;
+  const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>남긴 결론</h3><p>${esc(S.reflection)}</p></div></div></section>`;
  };
  $("#d6save").onclick=()=>{S.reflection=sentence();save();setT("s6","wind");saved()};
  draw();if(tk("s6","wind")&&S.reflection)saved();

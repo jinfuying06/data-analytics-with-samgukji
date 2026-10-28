@@ -6,6 +6,14 @@ const w=dom.window,d=w.document,q=s=>d.querySelector(s),e=s=>w.eval(s),route=id=
 const answer=()=>click('#vbox .opt[data-i="'+d.querySelector('#vbox').dataset.ok+'"]');
 try{
  assert.equal(errors.length,0,errors.join('\n'));
+ // 화면 이동과 홈 전용 상태: 홈에서만 사이드바를 숨긴다
+ const home=()=>d.body.classList.contains('experiment-home');
+ route('home');assert.equal(home(),true,'home hides the sidebar');route('src');assert.equal(home(),false,'home -> src shows the sidebar');
+ route('home');route('lab');assert.equal(home(),false,'home -> lab');route('src');assert.equal(home(),false,'lab -> src');
+ route('s1');assert.equal(home(),false);route('home');assert.equal(home(),true);
+ e('location.hash="#lab?question=zy";route()');assert.equal(home(),true,'starting a lab question lands on its home');e('setScenario("zg")');route('home');
+ // 이름 기준: 처음(홈) · 서막(오프닝)
+ assert.equal(q('#anH').textContent,'처음');assert.equal(q('#tabH').textContent,'처음');assert.equal(q('[data-intro]').textContent.trim().length>0,true);
  // 사이드바 그룹 이름
  route('s1');assert.ok([...d.querySelectorAll('.navgrp p')].map(p=>p.textContent).includes('순서'));assert.ok(![...d.querySelectorAll('.navgrp p')].some(p=>p.textContent.includes('여섯')));
  // 1단계 카드: 처음부터 맞게 골라도 "맞습니다."가 나온다

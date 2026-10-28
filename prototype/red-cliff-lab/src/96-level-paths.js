@@ -190,7 +190,7 @@ function lv2Stage6(){
   if(L.seen.length>=4){setT("s6","wind");
    show('s6name',named("판정이 바뀌는 곳",flips.length?`바람 보너스가 <b>${flips[0][0]}점</b>일 때는 ‘${wiVerdict(at(flips[0][0]))}’, <b>${flips[0][1]}점</b>일 때는 ‘${wiVerdict(at(flips[0][1]))}’입니다. 이 질문의 결론은 바람을 얼마로 보느냐에 기대고 있지요. 결론에는 이 경계를 함께 적습니다.`:`바람 보너스를 0점에서 30점까지 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다. 이 질문의 결론은 바람 가정에 크게 기대지 않습니다.`));
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction],p=$("#s6pred");p.hidden=false;
-   p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>찾은 범위</h3><p>바람 보너스 0~30점 · 지수 ${at(0)}~${at(30)}</p></div></div></section>`}};
+   p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>찾은 범위</h3><p>바람 보너스 0~30점 · 지수 ${at(0)}~${at(30)}</p></div></div></section>`}};
  $("#move6").onclick=afterMove;onSeg("bonus6",v=>{L.b=+v;save();draw()});
  if(tk("s6","move"))afterMove();
  $("#main").insertAdjacentHTML("beforeend",`<a class="lab-link card" href="#lab"><b>다른 가정도 살펴보기</b></a>`);
