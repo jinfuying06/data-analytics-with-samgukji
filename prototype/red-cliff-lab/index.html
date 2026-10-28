@@ -1158,7 +1158,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 .lab-opening .wi-card.finished{border-color:rgba(134,211,163,.55);background:rgba(40,80,56,.28)}
 .lab-opening .wi-card.finished:hover{background:rgba(40,80,56,.4)}
 .prog-q{color:var(--ink);font-size:13px;line-height:1.45;word-break:keep-all}
-body.view-lab .prog,body.view-lab #navEgrp{display:none}
+body.view-lab .prog,body.view-lab #navEgrp,body.view-src .prog,body.view-src #navEgrp{display:none}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1329,7 +1329,7 @@ function drawChrome(){
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,`${i+1}장`,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
-  document.body.classList.toggle("view-lab",VIEWS[cur]?.id==="lab");
+  document.body.classList.toggle("view-lab",VIEWS[cur]?.id==="lab");document.body.classList.toggle("view-src",VIEWS[cur]?.id==="src");
   $("#progQ").textContent=typeof scenario==="function"?scenario().q.replace(/\s*\(.*\)\s*$/,""):"";
   $("#progTxt").textContent=`완료 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}장</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
