@@ -1116,6 +1116,12 @@ body.experiment-home .lab-tools{margin-top:24px}
 .iscene .l:not(.q):not(.intro-method),.simple .simple-story{text-wrap:pretty;max-width:34em}
 .iscene .l b{display:inline}
 .named-wrap[hidden]{display:none}
+/* 데스크톱 홈은 사이드바가 없으므로 상단에 주요 화면 링크를 둔다 (모바일은 하단 탭) */
+.appnav{display:none}
+@media (min-width:1024px){body.experiment-home .appnav{display:flex;gap:4px;margin-left:auto}}
+.appnav a{padding:8px 14px;border-radius:8px;font-size:14px;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+.appnav a:hover{background:var(--sunk);color:var(--ink)}
+.appnav a[aria-current="page"]{color:var(--ink);background:var(--sunk-2)}
 /* 순서와 학습 기록을 한 목록으로: 데스크톱은 기록 패널 없이 넓은 순서 사이드바, 좁은 화면은 서랍(순서)으로 */
 @media (min-width:1024px){
  .shell{grid-template-columns:340px minmax(0,1fr)}
@@ -1156,6 +1162,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 
 <header class="appbar">
   <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
+  <nav class="appnav" aria-label="주요 화면"><a href="#home" id="anH">처음 화면</a><a href="#lab" id="anL">가정 실험</a><a href="#src" id="anS">자료와 집계 기준</a></nav>
   <button class="btn ghost nb-open" data-open-notes aria-label="순서 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
 </header>
 
@@ -1305,7 +1312,8 @@ function drawChrome(){
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
   $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`${n}/6`;
-  ["tabH","tabS","tabL"].forEach(id=>$("#"+id).removeAttribute("aria-current"));
+  ["tabH","tabS","tabL","anH","anS","anL"].forEach(id=>$("#"+id).removeAttribute("aria-current"));
+  $(VIEWS[cur]?.id==="lab"?"#anL":cur===7?"#anS":"#anH").setAttribute("aria-current","page");
   $(VIEWS[cur]?.id==="lab"?"#tabL":cur===7?"#tabS":"#tabH").setAttribute("aria-current","page");
 }
 function notes(open){$("#notebook").classList.toggle("open",open);$("#scrim").classList.toggle("open",open)}
@@ -2219,7 +2227,7 @@ function applyScenarioText(){
  SIMPLE_TODO[5]=j.todo;
  SIMPLE_WHY[1][0]=`${j.before}, 한 사람이 숫자에 미치는 영향을 살펴야겠지요.`;
  SIMPLE_WHY[2][0]=`두 진영의 기록을 비교하려면 셀 대상을 정해야겠지요. ${j.uses}`;
- ST[5].q=x.q.replace(/\s*\(.*\)\s*$/,"");ST[5].short="가정 바꾸어 계산하기";
+ ST[5].q=x.q.replace(/\s*\(.*\)\s*$/,"");ST[5].short="가정 실험하기";
 }
 /* the question being tested stays visible at the top of every stage */
 function markScenario(){

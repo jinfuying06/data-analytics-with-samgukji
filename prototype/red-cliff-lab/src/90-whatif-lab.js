@@ -101,7 +101,7 @@ function applyScenarioText(){
  SIMPLE_TODO[5]=j.todo;
  SIMPLE_WHY[1][0]=`${j.before}, 한 사람이 숫자에 미치는 영향을 살펴야겠지요.`;
  SIMPLE_WHY[2][0]=`두 진영의 기록을 비교하려면 셀 대상을 정해야겠지요. ${j.uses}`;
- ST[5].q=x.q.replace(/\s*\(.*\)\s*$/,"");ST[5].short="가정 바꾸어 계산하기";
+ ST[5].q=x.q.replace(/\s*\(.*\)\s*$/,"");ST[5].short="가정 실험하기";
 }
 /* the question being tested stays visible at the top of every stage */
 function markScenario(){
