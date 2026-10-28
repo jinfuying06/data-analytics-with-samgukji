@@ -71,7 +71,7 @@ function lv2Stage1({x,c}){
   step(2,"네 사람은 어떻게 될까요?","",`<div class="pcards" id="rCards">${c.s1.cards.map(([n,,fact])=>`<div class="pcard" data-n="${n}"><div class="pcard-h"><i class="dot" style="background:${fcol(PP[n].f)}"></i><b>${scKo(n)}</b><span>${FN[PP[n].f]}</span></div><p class="pcard-fact">${fact}</p><p class="r-state"></p></div>`).join("")}</div>`)+reveal('s1name'),
   {q:`기준을 여러 번 바꿔 보니, ${coreK}${lvJ(coreK,"은","는")} 어떻게 되었습니까?`,
    opts:["어느 기준에서도 명단에 남았습니다.","‘3회 이상’으로 하면 명단에서 빠졌습니다.","죽은 사람을 넣을 때만 명단에 들어왔습니다."],ok:0,
-   good:`${coreK}처럼 기록이 많은 사람은 기준에 흔들리지 않습니다. 기준에 따라 들고 나는 것은 기록이 적은 사람들이지요. 그래서 기준은 명단의 가장자리를 바꿉니다.`,bad:"기준을 바꿀 때마다 네 사람의 표시가 어떻게 달라졌는지 다시 보시지요.",
+   good:`${coreK}처럼 기록이 많은 사람은 기준에 흔들리지 않습니다. 기준에 따라 들고 나는 것은 기록이 적은 사람들이지요. 그래서 기준은 명단의 가장자리를 바꿉니다.`,bad:"기준을 바꿀 때마다 네 사람의 표시가 어떻게 달라졌는지 보시지요.",
    ev:()=>`해 본 기준 ${L.tried.length}가지 · 지금 기준 ${ruleText()} → ${rosterTotals().all}명`});
  simplifyStage(1);
  const draw=()=>{
@@ -104,7 +104,7 @@ function lv2Stage2({x,c}){
    `<div class="named-wrap" id="s2m" hidden>${step(3,"평균과 가운데 값, 무엇이 더 흔들렸을까요?","",`<section class="card pane">${lvPick("meas2",[["mean","평균"],["median","가운데 값"]],L.m)}<div id="measRes"></div></section>`)}</div>`+reveal('s2name'),
    {q:`${P}${lvJ(Pn,"을","를")} 빼 보니, 평균과 가운데 값 중 무엇이 덜 움직였습니까?`,opts:["평균","가운데 값","둘 다 똑같이 움직였습니다"],ok:less,
     good:less===1?"가운데 값은 줄 세운 한가운데 사람의 값이라, 한 사람이 빠져도 덜 움직입니다. 한 사람의 큰 숫자가 걱정될 때 가운데 값을 함께 보는 까닭이지요.":"이번에는 평균이 덜 움직였습니다. 빠진 사람의 숫자가 평균과 가까우면 평균도 크게 흔들리지 않습니다.",
-    bad:"두 값이 빼기 전과 뒤에 얼마나 달라졌는지 다시 견주어 보시지요.",
+    bad:"두 값이 빼기 전과 뒤에 얼마나 달라졌는지 견주어 보시지요.",
     ev:()=>`예측 ${({up:"오름",flat:"그대로",down:"내림"})[L.p]||"-"} · 평균 ${fmt1(a)}→${fmt1(b)} · 가운데 값 ${fmt1(m0)}→${fmt1(m1)}`});
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
@@ -127,7 +127,7 @@ function lv2Stage2({x,c}){
  originalStageRenderer(2,[["s2","drop","어림하고 확인하기"]],
   step(1,"조조군의 ‘불’ 문단, 조조의 몫은?","",`<section class="card pane"><p class="big-change">조조군 ‘불’ 문단 <b class="num">${side}</b>개</p>${lvPick("pred2",[["low","4분의 1이 안 될 것 같습니다"],["mid","4분의 1에서 절반 사이일 것 같습니다"],["high","절반이 넘을 것 같습니다"]],L.p,"three")}<button class="btn" id="dropTop" ${L.p?"":"disabled"}>조조 빼고 다시 세기</button><div id="dropRes"></div></section>`)+reveal('s2name'),
   {q:"조조군의 ‘불’ 문단에서 조조 한 사람의 몫은 얼마였습니까?",opts:["4분의 1이 안 됩니다.","4분의 1에서 절반 사이입니다.","절반이 넘습니다."],ok:{low:0,mid:1,high:2}[bucket],
-   good:`조조 한 사람이 ${pct}%를 차지합니다. 불 점수를 없애면 조조군이 그만큼 많이 잃게 되지요. 그 기록이 어떤 장면인지는 다섯 번째 순서에서 확인합니다.`,bad:"조조를 빼기 전과 뒤의 문단 수를 다시 견주어 보시지요.",
+   good:`조조 한 사람이 ${pct}%를 차지합니다. 불 점수를 없애면 조조군이 그만큼 많이 잃게 되지요. 그 기록이 어떤 장면인지는 다섯 번째 순서에서 확인합니다.`,bad:"조조를 빼기 전과 뒤의 문단 수를 견주어 보시지요.",
    ev:()=>`조조군 불 문단 ${side}개 중 조조 ${v}개 (${pct}%) · 어림 ${({low:"¼ 미만",mid:"¼~½",high:"½ 이상"})[L.p]||"-"}`});
  simplifyStage(2);
  const done=()=>{setT("s2","drop");$("#dropTop").hidden=true;$$("#pred2 button").forEach(b=>b.disabled=true);
@@ -149,7 +149,7 @@ function lv2Stage5({x,c}){
  originalStageRenderer(5,[["s5","victim","세 문장 가리기"]],
   step(1,"원문을 먼저 읽어 보시지요","",`<section class="card pane">${quote(s.n,s.k)}${s.n2?quote(s.n2,s.k):""}</section>`)+
   step(2,"이 숫자에 대한 세 문장, 맞을까요?","",`<div class="sort-list" id="claims5">${claims.map(([t],i)=>`<section class="card pane sort-item" data-i="${i}"><p>${esc(t)}</p><div class="pick" role="group"><button data-v="1">맞습니다</button><button data-v="0">아닙니다</button></div><p class="pcard-tip" hidden></p></section>`).join("")}</div>`)+reveal('s5name'),
-  {...s.check,good:"원문과 하나씩 맞춰 보니, 숫자가 무엇을 센 것인지 분명해졌습니다. 숫자에 대한 설명은 이렇게 원문으로 가려 봅니다.",bad:"방금 가린 세 문장을 다시 떠올려 보시지요.",
+  {...s.check,good:"원문과 하나씩 맞춰 보니, 숫자가 무엇을 센 것인지 분명해졌습니다. 숫자에 대한 설명은 이렇게 원문으로 가려 봅니다.",bad:"방금 가린 세 문장을 떠올려 보시지요.",
    ev:()=>claims.map(([t,v])=>`${v?"○":"×"} ${t}`).join(" ")});
  simplifyStage(5);
  const draw=()=>{for(const el of $$("#claims5 .sort-item")){const i=+el.dataset.i,v=L[i],right=claims[i][1];
@@ -171,9 +171,9 @@ function lv2Stage6(){
  const q=qShort(x);
  const chk=flips.length
   ?{q:`‘${q}’의 판정은 바람 가정에 얼마나 기대고 있습니까?`,opts:["바람을 어떻게 보든 판정은 같습니다.",`바람 보너스가 ${flips[0][0]}~${flips[0][1]}점 사이에서 판정이 바뀌므로, 바람 가정을 함께 말해야 합니다.`,"바람 보너스가 클수록 조조군이 앞섭니다."],ok:1,
-    good:"판정이 바뀌는 지점을 알면, 결론이 어떤 가정에 기대는지 정확히 말할 수 있습니다.",bad:"바람 보너스를 바꿀 때 판정이 어디서 달라졌는지 다시 보시지요."}
+    good:"판정이 바뀌는 지점을 알면, 결론이 어떤 가정에 기대는지 정확히 말할 수 있습니다.",bad:"바람 보너스를 바꿀 때 판정이 어디서 달라졌는지 보시지요."}
   :{q:`‘${q}’의 판정은 바람 가정에 얼마나 기대고 있습니까?`,opts:[`바람 보너스를 0~30점으로 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다.`,"바람 보너스에 따라 판정이 뒤집힙니다.","바람이 불지 않으면 조조군이 이깁니다."],ok:0,
-    good:"바람을 어떻게 보아도 판정이 같다면, 이 질문의 결론은 바람 가정에 크게 기대지 않습니다. 그래도 어떤 범위를 살폈는지는 함께 적지요.",bad:"바람 보너스를 바꿔 가며 판정이 달라졌는지 다시 보시지요."};
+    good:"바람을 어떻게 보아도 판정이 같다면, 이 질문의 결론은 바람 가정에 크게 기대지 않습니다. 그래도 어떤 범위를 살폈는지는 함께 적지요.",bad:"바람 보너스를 바꿔 가며 판정이 달라졌는지 보시지요."};
  chk.ev=()=>`지수 ${base} → ${changed} · 바람 보너스 0~30: ${at(0)}~${at(30)}${flips.length?` · ${flips[0][0]}~${flips[0][1]}점에서 판정 바뀜`:" · 판정 그대로"}`;
  originalStageRenderer(6,[["s6","move",j.act],["s6","wind","판정이 바뀌는 곳 찾기"]],
   step(1,"지금 기록대로 계산하면","",`<section class="card pane">${lvMeter(base)}<button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
@@ -209,7 +209,7 @@ function lv3Stage1({x,c}){
   step(1,"명단 기준을 정해 보시지요","",`<section class="card pane simple-result"><div class="ctrls">${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"]],S.rule.min,"최소 등장")}${seg("rDead",[[1,"죽은 사람 빼기"],[0,"죽은 사람 넣기"]],S.rule.dead,"사망자")}</div><div id="rNow"></div><p class="simple-note" id="rOut"></p><button class="btn" id="rFix">이 기준으로 정하기</button></section>`)+
   `<div class="named-wrap" id="rWhySec" hidden>${step(2,"이 기준을 고른 까닭은?","",`<section class="card pane">${lvPick("rWhy",LV3_RULE_WHY.map((w,i)=>[i,w[0]]),L.why,"stack")}<p class="pcard-tip" id="rWhyTip" hidden></p></section>`)}</div>`+reveal('s1name'),
   {q:`‘${qShort(x)}’의 결론에, 이 명단 기준은 어떻게 적어야 할까요?`,opts:["기준은 계산 과정일 뿐이니 결론에 적지 않습니다.","기준과 그렇게 정한 까닭을 함께 적습니다.","가장 많이 나온 사람의 이름만 적습니다."],ok:1,
-   good:"누구를 셌는지와 그 까닭을 적어 두면, 다른 사람도 같은 명단으로 다시 계산해 볼 수 있습니다.",bad:"이 순서에서 정한 두 가지를 다시 떠올려 보시지요.",
+   good:"누구를 셌는지와 그 까닭을 적어 두면, 다른 사람도 같은 명단으로 다시 계산해 볼 수 있습니다.",bad:"이 순서에서 정한 두 가지를 떠올려 보시지요.",
    ev:()=>`기준: ${ruleText()} · 까닭: ${L.why!==undefined?LV3_RULE_WHY[L.why][0]:"-"}`});
  simplifyStage(1);
  const draw=()=>{const r=roster(),t=rosterTotals();$("#rNow").innerHTML=twoSides({wei:t.wei,ally:t.ally},"명");
@@ -240,7 +240,7 @@ function lv3Stage2({x,c}){
   step(1,"두 편의 등장 횟수, 평균과 가운데 값","",`<section class="card pane"><table class="lv-table"><thead><tr><th></th><th>조조군 평균</th><th>가운데 값</th><th>연합군 평균</th><th>가운데 값</th></tr></thead><tbody>${row("지금 기록",now)}${moved?row(`${c.who.map(scKo).join("·")} 옮긴 뒤`,moved):""}</tbody></table></section>`)+
   step(2,"무엇으로 견주시겠습니까?","",`<section class="card pane">${lvPick("meas3",[["mean","평균"],["median","가운데 값"]],L.m)}<div class="named-wrap" id="measWhySec" hidden>${lvPick("measWhy",LV3_MEAS_WHY.map((w,i)=>[i,w[0]]),L.why,"stack")}<p class="pcard-tip" id="measTip" hidden></p></div></section>`)+reveal('s2name'),
   {q:"두 편을 견줄 대표값을 정했다면, 결론에 함께 적을 것은?",opts:["가장 큰 숫자 하나만 적습니다.","대표값은 적지 않아도 됩니다.","어떤 대표값을 골랐고, 왜 골랐는지 적습니다."],ok:2,
-   good:"평균으로 보느냐 가운데 값으로 보느냐에 따라 차이가 달라 보이지요. 그래서 무엇으로 견주었는지 밝혀 둡니다.",bad:"이 순서에서 정한 두 가지를 다시 떠올려 보시지요.",
+   good:"평균으로 보느냐 가운데 값으로 보느냐에 따라 차이가 달라 보이지요. 그래서 무엇으로 견주었는지 밝혀 둡니다.",bad:"이 순서에서 정한 두 가지를 떠올려 보시지요.",
    ev:()=>`대표값: ${L.m==="median"?"가운데 값":L.m==="mean"?"평균":"-"} · 까닭: ${L.why!==undefined?LV3_MEAS_WHY[L.why][0]:"-"}`});
  simplifyStage(2);
  const draw=()=>{lvPress("meas3",L.m);lvPress("measWhy",L.why);$("#measWhySec").hidden=!L.m;
@@ -265,7 +265,7 @@ function lv3Stage3({x,c}){
   step(1,"점수를 설계해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div></section><section class="card pane simple-result"><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+
   step(2,"이렇게 정한 까닭은?","",`<section class="card pane">${lvPick("wWhy",LV3_W_WHY.map((w,i)=>[i,w[0]]),L.why,"stack")}<p class="pcard-tip" id="wTip" hidden></p><button class="btn" id="fixW" disabled>이 점수로 정하기</button></section>`)+reveal('s3name'),
   {q:`내가 만든 점수 규칙으로 ‘${qShort(x)}’을 다른 사람이 다시 계산하려면?`,opts:["점수 규칙과 그렇게 정한 까닭을 함께 알려 줍니다.","결과 숫자만 알려 주면 됩니다.","규칙은 바꿀 수 있으니 알려 주지 않습니다."],ok:0,
-   good:"규칙과 까닭을 알면, 다른 사람도 같은 숫자를 만들고 다른 규칙과 견주어 볼 수 있습니다.",bad:"이 순서에서 정한 두 가지를 다시 떠올려 보시지요.",
+   good:"규칙과 까닭을 알면, 다른 사람도 같은 숫자를 만들고 다른 규칙과 견주어 볼 수 있습니다.",bad:"이 순서에서 정한 두 가지를 떠올려 보시지요.",
    ev:()=>`점수: 배 ${S.w.ship}·불 ${S.w.fire}·계책 ${S.w.plan} · 까닭: ${L.why!==undefined?LV3_W_WHY[L.why][0]:"-"}`});
  simplifyStage(3);
  const draw=()=>{
@@ -293,7 +293,7 @@ function lv3Stage4({x,c}){
   step(1,"몇 % 이상 같으면 믿으시겠습니까?","",`<section class="card pane"><p class="simple-note">지금 판정은 ‘${curV}’입니다. 점수 규칙 ${combos.length}가지 중 몇 %에서 이 판정이 그대로여야 믿을 수 있을까요?</p>${seg("bar4",[[50,"50% 이상"],[70,"70% 이상"],[90,"90% 이상"]],L.th,"믿을 기준")}</section>`)+
   step(2,"이제 모두 계산해 보시지요","",`<section class="card pane"><button class="btn" id="runAll" ${L.th?"":"disabled"}>${combos.length}가지 전부 계산하기</button><div id="allRes"></div></section>`)+reveal('s4name'),
   {q:`미리 정한 기준에 비추어 보면, ‘${q}’의 결론은?`,opts:["기준을 넘었으므로, 점수 규칙에 크게 흔들리지 않는다고 말할 수 있습니다.","기준에 못 미쳤으므로, 점수 규칙에 따라 달라질 수 있다고 적어야 합니다.","결과를 보고 기준을 다시 정하면 됩니다."],ok:pass(L.th||70)?0:1,
-   good:"계산하기 전에 정한 기준으로 판단해야, 결과에 맞춰 기준을 바꾸는 일을 피할 수 있습니다.",bad:"미리 정한 기준과 계산한 비율을 다시 견주어 보시지요.",
+   good:"계산하기 전에 정한 기준으로 판단해야, 결과에 맞춰 기준을 바꾸는 일을 피할 수 있습니다.",bad:"미리 정한 기준과 계산한 비율을 견주어 보시지요.",
    ev:()=>`기준 ${L.th}% · ${combos.length}가지 중 ${R.same}가지(${R.pct}%)에서 ‘${curV}’ 유지 · 범위 ${R.min}~${R.max}`});
  simplifyStage(4);
  const run=()=>{setT("s4","run");L.ran=1;save();$("#runAll").hidden=true;$$("#bar4 button").forEach(b=>b.disabled=true);
@@ -317,7 +317,7 @@ function lv3Stage5({x,c}){
   step(1,"어느 기록부터 확인하시겠습니까?","",`<div class="pcards three" id="recs5">${recs.map(([n,k],i)=>`<div class="pcard" data-i="${i}"><div class="pcard-h"><i class="dot" style="background:${fcol(PP[n].f)}"></i><b>${scKo(n)} · ${SC_KNAME[k]}</b></div><p class="pcard-fact">${count([n,k])}</p><button class="btn ghost" data-i="${i}">이 기록 펼치기</button></div>`).join("")}</div>`)+
   `<div class="named-wrap" id="rec5sec" hidden>${step(2,"이 숫자를 어떻게 쓰시겠습니까?","",`<section class="card pane simple-result"><div id="txt5"></div>${lvPick("use5",LV3_USE.map((u,i)=>[i,u[0]]),L.use,"three")}<p class="pcard-tip" id="useTip" hidden></p></section>`)}</div>`+reveal('s5name'),
   {q:"확인한 기록을 결론에 어떻게 남겨야 할까요?",opts:["숫자가 크면 그대로 믿고 적습니다.","확인한 기록이 무엇을 센 것인지 한 줄로 밝힙니다.","확인한 기록은 적지 않습니다."],ok:1,
-   good:"어떤 기록을 확인했고 그 숫자가 무엇을 센 것인지 밝히면, 결론을 읽는 사람이 숫자의 뜻을 오해하지 않습니다.",bad:"방금 고른 쓰임을 다시 떠올려 보시지요.",
+   good:"어떤 기록을 확인했고 그 숫자가 무엇을 센 것인지 밝히면, 결론을 읽는 사람이 숫자의 뜻을 오해하지 않습니다.",bad:"방금 고른 쓰임을 떠올려 보시지요.",
    ev:()=>{const r=recs[L.pick];return r?`${scKo(r[0])}의 ‘${SC_KNAME[r[1]]}’ 기록 확인 · ${LV3_USE[L.use]?LV3_USE[L.use][0]:"-"}`:"-"}});
  simplifyStage(5);
  const open=()=>{const r=recs[L.pick];if(!r)return;$$("#recs5 .pcard").forEach(p=>p.classList.toggle("chosen",+p.dataset.i===L.pick));

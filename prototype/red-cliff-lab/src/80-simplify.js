@@ -73,7 +73,7 @@ RENDER[1]=()=>{
   step(1,"데이터에 '위'로 분류된 네 사람, 모두 조조군으로 셀까요?","",`<div class="pcards" id="pcards">${cards}</div>`)+
   `<section class="stepsec" id="s1reveal" hidden></section>`,
   {q:"기록을 살펴보니, 무엇을 알 수 있었습니까?",opts:["기록만 보면 셀 사람이 저절로 정해집니다.","누구를 명단에 올리느냐에 따라 숫자가 달라집니다.","이름이 나온 사람은 모두 싸움에 참여했습니다."],ok:1,
-   good:"이름이 나온 사람을 모두 세면 분석에 맞지 않는 인물도 포함되지요. 먼저 누구를 셀지 정해야 하는 까닭입니다.",bad:"원소처럼 이름만 언급된 인물을 다시 떠올려 보시지요.",
+   good:"이름이 나온 사람을 모두 세면 분석에 맞지 않는 인물도 포함되지요. 먼저 누구를 셀지 정해야 하는 까닭입니다.",bad:"원소처럼 이름만 언급된 인물을 떠올려 보시지요.",
    ev:()=>{const t=rosterTotals();return `내 기준: ${S.rule.min}회 이상 · 죽은 사람 ${S.rule.dead?'뺌':'셈'} → 조조군 ${t.wei}명, 연합군 ${t.ally}명`}});
  simplifyStage(1);
  const reveal=$("#s1reveal");
@@ -121,7 +121,7 @@ RENDER[2]=()=>{
   step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><p class="simple-note" id="shuNote"></p><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
   reveal('s2name'),
   {q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,
-   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 다시 살펴보시지요. 유독 긴 막대가 하나 보입니다.",
+   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 살펴보시지요. 유독 긴 막대가 하나 보입니다.",
    ev:()=>`촉 평균 ${fmt1(avgOf('shu'))} → ${PP[shuTop]?.ko} 빼면 ${fmt1(avgOf('shu',1))} · 중앙값 촉 ${fmt1(median(facMembers('shu').map(n=>PP[n].pa)))}`});
  simplifyStage(2);
  const mx=Math.max(...fac.map(([f])=>avgOf(f)));
@@ -179,7 +179,7 @@ RENDER[4]=()=>{
   step(2,"가능한 점수 규칙을 모두 살펴보시지요","",`<section class="card pane"><p class="simple-note">배·불·계책에 0~5점을 주는 모든 경우는 215가지입니다.</p><button class="btn" id="runAll">215가지 전부 계산하기</button><div id="allRes"></div></section>`)+
   reveal('s4name'),
   {q:"점수 규칙을 다 바꿔 봐도 연합군이 앞섰다면?",opts:["점수 규칙은 어떻게 정해도 상관없습니다.","살펴본 범위에서 결론이 점수 규칙에 크게 흔들리지 않습니다.","연합군이 반드시 이깁니다."],ok:1,
-   good:"규칙을 바꿔도 같은 답이 나오면 그 답을 더 믿을 수 있습니다. 다만 '이 기록으로 센 점수'라는 조건은 남습니다.",bad:"215가지 결과를 다시 살펴보시지요.",
+   good:"규칙을 바꿔도 같은 답이 나오면 그 답을 더 믿을 수 있습니다. 다만 '이 기록으로 센 점수'라는 조건은 남습니다.",bad:"215가지 결과를 살펴보시지요.",
    ev:()=>`215가지 점수 규칙 중 ${L4.win}가지에서 연합군 점수가 더 높음`});
  simplifyStage(4);
  $("#friends").addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const [t,w]=FRIENDS[+b.dataset.i],{a,b:bb}=lead(w);const tip=b.nextElementSibling;tip.hidden=false;tip.innerHTML=`연합군 <b class="num">${a}</b> · 조조군 <b class="num">${bb}</b> → ${a>bb?'그래도 연합군이 앞섭니다':'조조군이 앞섭니다'}`});
@@ -213,11 +213,11 @@ RENDER[5]=()=>{
   ask5Html("조조는 불을 잘 다뤘을까요?","방금 읽은 문단을 보고 골라 보세요.",["불을 지르는 쪽입니다.","원문만으로는 알 수 없습니다.","불에 당해 달아나고 있습니다."])+
   reveal('s5name'),
   {q:"조조의 '불' 숫자가 높았던 이유는?",opts:["조조가 불을 가장 잘 다뤄서","불에 당한 장면에서도 '불' 글자가 함께 나와서","기록이 잘못돼서"],ok:1,
-   good:"글자를 센 숫자는 불을 지른 쪽과 당한 쪽을 구분하지 못합니다. 그래서 숫자가 이상하면 원문을 확인합니다.",bad:"원문에서 조조가 무엇을 하는지 다시 살펴보시지요.",
+   good:"글자를 센 숫자는 불을 지른 쪽과 당한 쪽을 구분하지 못합니다. 그래서 숫자가 이상하면 원문을 확인합니다.",bad:"원문에서 조조가 무엇을 하는지 살펴보시지요.",
    ev:()=>`조조의 '불' ${PP['曹操'].yy[1]}회는 불에 당한 장면이 섞인 숫자`});
  simplifyStage(5);
  bars($("#fire5"),top.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),top[0].v,'회');
- const drawAsk=ask5Wire(L5,{ok:2,good:"조조는 불에 당하고 있습니다. 그래도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 다시 읽어 보시지요."},
+ const drawAsk=ask5Wire(L5,{ok:2,good:"조조는 불에 당하고 있습니다. 그래도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 읽어 보시지요."},
   ()=>show('s5name',named("근거 확인","뜻밖의 숫자가 나왔다면, 그 숫자가 비롯된 기록을 직접 펼쳐 보시지요. 글자를 세는 방법은 '불을 지른 사람'과 '불에 당한 사람'을 구분하지 못했습니다.")));
  const open=()=>{setT("s5","victim");$("#open5").hidden=true;
   $("#txt5").innerHTML=e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} 조조와 '불'이 함께 나온 문단</p><blockquote class="evq">${hiFire(e[1])}</blockquote>`:'';

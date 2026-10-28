@@ -101,7 +101,7 @@ function stage(i,tasks,steps,chk){
   box.innerHTML=`<h3>${chk.q}</h3><p class="lockline">${ic("lock")}위의 활동을 모두 마치면 답을 선택할 수 있습니다.</p><div class="opts">${order.map((k,pos)=>`<button class="opt" data-i="${k}"><span class="k">${"ABCD"[pos]}</span><span>${chk.opts[k]}</span></button>`).join("")}</div><div class="fbx" aria-live="polite"></div>`;
   const show=k=>{const ok=k===chk.ok,had=!!S.done[i];box.querySelectorAll(".opt").forEach(o=>{o.classList.remove("wrong");if((ok||had)&&+o.dataset.i===chk.ok)o.classList.add("right")});if(!ok)box.querySelector(`.opt[data-i="${k}"]`).classList.add("wrong");
     const ev=typeof chk.ev==="function"?chk.ev():chk.ev;
-    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>맞습니다.</b> ${chk.good}</div><div class="callout"><b>순서에 기록됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>${had?"그 보기는 정답이 아닙니다.":"다시 생각해 보시지요."}</b> ${chk.bad}</div>${had?`<div class="callout"><b>순서에 기록됨</b> ${esc(ev)}</div>`:""}`;
+    box.querySelector(".fbx").innerHTML=ok?`<p class="pcard-tip"><b class="ok">맞습니다.</b> ${chk.good}</p>`:`<p class="pcard-tip"><b class="warn">다시 생각해 보시지요.</b> ${chk.bad}</p>`;
     if(ok){S.done[i]=ev;save();drawChrome()}};
   box.querySelector(".opts").addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled||!TASKS.every(([m,k])=>tk(m,k)))return;show(+b.dataset.i)});
   if(S.done[i])show(chk.ok);
@@ -209,7 +209,7 @@ function s3(){
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">수전</th><th class="n">화공</th><th class="n">계책</th><th class="n">점수</th></tr></thead><tbody id="ptab"></tbody></table></div></section>
       <section class="card pane" id="evbox" aria-live="polite"></section></div>`),
     {q:"이 비교 점수는 실제로 무엇을 나타낼까요?",opts:["인물의 실제 전투 능력","인물의 이름과 수전·화공·계책 관련 글자가 함께 나온 정도","전투에서 세운 공입니다.의 크기"],ok:1,
-     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 다섯 번째 순서에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 다시 생각해 보시지요.",
+     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 다섯 번째 순서에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 살펴보시지요.",
      ev:()=>{const s=fs("yy");return `연의 비교 점수(수전 ${S.w.ship}·화공 ${S.w.fire}·계책 ${S.w.plan}점): 연합 ${s.wu+s.shu} vs 위 ${s.wei}`}});
   function dW(){
     const row=(k)=>`<div class="w"><span>${KN[k]} 1회당</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${KN[k]} 줄이기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${KN[k]} 늘리기">+</button></span></div>`;
@@ -280,7 +280,7 @@ function s5(){
     <section class="card pane"><div class="pane-h"><h2>${ic("table")}인물별 비교</h2><span class="meta">연의 문단 · 정사 문장</span></div>
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">연의 수전</th><th class="n">정사 수전</th><th class="n">연의 화공</th><th class="n">정사 화공</th><th class="n">연의 계책</th><th class="n">정사 계책</th></tr></thead><tbody id="ptab5"></tbody></table></div></section>`),
     {q:"조조의 화공 관련 지표가 높게 나온 이유는 무엇일까요?",opts:["조조가 화공에 가장 뛰어났기 때문입니다.","조조가 불에 피해를 입은 장면에도 관련 글자가 나오기 때문입니다.","데이터가 잘못 입력되었기 때문입니다."],ok:1,
-     good:"관련 글자가 함께 나왔다는 사실만으로 공격한 쪽과 피해를 입은 쪽을 구분할 수는 없습니다. 자료를 바꾸면 같은 지표의 비중도 달라집니다. 따라서 수치의 정의와 출처를 함께 확인해야 합니다.",bad:"근거 문단에서 조조가 불을 지르는지, 불을 피해 달아나는지 다시 생각해 보시지요.",
+     good:"관련 글자가 함께 나왔다는 사실만으로 공격한 쪽과 피해를 입은 쪽을 구분할 수는 없습니다. 자료를 바꾸면 같은 지표의 비중도 달라집니다. 따라서 수치의 정의와 출처를 함께 확인해야 합니다.",bad:"근거 문단에서 조조가 불을 지르는지, 불을 피해 달아나는지 살펴보시지요.",
      ev:()=>{const a=share("yy"),b=share("jb");return `조조의 화공 지표 ${PP["曹操"].yy[1]}: 피해 장면도 포함 · 촉 비중 연의 ${a.shu}% → 정사 본문 ${b.shu}%`}});
   const r=roster(),ft=r.map(n=>({n,v:PP[n].yy[1]})).sort((a,b)=>b.v-a.v).slice(0,6);
   bars($("#firetop"),ft.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),ft[0].v,"문단");

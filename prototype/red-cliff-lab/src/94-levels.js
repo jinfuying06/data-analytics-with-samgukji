@@ -48,7 +48,7 @@ function lv2Stage3({x,c}){
   step(1,"세 문단의 ‘불’은 같은 뜻일까요?","",`<div class="sort-list" id="sort3">${SORT_ITEMS.map(item).join("")}</div>`)+
   `<div class="named-wrap" id="s3score" hidden>${step(2,"나눈 것을 보고 점수를 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 정하기</button></section><section class="card pane simple-result"><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)}</div>`+reveal('s3name'),
   {q:"‘불’ 점수를 만들 때 알아 둘 것은?",opts:["‘불’ 글자는 모두 불을 지른 기록입니다.","공격·피해·언급이 함께 세어지므로, 점수의 뜻을 밝혀 두어야 합니다.","불 기록은 점수에 넣으면 안 됩니다."],ok:1,
-   good:"글자를 세는 방법으로는 셋을 구분할 수 없습니다. 그래서 숫자가 무엇을 담고 있는지 먼저 나누어 봅니다.",bad:"방금 나눈 세 문단을 다시 떠올려 보시지요.",
+   good:"글자를 세는 방법으로는 셋을 구분할 수 없습니다. 그래서 숫자가 무엇을 담고 있는지 먼저 나누어 봅니다.",bad:"방금 나눈 세 문단을 떠올려 보시지요.",
    ev:()=>`분류: ${SORT_ITEMS.map(([n])=>`${PP[n].ko} ${(SORT_OPTS.find(o=>o[0]===L[n])||[,"-"])[1]}`).join(" · ")}`});
  simplifyStage(3);
  const draw=()=>{for(const el of $$("#sort3 .sort-item")){const n=el.dataset.n,v=L[n],right=SORT_ITEMS.find(i=>i[0]===n)[1];
@@ -81,7 +81,7 @@ function lv2Stage4({x,c}){
  originalStageRenderer(4,[["s4","run","가장 낮은 지수 찾기"]],
   step(1,"점수를 바꿔 가며 지수를 가장 낮춰 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts4"></div><p class="simple-note" id="tries4"></p><button class="btn ghost" id="reveal4" hidden>모든 규칙 한 번에 계산하기</button></section><section class="card pane simple-result"><div id="meter4"></div><p class="big-change" id="best4"></p></section></div>`)+reveal('s4name'),
   {q:"가장 낮은 지수를 찾아보니 무엇을 알 수 있었습니까?",opts:["점수 규칙만 잘 고르면 어떤 결론이든 만들 수 있습니다.","점수를 어떻게 매겨도 이 범위 안에 있으므로, 그 범위까지 함께 말해야 합니다.","가장 낮은 지수가 정답입니다."],ok:1,
-   good:"가장 나쁜 경우까지 찾아보면, 결론이 흔들릴 수 있는 범위를 알 수 있습니다.",bad:"찾은 가장 낮은 지수와 처음 지수를 다시 견주어 보시지요.",
+   good:"가장 나쁜 경우까지 찾아보면, 결론이 흔들릴 수 있는 범위를 알 수 있습니다.",bad:"찾은 가장 낮은 지수와 처음 지수를 견주어 보시지요.",
    ev:()=>`가장 낮은 지수 ${min} (배 ${best.ship}·불 ${best.fire}·계책 ${best.plan}) · 가장 높은 지수 ${max}`});
  simplifyStage(4);
  const done=how=>{setT("s4","run");L.found=1;save();$("#best4").innerHTML=`이 질문의 지수는 <b class="num">${min}</b>~<b class="num">${max}</b> 사이입니다`;
@@ -129,7 +129,7 @@ function lv3Stage6(){
     <button class="btn" id="d6save" disabled>결론 남기기</button></section>`)+
   reveal('s6name')+`<div class="named-wrap" id="s6pred" hidden></div>`,
   {q:`‘${q}’에 대한 결론으로 가장 알맞은 것은?`,opts:[`${q.replace(/\?$/,"")}, 조조가 이겼을 것입니다.`,`정한 가정과 기록에서 지수는 ${cur()}(${wiVerdict(cur())})이고, 글자를 센 숫자라는 한계가 있습니다.`,"가정마다 숫자가 달라지므로 아무 말도 할 수 없습니다."],ok:1,
-   good:"가정과 기록과 한계를 함께 적으면, 다른 사람도 같은 계산을 다시 해 볼 수 있습니다.",bad:"방금 쓴 결론에 무엇이 들어 있었는지 다시 살펴보시지요.",ev:()=>S.reflection||sentence()});
+   good:"가정과 기록과 한계를 함께 적으면, 다른 사람도 같은 계산을 다시 해 볼 수 있습니다.",bad:"방금 쓴 결론에 무엇이 들어 있었는지 살펴보시지요.",ev:()=>S.reflection||sentence()});
  simplifyStage(6);
  const draw=()=>{
   const bf=$("#d6bonusF");if(bf)bf.hidden=D.wind!=="env";

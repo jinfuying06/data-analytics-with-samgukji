@@ -17,7 +17,7 @@ try{
  const ok=q('#vbox').dataset.ok,wrong=[...d.querySelectorAll('#vbox .opt')].find(o=>o.dataset.i!==ok);
  click(`#vbox .opt[data-i="${ok}"]`);assert.ok(q('#vbox .fbx').textContent.startsWith('맞습니다.'));assert.ok(e('!!S.done[2]'));
  assert.ok([...d.querySelectorAll('#vbox .opt')].every(o=>!o.disabled),'options stay clickable after the right answer');
- wrong.click();assert.ok(q('#vbox .fbx').textContent.startsWith('그 보기는 정답이 아닙니다.'));assert.ok(e('!!S.done[2]'),'record kept');assert.ok(q(`#vbox .opt[data-i="${ok}"]`).classList.contains('right'));
+ wrong.click();assert.ok(q('#vbox .fbx').textContent.startsWith('다시 생각해 보시지요.'));assert.ok(e('!!S.done[2]'),'record kept');assert.ok(q(`#vbox .opt[data-i="${ok}"]`).classList.contains('right'));
  click(`#vbox .opt[data-i="${ok}"]`);assert.ok(q('#vbox .fbx').textContent.startsWith('맞습니다.'));
  // 2단계: 질문의 답을 짧게 적어 준다
  assert.ok(/촉 .*문단.*가장 높습니다/.test(q('#avgNote').textContent),q('#avgNote').textContent);assert.ok(/문단에 나오고, 나머지 촉 사람들은 평균/.test(q('#shuNote').textContent));
