@@ -4,7 +4,7 @@
    Level 3 · 가정 설계하기  set the assumptions and write the conclusion (순서 6)
    The other 순서 of levels 2 and 3 live in 96-level-paths.js. */
 const LEVEL_OF={zg:1,zyout:1,ptout:1,zy:2,hg:2,nofire:2,nowind:3,combo:3,jb:3};
-const LEVELS=[null,{name:"세어 보기",does:"주어진 것 중에서 고릅니다"},{name:"숫자 의심하기",does:"값을 바꿔 가며 찾아냅니다"},{name:"가정 설계하기",does:"조건을 정하고 결론을 씁니다"}];
+const LEVELS=[null,{tag:"기초",name:"세어 보기",does:"주어진 것 중에서 고릅니다"},{tag:"심화",name:"숫자 의심하기",does:"값을 바꿔 가며 찾아냅니다"},{tag:"응용",name:"가정 설계하기",does:"조건을 정하고 결론을 씁니다"}];
 WHATIFS.forEach(x=>x.level=LEVEL_OF[x.id]||1);
 const levelNow=()=>scenario().level||1;
 
@@ -33,7 +33,7 @@ applyScenarioText=function(){
  const grid=$("#wiGrid");if(!grid)return;
  const cards=[...grid.querySelectorAll(".wi-card")];
  grid.classList.remove("wi-grid");grid.classList.add("lab-levels");
- grid.innerHTML=[1,2,3].map(lv=>`<section class="lab-level" data-level="${lv}"><header><span class="num">${lv}단계</span><h2>${LEVELS[lv].name}</h2></header><div class="wi-grid"></div></section>`).join("");
+ grid.innerHTML=[1,2,3].map(lv=>`<section class="lab-level" data-level="${lv}"><header><span class="num">${LEVELS[lv].tag}</span><h2>${LEVELS[lv].name}</h2><p>${LEVELS[lv].does}</p></header><div class="wi-grid"></div></section>`).join("");
  cards.forEach(c=>{const x=WHATIFS.find(w=>w.id===c.dataset.id);grid.querySelector(`.lab-level[data-level="${x.level}"] .wi-grid`).append(c)});
 }})();
 

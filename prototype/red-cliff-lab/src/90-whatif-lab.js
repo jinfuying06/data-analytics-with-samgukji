@@ -199,15 +199,15 @@ RENDER[LAB_VIEW]=()=>{
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
  $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
  <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
- <details class="lab-tools"><summary>직접 질문을 만들거나 기록의 범위 살펴보기</summary>
- ${step(2,"직접 만들기","인물·바람·점수·기록을 골라, 궁금하신 질문을 만들어 보시지요.",`<section class="card pane wi-builder">
+ ${step(1,"직접 질문 만들기","인물, 바람, 점수 규칙, 기록을 골라 질문을 만들면 결과가 바로 계산됩니다. 이 결과는 완료 수에 들어가지 않습니다.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
    <div class="field">어떻게${seg("wbAct",[["wei","조조 편으로"],["ally","연합군 편으로"],["out","빼기"],["keep","그대로"]],L.b.act,"인물 변경")}</div>
    <div class="field">바람${seg("wbWind",[["env","날씨"],["zg","제갈량이 부름"],["none","없음"]],L.b.wind,"바람 가정")}</div>
-   <div class="field">점수${seg("wbW",[["base","내 점수"],["fire0","불 0"],["ship","배만"],["plan","계책만"]],L.b.w,"점수 규칙")}</div>
+   <div class="field">점수 규칙${seg("wbW",[["base","내 점수"],["fire0","불 0"],["ship","배만"],["plan","계책만"]],L.b.w,"점수 규칙")}</div>
    <div class="field">기록${seg("wbLens",[["yy","연의(소설)"],["jb","정사(역사책)"]],L.b.lens,"기록")}</div></div>
    <p class="wi-question" id="wbQ"></p><div id="wbRes"></div></section>`)}
- ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
+ <details class="lab-tools"><summary>기록으로 답할 수 있는 질문인지 가려 보기</summary>
+ ${step(2,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
  <p class="lab-back"><a class="btn ghost" href="#home">시작으로</a></p>`;
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
