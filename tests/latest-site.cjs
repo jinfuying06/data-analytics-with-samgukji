@@ -36,7 +36,7 @@ try{
  route('s5');click('#open5');assert.ok(d.querySelector('#main blockquote'));click('#ask5 button[data-v="2"]');assert.ok(d.querySelector('#askfb5').textContent.startsWith('맞습니다.'));answer();assert.ok(e('!!S.done[5]'));
  route('s6');answer();assert.ok(!e('!!S.done[6]'));click('#move6');assert.ok(d.querySelector('#mv6 .big-change').textContent.includes('83')&&d.querySelector('#mv6 .big-change').textContent.includes('72'));click('#wind6 button[data-v="zg"]');click('#wind6 button[data-v="env"]');assert.ok(d.querySelector('#s6name').textContent.includes('52'));answer();assert.ok(e('!!S.done[6]'),'core lesson must finish without switching to historical data');
  assert.equal(e('Object.keys(S.done).length'),6);assert.ok(d.querySelector('#progTxt').textContent.includes('6 / 6'));
- route('src');assert.ok(d.querySelector('#main').textContent.includes('5113da1'));assert.ok(d.querySelector('#main').textContent.includes('실시간 FastAPI 연결은 사용하지 않습니다'));
+ route('src');assert.ok(d.querySelector('#main h1'),'data page still renders');assert.ok(!d.querySelector('#main').textContent.includes('이 사이트의 데이터와 계산'),'the build-info block is gone');
  route('home');assert.ok(d.querySelector('#reset'));assert.equal(errors.length,0,errors.map(e=>e.message).join('\n'));
  assert.ok(!d.querySelector('#main').textContent.includes('할 수 있을까?'));
  assert.ok(d.querySelector('#main').textContent.includes('조조의 편이었다면?'));
