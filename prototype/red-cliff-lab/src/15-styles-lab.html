@@ -222,4 +222,23 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 .lab-opening .wi-card.finished:hover{border-color:rgba(134,211,163,.85)}
 .prog-q{color:var(--ink);font-size:13px;line-height:1.45;word-break:keep-all}
 body.view-lab .prog,body.view-lab #navEgrp,body.view-src .prog,body.view-src #navEgrp{display:none}
+/* 배경 연출이 본문 밖으로 번져 가로 스크롤이 생기지 않게 하고, 11px 라벨은 12px로 */
+.main{overflow-x:clip}
+.sb,.reg,.src,.saxis,.saxis span,.stag{font-size:12px}
+#source-shares .srow2>span:last-child{font-size:12px}
+/* hidden 속성은 어떤 display 규칙보다 우선한다 (눌러서 숨긴 버튼이 계속 보이던 문제) */
+[hidden]{display:none!important}
+/* 선택한 보기는 중립 윤곽으로, 초록·주황은 맞음/다시 생각에만 쓴다 */
+.pick button[aria-pressed="true"],.pick button[aria-pressed="true"][data-v="1"],.pick button[aria-pressed="true"][data-v="0"]{background:var(--sunk-2);border-color:var(--ink);color:var(--ink);font-weight:600}
+.pcard.right .pick button[aria-pressed="true"]{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.prediction-options input:checked+span{border-color:var(--ink-2);background:rgba(236,228,212,.07)}
+.prediction-options input:checked+span i{border:5px solid var(--ink)}
+.sum-n{font-size:13px;color:var(--seal);min-width:2.2em;padding-top:2px;white-space:nowrap}
+/* 사이드바: 현재 항목이 완료여도 완료 색을 유지하고, 줄 높이를 줄여 한 화면에 들어오게 */
+.navlist a.done[aria-current="page"] .st{color:var(--seal)}
+.navlist a{min-height:38px;padding:5px 8px}
+#navE a.done small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px;font-size:12.5px;line-height:1.45}
+.sidebar .navgrp{padding-block:8px}
+/* 모바일: 질문을 고르는 화면(가정 실험)과 참고 화면에서는 순서 서랍 버튼도 숨긴다 */
+body.view-lab .appbar .nb-open,body.view-src .appbar .nb-open{display:none!important}
 </style>

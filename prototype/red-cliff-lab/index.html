@@ -1162,6 +1162,25 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 .lab-opening .wi-card.finished:hover{border-color:rgba(134,211,163,.85)}
 .prog-q{color:var(--ink);font-size:13px;line-height:1.45;word-break:keep-all}
 body.view-lab .prog,body.view-lab #navEgrp,body.view-src .prog,body.view-src #navEgrp{display:none}
+/* 배경 연출이 본문 밖으로 번져 가로 스크롤이 생기지 않게 하고, 11px 라벨은 12px로 */
+.main{overflow-x:clip}
+.sb,.reg,.src,.saxis,.saxis span,.stag{font-size:12px}
+#source-shares .srow2>span:last-child{font-size:12px}
+/* hidden 속성은 어떤 display 규칙보다 우선한다 (눌러서 숨긴 버튼이 계속 보이던 문제) */
+[hidden]{display:none!important}
+/* 선택한 보기는 중립 윤곽으로, 초록·주황은 맞음/다시 생각에만 쓴다 */
+.pick button[aria-pressed="true"],.pick button[aria-pressed="true"][data-v="1"],.pick button[aria-pressed="true"][data-v="0"]{background:var(--sunk-2);border-color:var(--ink);color:var(--ink);font-weight:600}
+.pcard.right .pick button[aria-pressed="true"]{background:var(--good-bg);border-color:var(--good);color:var(--good)}
+.prediction-options input:checked+span{border-color:var(--ink-2);background:rgba(236,228,212,.07)}
+.prediction-options input:checked+span i{border:5px solid var(--ink)}
+.sum-n{font-size:13px;color:var(--seal);min-width:2.2em;padding-top:2px;white-space:nowrap}
+/* 사이드바: 현재 항목이 완료여도 완료 색을 유지하고, 줄 높이를 줄여 한 화면에 들어오게 */
+.navlist a.done[aria-current="page"] .st{color:var(--seal)}
+.navlist a{min-height:38px;padding:5px 8px}
+#navE a.done small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-top:2px;font-size:12.5px;line-height:1.45}
+.sidebar .navgrp{padding-block:8px}
+/* 모바일: 질문을 고르는 화면(가정 실험)과 참고 화면에서는 순서 서랍 버튼도 숨긴다 */
+body.view-lab .appbar .nb-open,body.view-src .appbar .nb-open{display:none!important}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1186,7 +1205,7 @@ body.view-lab .prog,body.view-lab #navEgrp,body.view-src .prog,body.view-src #na
 <header class="appbar">
   <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
   <nav class="appnav" aria-label="주요 화면"><a href="#home" id="anH">시작</a><a href="#lab" id="anL">가정 실험</a><a href="#src" id="anS">자료와 집계 기준</a></nav>
-  <button class="btn ghost nb-open" data-open-notes aria-label="순서 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
+  <button class="btn ghost nb-open" data-open-notes aria-label="순서 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">완료 0/6</span></button>
 </header>
 
 <div class="shell">
@@ -1337,7 +1356,7 @@ function drawChrome(){
   $("#progTxt").textContent=`완료 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}장</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
-  $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`${n}/6`;
+  $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`완료 ${n}/6`;
   ["tabH","tabS","tabL","anH","anS","anL"].forEach(id=>$("#"+id).removeAttribute("aria-current"));
   $(VIEWS[cur]?.id==="lab"?"#anL":cur===7?"#anS":"#anH").setAttribute("aria-current","page");
   $(VIEWS[cur]?.id==="lab"?"#tabL":cur===7?"#tabS":"#tabH").setAttribute("aria-current","page");
@@ -1705,7 +1724,7 @@ function journeyHome(){
  <section class="journey-condition" aria-labelledby="condition-title"><div><span class="journey-eyebrow">바꾸어 볼 조건</span><h2 id="condition-title">제갈량의 소속이 바뀌면 이야기도 달라질까요?</h2><p>이번에는 제갈량이 조조의 편에 있다고 가정합니다. 같은 인물들의 기록을 두고 소속만 바꾸면, 두 진영의 비교 결과는 어떻게 달라질까요?</p></div><div class="condition-change"><div><span>이야기 속 소속</span><b>손권·유비 연합군</b></div><span aria-hidden="true">→</span><div><span>바꾸어 볼 소속</span><b>조조군</b></div></div></section>
  <section class="background-method" aria-labelledby="method-title"><span class="journey-eyebrow">확인 방법</span><h2 id="method-title">예상을 어떻게 확인할까요?</h2><ol class="method-actions"><li><span>01</span><h3>먼저, 두 진영을 살펴봅니다.</h3><p>누가 있는지 확인하고, 각 인물의 등장 기록과 역할을 비교합니다.</p></li><li><span>02</span><h3>같은 기준으로 비교합니다.</h3><p>배·불·계책 관련 기록으로 점수를 만들고, 계산 기준과 근거를 점검합니다.</p></li><li><span>03</span><h3>소속을 바꾸어 계산합니다.</h3><p>앞에서 정한 기준을 유지한 채 제갈량의 소속을 바꾸고, 처음 예상과 결과를 비교합니다.</p></li></ol><p class="background-meta">기본 학습 6개 순서</p><p class="method-extension">실험 뒤에는 정사의 기록과 대조하며, 자료에 따라 해석이 달라지는지도 살펴볼 수 있습니다.</p><a href="#src">자료와 집계 기준 ${ic('right')}</a></section>
  <details class="journey-outline"><summary>전체 학습 과정 <span>${count} / 6 완료 ${ic('right')}</span></summary><ol>${ST.map((entry,i)=>`<li><a href="#${entry.id}"><span>${String(i+1).padStart(2,'0')}</span><b>${entry.short}</b><small>${S.done[i+1]?'완료':entry.skill}</small>${ic('right')}</a></li>`).join('')}</ol></details><button class="linkbtn experiment-replay" data-intro>서막 다시 보기</button>
- ${count===6?`<section class="journey-completed"><h2>이번 실험에서 남긴 학습 기록</h2><ol class="sumlist">${ST.map((entry,i)=>`<li><span class="vchip v-t">${i+1}</span><span><b>${entry.short}</b><small>${esc(S.done[i+1]||'')}</small></span></li>`).join('')}</ol><button class="btn ghost" id="reset">${ic('reset')}학습 기록 초기화하기</button></section>`:''}`;
+ ${count===6?`<section class="journey-completed"><h2>이번 실험에서 남긴 학습 기록</h2><ol class="sumlist">${ST.map((entry,i)=>`<li><span class="sum-n">${i+1}장</span><span><b>${entry.short}</b><small>${esc(S.done[i+1]||'')}</small></span></li>`).join('')}</ol><button class="btn ghost" id="reset">${ic('reset')}학습 기록 초기화하기</button></section>`:''}`;
  const form=$("#prediction-form");form.onchange=()=>{S.prediction=Number(new FormData(form).get('prediction'));save();form.querySelector('button').disabled=false;$("#prediction-status").textContent='짐작을 골랐습니다. 마지막에 결과와 비교합니다.'};
  form.onsubmit=e=>{e.preventDefault();if(count===0&&(!Number.isInteger(S.prediction)||!PREDICTIONS[S.prediction]))return;location.hash='#'+destination};
  const reset=$("#reset");if(reset)reset.onclick=()=>{S={done:{},t:{},rule:{min:2,dead:1},w:{ship:3,fire:3,plan:2},seenIntro:1};save();location.hash='#home';route()};
@@ -1839,7 +1858,7 @@ function simplifyStage(i){
  main.querySelector('.subtitle')?.remove();
  const brief=main.querySelector('.mission-brief')||main.querySelector('.brief3');
  if(brief){const [why,key]=SIMPLE_WHY[i-1];brief.outerHTML=`<section class="simple-todo"><span>할 일</span><p>${esc(SIMPLE_TODO[i-1])}</p><span class="why-l">왜</span><p class="why">${esc(why)}</p><span class="key-l">중요한 점</span><p class="key">${esc(key)}</p></section>`}
- main.querySelectorAll('.step-h p').forEach(p=>{if(p.textContent.length>60){const t=p.textContent;p.outerHTML=`<details class="step-more"><summary>설명 보기</summary><p>${esc(t)}</p></details>`}});
+ main.querySelectorAll('.step-h p').forEach(p=>{if(p.textContent.length>120){const t=p.textContent;p.outerHTML=`<details class="step-more"><summary>설명 보기</summary><p>${esc(t)}</p></details>`}});
 }
 const stageFull=stage;
 stage=function(i,tasks,steps,check){stageFull(i,tasks,steps,check);simplifyStage(i)};
@@ -1921,6 +1940,7 @@ RENDER[2]=()=>{
  bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');
  $("#shuNote").textContent=`${PP[shuTop].ko}${jo(PP[shuTop].ko,"은","는")} ${PP[shuTop].pa}문단에 나오고, 나머지 촉 사람들은 평균 ${fmt1(avgOf('shu',1))}문단에 나옵니다. 한 사람이 촉의 평균을 크게 끌어올리고 있습니다.`;
  const done=()=>{
+  $("#dropTop").hidden=true;
   $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔습니다.</p>`;
   show('s2name',named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
    `<section class="card pane"><p class="simple-note">가운데 값으로 보면</p><div class="avgs">${fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(median(facMembers(f).map(n=>PP[n].pa)))}</b></div>`).join('')}</div></section>`);
@@ -2588,7 +2608,7 @@ function scStage2({x,c}){
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
   const done=()=>{const a=avgOf(),b=avgOf(1),up=b>a,small=!up&&a-b<a*0.1;
-   $("#avgNow").hidden=true;$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔습니다. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔습니다. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔습니다. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
+   $("#avgNow").hidden=true;$("#dropTop")&&($("#dropTop").hidden=true);$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔습니다. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔습니다. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔습니다. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
    show('s2name',named(up?"평균보다 작은 한 사람":small?"한 사람의 무게":"평균의 함정",small?`${esc(P)}의 숫자는 ${label} 평균과 크게 다르지 않아서, 빼도 평균이 조금만 움직입니다. 한 사람이 결과를 얼마나 흔들지는, 그 사람의 숫자가 평균과 얼마나 다른지에 달려 있지요.`:up?`${esc(P)}의 숫자는 ${label} 평균보다 작습니다. 그래서 빼면 평균이 올라가지요. 한 사람을 옮기거나 뺄 때는, 그 사람의 숫자가 평균보다 큰지 작은지부터 보아야 합니다.`:`${esc(P)}의 숫자가 커서 ${label} 평균을 끌어올리고 있었습니다. 이런 사람을 옮기거나 빼면 결과가 크게 흔들리지요. 가운데 값(중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))})도 함께 살펴야 합니다.`))};
   const btn=$("#dropTop");if(btn)btn.onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped&&btn)done();
   return;
@@ -2707,10 +2727,11 @@ function cardGuide(){
  for(const card of $$("#pcards .pcard")){
   const n=card.dataset.n,role=card.dataset.role||MAIN_ROLES[n],v=L[n],tip=card.querySelector(".pcard-tip");if(!tip)continue;
   if(card.dataset.tip===undefined)card.dataset.tip=tip.innerHTML;
-  card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt");
+  card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt","right");
   if(v===undefined)continue;
   const say=(CARD_SAY[role]||{})[v];
   tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("맞")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
+  if(say&&say[0].startsWith("맞"))card.classList.add("right");
   if(say&&!say[0].startsWith("맞")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
  }
 }

@@ -49,5 +49,24 @@ try{
  route('s6');assert.equal(w.getComputedStyle(q('#wind6sec')).display,'none','wind question hidden before the move');
  click('#move6');assert.equal(q('#wind6sec').hidden,false);assert.ok(q('#wind6sec').textContent.includes('소설에서 동남풍을 불러온 사람은 제갈량입니다'));
  assert.equal(errors.length,0,errors.join('\n'));
+ // 화면 점검에서 찾은 문제의 회귀 방지
+ // 1) hidden 속성은 버튼 스타일보다 우선한다 (눌러서 숨긴 버튼이 계속 보이던 문제)
+ e('S.done={};S.t={};save()');
+ route('s2');click('#dropTop');assert.equal(w.getComputedStyle(q('#dropTop')).display,'none','2장: used button is hidden');
+ route('s5');click('#open5');assert.equal(w.getComputedStyle(q('#open5')).display,'none','5장: used button is hidden');
+ route('s6');click('#move6');assert.equal(w.getComputedStyle(q('#move6')).display,'none','6장: used button is hidden');
+ // 2) 1장 카드: 맞는 선택은 right(초록), 다시 생각은 doubt(주황), 선택 자체는 중립
+ e('S.done={};S.t={};save()');route('s1');
+ const cardOf=n=>q(`.pcard[data-n="${n}"]`);
+ click('.pcard[data-n="夏侯淵"] .pick button[data-v="0"]');assert.ok(cardOf('夏侯淵').classList.contains('right')&&!cardOf('夏侯淵').classList.contains('doubt'));
+ click('.pcard[data-n="袁紹"] .pick button[data-v="1"]');assert.ok(cardOf('袁紹').classList.contains('doubt')&&!cardOf('袁紹').classList.contains('right'));
+ click('.pcard[data-n="袁紹"] .pick button[data-v="0"]');assert.ok(cardOf('袁紹').classList.contains('right')&&!cardOf('袁紹').classList.contains('doubt'),'switching to the right answer clears the doubt state');
+ // 3) 번호는 "1장" 글자, 숫자만 단독으로 쓰지 않는다
+ e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x",6:"x"};save()');route('home');
+ assert.deepEqual([...d.querySelectorAll('.sum-n')].map(n=>n.textContent),['1장','2장','3장','4장','5장','6장']);
+ assert.ok(q('#nbCountTop').textContent.startsWith('완료 '),q('#nbCountTop').textContent);
+ // 4) 단계 헤더의 설명은 120자까지 접지 않는다 (6장 연결 문장)
+ e('S.done={};S.t={};save()');route('s6');assert.ok(q('#wind6sec').textContent.includes('소설에서 동남풍을 불러온 사람은 제갈량입니다'));assert.equal(q('#wind6sec .step-more'),null,'bridge sentence is not folded');
+ e('S.done={};S.t={};save()');route('home');
  console.log('PASS feedback flow: first-try correct picks say 맞습니다, answered quizzes stay clickable, stage notes, preview vs full run, wind question after the move');
 }finally{dom.window.close()}

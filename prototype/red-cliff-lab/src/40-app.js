@@ -63,7 +63,7 @@ function drawChrome(){
   $("#progTxt").textContent=`완료 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}장</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
-  $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`${n}/6`;
+  $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`완료 ${n}/6`;
   ["tabH","tabS","tabL","anH","anS","anL"].forEach(id=>$("#"+id).removeAttribute("aria-current"));
   $(VIEWS[cur]?.id==="lab"?"#anL":cur===7?"#anS":"#anH").setAttribute("aria-current","page");
   $(VIEWS[cur]?.id==="lab"?"#tabL":cur===7?"#tabS":"#tabH").setAttribute("aria-current","page");

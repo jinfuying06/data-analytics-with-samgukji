@@ -50,7 +50,7 @@ function simplifyStage(i){
  main.querySelector('.subtitle')?.remove();
  const brief=main.querySelector('.mission-brief')||main.querySelector('.brief3');
  if(brief){const [why,key]=SIMPLE_WHY[i-1];brief.outerHTML=`<section class="simple-todo"><span>할 일</span><p>${esc(SIMPLE_TODO[i-1])}</p><span class="why-l">왜</span><p class="why">${esc(why)}</p><span class="key-l">중요한 점</span><p class="key">${esc(key)}</p></section>`}
- main.querySelectorAll('.step-h p').forEach(p=>{if(p.textContent.length>60){const t=p.textContent;p.outerHTML=`<details class="step-more"><summary>설명 보기</summary><p>${esc(t)}</p></details>`}});
+ main.querySelectorAll('.step-h p').forEach(p=>{if(p.textContent.length>120){const t=p.textContent;p.outerHTML=`<details class="step-more"><summary>설명 보기</summary><p>${esc(t)}</p></details>`}});
 }
 const stageFull=stage;
 stage=function(i,tasks,steps,check){stageFull(i,tasks,steps,check);simplifyStage(i)};
@@ -132,6 +132,7 @@ RENDER[2]=()=>{
  bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');
  $("#shuNote").textContent=`${PP[shuTop].ko}${jo(PP[shuTop].ko,"은","는")} ${PP[shuTop].pa}문단에 나오고, 나머지 촉 사람들은 평균 ${fmt1(avgOf('shu',1))}문단에 나옵니다. 한 사람이 촉의 평균을 크게 끌어올리고 있습니다.`;
  const done=()=>{
+  $("#dropTop").hidden=true;
   $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔습니다.</p>`;
   show('s2name',named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
    `<section class="card pane"><p class="simple-note">가운데 값으로 보면</p><div class="avgs">${fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(median(facMembers(f).map(n=>PP[n].pa)))}</b></div>`).join('')}</div></section>`);
