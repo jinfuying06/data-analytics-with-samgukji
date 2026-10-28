@@ -247,7 +247,7 @@ RENDER[LAB_VIEW]=()=>{
   if(btn&&footer){footer.append(btn);btn.classList.add("home-start")}
   prog.remove();main.querySelector(".journey-outline")?.remove();
   const next=ST.findIndex((e,i)=>!S.done[i+1]);
-  const steps=`<nav class="home-steps" aria-label="학습 장">${ST.map((e,i)=>{const done=!!S.done[i+1],now=i===next;return `<a href="#${e.id}" class="${done?"done":""}${now?" now":""}"${now?' aria-current="step"':""}><span class="num">${done?ic("check"):String(i+1).padStart(2,"0")}</span><b>${esc(e.short)}</b></a>`}).join("")}</nav>`;
+  const steps=`<nav class="home-steps" aria-label="학습 장">${ST.map((e,i)=>{const done=!!S.done[i+1],now=i===next;return `<a href="#${e.id}" class="${done?"done":""}${now?" now":""}"${now?' aria-current="step"':""}><span class="num">${i+1}장${done?ic("check"):""}</span><b>${esc(e.short)}</b></a>`}).join("")}</nav>`;
   form.insertAdjacentHTML("afterend",steps);
   const replay=main.querySelector(".experiment-replay");if(replay)main.querySelector(".home-steps").after(replay);
  };

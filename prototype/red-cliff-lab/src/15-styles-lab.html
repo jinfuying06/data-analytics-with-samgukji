@@ -192,8 +192,6 @@ body.experiment-home .lab-tools{margin-top:24px}
 }
 @media (min-width:1024px) and (max-width:1279px){.shell{grid-template-columns:300px minmax(0,1fr)}}
 .navlist a.done small{color:var(--ink-2)}
-.navlist a{align-items:start}
-.navlist .st{margin-top:2px}
 .navlist small{overflow-wrap:anywhere}
 #navE a.done small{margin-top:4px;font-size:13px;line-height:1.5}
 /* 한국어는 어절 단위로 줄바꿈하고, 스크립트가 옮긴 제목 포커스에는 테두리를 그리지 않는다 */
@@ -201,4 +199,15 @@ body{word-break:keep-all;overflow-wrap:break-word}
 h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 /* 보조 설명 글자는 12px 이상으로 */
 .notes small,.source .pno,.pchip small,.kdef small,.journey-story>small,.meter .scale,.saxis{font-size:12px}
+/* 번호는 박스 없이 "1장" 글자로, 제목과 같은 기준선에 맞춘다 */
+.navlist a{grid-template-columns:42px 1fr auto;align-items:baseline;gap:6px}
+.navlist .st,.navlist a.done .st{width:auto;height:auto;border:0;border-radius:0;background:none;display:block;font-family:var(--f-body);font-size:13px;color:var(--ink-3);white-space:nowrap}
+.navlist a.done .st{color:var(--seal)}
+.navlist .st .ico,.stepper .st .ico,.home-steps .num .ico{width:13px;height:13px;margin-left:3px;vertical-align:-2px}
+.navlist a[aria-current="page"] .st{color:var(--ink)}
+.board a{grid-template-columns:40px 1fr auto}
+.board .bno{width:auto;height:auto;border-radius:0;background:none;font-family:var(--f-body);font-size:13px;color:var(--ink-3);display:block;margin-top:1px}
+.home-steps a .num{letter-spacing:0;font-size:12px}
+.stepper a .st,.stepper a.done .st{display:inline-flex;align-items:center;white-space:nowrap;min-width:0;font-size:13px}
+.stepper a{align-items:center}
 </style>
