@@ -151,7 +151,7 @@ RENDER[3]=()=>{
   step(2,"무엇에 무게를 둘지 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 정하기</button></section><section class="card pane simple-result"><p class="simple-note">두 진영의 점수</p><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+
   reveal('s3name'),
   {q:"이 점수가 재는 것은 무엇일까요?",opts:["장수의 실제 능력입니다.","인물의 이름과 배·불·계책 글자가 함께 나온 정도입니다.","전투에서 세운 공입니다."],ok:1,
-   good:"글자를 센 숫자이지 실력 그 자체는 아닙니다. 그래도 모두에게 같은 규칙을 쓰면 비교할 수 있습니다.",bad:"첫 활동에서 무엇을 세었는지 떠올려 보시지요.",
+   good:"글자를 센 숫자입니다. 모두에게 같은 규칙을 쓰므로 서로 비교할 수 있습니다.",bad:"첫 활동에서 무엇을 세었는지 떠올려 보시지요.",
    ev:()=>{const s=fs("yy");return `점수(배 ${S.w.ship}·불 ${S.w.fire}·계책 ${S.w.plan}): 연합군 ${s.wu+s.shu} vs 조조군 ${s.wei}`}});
  simplifyStage(3);
  const draw=()=>{
@@ -217,7 +217,7 @@ RENDER[5]=()=>{
    ev:()=>`조조의 '불' ${PP['曹操'].yy[1]}회는 불에 당한 장면이 섞인 숫자`});
  simplifyStage(5);
  bars($("#fire5"),top.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),top[0].v,'회');
- const drawAsk=ask5Wire(L5,{ok:2,good:"조조는 불을 지른 게 아니라 불에 당하고 있습니다. 그런데도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 다시 읽어 보시지요."},
+ const drawAsk=ask5Wire(L5,{ok:2,good:"조조는 불에 당하고 있습니다. 그래도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 다시 읽어 보시지요."},
   ()=>show('s5name',named("근거 확인","뜻밖의 숫자가 나왔다면, 그 숫자가 비롯된 기록을 직접 펼쳐 보시지요. 글자를 세는 방법은 '불을 지른 사람'과 '불에 당한 사람'을 구분하지 못했습니다.")));
  const open=()=>{setT("s5","victim");$("#open5").hidden=true;
   $("#txt5").innerHTML=e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} 조조와 '불'이 함께 나온 문단</p><blockquote class="evq">${hiFire(e[1])}</blockquote>`:'';

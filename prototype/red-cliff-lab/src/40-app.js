@@ -165,7 +165,7 @@ function s1(){
 function s2(){
   const L=S.t.s2x=S.t.s2x||{stat:"sum",g:"three",drop:0};
   stage(2,[["s2","sum","합계 확인하기"],["s2","mean","평균 확인하기"],["s2","med","중앙값 확인하기"],["s2","drop","최댓값 제외하기"]],
-    step(1,"합계·평균·중앙값 비교하기","인물별로 이름이 포함된 문단 수를 셉니다. 이를 진영별 합계·1인당 평균·중앙값으로 비교합니다. 이 수치는 전투 능력이 아닌 기록 속 등장 정도를 나타냅니다.",
+    step(1,"합계·평균·중앙값 비교하기","인물별로 이름이 포함된 문단 수를 셉니다. 이를 진영별 합계·1인당 평균·중앙값으로 비교합니다. 이 수치는 기록 속 등장 정도를 나타냅니다.",
     `<section class="card pane"><div class="pane-h"><h2>${ic("chart")}진영별 등장 문단 수</h2>${srcB("yy","연의 43–50회")}</div>
       <div class="ctrls">${seg("st",[["sum","합계"],["mean","1인당 평균"],["med","중앙값"]],L.stat,"요약 방식")}${seg("gp",[["three","위·오·촉"],["ally","위·연합 비교"]],L.g,"묶음")}</div>
       <div class="bars" id="sbars"></div><div class="callout" id="sread" aria-live="polite"></div></section>`)+
@@ -284,7 +284,7 @@ function s5(){
      ev:()=>{const a=share("yy"),b=share("jb");return `조조의 화공 지표 ${PP["曹操"].yy[1]}: 피해 장면도 포함 · 촉 비중 연의 ${a.shu}% → 정사 본문 ${b.shu}%`}});
   const r=roster(),ft=r.map(n=>({n,v:PP[n].yy[1]})).sort((a,b)=>b.v-a.v).slice(0,6);
   bars($("#firetop"),ft.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),ft[0].v,"문단");
-  const showV=()=>{const e=(EVID["曹操"]||{}).fire;$("#vict").innerHTML=e?`<blockquote class="evq">${esc(e[1])}</blockquote><p class="cap">이 문단에서 조조는 화공을 실행하는 인물이 아니라 불을 피해 달아나는 인물입니다.</p>`:""};
+  const showV=()=>{const e=(EVID["曹操"]||{}).fire;$("#vict").innerHTML=e?`<blockquote class="evq">${esc(e[1])}</blockquote><p class="cap">이 문단에서 조조는 불을 피해 달아나는 인물입니다.</p>`:""};
   $("#openv").onclick=()=>{setT("s5","victim");showV()};if(tk("s5","victim"))showV();
   function share(lens){const s=fs(lens),t=s.wei+s.wu+s.shu||1;return {wei:Math.round(s.wei/t*100),wu:Math.round(s.wu/t*100),shu:Math.round(s.shu/t*100)}}
   function d(){const lay=L.lay||"jb",a=share("yy"),b=share(lay);

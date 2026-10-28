@@ -11,7 +11,7 @@ const WHATIFS=[
  {id:"zyout",kind:"drop",q:"주유가 병으로 빠졌다면?",mut:{"周瑜":null},review:"순서 2 · 한 사람의 무게"},
  {id:"ptout",kind:"drop",q:"방통이 없었다면?",mut:{"龐統":null},review:"순서 2 · 한 사람의 무게",note:"방통은 조조에게 배를 서로 묶으라고 권한 인물입니다."},
  {id:"nowind",kind:"cond",q:"바람이 불지 않았다면?",wind:"none",review:"순서 6 · 가정"},
- {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"순서 5 · 숫자의 뜻",note:"조조의 '불' 점수는 불을 지른 기록이 아니라 불에 당한 기록이었습니다."},
+ {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"순서 5 · 숫자의 뜻",note:"조조의 '불' 점수는 불에 당한 기록에서 나온 숫자였습니다."},
  {id:"combo",kind:"multi",q:"주유·황개가 조조 편이고, 바람도 없었다면?",mut:{"周瑜":"wei","黃蓋":"wei"},wind:"none",review:"종합"},
  {id:"jb",kind:"source",q:"소설 대신 역사책⁠(정사)으로 센다면?",lens:"jb",review:"순서 5 · 근거"}
 ];
