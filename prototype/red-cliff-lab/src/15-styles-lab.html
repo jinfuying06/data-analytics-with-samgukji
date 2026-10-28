@@ -49,11 +49,14 @@ body.experiment-home .lab-tools{margin-top:24px}
 .hero-question span{font-family:var(--f-data,inherit);font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--flame);text-transform:uppercase}
 .hero-question:hover{opacity:1}.hero-question:focus-visible{outline:2px solid var(--wind);outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.hero-question{animation:none}}
-.wi-card{position:relative;padding-right:44px}
+.wi-card{position:relative}
 .wi-card.current{border-color:var(--flame);box-shadow:inset 3px 0 0 var(--flame)}
-.wi-card.finished b{color:var(--ink-2)}
-.wi-mark{position:absolute;top:14px;right:14px;font-style:normal;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
-.wi-mark .ico{width:16px;height:16px;color:var(--good)}
+.wi-card.finished{border-color:rgba(134,211,163,.5);background:rgba(134,211,163,.07)}
+.wi-mark{display:flex;align-items:center;gap:6px;font-style:normal;font-size:12.5px;color:var(--ink-2);margin-top:auto}
+.wi-mark.done{color:var(--good);font-weight:600}
+.wi-mark .ico{width:15px;height:15px;color:var(--good)}
+.wi-prog{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden}
+.wi-prog b{display:block;height:100%;padding:0;font-size:0;border-radius:2px;background:var(--flame)}
 .wi-card.tried small::after{content:none}
 /* the lab opens in the same river scene as home: no boxed banner, the cards sit in the night */
 .lab-opening{position:relative;isolation:isolate;display:grid;gap:26px;padding:48px 0 28px;background:radial-gradient(ellipse at 70% 60%,rgba(122,48,25,calc(.08 + .14*var(--heat))),transparent 70%)}
@@ -211,4 +214,9 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 .stepper a .st,.stepper a.done .st{display:inline-flex;align-items:center;white-space:nowrap;min-width:0;font-size:13px}
 .stepper a{align-items:center}
 .navlist a.nolabel{grid-template-columns:1fr auto}
+/* 사이드바: 지금 하는 질문 이름 + 완료 수. 가정 실험 탭은 질문을 고르는 화면이라 순서와 진행을 숨긴다 */
+.lab-opening .wi-card.finished{border-color:rgba(134,211,163,.55);background:rgba(40,80,56,.28)}
+.lab-opening .wi-card.finished:hover{background:rgba(40,80,56,.4)}
+.prog-q{color:var(--ink);font-size:13px;line-height:1.45;word-break:keep-all}
+body.view-lab .prog,body.view-lab #navEgrp{display:none}
 </style>

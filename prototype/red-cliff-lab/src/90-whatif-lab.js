@@ -191,13 +191,13 @@ RENDER[LAB_VIEW]=()=>{
  const L=S.t.lab=S.t.lab||{b:{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"}};L.b=L.b||{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"};
  const base=wiCalc(),cur=scenario().id;
  const prog=id=>{const pack=id===cur?{prediction:S.prediction,done:S.done}:(S.scen||{})[id]||{};return {n:Object.keys(pack.done||{}).length,p:Number.isInteger(pack.prediction)}};
- const status=id=>{const {n,p}=prog(id);return n>=6?"끝까지 살펴봄":n?`${n} / 6`:p?"짐작을 골랐음":""};
- const tried=()=>WHATIFS.filter(x=>status(x.id)).length;
+ const status=id=>{const {n,p}=prog(id);return n>=6?"완료":n?`${n}/6 완료`:p?"시작함":""};
+ const finishedN=()=>WHATIFS.filter(x=>prog(x.id).n>=6).length,doingN=()=>WHATIFS.filter(x=>{const {n}=prog(x.id);return n>0&&n<6}).length;
  // progress is shown, not written: a check when finished, a quiet n/6 while going, an accent edge on the current question
- const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark" aria-hidden="true">${ic("check")}</i>`:n?`<i class="wi-mark num" aria-hidden="true">${n}/6</i>`:""}</button>`};
+ const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark done" aria-hidden="true">${ic("check")}완료</i>`:n?`<i class="wi-mark" aria-hidden="true">${n}/6 완료</i><i class="wi-prog" aria-hidden="true"><b style="width:${n/6*100}%"></b></i>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
- $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
+ $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count">완료 <span class="num"><span id="labCount">${finishedN()}</span> / ${WHATIFS.length}</span>${doingN()?` · 진행 중 <span class="num">${doingN()}</span>`:""}</p></div>
  <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  ${step(1,"직접 질문 만들기","인물, 바람, 점수 규칙, 기록을 골라 질문을 만들면 결과가 바로 계산됩니다.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>

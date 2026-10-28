@@ -989,11 +989,14 @@ body.experiment-home .lab-tools{margin-top:24px}
 .hero-question span{font-family:var(--f-data,inherit);font-size:11px;font-weight:600;letter-spacing:.18em;color:var(--flame);text-transform:uppercase}
 .hero-question:hover{opacity:1}.hero-question:focus-visible{outline:2px solid var(--wind);outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.hero-question{animation:none}}
-.wi-card{position:relative;padding-right:44px}
+.wi-card{position:relative}
 .wi-card.current{border-color:var(--flame);box-shadow:inset 3px 0 0 var(--flame)}
-.wi-card.finished b{color:var(--ink-2)}
-.wi-mark{position:absolute;top:14px;right:14px;font-style:normal;font-size:11px;color:var(--ink-3);letter-spacing:.04em}
-.wi-mark .ico{width:16px;height:16px;color:var(--good)}
+.wi-card.finished{border-color:rgba(134,211,163,.5);background:rgba(134,211,163,.07)}
+.wi-mark{display:flex;align-items:center;gap:6px;font-style:normal;font-size:12.5px;color:var(--ink-2);margin-top:auto}
+.wi-mark.done{color:var(--good);font-weight:600}
+.wi-mark .ico{width:15px;height:15px;color:var(--good)}
+.wi-prog{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.08);overflow:hidden}
+.wi-prog b{display:block;height:100%;padding:0;font-size:0;border-radius:2px;background:var(--flame)}
 .wi-card.tried small::after{content:none}
 /* the lab opens in the same river scene as home: no boxed banner, the cards sit in the night */
 .lab-opening{position:relative;isolation:isolate;display:grid;gap:26px;padding:48px 0 28px;background:radial-gradient(ellipse at 70% 60%,rgba(122,48,25,calc(.08 + .14*var(--heat))),transparent 70%)}
@@ -1151,6 +1154,11 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 .stepper a .st,.stepper a.done .st{display:inline-flex;align-items:center;white-space:nowrap;min-width:0;font-size:13px}
 .stepper a{align-items:center}
 .navlist a.nolabel{grid-template-columns:1fr auto}
+/* 사이드바: 지금 하는 질문 이름 + 완료 수. 가정 실험 탭은 질문을 고르는 화면이라 순서와 진행을 숨긴다 */
+.lab-opening .wi-card.finished{border-color:rgba(134,211,163,.55);background:rgba(40,80,56,.28)}
+.lab-opening .wi-card.finished:hover{background:rgba(40,80,56,.4)}
+.prog-q{color:var(--ink);font-size:13px;line-height:1.45;word-break:keep-all}
+body.view-lab .prog,body.view-lab #navEgrp{display:none}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1181,9 +1189,9 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 <div class="shell">
   <aside class="sidebar card" aria-label="과정 목록">
     <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
-    <div class="prog"><span id="progTxt">완료 0 / 6</span><div class="prog-bar"><i id="progBar"></i></div></div>
+    <div class="prog"><span class="prog-q" id="progQ"></span><span id="progTxt">완료 0 / 6</span><div class="prog-bar"><i id="progBar"></i></div></div>
     <nav class="navgrp"><p>바로가기</p><ul class="navlist" id="navH"></ul></nav>
-    <nav class="navgrp"><p>순서</p><ul class="navlist" id="navE"></ul></nav>
+    <nav class="navgrp" id="navEgrp"><p>순서</p><ul class="navlist" id="navE"></ul></nav>
     <nav class="navgrp"><p>참고</p><ul class="navlist" id="navS"></ul></nav>
     <p class="sidefoot"><button class="linkbtn" data-intro>서막 다시 보기</button></p>
   </aside>
@@ -1320,6 +1328,8 @@ function drawChrome(){
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,`${i+1}장`,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
+  document.body.classList.toggle("view-lab",VIEWS[cur]?.id==="lab");
+  $("#progQ").textContent=typeof scenario==="function"?scenario().q.replace(/\s*\(.*\)\s*$/,""):"";
   $("#progTxt").textContent=`완료 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}장</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
@@ -2329,13 +2339,13 @@ RENDER[LAB_VIEW]=()=>{
  const L=S.t.lab=S.t.lab||{b:{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"}};L.b=L.b||{who:"周瑜",act:"wei",wind:"env",w:"base",lens:"yy"};
  const base=wiCalc(),cur=scenario().id;
  const prog=id=>{const pack=id===cur?{prediction:S.prediction,done:S.done}:(S.scen||{})[id]||{};return {n:Object.keys(pack.done||{}).length,p:Number.isInteger(pack.prediction)}};
- const status=id=>{const {n,p}=prog(id);return n>=6?"끝까지 살펴봄":n?`${n} / 6`:p?"짐작을 골랐음":""};
- const tried=()=>WHATIFS.filter(x=>status(x.id)).length;
+ const status=id=>{const {n,p}=prog(id);return n>=6?"완료":n?`${n}/6 완료`:p?"시작함":""};
+ const finishedN=()=>WHATIFS.filter(x=>prog(x.id).n>=6).length,doingN=()=>WHATIFS.filter(x=>{const {n}=prog(x.id);return n>0&&n<6}).length;
  // progress is shown, not written: a check when finished, a quiet n/6 while going, an accent edge on the current question
- const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark" aria-hidden="true">${ic("check")}</i>`:n?`<i class="wi-mark num" aria-hidden="true">${n}/6</i>`:""}</button>`};
+ const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark done" aria-hidden="true">${ic("check")}완료</i>`:n?`<i class="wi-mark" aria-hidden="true">${n}/6 완료</i><i class="wi-prog" aria-hidden="true"><b style="width:${n/6*100}%"></b></i>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
- $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
+ $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count">완료 <span class="num"><span id="labCount">${finishedN()}</span> / ${WHATIFS.length}</span>${doingN()?` · 진행 중 <span class="num">${doingN()}</span>`:""}</p></div>
  <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
  ${step(1,"직접 질문 만들기","인물, 바람, 점수 규칙, 기록을 골라 질문을 만들면 결과가 바로 계산됩니다.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>

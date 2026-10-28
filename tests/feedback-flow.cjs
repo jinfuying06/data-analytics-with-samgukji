@@ -19,6 +19,15 @@ try{
  e('S.done={};drawChrome()');assert.equal(q('#progTxt').textContent,'완료 0 / 6');assert.equal(q('#progBar').style.width,'0%');
  e('S.done={1:"x",2:"x",3:"x"};drawChrome()');assert.equal(q('#progTxt').textContent,'완료 3 / 6');assert.equal(q('#progBar').style.width,'50%');
  e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x",6:"x"};drawChrome()');assert.equal(q('#progBar').style.width,'100%');e('S.done={};drawChrome()');
+ // 가정 실험 탭: 질문을 고르는 화면이므로 순서·진행을 숨기고, 카드에 완료 상태를 글과 색으로 보여 준다
+ route('lab');assert.equal(d.body.classList.contains('view-lab'),true);route('s1');assert.equal(d.body.classList.contains('view-lab'),false);
+ assert.ok(q('#progQ').textContent.length>3,'sidebar names the question being worked on');
+ e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x"};save()');route('lab');
+ const zgCard=q('.wi-card[data-id="zg"]');assert.ok(zgCard.textContent.includes('5/6 완료'),zgCard.textContent);assert.ok(zgCard.querySelector('.wi-prog b').style.width.startsWith('83'));assert.ok(!zgCard.classList.contains('finished'));
+ assert.ok(q('.lab-count').textContent.includes('완료 0 / 9')&&q('.lab-count').textContent.includes('진행 중 1'),q('.lab-count').textContent);
+ e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x",6:"x"};save()');route('lab');
+ assert.ok(q('.wi-card[data-id="zg"]').classList.contains('finished'));assert.ok(q('.wi-card[data-id="zg"]').textContent.includes('완료'));assert.ok(q('.lab-count').textContent.includes('완료 1 / 9'),q('.lab-count').textContent);assert.ok(!q('.lab-count').textContent.includes('진행 중'));
+ e('S.done={};save()');route('s1');
  // 사이드바 그룹 이름
  route('s1');assert.ok([...d.querySelectorAll('.navgrp p')].map(p=>p.textContent).includes('순서'));assert.ok(![...d.querySelectorAll('.navgrp p')].some(p=>p.textContent.includes('여섯')));
  // 1단계 카드: 처음부터 맞게 골라도 "맞습니다."가 나온다
