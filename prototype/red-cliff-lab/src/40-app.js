@@ -68,7 +68,7 @@ function drawChrome(){
 function notes(open){$("#notebook").classList.toggle("open",open);$("#scrim").classList.toggle("open",open)}
 document.addEventListener("click",e=>{if(e.target.closest("[data-open-notes]"))notes(true);else if(e.target.closest("[data-close-notes]"))notes(false);else if(e.target.closest("#board a"))notes(false)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")notes(false)});
-function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();startHeroFx();window.scrollTo?.({top:0})}
+function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();if(i>=1&&i<=6)document.body.classList.remove("experiment-home");startHeroFx();window.scrollTo?.({top:0})}
 addEventListener("hashchange",route);
 // Explicit internal navigation keeps pager targets inside this learning app, including embeds.
 document.addEventListener("click",e=>{

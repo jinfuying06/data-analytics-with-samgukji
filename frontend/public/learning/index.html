@@ -9,7 +9,7 @@
    >=1280: sidebar | main | notebook rail.  1024–1279: sidebar | main, notebook as drawer.  <1024: app bar + bottom tab bar (임무 · 실험실 · 노트).
    Two visual registers: 기록(record) = ink + vermilion seal, 가정(assumption) = wind blue + dashed edges. */
 :root{
-  --bg:#0a0d10; --panel:#141a1f; --sunk:#1a2127; --sunk-2:#242d34; --ink:#ece4d4; --ink-2:#bdb3a2; --ink-3:#8c8579; --rule:rgba(236,228,212,.11);
+  --bg:#0a0d10; --panel:#141a1f; --sunk:#1a2127; --sunk-2:#242d34; --ink:#ece4d4; --ink-2:#bdb3a2; --ink-3:#9c9588; --rule:rgba(236,228,212,.11);
   --seal:#e0703a; --seal-bg:rgba(224,112,58,.15); --seal-ink:#170b05;
   --wind:#8fbde8; --wind-bg:rgba(143,189,232,.10); --wind-2:#5f8fbf;
   --mark:#e7b958; --mark-ink:#1d1405;
@@ -1115,6 +1115,11 @@ body.experiment-home .lab-tools{margin-top:24px}
 .iscene .q{max-width:20em;text-wrap:pretty}
 .iscene .l:not(.q):not(.intro-method),.simple .simple-story{text-wrap:pretty;max-width:34em}
 .iscene .l b{display:inline}
+/* 한국어는 어절 단위로 줄바꿈하고, 스크립트가 옮긴 제목 포커스에는 테두리를 그리지 않는다 */
+body{word-break:keep-all;overflow-wrap:break-word}
+h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
+/* 보조 설명 글자는 12px 이상으로 */
+.notes small,.source .pno,.pchip small,.kdef small,.journey-story>small,.meter .scale,.saxis{font-size:12px}
 </style>
 </head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -1293,7 +1298,7 @@ function drawChrome(){
 function notes(open){$("#notebook").classList.toggle("open",open);$("#scrim").classList.toggle("open",open)}
 document.addEventListener("click",e=>{if(e.target.closest("[data-open-notes]"))notes(true);else if(e.target.closest("[data-close-notes]"))notes(false);else if(e.target.closest("#board a"))notes(false)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape")notes(false)});
-function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();startHeroFx();window.scrollTo?.({top:0})}
+function route(){const h=(location.hash||"").slice(1);let i=VIEWS.findIndex(v=>v.id===h.split("?")[0]);if(i<0)i=0;cur=i;S.last=i;save();notes(false);drawChrome();stopFx();RENDER[i]();if(i>=1&&i<=6)document.body.classList.remove("experiment-home");startHeroFx();window.scrollTo?.({top:0})}
 addEventListener("hashchange",route);
 // Explicit internal navigation keeps pager targets inside this learning app, including embeds.
 document.addEventListener("click",e=>{
