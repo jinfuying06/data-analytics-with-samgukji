@@ -53,12 +53,11 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 
 /* ===== chrome ===== */
 function drawChrome(){
-  const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
-  $("#navH").innerHTML=a("home","始","시작","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
+  const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}${hz?"":" nolabel"}" ${cur===i?'aria-current="page"':""}>${hz?`<span class="st">${hz}</span>`:""}<span><b>${b}</b><small>${s}</small></span></a></li>`;
+  $("#navH").innerHTML=a("home","","시작","학습 과정 안내",0,false)+a("lab","","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,`${i+1}장`,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
-  $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
+  $("#navS").innerHTML=a("src","","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
-  $("#progTxt").textContent=`완료 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
   $("#board").innerHTML=ST.map((e,i)=>`<li class="${S.done[i+1]?"":"ph"}"><a href="#${e.id}"><span class="bno">${i+1}장</span><span class="bh">${e.q}<small>${S.done[i+1]?esc(S.done[i+1]):e.skill}</small></span>${S.done[i+1]?`<span class="vchip v-t">완료</span>`:`<span class="vchip">진행 전</span>`}</a></li>`).join("");
   $("#boardSum").innerHTML="";
   $("#nbBadge").textContent=n;$("#nbBadge").hidden=!n;$("#nbCountTop").textContent=`${n}/6`;
