@@ -53,7 +53,7 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 
 /* ===== chrome ===== */
 function drawChrome(){
-  const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${hz}${done?ic("check"):""}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
+  const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
   $("#navH").innerHTML=a("home","始","시작","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,`${i+1}장`,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
@@ -87,7 +87,7 @@ const step=(n,title,sub,body)=>`<section class="stepsec"><header class="step-h">
 function hero({hz,where,title,sub,fx,say}){return `<section class="scene-hero" data-fx="${fx}"><canvas class="fx" aria-hidden="true"></canvas><div class="lb" aria-hidden="true"></div><div class="hero-in"><p class="hero-meta"><span class="hz">${hz}</span><span>${where}</span></p><h1>${title}</h1><p class="hero-sub">${sub}</p>${say?`<figure class="subtitle"><blockquote>${say[3]}</blockquote><figcaption><span class="face ${say[1]}" aria-hidden="true">${say[2]}</span>${say[0]} · 학습용 질문</figcaption></figure>`:""}</div></section>`}
 function stage(i,tasks,steps,chk){
   const e=ST[i-1];TASKS=tasks;
-  const stepper=`<nav class="stepper" aria-label="장 목록">${ST.map((x,j)=>`<a href="#${x.id}" class="${S.done[j+1]?"done":""}" ${j+1===i?'aria-current="page"':""}><span class="st">${j+1}장${S.done[j+1]?ic("check"):""}</span>${x.short}</a>`).join("")}</nav>`;
+  const stepper=`<nav class="stepper" aria-label="장 목록">${ST.map((x,j)=>`<a href="#${x.id}" class="${S.done[j+1]?"done":""}" ${j+1===i?'aria-current="page"':""}><span class="st">${j+1}장</span>${x.short}</a>`).join("")}</nav>`;
   const nsteps=steps.split('class="stepsec"').length;
   $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">순서 ${i} / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
