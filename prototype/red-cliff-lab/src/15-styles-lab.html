@@ -217,6 +217,9 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 /* 사이드바: 지금 하는 질문 이름 + 완료 수. 가정 실험 탭은 질문을 고르는 화면이라 순서와 진행을 숨긴다 */
 .lab-opening .wi-card.finished{border-color:rgba(134,211,163,.55);background:rgba(40,80,56,.28)}
 .lab-opening .wi-card.finished:hover{background:rgba(40,80,56,.4)}
+/* 완료한 카드에는 주황이 섞이지 않게: 지금 하는 질문이 완료여도 띠와 호버 테두리를 초록으로 */
+.lab-opening .wi-card.finished.current{border-color:rgba(134,211,163,.55);box-shadow:inset 3px 0 0 var(--good);background:rgba(40,80,56,.28)}
+.lab-opening .wi-card.finished:hover{border-color:rgba(134,211,163,.85)}
 .prog-q{color:var(--ink);font-size:13px;line-height:1.45;word-break:keep-all}
 body.view-lab .prog,body.view-lab #navEgrp,body.view-src .prog,body.view-src #navEgrp{display:none}
 </style>
