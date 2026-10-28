@@ -63,7 +63,7 @@ export default function NetworkPage() {
     <div className="network-page">
       <div className="network-header">
         <div>
-          <p className="eyebrow">TACTICAL MAP / SOURCE 02</p>
+          <p className="eyebrow">관계망 / 자료 2</p>
           <h1 className="page-title">연의 인물 관계망</h1>
           <p className="page-subtitle">같은 회차에 함께 등장한 인물들의 연결을 지도처럼 탐색합니다.</p>
         </div>
@@ -72,7 +72,7 @@ export default function NetworkPage() {
 
       <div className="network-layout">
         <aside className="network-controls pixel-panel">
-          <p className="eyebrow">MAP SETTINGS</p>
+          <p className="eyebrow">지도 설정</p>
           <h2>관계망 필터</h2>
           <label className="range-label">
             <span>최소 공동등장 회차</span>
@@ -96,7 +96,7 @@ export default function NetworkPage() {
         </aside>
 
         <section className="network-canvas paper-panel" ref={canvasRef}>
-          <div className="canvas-label">三國志 / CHAPTER CONNECTIONS</div>
+          <div className="canvas-label">三國志 / 회차 연결</div>
           {data ? (
             <ForceGraph2D
               ref={graphRef as never}

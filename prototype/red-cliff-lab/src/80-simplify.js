@@ -36,7 +36,7 @@ const SIMPLE_TODO=[
 ST[0].q="명단에 올릴 인물을 살펴보시지요";ST[0].where="첫 번째 데이터 만들기";
 /* why each stage matters for the final question, and the one idea to keep (shown, not folded) */
 const SIMPLE_WHY=[
- ["누구를 세느냐에 따라 두 편의 인원이 달라집니다. 마지막 What-if도 여기서 정한 명단으로 계산합니다.","이름이 기록에 남았어도, 모두 이 싸움에 나온 것은 아니지요."],
+ ["누구를 세느냐에 따라 두 편의 인원이 달라집니다. 마지막 가정 실험도 여기서 정한 명단으로 계산합니다.","이름이 기록에 남았어도, 모두 이 싸움에 나온 것은 아니지요."],
  ["제갈량을 옮기기 전에, 한 사람이 숫자에 미치는 영향을 살펴야겠지요.","평균은 한 사람 때문에 크게 달라질 수 있습니다."],
  ["두 진영의 기록을 비교하려면 셀 대상을 정해야겠지요. 제갈량을 옮기면 이 점수도 옮겨 갑니다.","무엇을 세었는지에 따라 결과도 달라지지요."],
  ["한 가지 점수 규칙에서만 나온 결론이라면, 다른 규칙도 살펴야겠지요.","살펴본 점수 규칙에서 결론이 유지되는지 확인하는 일이지요."],
@@ -229,7 +229,7 @@ RENDER[6]=()=>{
   reveal('s6name')+
   `<div class="named-wrap" id="s6pred" hidden></div>`,
   {q:"'제갈량이 조조 편이었다면 조조가 이겼다'고 말할 수 있을까요?",opts:["계산 결과만으로 조조가 이겼다고 말할 수 있습니다.","바람에 관한 가정에 따라 결과가 달라지므로 단정할 수 없습니다.","어떤 조건에서도 연합군이 이깁니다."],ok:1,
-   good:"같은 실험이라도 어떤 가정을 하느냐에 따라 결과가 달라집니다. What-if의 답은 '이렇게 가정하면 이렇다'로 말해야 합니다.",bad:"바람에 관한 두 가정에서 숫자가 어떻게 달랐는지 살펴보시지요.",
+   good:"같은 실험이라도 어떤 가정을 하느냐에 따라 결과가 달라집니다. 가정 실험의 답은 '이렇게 가정하면 이렇다'로 말해야 합니다.",bad:"바람에 관한 두 가정에서 숫자가 어떻게 달랐는지 살펴보시지요.",
    ev:()=>`기록대로 ${idx(null,'env')} → 제갈량 이동(바람=날씨) ${idx(moved,'env')} · (바람=제갈량) ${idx(moved,'zg')}`});
  simplifyStage(6);
  const afterMove=()=>{
@@ -243,7 +243,7 @@ RENDER[6]=()=>{
   const tried=new Set(D.tried||[]);tried.add(D.w);D.tried=[...tried];save();
   $("#wr6").innerHTML=D.w==='zg'?`${meter(idx(moved,'zg'),"제갈량이 바람을 부른다면, 바람도 조조군 편으로 붑니다.")}`:`${meter(idx(moved,'env'),"바람이 그냥 날씨라면, 제갈량이 옮겨 가도 바람은 그대로 연합군 편입니다.")}`;
   if(tried.size>=2){setT("s6","wind");
-   show('s6name',named("What-if와 가정",`같은 '제갈량 이동'인데도 바람을 날씨로 보면 <b>${idx(moved,'env')}</b>, 제갈량이 불렀다고 보면 <b>${idx(moved,'zg')}</b>입니다. 결과는 어떤 가정을 하느냐에 달려 있습니다. 그래서 What-if의 답에는 항상 가정을 함께 적습니다.`)+
+   show('s6name',named("가정 실험과 전제",`같은 '제갈량 이동'인데도 바람을 날씨로 보면 <b>${idx(moved,'env')}</b>, 제갈량이 불렀다고 보면 <b>${idx(moved,'zg')}</b>입니다. 결과는 어떤 가정을 하느냐에 달려 있습니다. 그래서 가정 실험의 답에는 항상 가정을 함께 적습니다.`)+
     `<details class="card pane step-more"><summary>다른 사람도 옮겨 보기</summary><div class="ctrls"><label class="field">인물<select id="who6">${r.filter(n=>PP[n].pa>=8).sort((a,b)=>PP[b].pa-PP[a].pa).map(n=>`<option value="${n}">${PP[n].ko} (${FN[PP[n].f]})</option>`).join('')}</select></label>${seg("to6",[["wei","조조군으로"],["ally","연합군으로"],["out","빼기"]],"wei","어디로")}</div><p class="simple-note" id="other6"></p></details>`);
    const other=()=>{const n=$("#who6").value,to=$$("#to6 button").find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.v||'wei';const m={[n]:to==='out'?null:to==='ally'?(PP[n].f==='wei'?'wu':PP[n].f):'wei'};$("#other6").textContent=`${PP[n].ko}: ${idx(null,'env')} → ${idx(m,'env')} (바람=날씨)`};
    $("#who6").onchange=other;onSeg("to6",other);other();

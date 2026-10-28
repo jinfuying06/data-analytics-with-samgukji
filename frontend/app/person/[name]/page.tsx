@@ -29,11 +29,11 @@ export default async function PersonPage({
     <div className="person-page">
       <div className="person-header">
         <div>
-          <p className="eyebrow">CHARACTER ARCHIVE / FIELD NOTE</p>
+          <p className="eyebrow">인물 도감 / 기록관의 메모</p>
           <h1 className="page-title">{person.name}</h1>
           <p className="page-subtitle">정사와 연의에서 발견한 기록을 한 장수의 도감으로 정리했습니다.</p>
         </div>
-        <div className="person-stamp">武<br /><span>ARCHIVE</span></div>
+        <div className="person-stamp">武<br /><span>도감</span></div>
       </div>
 
       <section className="person-overview pixel-panel">
@@ -42,7 +42,7 @@ export default async function PersonPage({
           <span className="badge">장수 도감</span>
           {person.jeongsa && <span className="badge red">정사 기록</span>}
           {person.yeonui.length > 0 && <span className="badge blue">연의 {person.yeonui.length}회</span>}
-          <p className="meta">이 페이지의 기록을 바탕으로 향후 점수와 What-if 시나리오를 연결할 수 있습니다.</p>
+          <p className="meta">이 페이지의 기록을 바탕으로 향후 점수와 가정 실험을 연결할 수 있습니다.</p>
         </div>
         <div className="person-count">
           <strong>{person.yeonui.length}</strong>
@@ -53,7 +53,7 @@ export default async function PersonPage({
       <section className="record-panel paper-panel">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">SOURCE 01 / 正史</p>
+            <p className="eyebrow">자료 1 / 正史</p>
             <h2>정사 기록</h2>
           </div>
           {person.jeongsa && <span className="badge red">근거 원문</span>}
@@ -91,10 +91,10 @@ export default async function PersonPage({
       <section className="record-panel paper-panel">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">SOURCE 02 / 演義</p>
+            <p className="eyebrow">자료 2 / 演義</p>
             <h2>연의 등장 기록</h2>
           </div>
-          <span className="badge blue">{person.yeonui.length} CHAPTERS</span>
+          <span className="badge blue">{person.yeonui.length}회</span>
         </div>
         {person.yeonui.length === 0 && <p className="empty-state">연의 언급 없음</p>}
         {person.yeonui.map((y) => (
@@ -117,9 +117,9 @@ export default async function PersonPage({
       <section className="locked-panel">
         <span className="lock-icon">✦</span>
         <div>
-          <p className="eyebrow">NEXT DATA LAYER</p>
+          <p className="eyebrow">다음 자료</p>
           <h2>이 장수의 점수 카드는 아직 잠겨 있습니다.</h2>
-          <p>사건 데이터와 근거 기반 점수화가 연결되면 What-if 원정에 참가할 수 있습니다.</p>
+          <p>사건 데이터와 근거 기반 점수화가 연결되면 가정 실험에 참가할 수 있습니다.</p>
         </div>
         <span className="badge">준비중</span>
       </section>

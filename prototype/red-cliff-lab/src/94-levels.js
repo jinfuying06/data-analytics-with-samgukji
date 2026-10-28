@@ -24,7 +24,7 @@ applyScenarioText=function(){
  if(lv===3){
   ST[5].short="가정 정하고 결론 쓰기";
   SIMPLE_TODO[5]="바람·기록·조건을 직접 정하고, 그 가정을 담아 결론을 한 문장으로 써 보시지요.";
-  SIMPLE_WHY[5]=["What-if의 답은 숫자 하나가 아니라, 어떤 가정에서 나온 숫자인지까지입니다.","결론에는 가정과 한계를 함께 적습니다."];
+  SIMPLE_WHY[5]=["가정 실험의 답은 숫자 하나가 아니라, 어떤 가정에서 나온 숫자인지까지입니다.","결론에는 가정과 한계를 함께 적습니다."];
  }
 };
 
@@ -148,7 +148,7 @@ function lv3Stage6(){
  $("#d6own").oninput=e=>{D.own=e.target.value;save();draw()};
  $("#d6checks").addEventListener("change",e=>{const i=e.target.closest("input");if(!i)return;D.checks[i.dataset.k]=i.checked;save();draw()});
  const saved=()=>{
-  show('s6name',named("결론 쓰기",`What-if의 답은 숫자 하나가 아니라 <b>가정 + 기록 + 숫자 + 한계</b>로 이루어집니다. 방금 남기신 문장이 그 형태이지요.`));
+  show('s6name',named("결론 쓰기",`가정 실험의 답은 숫자 하나가 아니라 <b>가정 + 기록 + 숫자 + 한계</b>로 이루어집니다. 방금 남기신 문장이 그 형태이지요.`));
   const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>남긴 결론</h3><p>${esc(S.reflection)}</p></div></div></section>`;
  };
