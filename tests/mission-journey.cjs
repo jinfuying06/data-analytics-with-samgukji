@@ -12,7 +12,7 @@ try{
  assert.ok(home.querySelector('.simple-story').textContent.includes('208년 겨울'));
  for(const gone of ['.experiment-intro','.background-method','.journey-condition','.journey-background'])assert.equal(home.querySelector(gone),null,gone);
  assert.equal(home.querySelectorAll('.river-armies img').length,3);
- for(const image of home.querySelectorAll('.river-armies img'))assert.ok(fs.existsSync('dist'+image.getAttribute('src')));
+ for(const image of home.querySelectorAll('.river-armies img'))assert.ok(fs.existsSync('dist/'+image.getAttribute('src').replace(/^\//,'')));
  assert.equal(home.querySelector('.journey-outline'),null,'stages are laid out, not folded');
  assert.ok(visible(home)<400,'home should stay short');
  assert.equal(d.querySelector('#intro').hidden,true);
