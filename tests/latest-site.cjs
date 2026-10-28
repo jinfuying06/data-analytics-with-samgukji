@@ -24,7 +24,7 @@ try{
  click('.stepper a[href="#s6"]');assert.equal(w.location.hash,'#s6');assert.ok(d.querySelector('#move6'));
  // Opening questions use the same medium-intensity treatment.
  route('home');const homeHeat=d.documentElement.style.getPropertyValue('--heat');
- assert.equal(d.querySelector('[data-intro].experiment-replay').textContent,'처음으로 돌아가기');
+ assert.equal(d.querySelector('[data-intro].experiment-replay').textContent,'시작 장면 다시 보기');
  route('lab?question=zy');assert.equal(d.documentElement.style.getPropertyValue('--heat'),homeHeat);assert.ok(d.querySelector('.experiment-opening>.cinema-bg'));
  assert.equal(d.querySelector('#main h1').textContent,'만약 주유가 조조 편이었다면?');assert.equal(w.location.hash,'#home','a question opens on the shared home screen');
  route('lab?question=zg');assert.equal(e('S.scenario'),'zg');
