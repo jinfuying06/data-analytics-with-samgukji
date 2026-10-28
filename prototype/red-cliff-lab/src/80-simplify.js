@@ -10,7 +10,7 @@ journeyHome=function(){
  main.querySelector('.experiment-river figcaption')?.remove();
  main.querySelector('.experiment-edition').textContent='『삼국지연의』로 해 보는 데이터 실험';
  main.querySelector('.experiment-heading').insertAdjacentHTML('beforeend',
-  `<p class="simple-story"><span class="keeper-welcome">오셨군요. 지난날의 기록을 함께 펼쳐 보시지요.</span>208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다. <b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
+  `<p class="simple-story"><span class="keeper-welcome">어서 오세요. 지난날의 기록을 함께 펼쳐 보시지요.</span>208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다. <b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
  main.querySelector('.prediction-form legend').textContent='먼저 짐작해 보시지요';
  for(const sel of ['.journey-background','.journey-condition','.background-method'])main.querySelector(sel)?.remove();
  const status=$("#prediction-status");if(status&&!Number.isInteger(S.prediction))status.textContent='';
@@ -62,7 +62,7 @@ const hiFire=t=>esc(t).replace(/불(?![러렀구과평만안편어었])/g,'<b cl
 const PEOPLE1=[
  {n:"曹操",fact:"적벽 편 모든 회에 나옴",tip:"조조군을 이끈 인물이지요. 명단에서 빼면 조조의 기록도 계산에서 빠집니다."},
  {n:"許褚",fact:"2회 나옴",tip:"조조의 호위 장수이지요. 이 이야기에서는 두 회에 등장합니다."},
- {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급되는군요. 이번 분석에 포함할지 생각해 보시지요."},
+ {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급됩니다. 이번 분석에 포함할지 생각해 보시지요."},
  {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적<small class=\"pcard-why\">데이터에 '위'로 들어간 이유: 역사책⁠(정사)이 원소의 전기를 「위서」에 실어서</small>",tip:"원소는 조조의 옛 적이지요. 여기서는 이름만 언급됩니다. 자료의 ‘위’ 분류를 곧바로 조조군 소속으로 읽어서는 곤란하겠지요."}
 ];
 const rosterTotals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==='wei').length;return {all:r.length,wei:w,ally:r.length-w}};
@@ -121,7 +121,7 @@ RENDER[2]=()=>{
   step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
   reveal('s2name'),
   {q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,
-   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 다시 살펴보시지요. 유독 긴 막대가 하나 보이는군요.",
+   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 다시 살펴보시지요. 유독 긴 막대가 하나 보입니다.",
    ev:()=>`촉 평균 ${fmt1(avgOf('shu'))} → ${PP[shuTop]?.ko} 빼면 ${fmt1(avgOf('shu',1))} · 중앙값 촉 ${fmt1(median(facMembers('shu').map(n=>PP[n].pa)))}`});
  simplifyStage(2);
  const mx=Math.max(...fac.map(([f])=>avgOf(f)));
@@ -129,7 +129,7 @@ RENDER[2]=()=>{
  const members=facMembers('shu').sort((a,b)=>PP[b].pa-PP[a].pa);
  bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');
  const done=()=>{
-  $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔군요.</p>`;
+  $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔습니다.</p>`;
   show('s2name',named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
    `<section class="card pane"><p class="simple-note">가운데 값으로 보면</p><div class="avgs">${fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(median(facMembers(f).map(n=>PP[n].pa)))}</b></div>`).join('')}</div></section>`);
  };
@@ -188,7 +188,7 @@ RENDER[4]=()=>{
 };
 
 /* ---------- stage 5: read the record behind a surprising number ---------- */
-SIMPLE_TODO[4]="조조의 ‘불’ 점수가 높게 나왔군요. 어떤 장면에서 비롯되었는지 원문을 펼쳐 보시지요.";
+SIMPLE_TODO[4]="조조의 ‘불’ 점수가 높게 나왔습니다. 어떤 장면에서 비롯되었는지 원문을 펼쳐 보시지요.";
 ST[4].q="숫자가 비롯된 기록을 펼쳐 보시지요";
 RENDER[5]=()=>{
  const L5=S.t.s5d=S.t.s5d||{};

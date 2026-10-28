@@ -1137,13 +1137,13 @@ body.experiment-home .lab-tools{margin-top:24px}
 </svg>
 
 <header class="appbar">
-  <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>— 적벽대전 편 —</small></div></div>
+  <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
   <button class="btn ghost nb-open" data-open-notes aria-label="학습 기록 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
 </header>
 
 <div class="shell">
   <aside class="sidebar card" aria-label="과정 목록">
-    <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>— 적벽대전 편 —</small></div></div>
+    <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
     <div class="prog"><span id="progTxt">마친 순서 0 / 6</span><div class="bar"><i id="progBar"></i></div></div>
     <nav class="navgrp"><p>시작</p><ul class="navlist" id="navH"></ul></nav>
     <nav class="navgrp"><p>여섯 순서</p><ul class="navlist" id="navE"></ul></nav>
@@ -1169,7 +1169,7 @@ body.experiment-home .lab-tools{margin-top:24px}
       <p class="l k">建安十三年 · 서기 208년 겨울</p>
       <h2 class="it">赤壁</h2>
       <p class="l">오셨습니까. 저는 지난날의 기록을 살피는 기록관입니다.</p>
-      <p class="l">자, 조조의 대군이 장강을 따라 내려오는군요.</p>
+      <p class="l">자, 조조의 대군이 장강을 따라 내려옵니다.</p>
       <p class="l">손권과 유비는 손을 잡고 적벽에서 맞섰지요.</p>
     </section>
     <section class="iscene" data-heat=".68" hidden>
@@ -1325,7 +1325,7 @@ function stage(i,tasks,steps,chk){
   box.innerHTML=`<h3>${chk.q}</h3><p class="lockline">${ic("lock")}위의 활동을 모두 마치면 답을 선택할 수 있습니다.</p><div class="opts">${order.map((k,pos)=>`<button class="opt" data-i="${k}"><span class="k">${"ABCD"[pos]}</span><span>${chk.opts[k]}</span></button>`).join("")}</div><div class="fbx" aria-live="polite"></div>`;
   const show=k=>{const ok=k===chk.ok;box.querySelectorAll(".opt").forEach(o=>{o.classList.remove("wrong");if(ok&&+o.dataset.i===chk.ok)o.classList.add("right")});if(!ok)box.querySelector(`.opt[data-i="${k}"]`).classList.add("wrong");
     const ev=typeof chk.ev==="function"?chk.ev():chk.ev;
-    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>그렇게 읽을 수 있겠군요.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>기록을 다시 살펴보시지요.</b> ${chk.bad}</div>`;
+    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>맞습니다.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>다시 생각해 보시지요.</b> ${chk.bad}</div>`;
     if(ok){box.querySelectorAll(".opt").forEach(o=>o.disabled=true);S.done[i]=ev;save();drawChrome()}};
   box.querySelector(".opts").addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled||!TASKS.every(([m,k])=>tk(m,k)))return;show(+b.dataset.i)});
   if(S.done[i])show(chk.ok);
@@ -1433,7 +1433,7 @@ function s3(){
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">수전</th><th class="n">화공</th><th class="n">계책</th><th class="n">점수</th></tr></thead><tbody id="ptab"></tbody></table></div></section>
       <section class="card pane" id="evbox" aria-live="polite"></section></div>`),
     {q:"이 비교 점수는 실제로 무엇을 나타낼까요?",opts:["인물의 실제 전투 능력","인물의 이름과 수전·화공·계책 관련 글자가 함께 나온 정도","전투에서 세운 공입니다.의 크기"],ok:1,
-     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 다섯 번째 순서에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 기록을 다시 살펴보시지요.",
+     good:"이 점수는 이름과 관련 글자가 함께 나온 횟수에 가중치를 적용한 값입니다. 같은 기준으로 기록을 비교할 수 있지만, 실제 능력이나 공헌도를 직접 측정한 값은 아닙니다. 다섯 번째 순서에서 이 한계를 확인합니다.",bad:"지표 정의에서 어떤 글자를 어떤 단위로 세었는지 다시 생각해 보시지요.",
      ev:()=>{const s=fs("yy");return `연의 비교 점수(수전 ${S.w.ship}·화공 ${S.w.fire}·계책 ${S.w.plan}점): 연합 ${s.wu+s.shu} vs 위 ${s.wei}`}});
   function dW(){
     const row=(k)=>`<div class="w"><span>${KN[k]} 1회당</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${KN[k]} 줄이기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${KN[k]} 늘리기">+</button></span></div>`;
@@ -1504,7 +1504,7 @@ function s5(){
     <section class="card pane"><div class="pane-h"><h2>${ic("table")}인물별 비교</h2><span class="meta">연의 문단 · 정사 문장</span></div>
       <div class="tscroll"><table class="data"><thead><tr><th>인물</th><th class="n">연의 수전</th><th class="n">정사 수전</th><th class="n">연의 화공</th><th class="n">정사 화공</th><th class="n">연의 계책</th><th class="n">정사 계책</th></tr></thead><tbody id="ptab5"></tbody></table></div></section>`),
     {q:"조조의 화공 관련 지표가 높게 나온 이유는 무엇일까요?",opts:["조조가 화공에 가장 뛰어났기 때문입니다.","조조가 불에 피해를 입은 장면에도 관련 글자가 나오기 때문입니다.","데이터가 잘못 입력되었기 때문입니다."],ok:1,
-     good:"관련 글자가 함께 나왔다는 사실만으로 공격한 쪽과 피해를 입은 쪽을 구분할 수는 없습니다. 자료를 바꾸면 같은 지표의 비중도 달라집니다. 따라서 수치의 정의와 출처를 함께 확인해야 합니다.",bad:"근거 문단에서 조조가 불을 지르는지, 불을 피해 달아나는지 기록을 다시 살펴보시지요.",
+     good:"관련 글자가 함께 나왔다는 사실만으로 공격한 쪽과 피해를 입은 쪽을 구분할 수는 없습니다. 자료를 바꾸면 같은 지표의 비중도 달라집니다. 따라서 수치의 정의와 출처를 함께 확인해야 합니다.",bad:"근거 문단에서 조조가 불을 지르는지, 불을 피해 달아나는지 다시 생각해 보시지요.",
      ev:()=>{const a=share("yy"),b=share("jb");return `조조의 화공 지표 ${PP["曹操"].yy[1]}: 피해 장면도 포함 · 촉 비중 연의 ${a.shu}% → 정사 본문 ${b.shu}%`}});
   const r=roster(),ft=r.map(n=>({n,v:PP[n].yy[1]})).sort((a,b)=>b.v-a.v).slice(0,6);
   bars($("#firetop"),ft.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),ft[0].v,"문단");
@@ -1747,7 +1747,7 @@ journeyHome=function(){
  main.querySelector('.experiment-river figcaption')?.remove();
  main.querySelector('.experiment-edition').textContent='『삼국지연의』로 해 보는 데이터 실험';
  main.querySelector('.experiment-heading').insertAdjacentHTML('beforeend',
-  `<p class="simple-story"><span class="keeper-welcome">오셨군요. 지난날의 기록을 함께 펼쳐 보시지요.</span>208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다. <b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
+  `<p class="simple-story"><span class="keeper-welcome">어서 오세요. 지난날의 기록을 함께 펼쳐 보시지요.</span>208년 겨울, 적벽에서 손권·유비 연합군은 불로 조조군을 물리쳤습니다. <b>제갈량이 조조 편에 있었다면</b> 어떻게 됐을까요?</p>`);
  main.querySelector('.prediction-form legend').textContent='먼저 짐작해 보시지요';
  for(const sel of ['.journey-background','.journey-condition','.background-method'])main.querySelector(sel)?.remove();
  const status=$("#prediction-status");if(status&&!Number.isInteger(S.prediction))status.textContent='';
@@ -1799,7 +1799,7 @@ const hiFire=t=>esc(t).replace(/불(?![러렀구과평만안편어었])/g,'<b cl
 const PEOPLE1=[
  {n:"曹操",fact:"적벽 편 모든 회에 나옴",tip:"조조군을 이끈 인물이지요. 명단에서 빼면 조조의 기록도 계산에서 빠집니다."},
  {n:"許褚",fact:"2회 나옴",tip:"조조의 호위 장수이지요. 이 이야기에서는 두 회에 등장합니다."},
- {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급되는군요. 이번 분석에 포함할지 생각해 보시지요."},
+ {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급됩니다. 이번 분석에 포함할지 생각해 보시지요."},
  {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적<small class=\"pcard-why\">데이터에 '위'로 들어간 이유: 역사책⁠(정사)이 원소의 전기를 「위서」에 실어서</small>",tip:"원소는 조조의 옛 적이지요. 여기서는 이름만 언급됩니다. 자료의 ‘위’ 분류를 곧바로 조조군 소속으로 읽어서는 곤란하겠지요."}
 ];
 const rosterTotals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==='wei').length;return {all:r.length,wei:w,ally:r.length-w}};
@@ -1858,7 +1858,7 @@ RENDER[2]=()=>{
   step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
   reveal('s2name'),
   {q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,
-   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 다시 살펴보시지요. 유독 긴 막대가 하나 보이는군요.",
+   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 다시 살펴보시지요. 유독 긴 막대가 하나 보입니다.",
    ev:()=>`촉 평균 ${fmt1(avgOf('shu'))} → ${PP[shuTop]?.ko} 빼면 ${fmt1(avgOf('shu',1))} · 중앙값 촉 ${fmt1(median(facMembers('shu').map(n=>PP[n].pa)))}`});
  simplifyStage(2);
  const mx=Math.max(...fac.map(([f])=>avgOf(f)));
@@ -1866,7 +1866,7 @@ RENDER[2]=()=>{
  const members=facMembers('shu').sort((a,b)=>PP[b].pa-PP[a].pa);
  bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');
  const done=()=>{
-  $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔군요.</p>`;
+  $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔습니다.</p>`;
   show('s2name',named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
    `<section class="card pane"><p class="simple-note">가운데 값으로 보면</p><div class="avgs">${fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(median(facMembers(f).map(n=>PP[n].pa)))}</b></div>`).join('')}</div></section>`);
  };
@@ -1925,7 +1925,7 @@ RENDER[4]=()=>{
 };
 
 /* ---------- stage 5: read the record behind a surprising number ---------- */
-SIMPLE_TODO[4]="조조의 ‘불’ 점수가 높게 나왔군요. 어떤 장면에서 비롯되었는지 원문을 펼쳐 보시지요.";
+SIMPLE_TODO[4]="조조의 ‘불’ 점수가 높게 나왔습니다. 어떤 장면에서 비롯되었는지 원문을 펼쳐 보시지요.";
 ST[4].q="숫자가 비롯된 기록을 펼쳐 보시지요";
 RENDER[5]=()=>{
  const L5=S.t.s5d=S.t.s5d||{};
@@ -2319,7 +2319,7 @@ RENDER[LAB_VIEW]=()=>{
  build();
 
  $("#wiAsk").addEventListener("click",e=>{const btn=e.target.closest(".pick button");if(!btn)return;const row=btn.closest(".wi-ask-row"),x=WI_UNANSWERABLE[+row.dataset.k],right=(btn.dataset.v==="1")===x.ok;
-  row.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));const tip=row.querySelector(".pcard-tip");tip.hidden=false;tip.innerHTML=`<b>${right?"그렇지요.":"기록의 범위를 다시 살펴보시지요."}</b> ${esc(x.why)}`});
+  row.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));const tip=row.querySelector(".pcard-tip");tip.hidden=false;tip.innerHTML=`<b>${right?"맞습니다.":"다시 생각해 보시지요."}</b> ${esc(x.why)}`});
 };
 /* entry points: after the stage 6 comparison, and on the home outline */
 (()=>{
@@ -2364,7 +2364,7 @@ const SC={
     ["呂範","one","딱 1회, 이름만 한 번","주유가 정한 순찰 임무에 이름이 한 번 나옵니다."],
     ["孫策","dead","2회 언급 · 8년 전 사망한 손권의 형","대화 속에 이름만 나옵니다. 이 싸움에는 없었지요."]]},
   s5:{n:"周瑜",k:"fire",q:"주유의 ‘불’ 기록은 어떤 장면일까요?",guess:["주유가 화공을 이끄는 장면일 것 같습니다","아직 판단하기 어렵습니다"],
-   take:"주유는 불을 지르는 연합군 함대 한가운데에 있군요. 조조의 ‘불’ 기록이 불에 당한 장면이었던 것과 달리, 주유의 기록은 공격하는 장면입니다. 같은 글자라도 장면을 읽어야 뜻을 알 수 있지요.",
+   take:"주유는 불을 지르는 연합군 함대 한가운데에 있습니다. 조조의 ‘불’ 기록이 불에 당한 장면이었던 것과 달리, 주유의 기록은 공격하는 장면입니다. 같은 글자라도 장면을 읽어야 뜻을 알 수 있지요.",
    check:{q:"주유의 ‘불’ 점수는 무엇을 센 것이었습니까?",opts:["주유가 불에 당한 장면","주유가 화공을 이끄는 장면에 ‘불’ 글자가 함께 나온 것","주유의 실제 화공 능력"],ok:1}}},
  hg:{who:["黃蓋"],side:"wu",verb:"옮기기",
   s1:{title:"오나라로 분류된 네 사람, 모두 셀까요?",cards:[
@@ -2392,7 +2392,7 @@ const SC={
     ["諸葛亮","core","7회에 나옴 · 바람 문단 11","바람 기록이 가장 많은 사람이지요."],
     ["徐盛","two","2회 나옴 · 바람 문단 3","바람이 분 뒤 제갈량을 뒤쫓은 장수이지요."],
     ["夏侯淵","one","딱 1회 · 바람 기록 없음","이름만 한 번 나옵니다."],
-    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 바람 문단 1","이미 세상을 떠난 유표의 이름도 바람 문단에 섞여 있군요."]]},
+    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 바람 문단 1","이미 세상을 떠난 유표의 이름도 바람 문단에 섞여 있습니다."]]},
   s5:{n:"諸葛亮",k:"wind",q:"소설은 그날의 바람을 어떻게 적었을까요?",guess:["그냥 날씨로 적었을 것 같습니다","제갈량과 엮어 적었을 것 같습니다"],
    take:"소설은 바람을 제갈량의 ‘처방’과 엮어 씁니다. 병이 난 주유에게 제갈량이 몰래 열여섯 자를 써 주는 장면이지요. 바람을 날씨로 볼지, 제갈량의 능력으로 볼지는 데이터가 아니라 해석의 문제입니다. 그래서 마지막 순서에서 가정으로 다룹니다.",
    check:{q:"바람 기록에서 알 수 있는 것은?",opts:["바람은 제갈량의 능력이라고 데이터가 증명합니다.","소설은 바람을 제갈량과 엮어 서술하므로, 바람을 어떻게 볼지는 가정으로 정해야 합니다.","바람은 기록에 나오지 않습니다."],ok:1}}},
@@ -2401,13 +2401,13 @@ const SC={
     ["黃蓋","core","6회에 나옴 · 불 문단 9","불붙은 배를 몬 인물로 알려져 있지요."],
     ["丁奉","two","2회 나옴 · 불 문단 2","제갈량을 뒤쫓은 오나라 장수이지요."],
     ["夏侯淵","one","딱 1회 · 불 기록 없음","이름만 한 번 나옵니다."],
-    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 불 문단 2","이미 세상을 떠난 유표의 이름이 불 문단에 섞여 있군요."]]},
+    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 불 문단 2","이미 세상을 떠난 유표의 이름이 불 문단에 섞여 있습니다."]]},
   s5:{n:"曹操",n2:"周瑜",k:"fire",q:"두 사람의 ‘불’ 기록, 누가 불을 질렀을까요?",guess:["둘 다 불을 지르는 장면일 것 같습니다","아직 판단하기 어렵습니다"],
    take:"두 문단 모두 ‘불’로 세어졌지만, 주유는 공격하고 조조는 불을 뚫고 달아나고 있지요. ‘불’ 점수에는 공격과 피해가 함께 들어 있습니다. 불 점수를 0으로 두면 조조군이 더 많이 잃는 까닭입니다.",
    check:{q:"불 점수를 0으로 두면 왜 연합군 쪽 지수가 올라갈까요?",opts:["연합군이 불을 쓰지 않아서","조조군의 ‘불’ 점수 상당수가 불에 당한 기록이라, 함께 빠지기 때문에","계산이 잘못되어서"],ok:1}}},
  jb:{topic:"source",
   s1:{title:"소설과 역사책에 남은 기록이 다른 네 사람, 모두 셀까요?",cards:[
-    ["諸葛亮","core","소설 7회 · 정사 본문 관련 문장 14","소설에서는 가장 많이 나오지만, 정사 본문에서는 훨씬 적군요."],
+    ["諸葛亮","core","소설 7회 · 정사 본문 관련 문장 14","소설에서는 가장 많이 나오지만, 정사 본문에서는 훨씬 적습니다."],
     ["徐盛","two","소설 2회 · 정사 본문 관련 문장 5","두 기록 모두에 조금씩 나옵니다."],
     ["呂範","one","소설 딱 1회 · 정사 본문 관련 문장 12","소설에는 한 번 나오지만 정사에는 기록이 많지요. 명단 기준은 소설의 회 수로 정합니다."],
     ["孫策","dead","소설 2회 언급 · 사망 · 정사 본문 관련 문장 22","정사에서는 큰 인물이지만, 적벽 때는 이미 세상을 떠났지요."]]},
@@ -2522,7 +2522,7 @@ function scStage2({x,c}){
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
   const done=()=>{const a=avgOf(),b=avgOf(1),up=b>a,small=!up&&a-b<a*0.1;
-   $("#avgNow").hidden=true;$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔군요. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔군요. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔군요. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
+   $("#avgNow").hidden=true;$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔습니다. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔습니다. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔습니다. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
    show('s2name',named(up?"평균보다 작은 한 사람":small?"한 사람의 무게":"평균의 함정",small?`${esc(P)}의 숫자는 ${label} 평균과 크게 다르지 않아서, 빼도 평균이 조금만 움직입니다. 한 사람이 결과를 얼마나 흔들지는, 그 사람의 숫자가 평균과 얼마나 다른지에 달려 있지요.`:up?`${esc(P)}의 숫자는 ${label} 평균보다 작습니다. 그래서 빼면 평균이 올라가지요. 한 사람을 옮기거나 뺄 때는, 그 사람의 숫자가 평균보다 큰지 작은지부터 보아야 합니다.`:`${esc(P)}의 숫자가 커서 ${label} 평균을 끌어올리고 있었습니다. 이런 사람을 옮기거나 빼면 결과가 크게 흔들리지요. 가운데 값(중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))})도 함께 살펴야 합니다.`))};
   const btn=$("#dropTop");if(btn)btn.onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped&&btn)done();
   return;
@@ -2538,7 +2538,7 @@ function scStage2({x,c}){
   simplifyStage(2);
   bars($("#memBars"),top.map(o=>({label:scKo(o.n),v:o.v,c:fcol(PP[o.n].f)})),top[0].v,'문단');
   const done=()=>{const v=PP[who].yy[ki],base=k==="wind"?total:side("wei"),pct=Math.round(v/base*100);
-   $("#dropRes").innerHTML=`<p class="big-change">${k==="wind"?"바람 문단":"조조군의 불 문단"} <b class="num">${base}</b> → <b class="num">${base-v}</b></p><p class="simple-note">${scKo(who)} 한 사람이 <b>${pct}%</b>를 차지하고 있었군요.</p>`;
+   $("#dropRes").innerHTML=`<p class="big-change">${k==="wind"?"바람 문단":"조조군의 불 문단"} <b class="num">${base}</b> → <b class="num">${base-v}</b></p><p class="simple-note">${scKo(who)} 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
    show('s2name',named(k==="wind"&&pct<30?"여러 사람에게 퍼진 기록":"한 사람에게 몰린 기록",k==="wind"?(pct<30?`제갈량은 바람 기록이 가장 많지만 전체의 ${pct}%이고, 나머지는 주유·조조 등 여러 사람에게 퍼져 있습니다. 글자 수만으로는 바람이 제갈량의 능력이라고 말하기 어렵지요. 그래서 바람은 마지막 순서에서 가정으로 다룹니다.`:`바람 기록의 ${pct}%가 제갈량 한 사람에게 몰려 있습니다. 그래서 바람을 제갈량의 능력으로 볼지, 날씨로 볼지가 결과를 크게 바꿉니다.`):`조조군 ‘불’ 기록의 ${pct}%가 조조 한 사람에게서 나옵니다. 불 점수를 없애면 조조군이 많이 잃게 되는 까닭이 여기 있지요. 그 기록이 어떤 장면인지는 다섯 번째 순서에서 확인합니다.`))};
   $("#dropTop").onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped)done();
   return;
@@ -2632,8 +2632,8 @@ function scStage5({x,c}){
    steer toward leaving it out instead of simply confirming the choice */
 const MAIN_ROLES={"曹操":"core","許褚":"two","夏侯淵":"one","袁紹":"dead"};
 const CARD_SAY={
- dead:{1:["다시 생각해 보시지요.","이미 세상을 떠난 사람입니다. 이름은 나오지만 이 싸움에 참여할 수는 없었지요. 명단에서 빼는 편이 맞겠습니다."],0:["그렇지요.","이름만 언급된 사람은 이 싸움의 기록으로 세지 않습니다."]},
- one:{1:["다시 생각해 보시지요.","딱 한 번 이름만 스친 사람입니다. 이것만으로 싸움에 참여했다고 보기는 어렵지요. 빼는 편을 권합니다."],0:["그렇지요.","한 번 스친 이름까지 세면 명단이 흐려집니다."]},
+ dead:{1:["다시 생각해 보시지요.","이미 세상을 떠난 사람입니다. 이름은 나오지만 이 싸움에 참여할 수는 없었지요. 명단에서 빼는 편이 맞겠습니다."],0:["맞습니다.","이름만 언급된 사람은 이 싸움의 기록으로 세지 않습니다."]},
+ one:{1:["다시 생각해 보시지요.","딱 한 번 이름만 스친 사람입니다. 이것만으로 싸움에 참여했다고 보기는 어렵지요. 빼는 편을 권합니다."],0:["맞습니다.","한 번 스친 이름까지 세면 명단이 흐려집니다."]},
  core:{0:["다시 생각해 보시지요.","이번 질문의 중심이 되는 사람입니다. 빼면 비교 자체가 어려워지지요. 명단에 넣어 두시지요."]}
 };
 function cardGuide(){
@@ -2644,8 +2644,8 @@ function cardGuide(){
   card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt");
   if(v===undefined)continue;
   const say=(CARD_SAY[role]||{})[v];
-  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
-  if(say&&!say[0].startsWith("그렇")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
+  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("맞")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
+  if(say&&!say[0].startsWith("맞")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
  }
 }
 const SC_RENDER=[null,scStage1,scStage2,scStage3,scStage4,scStage5];
@@ -2708,7 +2708,7 @@ function lv2Stage3({x,c}){
  const draw=()=>{for(const el of $$("#sort3 .sort-item")){const n=el.dataset.n,v=L[n],right=SORT_ITEMS.find(i=>i[0]===n)[1];
    el.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)));
    const tip=el.querySelector(".pcard-tip");if(!v){tip.hidden=true;continue}tip.hidden=false;
-   tip.innerHTML=v===right?`<b class="ok">그렇지요.</b> ${SORT_WHY[n]}`:`<b class="warn">다시 읽어 보시지요.</b> 이 문단에서 ${PP[n].ko}${wiJosa(PP[n].ko,"은","는")} 무엇을 하고 있나요?`}
+   tip.innerHTML=v===right?`<b class="ok">맞습니다.</b> ${SORT_WHY[n]}`:`<b class="warn">다시 읽어 보시지요.</b> 이 문단에서 ${PP[n].ko}${wiJosa(PP[n].ko,"은","는")} 무엇을 하고 있나요?`}
   const all=SORT_ITEMS.every(([n,r])=>L[n]===r);$("#s3score").hidden=!all;
   if(all&&!$("#s3name").innerHTML)show('s3name',named("나누어 세기","같은 ‘불’ 글자에 공격·피해·이름만 나온 경우가 섞여 있었습니다. 숫자 하나로 합치기 전에 무엇이 섞였는지 알아 두면, 점수가 무엇을 뜻하는지 정직하게 말할 수 있지요."));
  };
@@ -2746,7 +2746,7 @@ function lv2Stage4({x,c}){
   $("#meter4").innerHTML=`<div class="meter"><div class="meter-row"><span class="big num">${v}</span><span class="verdict">${wiVerdict(v)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${v}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`;
   $("#tries4").textContent=L.tries?`${L.tries}번 바꿔 봄`:"";
   $("#reveal4").hidden=L.tries<3||!!L.found;
-  if(v===min&&!L.found)done(`가장 낮은 지수 ${min}을 직접 찾으셨군요.`);
+  if(v===min&&!L.found)done(`가장 낮은 지수 ${min}을 직접 찾았습니다.`);
  };
  $("#wts4").addEventListener('click',e=>{const b=e.target.closest('button[data-w]');if(!b||b.disabled)return;const k=b.dataset.w;L.w[k]=Math.max(0,Math.min(5,L.w[k]+ +b.dataset.d));L.tries++;save();draw()});
  $("#reveal4").onclick=()=>{L.w={...best};save();draw();if(!L.found)done(`모든 규칙을 계산해 보니 가장 낮은 지수는 ${min}입니다(배 ${best.ship}·불 ${best.fire}·계책 ${best.plan}).`)};
@@ -2842,7 +2842,7 @@ const lvJ=(w,a,b)=>wiJosa(w,a,b);
 const lvPick=(id,opts,val,cls="wide")=>`<div class="pick ${cls}" id="${id}">${opts.map(([v,t])=>`<button data-v="${v}" aria-pressed="${String(val)===String(v)}">${esc(t)}</button>`).join("")}</div>`;
 const lvPress=(id,val)=>$$("#"+id+" button").forEach(b=>b.setAttribute("aria-pressed",String(val!==undefined&&val!==null&&String(val)===b.dataset.v)));
 const lvMeter=i=>`<div class="meter"><div class="meter-row"><span class="big num">${i}</span><span class="verdict">${wiVerdict(i)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${i}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`;
-const lvTip=(ok,text)=>`<b class="${ok?"ok":"warn"}">${ok?"그렇지요.":"다시 생각해 보시지요."}</b> ${text}`;
+const lvTip=(ok,text)=>`<b class="${ok?"ok":"warn"}">${ok?"맞습니다.":"다시 생각해 보시지요."}</b> ${text}`;
 const lvCombos=c=>{const out=[];for(let a=0;a<=5;a++)for(let b=0;b<=5;b++)for(let d=0;d<=5;d++){if(!a&&!b&&!d)continue;if(c.topic==="fire"&&b)continue;out.push({ship:a,fire:b,plan:d})}return out};
 const ruleText=()=>`${S.rule.min}회 이상 나온 사람, 이미 죽은 사람은 ${S.rule.dead?"빼고":"넣고"}`;
 
@@ -2924,14 +2924,14 @@ function lv2Stage2({x,c}){
    step(2,`${esc(P)}${lvJ(Pn,"을","를")} 빼면 평균은?`,"",`<section class="card pane">${lvPick("pred2",[["up","오를 것 같습니다"],["flat","거의 그대로일 것 같습니다"],["down","내려갈 것 같습니다"]],L.p,"three")}<button class="btn" id="dropTop" ${L.p?"":"disabled"}>빼고 계산하기</button><div id="dropRes"></div></section>`)+
    `<div class="named-wrap" id="s2m" hidden>${step(3,"평균과 가운데 값, 무엇이 더 흔들렸을까요?","",`<section class="card pane">${lvPick("meas2",[["mean","평균"],["median","가운데 값"]],L.m)}<div id="measRes"></div></section>`)}</div>`+reveal('s2name'),
    {q:`${P}${lvJ(Pn,"을","를")} 빼 보니, 평균과 가운데 값 중 무엇이 덜 움직였습니까?`,opts:["평균","가운데 값","둘 다 똑같이 움직였습니다"],ok:less,
-    good:less===1?"가운데 값은 줄 세운 한가운데 사람의 값이라, 한 사람이 빠져도 덜 움직입니다. 한 사람의 큰 숫자가 걱정될 때 가운데 값을 함께 보는 까닭이지요.":"이번에는 평균이 덜 움직였군요. 빠진 사람의 숫자가 평균과 가까우면 평균도 크게 흔들리지 않습니다.",
+    good:less===1?"가운데 값은 줄 세운 한가운데 사람의 값이라, 한 사람이 빠져도 덜 움직입니다. 한 사람의 큰 숫자가 걱정될 때 가운데 값을 함께 보는 까닭이지요.":"이번에는 평균이 덜 움직였습니다. 빠진 사람의 숫자가 평균과 가까우면 평균도 크게 흔들리지 않습니다.",
     bad:"두 값이 빼기 전과 뒤에 얼마나 달라졌는지 다시 견주어 보시지요.",
     ev:()=>`예측 ${({up:"오름",flat:"그대로",down:"내림"})[L.p]||"-"} · 평균 ${fmt1(a)}→${fmt1(b)} · 가운데 값 ${fmt1(m0)}→${fmt1(m1)}`});
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
   const DIRW={up:"올라갔습니다",flat:"거의 그대로입니다",down:"내려갔습니다"};
   const done=()=>{setT("s2","drop");$("#dropTop").hidden=true;$$("#pred2 button").forEach(b=>b.disabled=true);
-   $("#dropRes").innerHTML=`<p class="big-change">평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b> · 가운데 값 <b class="num">${fmt1(m0)}</b> → <b class="num">${fmt1(m1)}</b></p><p class="simple-note">${L.p===dir?"예측이 맞았군요.":"예측과 달랐군요."} 평균은 ${DIRW[dir]}.</p>`;
+   $("#dropRes").innerHTML=`<p class="big-change">평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b> · 가운데 값 <b class="num">${fmt1(m0)}</b> → <b class="num">${fmt1(m1)}</b></p><p class="simple-note">${L.p===dir?"예측이 맞았습니다.":"예측과 달랐습니다."} 평균은 ${DIRW[dir]}.</p>`;
    $("#s2m").hidden=false;drawM()};
   const drawM=()=>{lvPress("meas2",L.m);if(!L.m)return;
    const right=(L.m==="median")===(dm<da);
@@ -2952,7 +2952,7 @@ function lv2Stage2({x,c}){
    ev:()=>`조조군 불 문단 ${side}개 중 조조 ${v}개 (${pct}%) · 어림 ${({low:"¼ 미만",mid:"¼~½",high:"½ 이상"})[L.p]||"-"}`});
  simplifyStage(2);
  const done=()=>{setT("s2","drop");$("#dropTop").hidden=true;$$("#pred2 button").forEach(b=>b.disabled=true);
-  $("#dropRes").innerHTML=`<p class="big-change">조조군 ‘불’ 문단 <b class="num">${side}</b> → <b class="num">${side-v}</b></p><p class="simple-note">${L.p===bucket?"어림이 맞았군요.":"어림과 달랐군요."} 조조 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
+  $("#dropRes").innerHTML=`<p class="big-change">조조군 ‘불’ 문단 <b class="num">${side}</b> → <b class="num">${side-v}</b></p><p class="simple-note">${L.p===bucket?"어림이 맞았습니다.":"어림과 달랐습니다."} 조조 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
   show('s2name',named("어림하고 확인하기","합계를 보기 전에 한 사람의 몫을 어림해 보면, 숫자가 한쪽에 몰려 있을 때 바로 알아챌 수 있습니다. 몰린 숫자일수록 그 사람의 기록부터 확인해야 하지요."))};
  $("#pred2").addEventListener("click",e=>{const btn=e.target.closest("button");if(!btn||btn.disabled)return;L.p=btn.dataset.v;save();lvPress("pred2",L.p);$("#dropTop").disabled=false});
  $("#dropTop").onclick=()=>{L.dropped=1;save();done()};if(L.dropped)done();
@@ -2976,7 +2976,7 @@ function lv2Stage5({x,c}){
  const draw=()=>{for(const el of $$("#claims5 .sort-item")){const i=+el.dataset.i,v=L[i],right=claims[i][1];
    el.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(v!==undefined&&+b.dataset.v===v)));
    const tip=el.querySelector(".pcard-tip");if(v===undefined){tip.hidden=true;continue}tip.hidden=false;
-   tip.innerHTML=v===right?`<b class="ok">그렇지요.</b> 원문과 맞습니다.`:`<b class="warn">다시 읽어 보시지요.</b> 원문에서 이 사람이 무엇을 하고 있는지 보시지요.`}
+   tip.innerHTML=v===right?`<b class="ok">맞습니다.</b> 원문과 맞습니다.`:`<b class="warn">다시 읽어 보시지요.</b> 원문에서 이 사람이 무엇을 하고 있는지 보시지요.`}
   if(claims.every(([,r],i)=>L[i]===r)){setT("s5","victim");show('s5name',named("근거 대조",esc(s.take)))}};
  $("#claims5").addEventListener("click",e=>{const b=e.target.closest(".pick button");if(!b)return;L[+b.closest(".sort-item").dataset.i]=+b.dataset.v;save();draw()});
  draw();
@@ -3009,7 +3009,7 @@ function lv2Stage6(){
   $("#flip6").innerHTML=lvMeter(v);
   $("#seen6").textContent=L.seen.length<4?`${L.seen.length} / 4가지 해 봄`:"";
   if(L.seen.length>=4){setT("s6","wind");
-   show('s6name',named("판정이 바뀌는 곳",flips.length?`바람 보너스가 <b>${flips[0][0]}점</b>일 때는 ‘${wiVerdict(at(flips[0][0]))}’, <b>${flips[0][1]}점</b>일 때는 ‘${wiVerdict(at(flips[0][1]))}’입니다. 이 질문의 결론은 바람을 얼마로 보느냐에 기대고 있지요. 결론에는 이 경계를 함께 적습니다.`:`바람 보너스를 0점에서 30점까지 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다. 이 질문의 결론은 바람 가정에 크게 기대지 않는군요.`));
+   show('s6name',named("판정이 바뀌는 곳",flips.length?`바람 보너스가 <b>${flips[0][0]}점</b>일 때는 ‘${wiVerdict(at(flips[0][0]))}’, <b>${flips[0][1]}점</b>일 때는 ‘${wiVerdict(at(flips[0][1]))}’입니다. 이 질문의 결론은 바람을 얼마로 보느냐에 기대고 있지요. 결론에는 이 경계를 함께 적습니다.`:`바람 보너스를 0점에서 30점까지 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다. 이 질문의 결론은 바람 가정에 크게 기대지 않습니다.`));
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction],p=$("#s6pred");p.hidden=false;
    p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>찾은 범위</h3><p>바람 보너스 0~30점 · 지수 ${at(0)}~${at(30)}</p></div></div></section>`}};
  $("#move6").onclick=afterMove;onSeg("bonus6",v=>{L.b=+v;save();draw()});
@@ -3076,9 +3076,9 @@ function lv3Stage2({x,c}){
 }
 
 // 3) design the score with a reason that fits the weights
-const LV3_W_WHY=[["불이 승부를 가른 싸움이라 불에 가장 무게를 둡니다.",w=>w.fire>=w.ship&&w.fire>=w.plan&&w.fire>0,"불보다 다른 점수가 더 크군요."],
+const LV3_W_WHY=[["불이 승부를 가른 싸움이라 불에 가장 무게를 둡니다.",w=>w.fire>=w.ship&&w.fire>=w.plan&&w.fire>0,"불보다 다른 점수가 더 큽니다."],
  ["배·불·계책을 고르게 봅니다.",w=>Math.max(w.ship,w.fire,w.plan)-Math.min(w.ship,w.fire,w.plan)<=1,"세 점수의 차이가 2점 이상입니다."],
- ["수전이니 배에 가장 무게를 둡니다.",w=>w.ship>=w.fire&&w.ship>=w.plan&&w.ship>0,"배보다 다른 점수가 더 크군요."]];
+ ["수전이니 배에 가장 무게를 둡니다.",w=>w.ship>=w.fire&&w.ship>=w.plan&&w.ship>0,"배보다 다른 점수가 더 큽니다."]];
 function lv3Stage3({x,c}){
  const L=S.t.s3r=S.t.s3r||{};const lens=c.topic==="source"?"jb":"yy";
  const fits=()=>L.why!==undefined&&LV3_W_WHY[L.why][1](S.w);
@@ -3159,7 +3159,7 @@ function lv3Stage5({x,c}){
 function lv3Missing(){const t=S.t,x=scenario(),recs=LV3_RECORDS[x.id];
  return [[1,t.s1r&&t.s1r.why!==undefined],[2,t.s2r&&t.s2r.m],[3,t.s3r&&t.s3r.why!==undefined],[4,t.s4r&&t.s4r.th],[5,recs&&t.s5r&&t.s5r.pick!==undefined]].filter(r=>!r[1]).map(r=>r[0])}
 function lv3Nudge(){const miss=lv3Missing(),D=S.t.s6c||{};if(!miss.length||D.skip)return "";
- return `<section class="lv-nudge" id="lvNudge"><p>앞 순서에서 정한 것이 이 결론에 그대로 들어갑니다. ${miss.length===5?"아직 앞 순서를 하나도 하지 않으셨군요.":`아직 순서 ${miss.join("·")}${lvJ(String(miss[miss.length-1]),"을","를")} 마치지 않으셨군요.`} 먼저 해 보시기를 권합니다. 그래도 바로 쓰시겠습니까?</p><div class="lv-nudge-act"><a class="btn ghost" href="#s${miss[0]}">순서 ${miss[0]}로 가기</a><button class="linkbtn" id="lvSkip">그래도 바로 쓰기</button></div></section>`}
+ return `<section class="lv-nudge" id="lvNudge"><p>앞 순서에서 정한 것이 이 결론에 그대로 들어갑니다. ${miss.length===5?"아직 앞 순서를 하나도 마치지 않았습니다.":`아직 순서 ${miss.join("·")}${lvJ(String(miss[miss.length-1]),"을","를")} 마치지 않았습니다.`} 먼저 해 보시기를 권합니다. 그래도 바로 쓰시겠습니까?</p><div class="lv-nudge-act"><a class="btn ghost" href="#s${miss[0]}">순서 ${miss[0]}로 가기</a><button class="linkbtn" id="lvSkip">그래도 바로 쓰기</button></div></section>`}
 
 /* what 단계 3 decided before the conclusion (read by lv3Stage6) */
 function lv3Decided(){

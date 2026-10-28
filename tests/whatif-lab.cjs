@@ -133,7 +133,7 @@ try{
  // doubtful cards (already dead, one passing mention) steer toward leaving them out
  route('lab?question=ptout');e('S.t.s1d={}');route('s1');click('.pcard[data-n="劉表"] .pick button[data-v="1"]');
  assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('다시 생각해 보시지요.'));assert.ok(q('.pcard[data-n="劉表"] .pick button[data-v="0"]').classList.contains('nudge'));
- click('.pcard[data-n="劉表"] .pick button[data-v="0"]');assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('그렇지요.'));assert.equal(q('.pcard[data-n="劉表"] .nudge'),null);
+ click('.pcard[data-n="劉表"] .pick button[data-v="0"]');assert.ok(q('.pcard[data-n="劉表"] .pcard-tip').textContent.startsWith('맞습니다.'));assert.equal(q('.pcard[data-n="劉表"] .nudge'),null);
  route('lab?question=zg');route('s1');e('S.t.s1d={}');route('s1');click('.pcard[data-n="夏侯淵"] .pick button[data-v="1"]');assert.ok(q('.pcard[data-n="夏侯淵"] .pcard-tip').textContent.includes('빼는 편을 권합니다'));
 
  // 단계 3: skipping ahead to the conclusion suggests going back, but does not block
@@ -149,8 +149,8 @@ try{
  click('#wbAct button[data-v="out"]');assert.equal(q('#wbQ').textContent,'만약 조조가 없었다면?');
 
  // which questions can this data answer?
- click('#wiAsk .wi-ask-row[data-k="1"] button[data-v="0"]');assert.ok(q('#wiAsk .wi-ask-row[data-k="1"] .pcard-tip').textContent.startsWith('그렇지요.'));
- click('#wiAsk .wi-ask-row[data-k="0"] button[data-v="0"]');assert.ok(q('#wiAsk .wi-ask-row[data-k="0"] .pcard-tip').textContent.startsWith('기록의 범위를 다시 살펴보시지요.'));
+ click('#wiAsk .wi-ask-row[data-k="1"] button[data-v="0"]');assert.ok(q('#wiAsk .wi-ask-row[data-k="1"] .pcard-tip').textContent.startsWith('맞습니다.'));
+ click('#wiAsk .wi-ask-row[data-k="0"] button[data-v="0"]');assert.ok(q('#wiAsk .wi-ask-row[data-k="0"] .pcard-tip').textContent.startsWith('다시 생각해 보시지요.'));
 
  // navigation and old URLs
  route('lab?question=missing');assert.ok(q('#main h1').textContent.endsWith('바꾸어 보시겠습니까?'));

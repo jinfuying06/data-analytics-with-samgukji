@@ -21,7 +21,7 @@ const lvJ=(w,a,b)=>wiJosa(w,a,b);
 const lvPick=(id,opts,val,cls="wide")=>`<div class="pick ${cls}" id="${id}">${opts.map(([v,t])=>`<button data-v="${v}" aria-pressed="${String(val)===String(v)}">${esc(t)}</button>`).join("")}</div>`;
 const lvPress=(id,val)=>$$("#"+id+" button").forEach(b=>b.setAttribute("aria-pressed",String(val!==undefined&&val!==null&&String(val)===b.dataset.v)));
 const lvMeter=i=>`<div class="meter"><div class="meter-row"><span class="big num">${i}</span><span class="verdict">${wiVerdict(i)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${i}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`;
-const lvTip=(ok,text)=>`<b class="${ok?"ok":"warn"}">${ok?"그렇지요.":"다시 생각해 보시지요."}</b> ${text}`;
+const lvTip=(ok,text)=>`<b class="${ok?"ok":"warn"}">${ok?"맞습니다.":"다시 생각해 보시지요."}</b> ${text}`;
 const lvCombos=c=>{const out=[];for(let a=0;a<=5;a++)for(let b=0;b<=5;b++)for(let d=0;d<=5;d++){if(!a&&!b&&!d)continue;if(c.topic==="fire"&&b)continue;out.push({ship:a,fire:b,plan:d})}return out};
 const ruleText=()=>`${S.rule.min}회 이상 나온 사람, 이미 죽은 사람은 ${S.rule.dead?"빼고":"넣고"}`;
 
@@ -103,14 +103,14 @@ function lv2Stage2({x,c}){
    step(2,`${esc(P)}${lvJ(Pn,"을","를")} 빼면 평균은?`,"",`<section class="card pane">${lvPick("pred2",[["up","오를 것 같습니다"],["flat","거의 그대로일 것 같습니다"],["down","내려갈 것 같습니다"]],L.p,"three")}<button class="btn" id="dropTop" ${L.p?"":"disabled"}>빼고 계산하기</button><div id="dropRes"></div></section>`)+
    `<div class="named-wrap" id="s2m" hidden>${step(3,"평균과 가운데 값, 무엇이 더 흔들렸을까요?","",`<section class="card pane">${lvPick("meas2",[["mean","평균"],["median","가운데 값"]],L.m)}<div id="measRes"></div></section>`)}</div>`+reveal('s2name'),
    {q:`${P}${lvJ(Pn,"을","를")} 빼 보니, 평균과 가운데 값 중 무엇이 덜 움직였습니까?`,opts:["평균","가운데 값","둘 다 똑같이 움직였습니다"],ok:less,
-    good:less===1?"가운데 값은 줄 세운 한가운데 사람의 값이라, 한 사람이 빠져도 덜 움직입니다. 한 사람의 큰 숫자가 걱정될 때 가운데 값을 함께 보는 까닭이지요.":"이번에는 평균이 덜 움직였군요. 빠진 사람의 숫자가 평균과 가까우면 평균도 크게 흔들리지 않습니다.",
+    good:less===1?"가운데 값은 줄 세운 한가운데 사람의 값이라, 한 사람이 빠져도 덜 움직입니다. 한 사람의 큰 숫자가 걱정될 때 가운데 값을 함께 보는 까닭이지요.":"이번에는 평균이 덜 움직였습니다. 빠진 사람의 숫자가 평균과 가까우면 평균도 크게 흔들리지 않습니다.",
     bad:"두 값이 빼기 전과 뒤에 얼마나 달라졌는지 다시 견주어 보시지요.",
     ev:()=>`예측 ${({up:"오름",flat:"그대로",down:"내림"})[L.p]||"-"} · 평균 ${fmt1(a)}→${fmt1(b)} · 가운데 값 ${fmt1(m0)}→${fmt1(m1)}`});
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
   const DIRW={up:"올라갔습니다",flat:"거의 그대로입니다",down:"내려갔습니다"};
   const done=()=>{setT("s2","drop");$("#dropTop").hidden=true;$$("#pred2 button").forEach(b=>b.disabled=true);
-   $("#dropRes").innerHTML=`<p class="big-change">평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b> · 가운데 값 <b class="num">${fmt1(m0)}</b> → <b class="num">${fmt1(m1)}</b></p><p class="simple-note">${L.p===dir?"예측이 맞았군요.":"예측과 달랐군요."} 평균은 ${DIRW[dir]}.</p>`;
+   $("#dropRes").innerHTML=`<p class="big-change">평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b> · 가운데 값 <b class="num">${fmt1(m0)}</b> → <b class="num">${fmt1(m1)}</b></p><p class="simple-note">${L.p===dir?"예측이 맞았습니다.":"예측과 달랐습니다."} 평균은 ${DIRW[dir]}.</p>`;
    $("#s2m").hidden=false;drawM()};
   const drawM=()=>{lvPress("meas2",L.m);if(!L.m)return;
    const right=(L.m==="median")===(dm<da);
@@ -131,7 +131,7 @@ function lv2Stage2({x,c}){
    ev:()=>`조조군 불 문단 ${side}개 중 조조 ${v}개 (${pct}%) · 어림 ${({low:"¼ 미만",mid:"¼~½",high:"½ 이상"})[L.p]||"-"}`});
  simplifyStage(2);
  const done=()=>{setT("s2","drop");$("#dropTop").hidden=true;$$("#pred2 button").forEach(b=>b.disabled=true);
-  $("#dropRes").innerHTML=`<p class="big-change">조조군 ‘불’ 문단 <b class="num">${side}</b> → <b class="num">${side-v}</b></p><p class="simple-note">${L.p===bucket?"어림이 맞았군요.":"어림과 달랐군요."} 조조 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
+  $("#dropRes").innerHTML=`<p class="big-change">조조군 ‘불’ 문단 <b class="num">${side}</b> → <b class="num">${side-v}</b></p><p class="simple-note">${L.p===bucket?"어림이 맞았습니다.":"어림과 달랐습니다."} 조조 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
   show('s2name',named("어림하고 확인하기","합계를 보기 전에 한 사람의 몫을 어림해 보면, 숫자가 한쪽에 몰려 있을 때 바로 알아챌 수 있습니다. 몰린 숫자일수록 그 사람의 기록부터 확인해야 하지요."))};
  $("#pred2").addEventListener("click",e=>{const btn=e.target.closest("button");if(!btn||btn.disabled)return;L.p=btn.dataset.v;save();lvPress("pred2",L.p);$("#dropTop").disabled=false});
  $("#dropTop").onclick=()=>{L.dropped=1;save();done()};if(L.dropped)done();
@@ -155,7 +155,7 @@ function lv2Stage5({x,c}){
  const draw=()=>{for(const el of $$("#claims5 .sort-item")){const i=+el.dataset.i,v=L[i],right=claims[i][1];
    el.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(v!==undefined&&+b.dataset.v===v)));
    const tip=el.querySelector(".pcard-tip");if(v===undefined){tip.hidden=true;continue}tip.hidden=false;
-   tip.innerHTML=v===right?`<b class="ok">그렇지요.</b> 원문과 맞습니다.`:`<b class="warn">다시 읽어 보시지요.</b> 원문에서 이 사람이 무엇을 하고 있는지 보시지요.`}
+   tip.innerHTML=v===right?`<b class="ok">맞습니다.</b> 원문과 맞습니다.`:`<b class="warn">다시 읽어 보시지요.</b> 원문에서 이 사람이 무엇을 하고 있는지 보시지요.`}
   if(claims.every(([,r],i)=>L[i]===r)){setT("s5","victim");show('s5name',named("근거 대조",esc(s.take)))}};
  $("#claims5").addEventListener("click",e=>{const b=e.target.closest(".pick button");if(!b)return;L[+b.closest(".sort-item").dataset.i]=+b.dataset.v;save();draw()});
  draw();
@@ -188,7 +188,7 @@ function lv2Stage6(){
   $("#flip6").innerHTML=lvMeter(v);
   $("#seen6").textContent=L.seen.length<4?`${L.seen.length} / 4가지 해 봄`:"";
   if(L.seen.length>=4){setT("s6","wind");
-   show('s6name',named("판정이 바뀌는 곳",flips.length?`바람 보너스가 <b>${flips[0][0]}점</b>일 때는 ‘${wiVerdict(at(flips[0][0]))}’, <b>${flips[0][1]}점</b>일 때는 ‘${wiVerdict(at(flips[0][1]))}’입니다. 이 질문의 결론은 바람을 얼마로 보느냐에 기대고 있지요. 결론에는 이 경계를 함께 적습니다.`:`바람 보너스를 0점에서 30점까지 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다. 이 질문의 결론은 바람 가정에 크게 기대지 않는군요.`));
+   show('s6name',named("판정이 바뀌는 곳",flips.length?`바람 보너스가 <b>${flips[0][0]}점</b>일 때는 ‘${wiVerdict(at(flips[0][0]))}’, <b>${flips[0][1]}점</b>일 때는 ‘${wiVerdict(at(flips[0][1]))}’입니다. 이 질문의 결론은 바람을 얼마로 보느냐에 기대고 있지요. 결론에는 이 경계를 함께 적습니다.`:`바람 보너스를 0점에서 30점까지 바꿔도 판정은 ‘${wiVerdict(at(0))}’ 그대로입니다. 이 질문의 결론은 바람 가정에 크게 기대지 않습니다.`));
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction],p=$("#s6pred");p.hidden=false;
    p.innerHTML=`<section class="prediction-review"><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음 화면에서 남긴 예상이 없습니다.'}</p></div><div><h3>찾은 범위</h3><p>바람 보너스 0~30점 · 지수 ${at(0)}~${at(30)}</p></div></div></section>`}};
  $("#move6").onclick=afterMove;onSeg("bonus6",v=>{L.b=+v;save();draw()});
@@ -255,9 +255,9 @@ function lv3Stage2({x,c}){
 }
 
 // 3) design the score with a reason that fits the weights
-const LV3_W_WHY=[["불이 승부를 가른 싸움이라 불에 가장 무게를 둡니다.",w=>w.fire>=w.ship&&w.fire>=w.plan&&w.fire>0,"불보다 다른 점수가 더 크군요."],
+const LV3_W_WHY=[["불이 승부를 가른 싸움이라 불에 가장 무게를 둡니다.",w=>w.fire>=w.ship&&w.fire>=w.plan&&w.fire>0,"불보다 다른 점수가 더 큽니다."],
  ["배·불·계책을 고르게 봅니다.",w=>Math.max(w.ship,w.fire,w.plan)-Math.min(w.ship,w.fire,w.plan)<=1,"세 점수의 차이가 2점 이상입니다."],
- ["수전이니 배에 가장 무게를 둡니다.",w=>w.ship>=w.fire&&w.ship>=w.plan&&w.ship>0,"배보다 다른 점수가 더 크군요."]];
+ ["수전이니 배에 가장 무게를 둡니다.",w=>w.ship>=w.fire&&w.ship>=w.plan&&w.ship>0,"배보다 다른 점수가 더 큽니다."]];
 function lv3Stage3({x,c}){
  const L=S.t.s3r=S.t.s3r||{};const lens=c.topic==="source"?"jb":"yy";
  const fits=()=>L.why!==undefined&&LV3_W_WHY[L.why][1](S.w);
@@ -338,7 +338,7 @@ function lv3Stage5({x,c}){
 function lv3Missing(){const t=S.t,x=scenario(),recs=LV3_RECORDS[x.id];
  return [[1,t.s1r&&t.s1r.why!==undefined],[2,t.s2r&&t.s2r.m],[3,t.s3r&&t.s3r.why!==undefined],[4,t.s4r&&t.s4r.th],[5,recs&&t.s5r&&t.s5r.pick!==undefined]].filter(r=>!r[1]).map(r=>r[0])}
 function lv3Nudge(){const miss=lv3Missing(),D=S.t.s6c||{};if(!miss.length||D.skip)return "";
- return `<section class="lv-nudge" id="lvNudge"><p>앞 순서에서 정한 것이 이 결론에 그대로 들어갑니다. ${miss.length===5?"아직 앞 순서를 하나도 하지 않으셨군요.":`아직 순서 ${miss.join("·")}${lvJ(String(miss[miss.length-1]),"을","를")} 마치지 않으셨군요.`} 먼저 해 보시기를 권합니다. 그래도 바로 쓰시겠습니까?</p><div class="lv-nudge-act"><a class="btn ghost" href="#s${miss[0]}">순서 ${miss[0]}로 가기</a><button class="linkbtn" id="lvSkip">그래도 바로 쓰기</button></div></section>`}
+ return `<section class="lv-nudge" id="lvNudge"><p>앞 순서에서 정한 것이 이 결론에 그대로 들어갑니다. ${miss.length===5?"아직 앞 순서를 하나도 마치지 않았습니다.":`아직 순서 ${miss.join("·")}${lvJ(String(miss[miss.length-1]),"을","를")} 마치지 않았습니다.`} 먼저 해 보시기를 권합니다. 그래도 바로 쓰시겠습니까?</p><div class="lv-nudge-act"><a class="btn ghost" href="#s${miss[0]}">순서 ${miss[0]}로 가기</a><button class="linkbtn" id="lvSkip">그래도 바로 쓰기</button></div></section>`}
 
 /* what 단계 3 decided before the conclusion (read by lv3Stage6) */
 function lv3Decided(){

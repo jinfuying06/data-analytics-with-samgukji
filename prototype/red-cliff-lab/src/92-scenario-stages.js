@@ -21,7 +21,7 @@ const SC={
     ["呂範","one","딱 1회, 이름만 한 번","주유가 정한 순찰 임무에 이름이 한 번 나옵니다."],
     ["孫策","dead","2회 언급 · 8년 전 사망한 손권의 형","대화 속에 이름만 나옵니다. 이 싸움에는 없었지요."]]},
   s5:{n:"周瑜",k:"fire",q:"주유의 ‘불’ 기록은 어떤 장면일까요?",guess:["주유가 화공을 이끄는 장면일 것 같습니다","아직 판단하기 어렵습니다"],
-   take:"주유는 불을 지르는 연합군 함대 한가운데에 있군요. 조조의 ‘불’ 기록이 불에 당한 장면이었던 것과 달리, 주유의 기록은 공격하는 장면입니다. 같은 글자라도 장면을 읽어야 뜻을 알 수 있지요.",
+   take:"주유는 불을 지르는 연합군 함대 한가운데에 있습니다. 조조의 ‘불’ 기록이 불에 당한 장면이었던 것과 달리, 주유의 기록은 공격하는 장면입니다. 같은 글자라도 장면을 읽어야 뜻을 알 수 있지요.",
    check:{q:"주유의 ‘불’ 점수는 무엇을 센 것이었습니까?",opts:["주유가 불에 당한 장면","주유가 화공을 이끄는 장면에 ‘불’ 글자가 함께 나온 것","주유의 실제 화공 능력"],ok:1}}},
  hg:{who:["黃蓋"],side:"wu",verb:"옮기기",
   s1:{title:"오나라로 분류된 네 사람, 모두 셀까요?",cards:[
@@ -49,7 +49,7 @@ const SC={
     ["諸葛亮","core","7회에 나옴 · 바람 문단 11","바람 기록이 가장 많은 사람이지요."],
     ["徐盛","two","2회 나옴 · 바람 문단 3","바람이 분 뒤 제갈량을 뒤쫓은 장수이지요."],
     ["夏侯淵","one","딱 1회 · 바람 기록 없음","이름만 한 번 나옵니다."],
-    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 바람 문단 1","이미 세상을 떠난 유표의 이름도 바람 문단에 섞여 있군요."]]},
+    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 바람 문단 1","이미 세상을 떠난 유표의 이름도 바람 문단에 섞여 있습니다."]]},
   s5:{n:"諸葛亮",k:"wind",q:"소설은 그날의 바람을 어떻게 적었을까요?",guess:["그냥 날씨로 적었을 것 같습니다","제갈량과 엮어 적었을 것 같습니다"],
    take:"소설은 바람을 제갈량의 ‘처방’과 엮어 씁니다. 병이 난 주유에게 제갈량이 몰래 열여섯 자를 써 주는 장면이지요. 바람을 날씨로 볼지, 제갈량의 능력으로 볼지는 데이터가 아니라 해석의 문제입니다. 그래서 마지막 순서에서 가정으로 다룹니다.",
    check:{q:"바람 기록에서 알 수 있는 것은?",opts:["바람은 제갈량의 능력이라고 데이터가 증명합니다.","소설은 바람을 제갈량과 엮어 서술하므로, 바람을 어떻게 볼지는 가정으로 정해야 합니다.","바람은 기록에 나오지 않습니다."],ok:1}}},
@@ -58,13 +58,13 @@ const SC={
     ["黃蓋","core","6회에 나옴 · 불 문단 9","불붙은 배를 몬 인물로 알려져 있지요."],
     ["丁奉","two","2회 나옴 · 불 문단 2","제갈량을 뒤쫓은 오나라 장수이지요."],
     ["夏侯淵","one","딱 1회 · 불 기록 없음","이름만 한 번 나옵니다."],
-    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 불 문단 2","이미 세상을 떠난 유표의 이름이 불 문단에 섞여 있군요."]]},
+    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 불 문단 2","이미 세상을 떠난 유표의 이름이 불 문단에 섞여 있습니다."]]},
   s5:{n:"曹操",n2:"周瑜",k:"fire",q:"두 사람의 ‘불’ 기록, 누가 불을 질렀을까요?",guess:["둘 다 불을 지르는 장면일 것 같습니다","아직 판단하기 어렵습니다"],
    take:"두 문단 모두 ‘불’로 세어졌지만, 주유는 공격하고 조조는 불을 뚫고 달아나고 있지요. ‘불’ 점수에는 공격과 피해가 함께 들어 있습니다. 불 점수를 0으로 두면 조조군이 더 많이 잃는 까닭입니다.",
    check:{q:"불 점수를 0으로 두면 왜 연합군 쪽 지수가 올라갈까요?",opts:["연합군이 불을 쓰지 않아서","조조군의 ‘불’ 점수 상당수가 불에 당한 기록이라, 함께 빠지기 때문에","계산이 잘못되어서"],ok:1}}},
  jb:{topic:"source",
   s1:{title:"소설과 역사책에 남은 기록이 다른 네 사람, 모두 셀까요?",cards:[
-    ["諸葛亮","core","소설 7회 · 정사 본문 관련 문장 14","소설에서는 가장 많이 나오지만, 정사 본문에서는 훨씬 적군요."],
+    ["諸葛亮","core","소설 7회 · 정사 본문 관련 문장 14","소설에서는 가장 많이 나오지만, 정사 본문에서는 훨씬 적습니다."],
     ["徐盛","two","소설 2회 · 정사 본문 관련 문장 5","두 기록 모두에 조금씩 나옵니다."],
     ["呂範","one","소설 딱 1회 · 정사 본문 관련 문장 12","소설에는 한 번 나오지만 정사에는 기록이 많지요. 명단 기준은 소설의 회 수로 정합니다."],
     ["孫策","dead","소설 2회 언급 · 사망 · 정사 본문 관련 문장 22","정사에서는 큰 인물이지만, 적벽 때는 이미 세상을 떠났지요."]]},
@@ -179,7 +179,7 @@ function scStage2({x,c}){
   simplifyStage(2);
   bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
   const done=()=>{const a=avgOf(),b=avgOf(1),up=b>a,small=!up&&a-b<a*0.1;
-   $("#avgNow").hidden=true;$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔군요. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔군요. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔군요. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
+   $("#avgNow").hidden=true;$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔습니다. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔습니다. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔습니다. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
    show('s2name',named(up?"평균보다 작은 한 사람":small?"한 사람의 무게":"평균의 함정",small?`${esc(P)}의 숫자는 ${label} 평균과 크게 다르지 않아서, 빼도 평균이 조금만 움직입니다. 한 사람이 결과를 얼마나 흔들지는, 그 사람의 숫자가 평균과 얼마나 다른지에 달려 있지요.`:up?`${esc(P)}의 숫자는 ${label} 평균보다 작습니다. 그래서 빼면 평균이 올라가지요. 한 사람을 옮기거나 뺄 때는, 그 사람의 숫자가 평균보다 큰지 작은지부터 보아야 합니다.`:`${esc(P)}의 숫자가 커서 ${label} 평균을 끌어올리고 있었습니다. 이런 사람을 옮기거나 빼면 결과가 크게 흔들리지요. 가운데 값(중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))})도 함께 살펴야 합니다.`))};
   const btn=$("#dropTop");if(btn)btn.onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped&&btn)done();
   return;
@@ -195,7 +195,7 @@ function scStage2({x,c}){
   simplifyStage(2);
   bars($("#memBars"),top.map(o=>({label:scKo(o.n),v:o.v,c:fcol(PP[o.n].f)})),top[0].v,'문단');
   const done=()=>{const v=PP[who].yy[ki],base=k==="wind"?total:side("wei"),pct=Math.round(v/base*100);
-   $("#dropRes").innerHTML=`<p class="big-change">${k==="wind"?"바람 문단":"조조군의 불 문단"} <b class="num">${base}</b> → <b class="num">${base-v}</b></p><p class="simple-note">${scKo(who)} 한 사람이 <b>${pct}%</b>를 차지하고 있었군요.</p>`;
+   $("#dropRes").innerHTML=`<p class="big-change">${k==="wind"?"바람 문단":"조조군의 불 문단"} <b class="num">${base}</b> → <b class="num">${base-v}</b></p><p class="simple-note">${scKo(who)} 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
    show('s2name',named(k==="wind"&&pct<30?"여러 사람에게 퍼진 기록":"한 사람에게 몰린 기록",k==="wind"?(pct<30?`제갈량은 바람 기록이 가장 많지만 전체의 ${pct}%이고, 나머지는 주유·조조 등 여러 사람에게 퍼져 있습니다. 글자 수만으로는 바람이 제갈량의 능력이라고 말하기 어렵지요. 그래서 바람은 마지막 순서에서 가정으로 다룹니다.`:`바람 기록의 ${pct}%가 제갈량 한 사람에게 몰려 있습니다. 그래서 바람을 제갈량의 능력으로 볼지, 날씨로 볼지가 결과를 크게 바꿉니다.`):`조조군 ‘불’ 기록의 ${pct}%가 조조 한 사람에게서 나옵니다. 불 점수를 없애면 조조군이 많이 잃게 되는 까닭이 여기 있지요. 그 기록이 어떤 장면인지는 다섯 번째 순서에서 확인합니다.`))};
   $("#dropTop").onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped)done();
   return;
@@ -289,8 +289,8 @@ function scStage5({x,c}){
    steer toward leaving it out instead of simply confirming the choice */
 const MAIN_ROLES={"曹操":"core","許褚":"two","夏侯淵":"one","袁紹":"dead"};
 const CARD_SAY={
- dead:{1:["다시 생각해 보시지요.","이미 세상을 떠난 사람입니다. 이름은 나오지만 이 싸움에 참여할 수는 없었지요. 명단에서 빼는 편이 맞겠습니다."],0:["그렇지요.","이름만 언급된 사람은 이 싸움의 기록으로 세지 않습니다."]},
- one:{1:["다시 생각해 보시지요.","딱 한 번 이름만 스친 사람입니다. 이것만으로 싸움에 참여했다고 보기는 어렵지요. 빼는 편을 권합니다."],0:["그렇지요.","한 번 스친 이름까지 세면 명단이 흐려집니다."]},
+ dead:{1:["다시 생각해 보시지요.","이미 세상을 떠난 사람입니다. 이름은 나오지만 이 싸움에 참여할 수는 없었지요. 명단에서 빼는 편이 맞겠습니다."],0:["맞습니다.","이름만 언급된 사람은 이 싸움의 기록으로 세지 않습니다."]},
+ one:{1:["다시 생각해 보시지요.","딱 한 번 이름만 스친 사람입니다. 이것만으로 싸움에 참여했다고 보기는 어렵지요. 빼는 편을 권합니다."],0:["맞습니다.","한 번 스친 이름까지 세면 명단이 흐려집니다."]},
  core:{0:["다시 생각해 보시지요.","이번 질문의 중심이 되는 사람입니다. 빼면 비교 자체가 어려워지지요. 명단에 넣어 두시지요."]}
 };
 function cardGuide(){
@@ -301,8 +301,8 @@ function cardGuide(){
   card.querySelectorAll(".pick button").forEach(b=>b.classList.remove("nudge"));card.classList.remove("doubt");
   if(v===undefined)continue;
   const say=(CARD_SAY[role]||{})[v];
-  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("그렇")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
-  if(say&&!say[0].startsWith("그렇")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
+  tip.hidden=false;tip.innerHTML=say?`<b class="${say[0].startsWith("맞")?"ok":"warn"}">${say[0]}</b> ${say[1]}`:card.dataset.tip;
+  if(say&&!say[0].startsWith("맞")){card.classList.add("doubt");card.querySelector(`.pick button[data-v="${v?0:1}"]`)?.classList.add("nudge")}
  }
 }
 const SC_RENDER=[null,scStage1,scStage2,scStage3,scStage4,scStage5];

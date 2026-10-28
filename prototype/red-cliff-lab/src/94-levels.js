@@ -54,7 +54,7 @@ function lv2Stage3({x,c}){
  const draw=()=>{for(const el of $$("#sort3 .sort-item")){const n=el.dataset.n,v=L[n],right=SORT_ITEMS.find(i=>i[0]===n)[1];
    el.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===v)));
    const tip=el.querySelector(".pcard-tip");if(!v){tip.hidden=true;continue}tip.hidden=false;
-   tip.innerHTML=v===right?`<b class="ok">그렇지요.</b> ${SORT_WHY[n]}`:`<b class="warn">다시 읽어 보시지요.</b> 이 문단에서 ${PP[n].ko}${wiJosa(PP[n].ko,"은","는")} 무엇을 하고 있나요?`}
+   tip.innerHTML=v===right?`<b class="ok">맞습니다.</b> ${SORT_WHY[n]}`:`<b class="warn">다시 읽어 보시지요.</b> 이 문단에서 ${PP[n].ko}${wiJosa(PP[n].ko,"은","는")} 무엇을 하고 있나요?`}
   const all=SORT_ITEMS.every(([n,r])=>L[n]===r);$("#s3score").hidden=!all;
   if(all&&!$("#s3name").innerHTML)show('s3name',named("나누어 세기","같은 ‘불’ 글자에 공격·피해·이름만 나온 경우가 섞여 있었습니다. 숫자 하나로 합치기 전에 무엇이 섞였는지 알아 두면, 점수가 무엇을 뜻하는지 정직하게 말할 수 있지요."));
  };
@@ -92,7 +92,7 @@ function lv2Stage4({x,c}){
   $("#meter4").innerHTML=`<div class="meter"><div class="meter-row"><span class="big num">${v}</span><span class="verdict">${wiVerdict(v)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${v}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`;
   $("#tries4").textContent=L.tries?`${L.tries}번 바꿔 봄`:"";
   $("#reveal4").hidden=L.tries<3||!!L.found;
-  if(v===min&&!L.found)done(`가장 낮은 지수 ${min}을 직접 찾으셨군요.`);
+  if(v===min&&!L.found)done(`가장 낮은 지수 ${min}을 직접 찾았습니다.`);
  };
  $("#wts4").addEventListener('click',e=>{const b=e.target.closest('button[data-w]');if(!b||b.disabled)return;const k=b.dataset.w;L.w[k]=Math.max(0,Math.min(5,L.w[k]+ +b.dataset.d));L.tries++;save();draw()});
  $("#reveal4").onclick=()=>{L.w={...best};save();draw();if(!L.found)done(`모든 규칙을 계산해 보니 가장 낮은 지수는 ${min}입니다(배 ${best.ship}·불 ${best.fire}·계책 ${best.plan}).`)};

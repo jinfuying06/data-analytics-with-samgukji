@@ -233,7 +233,7 @@ RENDER[LAB_VIEW]=()=>{
  build();
 
  $("#wiAsk").addEventListener("click",e=>{const btn=e.target.closest(".pick button");if(!btn)return;const row=btn.closest(".wi-ask-row"),x=WI_UNANSWERABLE[+row.dataset.k],right=(btn.dataset.v==="1")===x.ok;
-  row.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));const tip=row.querySelector(".pcard-tip");tip.hidden=false;tip.innerHTML=`<b>${right?"그렇지요.":"기록의 범위를 다시 살펴보시지요."}</b> ${esc(x.why)}`});
+  row.querySelectorAll(".pick button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));const tip=row.querySelector(".pcard-tip");tip.hidden=false;tip.innerHTML=`<b>${right?"맞습니다.":"다시 생각해 보시지요."}</b> ${esc(x.why)}`});
 };
 /* entry points: after the stage 6 comparison, and on the home outline */
 (()=>{
