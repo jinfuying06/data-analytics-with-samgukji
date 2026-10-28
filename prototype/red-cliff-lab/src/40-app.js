@@ -55,7 +55,7 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 function drawChrome(){
   const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${done?ic("check"):hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
   $("#navH").innerHTML=a("home","始","처음 화면","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
-  $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,e.skill,i+1,S.done[i+1])).join("");
+  $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
   $("#progTxt").textContent=`마친 순서 ${n} / 6`;$("#progBar").style.width=n/6*100+"%";
@@ -90,7 +90,7 @@ function stage(i,tasks,steps,chk){
   const nsteps=steps.split('class="stepsec"').length;
   $("#main").innerHTML=`${stepper}${hero({hz:e.hz,where:e.where,title:e.q,sub:`<span class="reg rec">순서 ${i} / 6</span>배우는 것 · ${e.skill}`,fx:e.fx,say:e.say})}
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
-  <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}학습 기록 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
+  <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}순서 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
   ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
   <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음 화면</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">처음 화면${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
@@ -100,7 +100,7 @@ function stage(i,tasks,steps,chk){
   box.innerHTML=`<h3>${chk.q}</h3><p class="lockline">${ic("lock")}위의 활동을 모두 마치면 답을 선택할 수 있습니다.</p><div class="opts">${order.map((k,pos)=>`<button class="opt" data-i="${k}"><span class="k">${"ABCD"[pos]}</span><span>${chk.opts[k]}</span></button>`).join("")}</div><div class="fbx" aria-live="polite"></div>`;
   const show=k=>{const ok=k===chk.ok,had=!!S.done[i];box.querySelectorAll(".opt").forEach(o=>{o.classList.remove("wrong");if((ok||had)&&+o.dataset.i===chk.ok)o.classList.add("right")});if(!ok)box.querySelector(`.opt[data-i="${k}"]`).classList.add("wrong");
     const ev=typeof chk.ev==="function"?chk.ev():chk.ev;
-    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>맞습니다.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>${had?"그 보기는 정답이 아닙니다.":"다시 생각해 보시지요."}</b> ${chk.bad}</div>${had?`<div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:""}`;
+    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>맞습니다.</b> ${chk.good}</div><div class="callout"><b>순서에 기록됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>${had?"그 보기는 정답이 아닙니다.":"다시 생각해 보시지요."}</b> ${chk.bad}</div>${had?`<div class="callout"><b>순서에 기록됨</b> ${esc(ev)}</div>`:""}`;
     if(ok){S.done[i]=ev;save();drawChrome()}};
   box.querySelector(".opts").addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled||!TASKS.every(([m,k])=>tk(m,k)))return;show(+b.dataset.i)});
   if(S.done[i])show(chk.ok);
