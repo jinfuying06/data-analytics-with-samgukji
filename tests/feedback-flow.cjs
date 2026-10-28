@@ -14,6 +14,11 @@ try{
  e('location.hash="#lab?question=zy";route()');assert.equal(home(),true,'starting a lab question lands on its home');e('setScenario("zg")');route('home');
  // 이름 기준: 시작(메인 화면) · 서막(오프닝 연출)
  assert.equal(q('#anH').textContent,'시작');assert.equal(q('#tabH').textContent,'시작');assert.equal(q('[data-intro]').textContent.trim().length>0,true);
+ // 완료 수 막대: 전용 클래스를 쓰고(.bar 그리드와 충돌 금지) 폭이 완료 수에 비례한다
+ assert.equal(q('#progBar').parentElement.className,'prog-bar');
+ e('S.done={};drawChrome()');assert.equal(q('#progTxt').textContent,'완료 0 / 6');assert.equal(q('#progBar').style.width,'0%');
+ e('S.done={1:"x",2:"x",3:"x"};drawChrome()');assert.equal(q('#progTxt').textContent,'완료 3 / 6');assert.equal(q('#progBar').style.width,'50%');
+ e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x",6:"x"};drawChrome()');assert.equal(q('#progBar').style.width,'100%');e('S.done={};drawChrome()');
  // 사이드바 그룹 이름
  route('s1');assert.ok([...d.querySelectorAll('.navgrp p')].map(p=>p.textContent).includes('순서'));assert.ok(![...d.querySelectorAll('.navgrp p')].some(p=>p.textContent.includes('여섯')));
  // 1단계 카드: 처음부터 맞게 골라도 "맞습니다."가 나온다
