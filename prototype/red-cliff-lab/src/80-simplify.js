@@ -117,17 +117,20 @@ RENDER[2]=()=>{
  const top=f=>facMembers(f).sort((a,b)=>PP[b].pa-PP[a].pa)[0];
  const shuTop=top('shu');
  originalStageRenderer(2,[["s2","drop","가장 많이 나온 사람 빼 보기"]],
-  step(1,"한 사람이 평균 몇 문단에 나올까요?","",`<section class="card pane"><div class="avgs" id="avgs"></div></section>`)+
-  step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
+  step(1,"한 사람이 평균 몇 문단에 나올까요?","",`<section class="card pane"><div class="avgs" id="avgs"></div><p class="simple-note" id="avgNote"></p></section>`)+
+  step(2,`촉 사람들을 한 명씩 보면`,"",`<section class="card pane"><div class="bars" id="shuBars"></div><p class="simple-note" id="shuNote"></p><button class="btn" id="dropTop">${esc(PP[shuTop]?.ko||'')} 빼고 다시 계산하기</button><div id="dropRes"></div></section>`)+
   reveal('s2name'),
   {q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,
    good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 다시 살펴보시지요. 유독 긴 막대가 하나 보입니다.",
    ev:()=>`촉 평균 ${fmt1(avgOf('shu'))} → ${PP[shuTop]?.ko} 빼면 ${fmt1(avgOf('shu',1))} · 중앙값 촉 ${fmt1(median(facMembers('shu').map(n=>PP[n].pa)))}`});
  simplifyStage(2);
  const mx=Math.max(...fac.map(([f])=>avgOf(f)));
+ const rank=[...fac].sort((a,b)=>avgOf(b[0])-avgOf(a[0]));
+ $("#avgNote").textContent=`한 사람은 평균 ${rank.map(([f,l])=>`${l} ${fmt1(avgOf(f))}문단`).join(', ')}에 나옵니다. ${rank[0][1]}${jo(rank[0][1],"이","가")} 가장 높습니다.`;
  $("#avgs").innerHTML=fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(avgOf(f))}</b><span class="track"><span class="fill" style="width:${avgOf(f)/mx*100}%;background:var(--${f})"></span></span></div>`).join('');
  const members=facMembers('shu').sort((a,b)=>PP[b].pa-PP[a].pa);
  bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');
+ $("#shuNote").textContent=`${PP[shuTop].ko}${jo(PP[shuTop].ko,"은","는")} ${PP[shuTop].pa}문단에 나오고, 나머지 촉 사람들은 평균 ${fmt1(avgOf('shu',1))}문단에 나옵니다. 한 사람이 촉의 평균을 크게 끌어올리고 있습니다.`;
  const done=()=>{
   $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔습니다.</p>`;
   show('s2name',named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
@@ -172,7 +175,7 @@ RENDER[4]=()=>{
  const lead=w=>{const a=A.reduce((s,n)=>s+scoreOf(n,"yy",w),0),b=W.reduce((s,n)=>s+scoreOf(n,"yy",w),0);return {a,b}};
  const FRIENDS=[["불에만 무게를 두겠습니다",{ship:0,fire:5,plan:0}],["배에만 무게를 두겠습니다",{ship:5,fire:0,plan:0}],["계책에만 무게를 두겠습니다",{ship:0,fire:0,plan:5}]];
  originalStageRenderer(4,[["s4","run","모든 점수 규칙 계산하기"]],
-  step(1,"이런 점수 규칙도 생각해 볼 수 있지요","",`<div class="pcards three" id="friends">${FRIENDS.map(([t,w],i)=>`<div class="pcard"><div class="pcard-h"><b>“${t}”</b></div><p class="pcard-fact">배 ${w.ship} · 불 ${w.fire} · 계책 ${w.plan}</p><button class="btn ghost" data-i="${i}">이 점수로 계산</button><p class="pcard-tip" hidden></p></div>`).join('')}</div>`)+
+  step(1,"이런 점수 규칙도 생각해 볼 수 있지요","눌러 보면 그 규칙의 결과만 미리 볼 수 있습니다. 모든 규칙은 다음 활동에서 한꺼번에 계산합니다.",`<div class="pcards three" id="friends">${FRIENDS.map(([t,w],i)=>`<div class="pcard"><div class="pcard-h"><b>“${t}”</b></div><p class="pcard-fact">배 ${w.ship} · 불 ${w.fire} · 계책 ${w.plan}</p><button class="btn ghost" data-i="${i}">계산해 보기</button><p class="pcard-tip" hidden></p></div>`).join('')}</div>`)+
   step(2,"가능한 점수 규칙을 모두 살펴보시지요","",`<section class="card pane"><p class="simple-note">배·불·계책에 0~5점을 주는 모든 경우는 215가지입니다.</p><button class="btn" id="runAll">215가지 전부 계산하기</button><div id="allRes"></div></section>`)+
   reveal('s4name'),
   {q:"점수 규칙을 다 바꿔 봐도 연합군이 앞섰다면?",opts:["점수 규칙은 어떻게 정해도 상관없습니다.","살펴본 범위에서 결론이 점수 규칙에 크게 흔들리지 않습니다.","연합군이 반드시 이깁니다."],ok:1,
@@ -188,6 +191,16 @@ RENDER[4]=()=>{
 };
 
 /* ---------- stage 5: read the record behind a surprising number ---------- */
+// 원문을 먼저 읽고, 읽은 내용에 대한 질문에 맞음/틀림 피드백을 준다 (학습 확인 퀴즈와 같은 말씨)
+const ask5Html=(title,sub,opts,n=3)=>`<div class="named-wrap" id="ask5sec" hidden>${step(n,title,sub,`<section class="card pane"><div class="pick wide" id="ask5">${opts.map((o,i)=>`<button data-v="${i}">${esc(o)}</button>`).join("")}</div><p class="pcard-tip" id="askfb5" hidden></p></section>`)}</div>`;
+const ask5Wire=(L5,cfg,onRight)=>{
+ const draw=()=>{$$("#ask5 button").forEach(b=>b.setAttribute("aria-pressed",String(L5.a!==undefined&&+b.dataset.v===L5.a)));
+  const fb=$("#askfb5");if(L5.a===undefined){fb.hidden=true;return}
+  const ok=L5.a===cfg.ok;fb.hidden=false;
+  fb.innerHTML=ok?`<b class="ok">맞습니다.</b> ${cfg.good}`:`<b class="warn">다시 생각해 보시지요.</b> ${cfg.bad}`;
+  if(ok)onRight()};
+ $("#ask5").addEventListener("click",ev=>{const b=ev.target.closest("button");if(!b)return;L5.a=+b.dataset.v;save();draw()});
+ return draw};
 SIMPLE_TODO[4]="조조의 ‘불’ 점수가 높게 나왔습니다. 어떤 장면에서 비롯되었는지 원문을 펼쳐 보시지요.";
 ST[4].q="숫자가 비롯된 기록을 펼쳐 보시지요";
 RENDER[5]=()=>{
@@ -196,19 +209,20 @@ RENDER[5]=()=>{
  const e=(EVID['曹操']||{}).fire;
  originalStageRenderer(5,[["s5","victim","원문 읽기"]],
   step(1,"'불' 글자와 함께 나온 횟수","",`<section class="card pane"><div class="bars" id="fire5"></div></section>`)+
-  step(2,"조조는 불을 잘 다뤘을까요?","",`<section class="card pane"><div class="pick wide" id="guess5"><button data-v="1">잘 다루었을 것 같습니다</button><button data-v="0">아직 판단하기 어렵습니다</button></div><button class="btn" id="open5" hidden>원문 펼치기</button><div id="txt5"></div></section>`)+
+  step(2,"원문을 먼저 읽어 보시지요","조조와 '불' 글자가 함께 나온 문단입니다.",`<section class="card pane"><button class="btn" id="open5">원문 펼치기</button><div id="txt5"></div></section>`)+
+  ask5Html("조조는 불을 잘 다뤘을까요?","방금 읽은 문단을 보고 골라 보세요.",["불을 지르는 쪽입니다.","원문만으로는 알 수 없습니다.","불에 당해 달아나고 있습니다."])+
   reveal('s5name'),
   {q:"조조의 '불' 숫자가 높았던 이유는?",opts:["조조가 불을 가장 잘 다뤄서","불에 당한 장면에서도 '불' 글자가 함께 나와서","기록이 잘못돼서"],ok:1,
    good:"글자를 센 숫자는 불을 지른 쪽과 당한 쪽을 구분하지 못합니다. 그래서 숫자가 이상하면 원문을 확인합니다.",bad:"원문에서 조조가 무엇을 하는지 다시 살펴보시지요.",
    ev:()=>`조조의 '불' ${PP['曹操'].yy[1]}회는 불에 당한 장면이 섞인 숫자`});
  simplifyStage(5);
  bars($("#fire5"),top.map(x=>({label:PP[x.n].ko,v:x.v,c:fcol(PP[x.n].f)})),top[0].v,'회');
- const drawGuess=()=>{$$("#guess5 button").forEach(b=>b.setAttribute('aria-pressed',String(L5.g!==undefined&&+b.dataset.v===L5.g)));$("#open5").hidden=L5.g===undefined};
+ const drawAsk=ask5Wire(L5,{ok:2,good:"조조는 불을 지른 게 아니라 불에 당하고 있습니다. 그런데도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 다시 읽어 보시지요."},
+  ()=>show('s5name',named("근거 확인","뜻밖의 숫자가 나왔다면, 그 숫자가 비롯된 기록을 직접 펼쳐 보시지요. 글자를 세는 방법은 '불을 지른 사람'과 '불에 당한 사람'을 구분하지 못했습니다.")));
  const open=()=>{setT("s5","victim");$("#open5").hidden=true;
-  $("#txt5").innerHTML=e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} 조조와 '불'이 함께 나온 문단</p><blockquote class="evq">${hiFire(e[1])}</blockquote><p class="big-change">조조는 불을 지른 게 아니라 <b>불에 당하고 있습니다.</b></p>`:'';
-  show('s5name',named("근거 확인","뜻밖의 숫자가 나왔다면, 그 숫자가 비롯된 기록을 직접 펼쳐 보시지요. 글자를 세는 방법은 '불을 지른 사람'과 '불에 당한 사람'을 구분하지 못했습니다."))};
- $("#guess5").addEventListener('click',ev=>{const b=ev.target.closest('button');if(!b)return;L5.g=+b.dataset.v;save();drawGuess()});
- $("#open5").onclick=open;drawGuess();if(tk("s5","victim"))open();
+  $("#txt5").innerHTML=e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} 조조와 '불'이 함께 나온 문단</p><blockquote class="evq">${hiFire(e[1])}</blockquote>`:'';
+  $("#ask5sec").hidden=false;drawAsk()};
+ $("#open5").onclick=open;if(tk("s5","victim"))open();
 };
 
 /* ---------- stage 6: move a person, then change one assumption ---------- */

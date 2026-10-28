@@ -20,7 +20,7 @@ try{
   assert.equal(d.querySelector('.stepper [aria-current="page"]').getAttribute('href'),'#s'+(i+1));
  }
  assert.ok(d.querySelector('#move6'),'stage 6 has the experiment controls');
- click('#main>.pager a:first-child');assert.equal(w.location.hash,'#s5');assert.ok(d.querySelector('#guess5'));
+ click('#main>.pager a:first-child');assert.equal(w.location.hash,'#s5');assert.ok(d.querySelector('#open5'));
  click('.stepper a[href="#s6"]');assert.equal(w.location.hash,'#s6');assert.ok(d.querySelector('#move6'));
  // Opening questions use the same medium-intensity treatment.
  route('home');const homeHeat=d.documentElement.style.getPropertyValue('--heat');
@@ -33,7 +33,7 @@ try{
  route('s2');answer();assert.ok(!e('!!S.done[2]'));click('#dropTop');assert.ok(d.querySelector('#dropRes').textContent.includes('22.9'));assert.ok(d.querySelector('#dropRes').textContent.includes('11.7'));answer();assert.ok(e('!!S.done[2]'));
  route('s3');assert.ok(d.querySelector('#score3').textContent.includes('1,255')||d.querySelector('#score3').textContent.includes('1255'));click('#fixW');answer();assert.ok(e('!!S.done[3]'));
  route('s4');click('#friends button[data-i="0"]');click('#runAll');assert.ok(d.querySelector('#allRes').textContent.includes('215'));answer();assert.ok(e('!!S.done[4]'));
- route('s5');click('#guess5 button[data-v="1"]');click('#open5');assert.ok(d.querySelector('#main blockquote'));answer();assert.ok(e('!!S.done[5]'));
+ route('s5');click('#open5');assert.ok(d.querySelector('#main blockquote'));click('#ask5 button[data-v="2"]');assert.ok(d.querySelector('#askfb5').textContent.startsWith('맞습니다.'));answer();assert.ok(e('!!S.done[5]'));
  route('s6');answer();assert.ok(!e('!!S.done[6]'));click('#move6');assert.ok(d.querySelector('#mv6 .big-change').textContent.includes('83')&&d.querySelector('#mv6 .big-change').textContent.includes('72'));click('#wind6 button[data-v="zg"]');click('#wind6 button[data-v="env"]');assert.ok(d.querySelector('#s6name').textContent.includes('52'));answer();assert.ok(e('!!S.done[6]'),'core lesson must finish without switching to historical data');
  assert.equal(e('Object.keys(S.done).length'),6);assert.ok(d.querySelector('#progTxt').textContent.includes('6 / 6'));
  route('src');assert.ok(d.querySelector('#main').textContent.includes('5113da1'));assert.ok(d.querySelector('#main').textContent.includes('실시간 FastAPI 연결은 사용하지 않습니다'));

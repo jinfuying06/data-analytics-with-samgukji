@@ -98,10 +98,10 @@ function stage(i,tasks,steps,chk){
   const sid=typeof scenario==="function"?scenario().id:"",turn=[...(sid+i+chk.q)].reduce((a,ch)=>a+ch.charCodeAt(0),0)%chk.opts.length,order=chk.opts.map((_,k)=>(k+turn)%chk.opts.length);
   box.dataset.ok=chk.ok;
   box.innerHTML=`<h3>${chk.q}</h3><p class="lockline">${ic("lock")}위의 활동을 모두 마치면 답을 선택할 수 있습니다.</p><div class="opts">${order.map((k,pos)=>`<button class="opt" data-i="${k}"><span class="k">${"ABCD"[pos]}</span><span>${chk.opts[k]}</span></button>`).join("")}</div><div class="fbx" aria-live="polite"></div>`;
-  const show=k=>{const ok=k===chk.ok;box.querySelectorAll(".opt").forEach(o=>{o.classList.remove("wrong");if(ok&&+o.dataset.i===chk.ok)o.classList.add("right")});if(!ok)box.querySelector(`.opt[data-i="${k}"]`).classList.add("wrong");
+  const show=k=>{const ok=k===chk.ok,had=!!S.done[i];box.querySelectorAll(".opt").forEach(o=>{o.classList.remove("wrong");if((ok||had)&&+o.dataset.i===chk.ok)o.classList.add("right")});if(!ok)box.querySelector(`.opt[data-i="${k}"]`).classList.add("wrong");
     const ev=typeof chk.ev==="function"?chk.ev():chk.ev;
-    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>맞습니다.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>다시 생각해 보시지요.</b> ${chk.bad}</div>`;
-    if(ok){box.querySelectorAll(".opt").forEach(o=>o.disabled=true);S.done[i]=ev;save();drawChrome()}};
+    box.querySelector(".fbx").innerHTML=ok?`<div class="fb"><b>맞습니다.</b> ${chk.good}</div><div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:`<div class="fb bad"><b>${had?"그 보기는 정답이 아닙니다.":"다시 생각해 보시지요."}</b> ${chk.bad}</div>${had?`<div class="callout"><b>학습 기록에 저장됨</b> ${esc(ev)}</div>`:""}`;
+    if(ok){S.done[i]=ev;save();drawChrome()}};
   box.querySelector(".opts").addEventListener("click",ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled||!TASKS.every(([m,k])=>tk(m,k)))return;show(+b.dataset.i)});
   if(S.done[i])show(chk.ok);
 }

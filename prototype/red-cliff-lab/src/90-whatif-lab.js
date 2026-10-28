@@ -142,15 +142,15 @@ RENDER[6]=function(){
  const base=wiCalc().i,changed=wiCalc(x).i;
  const optVal=o=>wiCalc({...x,...o[3]}).i;
  const v0=optVal(j.opts[0]),v1=optVal(j.opts[1]);
- const isZg=x.id==="zg";
+ const isZg=x.id==="zg",isMoveWind=/바람은 (날씨로|그대로)/.test(j.did);
  const check=isZg?{q:"'제갈량이 조조 편이었다면 조조가 이겼다'고 말할 수 있을까요?",opts:["계산 결과만으로 조조가 이겼다고 말할 수 있습니다.","바람에 관한 가정에 따라 결과가 달라지므로 단정할 수 없습니다.","어떤 조건에서도 연합군이 이깁니다."],ok:1,
    good:"같은 실험이라도 어떤 가정을 하느냐에 따라 결과가 달라집니다. 가정 실험의 답은 '이렇게 가정하면 이렇다'로 말해야 합니다.",bad:"바람에 관한 두 가정에서 숫자가 어떻게 달랐는지 살펴보시지요."}
   :{q:`'${ST[5].q}'의 답을 한 문장으로 말한다면?`,opts:["계산 결과 하나로 승패를 말할 수 있습니다.","어떤 가정을 두었는지에 따라 결과가 달라지므로, 가정과 함께 말해야 합니다.","어떤 조건에서도 결과는 같습니다."],ok:1,
    good:"같은 질문이라도 가정을 바꾸면 숫자가 달라집니다. 그래서 가정 실험의 답에는 가정을 함께 적습니다.",bad:"두 가정에서 숫자가 어떻게 달랐는지 다시 살펴보시지요."};
  check.ev=()=>`기록대로 ${base} → ${j.act.replace(/기$/,"")}(${j.opts[0][1]}) ${v0} · (${j.opts[1][1]}) ${v1}`;
  originalStageRenderer(6,[["s6","move",j.act],["s6","wind","가정 하나 바꾸기"]],
-  step(1,"지금 기록대로 계산하면","",`<section class="card pane">${meter(base)}<button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
-  `<div class="named-wrap" id="wind6sec" hidden>${step(2,esc(j.altQ),"",`<section class="card pane"><div class="pick wide" id="wind6">${j.opts.map(o=>`<button data-v="${o[0]}">${esc(o[1])}</button>`).join("")}</div><div id="wr6"></div></section>`)}</div>`+
+  step(1,"지금 기록대로 계산하면",isMoveWind?"먼저 점수와 명단만 바꿔서 계산합니다. 바람은 처음 기록 그대로 둡니다.":"",`<section class="card pane">${meter(base)}<button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
+  `<div class="named-wrap" id="wind6sec" hidden>${step(2,esc(j.altQ),isZg?"방금 숫자는 바람이 그대로 연합군 편으로 분다고 두고 계산한 결과입니다. 소설에서 동남풍을 불러온 사람은 제갈량입니다. 제갈량이 조조 편이 되면 바람도 따라갈까요?":isMoveWind?"방금 숫자에는 바람에 관한 가정이 숨어 있습니다. 그 가정을 바꾸면 결과가 어떻게 달라지는지 비교해 보세요.":"",`<section class="card pane"><div class="pick wide" id="wind6">${j.opts.map(o=>`<button data-v="${o[0]}">${esc(o[1])}</button>`).join("")}</div><div id="wr6"></div></section>`)}</div>`+
   reveal('s6name')+`<div class="named-wrap" id="s6pred" hidden></div>`,check);
  simplifyStage(6);
  const afterMove=()=>{

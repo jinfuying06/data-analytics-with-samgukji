@@ -78,7 +78,10 @@ try{
   answer();assert.ok(e('!!S.done[4]'),id+' stage 4');
   // 순서 5 — guess then open · read then judge claims · choose the record and its use
   route('s5');s5Titles.add(q('#main h1').textContent);shape.push(q('#main .stepsec h2').textContent);
-  if(lv===1){if(id==='zg'){click('#guess5 button[data-v="1"]')}else click('#guess5 button[data-v="0"]');click('#open5');
+  if(lv===1){assert.equal(q('#guess5'),null,id+' no guess before reading');assert.equal(q('#ask5sec').hidden,true,id+' asks only after reading');click('#open5');assert.equal(q('#ask5sec').hidden,false);
+   const okI=id==='zg'?2:e(`SC[${JSON.stringify(id)}].s5.ask.ok`),badI=okI===0?1:0;
+   click(`#ask5 button[data-v="${badI}"]`);assert.ok(q('#askfb5').textContent.startsWith('다시 생각해 보시지요.'),id+' wrong answer is called wrong');
+   click(`#ask5 button[data-v="${okI}"]`);assert.ok(q('#askfb5').textContent.startsWith('맞습니다.'),id+' right answer is called right');
    if(x.s5)assert.ok(q('#txt5').textContent.includes(x.s5),id+' stage 5 reads '+x.s5)}
   else if(lv===2){assert.equal(q('#guess5'),null);assert.ok(q('#main blockquote').textContent.length>20,'the record comes first');
    for(const it of d.querySelectorAll('#claims5 .sort-item'))it.querySelector('button[data-v="1"]').click();
