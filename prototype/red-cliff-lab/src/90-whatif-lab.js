@@ -209,7 +209,7 @@ RENDER[LAB_VIEW]=()=>{
    <p class="wi-question" id="wbQ"></p><div id="wbRes"></div></section>`)}
  ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
- <p class="lab-back"><a class="btn ghost" href="#home">처음으로</a></p>`;
+ <p class="lab-back"><a class="btn ghost" href="#home">시작으로</a></p>`;
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
 
  // builder: a sandbox that writes the question from the choices

@@ -12,8 +12,8 @@ try{
  route('home');route('lab');assert.equal(home(),false,'home -> lab');route('src');assert.equal(home(),false,'lab -> src');
  route('s1');assert.equal(home(),false);route('home');assert.equal(home(),true);
  e('location.hash="#lab?question=zy";route()');assert.equal(home(),true,'starting a lab question lands on its home');e('setScenario("zg")');route('home');
- // 이름 기준: 처음(홈) · 서막(오프닝)
- assert.equal(q('#anH').textContent,'처음');assert.equal(q('#tabH').textContent,'처음');assert.equal(q('[data-intro]').textContent.trim().length>0,true);
+ // 이름 기준: 시작(메인 화면) · 서막(오프닝 연출)
+ assert.equal(q('#anH').textContent,'시작');assert.equal(q('#tabH').textContent,'시작');assert.equal(q('[data-intro]').textContent.trim().length>0,true);
  // 사이드바 그룹 이름
  route('s1');assert.ok([...d.querySelectorAll('.navgrp p')].map(p=>p.textContent).includes('순서'));assert.ok(![...d.querySelectorAll('.navgrp p')].some(p=>p.textContent.includes('여섯')));
  // 1단계 카드: 처음부터 맞게 골라도 "맞습니다."가 나온다

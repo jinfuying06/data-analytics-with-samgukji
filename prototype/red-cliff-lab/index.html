@@ -1164,7 +1164,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 
 <header class="appbar">
   <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
-  <nav class="appnav" aria-label="주요 화면"><a href="#home" id="anH">처음</a><a href="#lab" id="anL">가정 실험</a><a href="#src" id="anS">자료와 집계 기준</a></nav>
+  <nav class="appnav" aria-label="주요 화면"><a href="#home" id="anH">시작</a><a href="#lab" id="anL">가정 실험</a><a href="#src" id="anS">자료와 집계 기준</a></nav>
   <button class="btn ghost nb-open" data-open-notes aria-label="순서 열기"><svg class="ico"><use href="#i-note"/></svg><span class="num" id="nbCountTop">0/6</span></button>
 </header>
 
@@ -1172,7 +1172,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
   <aside class="sidebar card" aria-label="과정 목록">
     <div class="brand"><span class="logo" aria-hidden="true"></span><div><b>삼국지로 배우는 데이터 분석</b><small>적벽대전 편</small></div></div>
     <div class="prog"><span id="progTxt">마친 순서 0 / 6</span><div class="bar"><i id="progBar"></i></div></div>
-    <nav class="navgrp"><p>시작</p><ul class="navlist" id="navH"></ul></nav>
+    <nav class="navgrp"><p>바로가기</p><ul class="navlist" id="navH"></ul></nav>
     <nav class="navgrp"><p>순서</p><ul class="navlist" id="navE"></ul></nav>
     <nav class="navgrp"><p>참고</p><ul class="navlist" id="navS"></ul></nav>
     <p class="sidefoot"><button class="linkbtn" data-intro>서막 다시 보기</button></p>
@@ -1239,7 +1239,7 @@ h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus{outline:none}
 </div>
 
 <nav class="tabbar" aria-label="주요 화면">
-  <a href="#home" id="tabH"><svg class="ico"><use href="#i-scroll"/></svg>처음</a>
+  <a href="#home" id="tabH"><svg class="ico"><use href="#i-scroll"/></svg>시작</a>
   <a href="#lab" id="tabL"><svg class="ico"><use href="#i-flask"/></svg>가정 실험</a>
   <a href="#src" id="tabS"><svg class="ico"><use href="#i-book"/></svg>데이터</a>
   <button data-open-notes id="tabN"><svg class="ico"><use href="#i-note"/></svg>순서<span class="badge num" id="nbBadge">0</span></button>
@@ -1307,7 +1307,7 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 /* ===== chrome ===== */
 function drawChrome(){
   const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${done?ic("check"):hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
-  $("#navH").innerHTML=a("home","始","처음","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
+  $("#navH").innerHTML=a("home","始","시작","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
@@ -1346,7 +1346,7 @@ function stage(i,tasks,steps,chk){
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}순서 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
   ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
-  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음으로</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">처음으로${ic("right")}</a>`}</div>`;
+  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}시작으로</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">시작으로${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");
   const sid=typeof scenario==="function"?scenario().id:"",turn=[...(sid+i+chk.q)].reduce((a,ch)=>a+ch.charCodeAt(0),0)%chk.opts.length,order=chk.opts.map((_,k)=>(k+turn)%chk.opts.length);
@@ -2338,7 +2338,7 @@ RENDER[LAB_VIEW]=()=>{
    <p class="wi-question" id="wbQ"></p><div id="wbRes"></div></section>`)}
  ${step(3,"데이터로 답할 수 있는 질문일까요?","",`<section class="card pane"><div class="wi-ask" id="wiAsk">${WI_UNANSWERABLE.map((x,k)=>`<div class="wi-ask-row" data-k="${k}"><p>${esc(x.q)}</p><div class="pick" role="group" aria-label="${esc(x.q)}"><button data-v="1">답을 살펴볼 수 있습니다</button><button data-v="0">이 자료로는 답하기 어렵습니다</button></div><p class="pcard-tip" hidden></p></div>`).join("")}</div></section>`)}
  </details>
- <p class="lab-back"><a class="btn ghost" href="#home">처음으로</a></p>`;
+ <p class="lab-back"><a class="btn ghost" href="#home">시작으로</a></p>`;
  $("#wiGrid").addEventListener("click",e=>{const b=e.target.closest(".wi-card");if(!b)return;setScenario(b.dataset.id);location.hash="#home"});
 
  // builder: a sandbox that writes the question from the choices

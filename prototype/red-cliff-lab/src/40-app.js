@@ -54,7 +54,7 @@ const VIEWS=[{id:"home"},...ST,{id:"src"}];
 /* ===== chrome ===== */
 function drawChrome(){
   const a=(id,hz,b,s,i,done)=>`<li><a href="#${id}" class="${done?"done":""}" ${cur===i?'aria-current="page"':""}><span class="st">${done?ic("check"):hz}</span><span><b>${b}</b><small>${s}</small></span></a></li>`;
-  $("#navH").innerHTML=a("home","始","처음","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
+  $("#navH").innerHTML=a("home","始","시작","학습 과정 안내",0,false)+a("lab","假","가정 실험","궁금한 질문부터 바로 실험",VIEWS.findIndex(v=>v.id==="lab"),false);
   $("#navE").innerHTML=ST.map((e,i)=>a(e.id,i+1,e.short,S.done[i+1]?esc(S.done[i+1]):e.skill,i+1,S.done[i+1])).join("");
   $("#navS").innerHTML=a("src","典","자료와 집계 기준","데이터와 집계 기준",7,false);
   const n=Object.keys(S.done).length;
@@ -93,7 +93,7 @@ function stage(i,tasks,steps,chk){
   <section class="card brief3"><div><span>이번 질문</span><b>${e.q}</b></div><div><span>분석의 목적</span><p>${e.why}</p></div><div><span>학습 목표</span><p>${e.gain}</p></div></section>
   <div class="card taskbar"><div class="tasks" id="tasks" aria-label="먼저 수행할 활동"></div><button class="btn ghost nb-open" data-open-notes>${ic("note")}순서 <span class="num">${Object.keys(S.done).length}/6</span></button></div>
   ${steps}${step(nsteps,"학습 내용 확인하기","",`<section class="card q" id="qbox"><div id="vbox" style="display:grid;gap:12px"></div></section>`)}
-  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}처음으로</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">처음으로${ic("right")}</a>`}</div>`;
+  <div class="pager">${i>1?`<a class="btn ghost" href="#${ST[i-2].id}" aria-label="이전: 순서 ${i-1}">${ic("left")}이전 순서</a>`:`<a class="btn ghost" href="#home">${ic("left")}시작으로</a>`}${i<6?`<a class="btn" href="#${ST[i].id}" aria-label="다음: 순서 ${i+1}">다음 순서${ic("right")}</a>`:`<a class="btn" href="#home">시작으로${ic("right")}</a>`}</div>`;
   $$(".pager a").forEach(a=>a.style.textDecoration="none");drawTasks();
   const box=$("#vbox");
   const sid=typeof scenario==="function"?scenario().id:"",turn=[...(sid+i+chk.q)].reduce((a,ch)=>a+ch.charCodeAt(0),0)%chk.opts.length,order=chk.opts.map((_,k)=>(k+turn)%chk.opts.length);
