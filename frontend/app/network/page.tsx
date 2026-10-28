@@ -5,7 +5,13 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { NetworkData } from "@/lib/api";
 
+import SiteHeader from "@/components/SiteHeader";
 import snapshot from "@/lib/network-snapshot.json";
+import people from "@/lib/person-snapshot.json";
+
+const FACTION_COLOR: Record<string, string> = { 魏: "#e8566a", 吳: "#8f8cf2", 蜀: "#6fc98f" };
+const factionOf = new Map(people.map((p) => [p.name, p.jeongsa?.country ?? ""]));
+const colorOf = (id: string) => FACTION_COLOR[factionOf.get(id) ?? ""] ?? "#8e9399";
 
 type GraphNode = NetworkData["nodes"][number];
 type GraphLink = NetworkData["links"][number];
@@ -19,6 +25,7 @@ export default function NetworkPage() {
   const [data, setData] = useState<NetworkData | null>(null);
   const [canvasSize, setCanvasSize] = useState({ width: 880, height: 600 });
   const canvasRef = useRef<HTMLElement>(null);
+  const graphRef = useRef<{ zoomToFit: (ms?: number, padding?: number) => void } | undefined>(undefined);
   const router = useRouter();
 
   useEffect(() => {
@@ -51,6 +58,8 @@ export default function NetworkPage() {
   }, []);
 
   return (
+    <>
+    <SiteHeader current="network" />
     <div className="network-page">
       <div className="network-header">
         <div>
@@ -58,7 +67,7 @@ export default function NetworkPage() {
           <h1 className="page-title">연의 인물 관계망</h1>
           <p className="page-subtitle">같은 회차에 함께 등장한 인물들의 연결을 지도처럼 탐색합니다.</p>
         </div>
-        <div className="map-legend"><span className="legend-dot" /> 공동등장 회차</div>
+        <div className="map-legend"><span><i className="legend-dot wei" />위</span><span><i className="legend-dot wu" />오</span><span><i className="legend-dot shu" />촉</span></div>
       </div>
 
       <div className="network-layout">
@@ -90,8 +99,23 @@ export default function NetworkPage() {
           <div className="canvas-label">三國志 / CHAPTER CONNECTIONS</div>
           {data ? (
             <ForceGraph2D
+              ref={graphRef as never}
+              cooldownTicks={120}
+              onEngineStop={() => graphRef.current?.zoomToFit(400, 60)}
               graphData={data}
               nodeId="id"
+              backgroundColor="rgba(0,0,0,0)"
+              nodeColor={(n: object) => colorOf((n as GraphNode).id)}
+              linkColor={() => "rgba(236,228,212,0.16)"}
+              nodeCanvasObjectMode={() => "after"}
+              nodeCanvasObject={(n: object, ctx: CanvasRenderingContext2D, scale: number) => {
+                const node = n as GraphNode & { x?: number; y?: number };
+                if (scale < 1.4 && node.count < 20) return;
+                ctx.font = `${12 / scale}px "IBM Plex Sans KR", sans-serif`;
+                ctx.textAlign = "center";
+                ctx.fillStyle = "#ece4d4";
+                ctx.fillText(node.id, node.x ?? 0, (node.y ?? 0) + 10 / scale);
+              }}
               nodeLabel={(n: object) => {
                 const node = n as GraphNode;
                 return `${node.id} (${node.count}회 등장)`;
@@ -110,5 +134,6 @@ export default function NetworkPage() {
         </section>
       </div>
     </div>
+    </>
   );
 }

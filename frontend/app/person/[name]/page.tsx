@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { API_BASE, PersonDetail } from "@/lib/api";
 
+import SiteHeader from "@/components/SiteHeader";
 import snapshot from "@/lib/person-snapshot.json";
 
 export function generateStaticParams() {return snapshot.map(p=>({name:p.name}))}
@@ -23,6 +24,8 @@ export default async function PersonPage({
   if (!person) notFound();
 
   return (
+    <>
+    <SiteHeader />
     <div className="person-page">
       <div className="person-header">
         <div>
@@ -61,7 +64,13 @@ export default async function PersonPage({
               {person.jeongsa.country} · {person.jeongsa.source_juan}
               {person.jeongsa.is_minor_biography && " · 왕공/후비 등 소전"}
             </p>
-            <p className="biography">{person.jeongsa.biography}</p>
+            <details className="fold">
+              <summary>
+                <span className="fold-preview">{person.jeongsa.biography.slice(0, 160)}…</span>
+                <span className="fold-cta">전문 보기 · {person.jeongsa.biography.length.toLocaleString()}자</span>
+              </summary>
+              <p className="biography">{person.jeongsa.biography}</p>
+            </details>
             {person.jeongsa.mentioned_relatives.length > 0 && (
               <p className="relation-line">
                 친족:{" "}
@@ -92,9 +101,14 @@ export default async function PersonPage({
           <div className="chapter-block" key={y.chapter}>
             <h3><span className="chapter-number">{String(y.chapter).padStart(3, "0")}</span> {y.chapter_title}</h3>
             <span className="tag-method">태깅: {y.tagging_method}</span>
-            {y.excerpt.map((text, i) => (
-              <p key={i}>{text}</p>
-            ))}
+            <details className="fold">
+              <summary>
+                <span className="fold-cta">발췌 {y.excerpt.length}문단 보기</span>
+              </summary>
+              {y.excerpt.map((text, i) => (
+                <p key={i}>{text}</p>
+              ))}
+            </details>
             <a className="source-link" href={y.source_url} target="_blank" rel="noreferrer">↗ 회차 원문</a>
           </div>
         ))}
@@ -110,5 +124,6 @@ export default async function PersonPage({
         <span className="badge">준비중</span>
       </section>
     </div>
+    </>
   );
 }

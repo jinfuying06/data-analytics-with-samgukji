@@ -21,3 +21,11 @@
 
 ## 다음 단계 제안
 2단계: 디자인 토큰 한 장 정리(기존 학습 화면의 색·서체 기준) → `/network`, `/person`을 같은 토큰으로 정리 → 데스크톱 내비게이션·배너·가독성 보정.
+
+## 2단계 적용 결과
+- `frontend/app/theme.css` 추가: 학습 화면(`prototype/red-cliff-lab`)과 같은 색·서체 토큰, `/network`·`/person` 스타일. `globals.css`는 그대로 두고 `layout.tsx`에서 뒤에 로드해 덮어씀.
+- `frontend/components/SiteHeader.tsx` 추가: 두 페이지 공통 헤더(학습실/관계망).
+- `/network`: 다크 톤, 위·오·촉 세력색 노드, 라벨, 자동 화면 맞춤(zoomToFit).
+- `/person/[name]`: 다크 톤, 긴 정사 원문·연의 발췌를 접기/펼치기로 변경(페이지 높이 17,496px → 2,263px).
+- 확인: `STATIC_PROTOTYPE=1 next build` 성공(인물 63명 정적 생성), 1440/390px 렌더링, 가로 스크롤 없음, `tsc` 통과. 기존 eslint 오류 4건은 변경 전부터 있던 것.
+- 남은 항목: 학습 화면 내부(데스크톱 내비게이션, 배너 검은 띠, 보조 텍스트 대비, 인물 카드 픽셀 캐릭터)는 `prototype/red-cliff-lab/src/` 수정이 필요해 3단계로 넘김.
