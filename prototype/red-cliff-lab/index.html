@@ -2338,7 +2338,7 @@ RENDER[LAB_VIEW]=()=>{
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
  $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count num"><span id="labCount">${tried()}</span> / ${WHATIFS.length}</p></div>
  <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
- ${step(1,"직접 질문 만들기","인물, 바람, 점수 규칙, 기록을 골라 질문을 만들면 결과가 바로 계산됩니다. 이 결과는 완료 수에 들어가지 않습니다.",`<section class="card pane wi-builder">
+ ${step(1,"직접 질문 만들기","인물, 바람, 점수 규칙, 기록을 골라 질문을 만들면 결과가 바로 계산됩니다.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
    <div class="field">어떻게${seg("wbAct",[["wei","조조 편으로"],["ally","연합군 편으로"],["out","빼기"],["keep","그대로"]],L.b.act,"인물 변경")}</div>
    <div class="field">바람${seg("wbWind",[["env","날씨"],["zg","제갈량이 부름"],["none","없음"]],L.b.wind,"바람 가정")}</div>
