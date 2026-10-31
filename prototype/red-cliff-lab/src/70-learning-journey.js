@@ -120,14 +120,59 @@ RENDER[6]=()=>{
 const originalMissionSources=lib;
 lib=function(){document.body.classList.remove("experiment-home");if(missionResultObserver){missionResultObserver.disconnect();missionResultObserver=null}originalMissionSources()};
 
+/* 지수 비교 차트: 50을 가운데 두고 앞선 쪽으로 막대가 뻗습니다.
+   옅은 띠(45~64)는 '비슷함'으로 판정하는 구간이고, 값과 판정은 글로도 적습니다. */
+function cmpChart(rows,{key=true}={}){
+ return `<div class="cmp" role="img" aria-label="${esc(rows.map(r=>`${r.label} ${r.i}, ${wiVerdict(r.i)}`).join(' / '))}">
+ <div class="cmp-axis" aria-hidden="true"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div>
+ ${rows.map(r=>{const ally=r.i>=50,w=Math.abs(r.i-50);return `<div class="cmp-row${r.now?" now":""}"><span class="cmp-l">${esc(r.label)}</span><span class="cmp-track" aria-hidden="true"><i class="cmp-band"></i><i class="cmp-mid"></i><i class="cmp-bar ${ally?"ally":"wei"}" style="left:${ally?50:r.i}%;width:${w}%"></i></span><span class="cmp-v"><b class="num">${r.i}</b>${esc(wiVerdict(r.i))}</span></div>`}).join("")}
+ </div>${key?`<p class="cmp-key">숫자는 두 진영 점수 가운데 연합군의 몫(%)에 바람 보정을 더한 지수입니다. 50이면 똑같고, 50보다 크면 연합군, 작으면 조조군이 앞섭니다. 옅은 띠(45~64)는 '비슷함'으로 봅니다.</p>`:""}`;
+}
+
+/* 더 살펴보기: 같은 제갈량 실험을 역사책(정사)으로 다시 해 봅니다 */
 VIEWS.push({id:'compare'});
 RENDER[8]=()=>{
  if(missionResultObserver){missionResultObserver.disconnect();missionResultObserver=null}
  document.body.classList.remove('experiment-home');TASKS=[];
- $("#main").innerHTML=`${hero({hz:'확장',where:'연의의 분석과 실험을 마친 뒤',title:'다른 기록도 함께 펼쳐 보시겠습니까?',sub:'정사의 기록과 대조하며, 우리가 만든 해석이 자료에 얼마나 기대고 있는지 살펴봅니다.',fx:'mist'})}<section class="card pane source-reading"><h2>이번 화면에서 확인할 수 있는 것</h2><p>이곳에서는 연의와 정사에서 같은 글자를 센 결과를 비교합니다. 사건의 사실 여부는 원문과 문맥을 더 살펴야 알 수 있지요.</p><p>연의는 적벽대전 주변의 제43–50회, 정사는 인물별 열전과 주석을 사용합니다. 서술 범위와 집계 단위가 다르지요. 아래 비중은 자료의 차이를 살펴보는 참고값으로 읽어 주십시오.</p></section><section class="card pane"><div class="pane-h"><h2>자료별 비교 점수의 비중</h2>${seg('compare-scope',[['jb','정사 본문'],['all','본문과 주석']],S.t.sourceScope||'jb','정사 자료 범위')}</div><p class="cap">앞에서 정한 명단과 가중치를 그대로 적용합니다. 각 자료에서 위·오·촉이 차지하는 비중을 함께 살펴보시지요.</p><div id="source-shares" class="cmp5"></div><p class="callout" id="source-reading-result" aria-live="polite"></p><details><summary>인물별 원래 집계 횟수 보기</summary><p class="cap">연의는 문단, 정사는 문장을 셉니다. 아래 횟수를 곧바로 능력 차이로 비교하지 마세요.</p><div class="tscroll"><table class="data"><thead><tr><th>인물</th><th>자료</th><th class="n">수전</th><th class="n">화공</th><th class="n">계책</th></tr></thead><tbody id="source-counts"></tbody></table></div></details></section><section class="card pane source-reading"><h2>기록을 대조할 때는 이렇게 구분합니다.</h2><ul><li><b>함께 확인되는 내용</b> — 두 자료의 해당 원문에서 확인한 공통 내용을 적습니다.</li><li><b>다르게 서술된 내용</b> — 인물의 역할이나 사건 설명이 어떻게 다른지 적습니다.</li><li><b>해당 자료에서 확인되지 않는 내용</b> — 확인한 범위를 밝히고, 사건이 없었다고 단정하지 않습니다.</li></ul><p class="cap">이 구분에는 사건별 원문과 문맥을 직접 읽는 작업이 필요합니다. 현재 집계 수치가 위 항목을 자동 판정하지는 않습니다.</p></section><div class="pager"><a class="btn ghost" href="#s6">${ic('left')}가정 실험으로 돌아가기</a><a class="btn ghost" href="#src">자료와 집계 기준 ${ic('right')}</a></div>`;
- const draw=()=>{const scope=S.t.sourceScope||'jb',rows=[['yy','삼국지연의'],[scope,scope==='jb'?'정사 본문':'정사 본문과 주석']];const shares={};
- $("#source-shares").innerHTML=rows.map(([key,label])=>{const scores=fs(key),total=FS.reduce((sum,f)=>sum+scores[f],0);shares[key]=Object.fromEntries(FS.map(f=>[f,total?Math.round(scores[f]/total*100):0]));return `<div class="srow2"><span>${label}</span><span class="stk">${FS.map(f=>`<i style="width:${shares[key][f]}%;background:${fcol(f)}" title="${FN[f]} ${shares[key][f]}%"></i>`).join('')}</span><span>${FS.map(f=>`${FN[f]} ${shares[key][f]}%`).join(' · ')}</span></div>`}).join('');
- $("#source-reading-result").textContent=`촉의 점수 비중은 연의 ${shares.yy.shu}%, ${rows[1][1]} ${shares[scope].shu}%입니다. 이 차이만으로 소설의 과장 여부나 사건의 사실 여부를 판단할 수는 없습니다.`;
- $("#source-counts").innerHTML=roster().map(n=>rows.map(([key,label])=>{const v=key==='yy'?PP[n].yy:key==='jb'?PP[n].jb:PP[n].jb.map((x,i)=>x+PP[n].jn[i]);return `<tr><td>${PP[n].ko}</td><td>${label}</td>${v.slice(0,3).map(x=>`<td class="n">${x}</td>`).join('')}</tr>`}).join('')).join('');};
+ const main=$("#main");main.classList.add("simple");
+ main.innerHTML=`${hero({hz:'史 料',where:'연의와 정사',title:'다른 기록으로 세어도 같은 결론일까요?',sub:'소설과 역사책, 두 기록으로 같은 실험을 해 봅니다',fx:'mist'})}
+ <p class="stage-concept"><span>분석 개념</span><b>출처 비교(교차 검증)</b>같은 질문을 다른 자료로 다시 계산해, 결론이 한 자료에만 기대고 있지 않은지 확인합니다.</p><section class="simple-todo"><span>할 일</span><p>지금까지는 소설 『삼국지연의』를 셌습니다. 두 기록이 진영을 얼마나 다르게 담는지 본 뒤, 같은 제갈량 실험을 역사책(정사)으로 다시 계산해 보시지요.</p><span class="why-l">왜</span><p class="why">소설은 이야기를 위해 인물의 활약을 더하기도 합니다. 결론이 소설의 기록에만 기대고 있다면, 기록을 바꿀 때 흔들리겠지요.</p></section>
+ ${step(1,'두 기록은 진영을 얼마나 다르게 담고 있을까요?','막대 하나가 그 기록에서 센 점수 전체(100%)입니다. 칸의 크기가 각 진영의 몫이에요.',`<section class="card pane">${seg('compare-scope',[['jb','정사 본문만'],['all','본문과 주석까지']],S.t.sourceScope||'jb','정사 자료 범위')}<div id="source-shares" class="cmp5"></div><p class="simple-note" id="source-reading-result" aria-live="polite"></p></section>`)}
+ ${step(2,'같은 실험을 정사로 다시 하면','6장과 같은 명단과 점수 규칙으로, 바람은 날씨로 두고 계산합니다.',`<section class="card pane"><div id="source-exp"></div><p class="wind-answer" id="source-exp-note"></p></section>`)}
+ <details class="card pane step-more"><summary>인물별 원래 집계 횟수 보기</summary><p class="simple-note">연의는 문단, 정사는 문장을 셉니다. 횟수를 곧바로 능력 차이로 읽지 마세요.</p><div class="tscroll tall" tabindex="0" aria-label="인물별 집계 표, 스크롤하여 보기"><table class="data"><thead><tr><th>인물</th><th>자료</th><th class="n">배</th><th class="n">불</th><th class="n">계책</th></tr></thead><tbody id="source-counts"></tbody></table></div></details>
+ <details class="card pane step-more"><summary>숫자만으로 알 수 없는 것</summary><p class="simple-note">연의는 제43–50회, 정사는 인물별 열전을 셉니다. 범위와 단위가 다르므로 이 비교는 자료의 차이를 보는 참고값입니다. 어느 기록이 사실인지는 사건별 원문과 문맥을 직접 읽어야 알 수 있습니다.</p></details>
+ <div class="pager"><a class="btn ghost" href="#s6">${ic('left')}6장으로 돌아가기</a><a class="btn ghost" href="#src">자료와 집계 기준 ${ic('right')}</a></div>`;
+ const draw=()=>{const scope=S.t.sourceScope||'jb',src=scope==='jb'?'정사 본문':'정사 본문과 주석',rows=[['yy','삼국지연의(소설)'],[scope,src]];const shares={};
+  $("#source-shares").innerHTML=rows.map(([key,label])=>{const scores=fs(key),total=FS.reduce((sum,f)=>sum+scores[f],0);shares[key]=Object.fromEntries(FS.map(f=>[f,total?Math.round(scores[f]/total*100):0]));return `<div class="srow2"><span>${label}</span><span class="stk">${FS.map(f=>`<i style="width:${shares[key][f]}%;background:${fcol(f)}" title="${FN[f]} ${shares[key][f]}%"></i>`).join('')}</span><span class="cap">${FS.map(f=>`${FN[f]} ${shares[key][f]}%`).join(' · ')}</span></div>`}).join('');
+  $("#source-reading-result").textContent=`촉의 몫은 연의 ${shares.yy.shu}%, ${src} ${shares[scope].shu}%입니다. 이 차이만으로 소설의 과장 여부나 사건의 사실 여부를 판단할 수는 없습니다.`;
+  const mv={mut:{"諸葛亮":"wei"}},a0=wiCalc({lens:'yy'}).i,a1=wiCalc({...mv,lens:'yy'}).i,b0=wiCalc({lens:scope}).i,b1=wiCalc({...mv,lens:scope}).i;
+  $("#source-exp").innerHTML=cmpChart([{label:'연의 · 기록 그대로',i:a0},{label:'연의 · 제갈량 이동',i:a1,now:1},{label:`${src} · 기록 그대로`,i:b0},{label:`${src} · 제갈량 이동`,i:b1,now:1}]);
+  const da=a0-a1,db=b0-b1;
+  $("#source-exp-note").textContent=`제갈량을 옮기면 연의에서는 ${da}점, ${src}에서는 ${db}점 내려갑니다. ${da===db?'두 기록에서 같은 만큼 움직입니다.':da>db?'정사에서는 덜 움직입니다. 제갈량의 기록이 차지하는 몫이 소설보다 작기 때문이지요.':'정사에서 더 크게 움직입니다. 제갈량의 기록이 차지하는 몫이 소설보다 크기 때문이지요.'} 판정은 연의 '${wiVerdict(a1)}', 정사 '${wiVerdict(b1)}'입니다.`;
+  $("#source-counts").innerHTML=roster().map(n=>rows.map(([key,label])=>{const v=key==='yy'?PP[n].yy:key==='jb'?PP[n].jb:PP[n].jb.map((x,i)=>x+PP[n].jn[i]);return `<tr><td>${PP[n].ko}</td><td>${label}</td>${v.slice(0,3).map(x=>`<td class="n">${x}</td>`).join('')}</tr>`}).join('')).join('');};
  onSeg('compare-scope',value=>{S.t.sourceScope=value;save();draw()});draw();
 };
+/* 평균과 가운데 값: 질문하기 전에 작은 예시로 먼저 보여 줍니다 */
+const MEAN_MED_CARD=`<section class="card pane mm-explain"><h3>먼저 알아 두기 · 평균과 가운데 값</h3><div class="mm-ex" aria-hidden="true"><span>1</span><span>2</span><span class="mid">3</span><span>4</span><span class="big">20</span></div><dl class="kw-list"><div><dt>평균</dt><dd>모두 더해 사람 수로 나눈 값입니다. (1+2+3+4+20)÷5 = <b>6</b><small>아주 큰 숫자 하나(20)에 끌려 올라갑니다.</small></dd></div><div><dt>가운데 값</dt><dd>작은 순서로 줄을 세웠을 때 한가운데 값입니다. → <b>3</b><small>큰 숫자 하나가 있어도 잘 움직이지 않습니다.</small></dd></div></dl><p class="simple-note">아래 그래프에서 흰 실선은 평균, 금색 점선은 가운데 값입니다.</p></section>`;
+
+/* 전체 문단 보기: 5장의 숫자 뒤에 있는 문단을 모두 펼쳐 봅니다 */
+const KW_HAN={ship:["船","舟","水軍","艦"],fire:["火","燒","焚"],plan:["計","謀","策"],wind:["風"]};
+const KW_KO={ship:"배",fire:"불",plan:"계책",wind:"바람"};
+const hiHan=(t,k)=>esc(t).replace(new RegExp(KW_HAN[k].join("|"),"g"),m=>`<b class="kw-fire">${m}</b>`);
+const allParaLink=(n,k)=>{const L=(typeof EVID_ALL!=="undefined"&&EVID_ALL[n]||{})[k];return L&&L.length>1?`<p class="simple-note para-hint">위 문단은 ${L.length}개 가운데 하나입니다.</p><a class="btn ghost para-link" href="#para?n=${encodeURIComponent(n)}&k=${k}">${PP[n].ko}의 ‘${KW_KO[k]}’ 문단 ${L.length}개 모두 보기</a>`:""};
+{const PI=VIEWS.push({id:'para'})-1;RENDER[PI]=()=>{
+ if(missionResultObserver){missionResultObserver.disconnect();missionResultObserver=null}
+ document.body.classList.remove('experiment-home');TASKS=[];
+ const q=new URLSearchParams(location.hash.split("?")[1]||""),n=q.get("n"),k=q.get("k"),list=((typeof EVID_ALL!=="undefined"&&EVID_ALL[n])||{})[k]||[];
+ const main=$("#main");main.classList.add("simple");
+ if(!list.length||!PP[n]){main.innerHTML=`<p class="simple-note">보여 줄 문단이 없습니다.</p><div class="pager"><a class="btn" href="#s5">${ic('left')}5장으로 돌아가기</a></div>`;return}
+ const ko=PP[n].ko;let shown=8;
+ main.innerHTML=`${hero({hz:'原 文',where:'『삼국지연의』 제43–50회',title:`${ko}${jo(ko,'과','와')} ‘${KW_KO[k]}’이 함께 나온 문단`,sub:`모두 ${list.length}개 · 원문에 ${KW_HAN[k].join('·')} 가운데 하나가 들어 있습니다`,fx:'mist'})}
+ <p class="simple-note para-guide">굵게 표시한 원문 글자 때문에 이 문단이 ‘${KW_KO[k]}’ 1로 세어졌습니다. 번역은 문단의 앞부분입니다. 같은 글자라도 장면이 다르니, 어떤 장면인지 읽어 보시지요.</p>
+ <ol class="para-list" id="paraList"></ol><button class="btn ghost" id="paraMore" type="button"></button>
+ <div class="pager"><a class="btn" href="#s5">${ic('left')}읽던 곳으로 돌아가기</a></div>`;
+ const draw=()=>{$("#paraList").innerHTML=list.slice(0,shown).map(([ch,zh,kt],i)=>`<li class="card pane para"><div class="para-h"><span class="para-no num">${i+1}</span>${srcB('yy',`연의 ${ch}회`)}</div><p class="para-zh" lang="zh-Hant">${hiHan(zh,k)}</p>${kt?`<p class="para-ko">${esc(kt)}</p>`:`<p class="para-ko none">이 문단은 아직 한국어 번역이 없습니다.</p>`}</li>`).join('');
+  const m=$("#paraMore");m.hidden=shown>=list.length;m.textContent=`${Math.min(8,list.length-shown)}개 더 보기 (${shown} / ${list.length})`};
+ $("#paraMore").onclick=()=>{shown+=8;draw()};draw();
+}}
+

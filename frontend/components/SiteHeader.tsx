@@ -12,8 +12,8 @@ export default function SiteHeader({ current }: { current?: (typeof links)[numbe
         <Link href="/" className="site-brand">
           <span className="site-logo" aria-hidden="true" />
           <span>
-            <b>삼국지로 배우는 데이터 분석</b>
-            <small>적벽대전 편</small>
+            <b>계책록</b>
+            <small>삼국지로 배우는 데이터 분석</small>
           </span>
         </Link>
         <nav className="site-nav" aria-label="주요 메뉴">

@@ -117,7 +117,7 @@ const inG=(n,g)=>g==="ally"?PP[n].f!=="wei":PP[n].f===g;
 /* ===== HOME ===== */
 function home(){
   TASKS=[];const n=Object.keys(S.done).length,next=ST.findIndex((e,i)=>!S.done[i+1]);
-  $("#main").innerHTML=`${hero({hz:"赤 壁",where:"208년 겨울 · 장강",title:"삼국지의 기록으로 무엇을 분석할 수 있을까요?",sub:`<span class="reg rec">삼국지로 배우는 데이터 분석</span>적벽대전 편`,fx:"embers"})}
+  $("#main").innerHTML=`${hero({hz:"赤 壁",where:"208년 겨울 · 장강",title:"삼국지의 기록으로 무엇을 분석할 수 있을까요?",sub:`<span class="reg rec">계책록</span>— 적벽대전 편 —`,fx:"embers"})}
   <section class="card pane home-lead"><p>『삼국지연의』와 정사 『삼국지』의 기록을 같은 기준으로 세어 비교합니다. 분석 대상을 정하고, 평균과 지표를 살펴본 뒤, 조건을 바꾸어 결과를 확인합니다. 총 6개 순서이며 순서마다 약 5분이 걸립니다.</p>
     <a class="btn" href="#${ST[next<0?0:next].id}" style="text-decoration:none">${n?(n===6?"전체 과정 다시 보기":`순서 ${next+1} 이어하기`):"시작하기"}${ic("right")}</a></section>
   <section class="card pane primer"><div class="pane-h"><h2>${ic("book")}시작 전에 알아두기</h2><a class="meta" href="#src">데이터 더 보기</a></div>

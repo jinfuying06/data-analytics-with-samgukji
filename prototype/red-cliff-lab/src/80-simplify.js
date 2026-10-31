@@ -38,19 +38,37 @@ ST[0].q="명단에 올릴 인물을 살펴보시지요";ST[0].where="첫 번째 
 const SIMPLE_WHY=[
  ["누구를 세느냐에 따라 두 편의 인원이 달라집니다. 마지막 가정 실험도 여기서 정한 명단으로 계산합니다.","이름이 기록에 남았어도, 모두 이 싸움에 나온 것은 아니지요."],
  ["제갈량을 옮기기 전에, 한 사람이 숫자에 미치는 영향을 살펴야겠지요.","평균은 한 사람 때문에 크게 달라질 수 있습니다."],
- ["두 진영의 기록을 비교하려면 셀 대상을 정해야겠지요. 제갈량을 옮기면 그 사람의 점수도 함께 넘어갑니다.","무엇을 세었는지에 따라 결과도 달라지지요."],
- ["한 가지 점수 규칙에서만 나온 결론이라면, 다른 규칙도 살펴야겠지요.","살펴본 점수 규칙에서 결론이 유지되는지 확인하는 일이지요."],
- ["높은 숫자가 뜻밖의 장면에서 비롯되기도 하지요. 무엇을 셌는지 확인해 보시지요.","숫자의 근거는 원문에서 살피는 법이지요."],
+ ["제갈량을 옮기면 그 사람의 점수도 함께 넘어갑니다. 여기서 정한 점수가 마지막 실험의 숫자가 되지요.","무엇을 세었는지에 따라 결과도 달라지지요."],
+ ["제갈량을 옮긴 결과도 이 점수 규칙으로 계산합니다. 규칙 하나에만 기댄 결론이라면 그 결과를 믿기 어렵겠지요.","살펴본 점수 규칙에서 결론이 유지되는지 확인하는 일이지요."],
+ ["마지막 실험에서는 이 점수가 그대로 옮겨 갑니다. 그 숫자가 무엇을 센 것인지 알아야 결과를 바르게 읽을 수 있지요.","숫자의 근거는 원문에서 살피는 법이지요."],
  ["이제 앞에서 만든 명단과 점수로 처음 질문을 살펴볼 차례입니다.","결과는 가정에 따라 달라지지요. 어떤 조건을 두었는지도 함께 남겨 주십시오."]
 ];
+/* 장마다 시작할 때 '지금 어떤 데이터 분석을 하는지' 먼저 알려 줍니다 */
+const CONCEPT=[
+ ["분석 대상 정하기","무엇을 셀지 기준부터 정합니다. 누구를 넣고 빼느냐에 따라 모든 숫자가 달라지므로, 분석의 첫걸음입니다."],
+ ["대표값: 평균과 중앙값","여러 숫자를 숫자 하나로 요약하는 값입니다. 평균은 아주 큰 값 하나에 끌려가고, 중앙값은 줄 세운 한가운데 값이라 덜 흔들립니다."],
+ ["지표 설계와 가중치","직접 잴 수 없는 것을 셀 수 있는 것으로 바꾸고, 항목마다 점수(가중치)를 주어 숫자 하나로 만듭니다."],
+ ["민감도 분석","점수 규칙 같은 가정을 바꿔도 결론이 그대로인지 확인합니다. 결론이 얼마나 단단한지 재는 방법입니다."],
+ ["데이터 검증과 출처","숫자가 실제로 무엇을 센 것인지 원본 기록을 열어 확인합니다. 같은 글자라도 뜻이 다를 수 있습니다."],
+ ["가정 실험(시뮬레이션)","조건 하나를 바꿔 결과를 비교합니다. 답에는 어떤 가정에서 나온 숫자인지를 함께 적습니다."]
+];
+/* 3장에서 세는 낱말: 자료와 집계 기준 화면의 규칙과 같습니다 */
+const KW_CARD=`<section class="card pane kw-explain"><h3>배·불·계책은 무엇을 센 것일까요?</h3><p class="simple-note">번역문의 낱말이 아니라 <b>원문(한문)의 글자</b>를 셉니다. 인물의 이름이 나온 원문 문단에 아래 글자가 하나라도 있으면, 그 문단을 해당 항목 1로 셉니다. 적벽대전이 강 위에서 불로 싸운 전투라 이 세 가지를 골랐습니다.</p><dl class="kw-list"><div><dt>배</dt><dd><b lang="zh-Hant">船</b> 배 선 · <b lang="zh-Hant">舟</b> 배 주 · <b lang="zh-Hant">水軍</b> 수군 · <b lang="zh-Hant">艦</b> 싸움배 함<small>배와 수군이 나오는 장면</small></dd></div><div><dt>불</dt><dd><b lang="zh-Hant">火</b> 불 화 · <b lang="zh-Hant">燒</b> 사를 소 · <b lang="zh-Hant">焚</b> 불사를 분<small>불을 지르거나 불타는 장면</small></dd></div><div><dt>계책</dt><dd><b lang="zh-Hant">計</b> 꾀 계 · <b lang="zh-Hant">謀</b> 꾀할 모 · <b lang="zh-Hant">策</b> 꾀 책<small>꾀와 작전을 쓰는 장면</small></dd></div></dl><p class="simple-note">그래서 같은 글자라도 공격하는 장면, 당하는 장면, 대사 속 언급이 모두 1로 섞입니다. 5장에서 이 점을 원문으로 확인합니다.</p></section>`;
 function simplifyStage(i){
  const main=$("#main");main.classList.add("simple");
  main.querySelector('.experiment-stage-context')?.remove();
  main.querySelector('.scene-hero .hero-sub')?.remove();
  main.querySelector('.subtitle')?.remove();
  const brief=main.querySelector('.mission-brief')||main.querySelector('.brief3');
- if(brief){const [why,key]=SIMPLE_WHY[i-1];brief.outerHTML=`<section class="simple-todo"><span>할 일</span><p>${esc(SIMPLE_TODO[i-1])}</p><span class="why-l">왜</span><p class="why">${esc(why)}</p><span class="key-l">중요한 점</span><p class="key">${esc(key)}</p></section>`}
+ if(brief){const [why]=SIMPLE_WHY[i-1];brief.outerHTML=`<p class="stage-concept"><span>분석 개념</span><b>${esc(CONCEPT[i-1][0])}</b>${esc(CONCEPT[i-1][1])}</p><section class="simple-todo"><span>할 일</span><p>${esc(SIMPLE_TODO[i-1])}</p><span class="why-l">왜</span><p class="why">${esc(why)}</p></section>${i===3?KW_CARD:""}`}
  main.querySelectorAll('.step-h p').forEach(p=>{if(p.textContent.length>120){const t=p.textContent;p.outerHTML=`<details class="step-more"><summary>설명 보기</summary><p>${esc(t)}</p></details>`}});
+}
+/* 막대 위의 평균선. 사람을 빼면 그 막대가 흐려지고 평균선이 새 평균으로 옮겨 갑니다. */
+function markAvg(el,max,v,from,outIdx=[],med=null){
+ el.querySelectorAll(".bar").forEach((b,i)=>{const t=b.querySelector(".track");let m=t.querySelector(".avg-mark");if(!m){t.insertAdjacentHTML("beforeend",'<i class="avg-mark" aria-hidden="true"></i>');m=t.lastChild}m.style.left=`calc(${Math.min(100,v/max*100)}% - 1px)`;b.classList.toggle("out",outIdx.includes(i));
+  if(med){let d=t.querySelector(".med-mark");if(!d){t.insertAdjacentHTML("beforeend",'<i class="med-mark" aria-hidden="true"></i>');d=t.lastChild}d.style.left=`calc(${Math.min(100,med.v/max*100)}% - 1px)`}});
+ let k=el.nextElementSibling;if(!k||!k.classList.contains("avg-key")){el.insertAdjacentHTML("afterend",'<p class="avg-key"></p>');k=el.nextElementSibling}
+ k.innerHTML=`<i aria-hidden="true"></i>평균 ${from!==undefined?`<s class="num">${fmt1(from)}</s> → `:""}<b class="num">${fmt1(v)}</b>${med?` <i class="mk-med" aria-hidden="true"></i>가운데 값 ${med.from!==undefined?`<s class="num">${fmt1(med.from)}</s> → `:""}<b class="num">${fmt1(med.v)}</b>`:""}${outIdx.length?` <span>· 흐린 막대는 뺀 사람</span>`:""}`;
 }
 const stageFull=stage;
 stage=function(i,tasks,steps,check){stageFull(i,tasks,steps,check);simplifyStage(i)};
@@ -100,7 +118,49 @@ RENDER[1]=()=>{
 
 /* ---------- shared bits for stages 2–6 ---------- */
 const SIDE2=[['wei','조조군','var(--wei)'],['ally','손권·유비 연합군','linear-gradient(90deg,var(--wu),var(--shu))']];
-const twoSides=(vals,unit='')=>`<div class="sides">${SIDE2.map(([k,l,c])=>`<div class="side"><i style="background:${c}"></i><span>${l}</span><b class="num">${vals[k]}<small>${unit}</small></b></div>`).join('')}</div>`;
+/* ===== 움직이는 차트 =====
+   값이 바뀌면 다시 그리지 않고 그 자리에서 고쳐서, 막대와 깃발이 움직이고 숫자가 올라가거나 내려갑니다. */
+const REDUCED=()=>typeof matchMedia==="function"&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+function tween(el,to,fmtv=v=>v){const from=+el.dataset.v;el.dataset.v=to;if(isNaN(from)||from===to||REDUCED()||typeof requestAnimationFrame!=="function"){el.textContent=fmtv(to);return}
+ const t0=performance.now(),run=t=>{const k=Math.min(1,(t-t0)/450),e=1-Math.pow(1-k,3);el.textContent=fmtv(Math.round(from+(to-from)*e));if(k<1)requestAnimationFrame(run)};requestAnimationFrame(run)}
+const fmtN=v=>Number(v).toLocaleString("ko-KR");
+/* 줄다리기: 두 진영의 몫이 한 줄에서 맞섭니다 */
+const twoSides=(vals,unit='')=>{const t=(vals.wei+vals.ally)||1,w=vals.wei/t*100;return `<div class="tug" role="img" aria-label="조조군 ${vals.wei}${unit}, 손권·유비 연합군 ${vals.ally}${unit}">
+ <div class="tug-nums"><span class="tug-n wei"><i></i>조조군 <b class="num" data-v="${vals.wei}">${fmtN(vals.wei)}</b><small>${unit}</small><em class="tug-d"></em></span><span class="tug-n ally"><em class="tug-d"></em>손권·유비 연합군 <b class="num" data-v="${vals.ally}">${fmtN(vals.ally)}</b><small>${unit}</small><i></i></span></div>
+ <div class="tug-rope" aria-hidden="true"><i class="tug-ghost"></i><i class="tug-wei" style="width:${w}%"></i><i class="tug-ally" style="width:${100-w}%"></i><i class="tug-mid"></i></div>
+ <p class="tug-share" aria-hidden="true"><span>${Math.round(w)}%</span><span>${100-Math.round(w)}%</span></p></div>`};
+/* 이미 그려진 줄다리기는 고쳐서 움직이게 합니다. ghost:true면 줄어든 몫을 빗금으로 남깁니다. */
+function paintSides(el,vals,unit='',{ghost=false}={}){
+ if(el.dataset.hold==="1"){el._pending=[vals,unit,{ghost}];return}
+ const g=el.querySelector('.tug');if(!g){el.innerHTML=twoSides(vals,unit);return}
+ const t=(vals.wei+vals.ally)||1,w=vals.wei/t*100,wb=g.querySelector('.tug-wei'),old=parseFloat(wb.style.width);
+ const gh=g.querySelector('.tug-ghost');if(ghost&&w<old){gh.style.width=old+'%';gh.classList.add('on')}else if(!ghost){gh.classList.remove('on')}
+ wb.style.width=w+'%';g.querySelector('.tug-ally').style.width=(100-w)+'%';
+ const sh=g.querySelectorAll('.tug-share span');sh[0].textContent=Math.round(w)+'%';sh[1].textContent=(100-Math.round(w))+'%';
+ g.setAttribute('aria-label',`조조군 ${vals.wei}${unit}, 손권·유비 연합군 ${vals.ally}${unit}`);
+ [['wei',0],['ally',1]].forEach(([k,n])=>{const box=g.querySelectorAll('.tug-n')[n],b=box.querySelector('b'),d=box.querySelector('.tug-d'),diff=vals[k]-(+b.dataset.v);
+  if(diff){d.textContent=(diff>0?'+':'−')+fmtN(Math.abs(diff));d.className='tug-d '+(diff>0?'up':'down');void d.offsetWidth;d.classList.add('pop')}tween(b,vals[k],fmtN)});
+}
+/* 3장 점수판: +/−로 고른 점수는 '계산하기'를 눌러야 그래프에 반영됩니다 */
+document.addEventListener("click",e=>{
+ const sc=document.getElementById("score3");if(!sc)return;
+ const st=e.target.closest?.("#wts3 button[data-w]"),fx=e.target.closest?.("#fixW");
+ if(st&&!st.disabled){sc.dataset.hold="1";sc.closest(".simple-result")?.classList.add("stale");const b=document.getElementById("fixW");if(b)b.textContent="바뀐 점수로 계산하기"}
+ if(fx&&!fx.disabled&&sc.dataset.hold==="1"){sc.dataset.hold="";sc.closest(".simple-result")?.classList.remove("stale");if(sc._pending){const p=sc._pending;sc._pending=null;paintSides(sc,...p)}fx.textContent="이 점수로 계산하기"}
+},true);
+/* 막대 몇 개를 흐리게(뺀 사람) 표시합니다 */
+const outBars=(el,idx)=>el.querySelectorAll('.bar').forEach((b,i)=>b.classList.toggle('out',idx.includes(i)));
+/* 전투 지수 게이지: 50을 가운데 둔 판에서 깃발이 움직이고, 지나온 값은 흔적 점으로, 가장 낮은 기록은 표시로 남습니다. */
+const gaugeHTML=i=>`<div class="gauge" data-v="${i}"><div class="g-head"><b class="num g-v" data-v="${i}">${i}</b><span class="g-verdict">${wiVerdict(i)}</span><em class="g-d" aria-live="polite"></em></div><div class="g-track" aria-hidden="true"><i class="g-band"></i><i class="g-mid"></i><i class="g-fill ${i>=50?'ally':'wei'}" style="left:${Math.min(i,50)}%;width:${Math.abs(i-50)}%"></i><span class="g-trail"></span><i class="g-best" hidden><span></span></i><i class="g-pin" style="left:${i}%"></i></div><div class="g-scale" aria-hidden="true"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`;
+function gauge(el,i,{trail=false,best=null}={}){
+ let g=el.querySelector('.gauge');if(!g){el.innerHTML=gaugeHTML(i);g=el.querySelector('.gauge')}
+ const prev=+g.dataset.v;g.dataset.v=i;
+ const f=g.querySelector('.g-fill');f.className='g-fill '+(i>=50?'ally':'wei');f.style.left=Math.min(i,50)+'%';f.style.width=Math.abs(i-50)+'%';
+ g.querySelector('.g-pin').style.left=i+'%';g.querySelector('.g-verdict').textContent=wiVerdict(i);tween(g.querySelector('.g-v'),i);
+ const d=g.querySelector('.g-d');if(prev!==i&&!isNaN(prev)){d.textContent=(i>prev?'+':'−')+Math.abs(i-prev);d.className='g-d '+(i>prev?'up':'down');void d.offsetWidth;d.classList.add('pop')}
+ if(trail&&!isNaN(prev)&&prev!==i){const tr=g.querySelector('.g-trail');if(!tr.querySelector(`[data-v="${prev}"]`))tr.insertAdjacentHTML('beforeend',`<i data-v="${prev}" style="left:${prev}%"></i>`)}
+ const b=g.querySelector('.g-best');if(best!==null){b.hidden=false;b.style.left=best+'%';b.firstChild.textContent=`최저 ${best}`}
+}
 const named=(term,text)=>`<section class="card pane named"><span class="named-tag">방금 한 것</span><h3>${term}</h3><p>${text}</p></section>`;
 const reveal=(id)=>`<div class="named-wrap" id="${id}" hidden></div>`;
 const show=(id,html)=>{const el=$("#"+id);el.innerHTML=html;el.hidden=false};
@@ -129,10 +189,13 @@ RENDER[2]=()=>{
  $("#avgNote").textContent=`한 사람은 평균 ${rank.map(([f,l])=>`${l} ${fmt1(avgOf(f))}문단`).join(', ')}에 나옵니다. ${rank[0][1]}${jo(rank[0][1],"이","가")} 가장 높습니다.`;
  $("#avgs").innerHTML=fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(avgOf(f))}</b><span class="track"><span class="fill" style="width:${avgOf(f)/mx*100}%;background:var(--${f})"></span></span></div>`).join('');
  const members=facMembers('shu').sort((a,b)=>PP[b].pa-PP[a].pa);
- bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');
+ bars($("#shuBars"),members.map(n=>({label:PP[n].ko,v:PP[n].pa,c:fcol('shu')})),PP[members[0]].pa,'');markAvg($("#shuBars"),PP[members[0]].pa,avgOf('shu'));
  $("#shuNote").textContent=`${PP[shuTop].ko}${jo(PP[shuTop].ko,"은","는")} ${PP[shuTop].pa}문단에 나오고, 나머지 촉 사람들은 평균 ${fmt1(avgOf('shu',1))}문단에 나옵니다. 한 사람이 촉의 평균을 크게 끌어올리고 있습니다.`;
  const done=()=>{
   $("#dropTop").hidden=true;
+  markAvg($("#shuBars"),PP[members[0]].pa,avgOf('shu',1),avgOf('shu'),[0]);
+  {const rk=[...fac].sort((a,b)=>avgOf(b[0],b[0]==='shu')-avgOf(a[0],a[0]==='shu'));$("#avgNote").textContent=`${PP[shuTop].ko}${jo(PP[shuTop].ko,"을","를")} 빼면 촉은 ${fmt1(avgOf('shu',1))}문단으로 내려가, ${rk.map(([f,l])=>`${l} ${fmt1(avgOf(f,f==='shu'))}`).join(', ')} 순이 됩니다. 한 사람 때문에 순위까지 바뀌었습니다.`}
+  $("#avgs").innerHTML=fac.map(([f,l])=>{const v=avgOf(f,f==='shu');return `<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${f==='shu'?`<s>${fmt1(avgOf(f))}</s> `:""}${fmt1(v)}</b><span class="track"><span class="fill" style="width:${v/mx*100}%;background:var(--${f})"></span></span></div>`}).join('');
   $("#dropRes").innerHTML=`<p class="big-change">촉 평균 <b class="num">${fmt1(avgOf('shu'))}</b> → <b class="num">${fmt1(avgOf('shu',1))}</b></p><p class="simple-note">${esc(PP[shuTop].ko)} 한 명이 빠지자 평균이 크게 내려갔습니다.</p>`;
   show('s2name',named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
    `<section class="card pane"><p class="simple-note">가운데 값으로 보면</p><div class="avgs">${fac.map(([f,l])=>`<div class="avg"><span><i class="dot" style="background:var(--${f})"></i>${l}</span><b class="num">${fmt1(median(facMembers(f).map(n=>PP[n].pa)))}</b></div>`).join('')}</div></section>`);
@@ -149,7 +212,7 @@ RENDER[3]=()=>{
  const zy=PP['周瑜'].yy;
  originalStageRenderer(3,[["s3","weight","점수 정하기"]],
   step(1,"기록에서 '배·불·계책'을 셉니다","",`<section class="card pane"><p class="simple-note">예: 주유의 이름이 나온 문단 중에</p><div class="kcount"><div><b class="num">${zy[0]}</b><span>배(船) 글자가 나온 문단</span></div><div><b class="num">${zy[1]}</b><span>불(火) 글자가 나온 문단</span></div><div><b class="num">${zy[2]}</b><span>계책(計) 글자가 나온 문단</span></div></div>${ex?`<details class="step-more"><summary>'불' 글자가 나온 문단 하나 보기</summary><blockquote class="evq">${hiFire(ex[1])}</blockquote></details>`:''}</section>`)+
-  step(2,"무엇에 무게를 둘지 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 정하기</button></section><section class="card pane simple-result"><p class="simple-note">두 진영의 점수</p><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+
+  step(2,"무엇에 무게를 둘지 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 계산하기</button></section><section class="card pane simple-result"><p class="simple-note">두 진영의 점수</p><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+
   reveal('s3name'),
   {q:"이 점수가 재는 것은 무엇일까요?",opts:["장수의 실제 능력입니다.","인물의 이름과 배·불·계책 글자가 함께 나온 정도입니다.","전투에서 세운 공입니다."],ok:1,
    good:"글자를 센 숫자입니다. 모두에게 같은 규칙을 쓰므로 서로 비교할 수 있습니다.",bad:"첫 활동에서 무엇을 세었는지 떠올려 보시지요.",
@@ -158,7 +221,7 @@ RENDER[3]=()=>{
  const draw=()=>{
   $("#wts3").innerHTML=[['ship','배'],['fire','불'],['plan','계책']].map(([k,l])=>`<div class="w"><span>${l} 1번에</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${l} 점수 내리기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${l} 점수 올리기">+</button></span></div>`).join('');
   const s=fs("yy"),A=s.wu+s.shu,W=s.wei;
-  $("#score3").innerHTML=twoSides({wei:W,ally:A},'점');
+  paintSides($("#score3"),{wei:W,ally:A},'점');
   $("#ratio3").textContent=W?`연합군 점수가 조조군의 약 ${(A/W).toFixed(1)}배`:'';
  };
  $("#wts3").addEventListener('click',e=>{const b=e.target.closest('button[data-w]');if(!b)return;const k=b.dataset.w;S.w[k]=Math.max(0,Math.min(5,S.w[k]+ +b.dataset.d));save();draw()});
@@ -168,7 +231,7 @@ RENDER[3]=()=>{
 };
 
 /* ---------- stage 4: does the answer survive other people's scoring? ---------- */
-SIMPLE_TODO[3]="다른 점수 규칙을 쓰면 결과가 뒤집힐까요? 함께 확인해 보시지요.";
+SIMPLE_TODO[3]="불만, 배만, 계책만 세는 규칙으로도 계산해 보고, 215가지 규칙 전부에서 결론이 유지되는지 확인해 보시지요.";
 ST[3].q="점수를 달리 매겨도 같은 결론에 이를까요?";
 RENDER[4]=()=>{
  const L4=S.t.s4d=S.t.s4d||{};
@@ -183,10 +246,11 @@ RENDER[4]=()=>{
    good:"규칙을 바꿔도 같은 답이 나오면 그 답을 더 믿을 수 있습니다. 다만 '이 기록으로 센 점수'라는 조건은 남습니다.",bad:"215가지 결과를 살펴보시지요.",
    ev:()=>`215가지 점수 규칙 중 ${L4.win}가지에서 연합군 점수가 더 높음`});
  simplifyStage(4);
- $("#friends").addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const [t,w]=FRIENDS[+b.dataset.i],{a,b:bb}=lead(w);const tip=b.nextElementSibling;tip.hidden=false;tip.innerHTML=`연합군 <b class="num">${a}</b> · 조조군 <b class="num">${bb}</b> → ${a>bb?'그래도 연합군이 앞섭니다':'조조군이 앞섭니다'}`});
+ $("#friends").addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const [t,w]=FRIENDS[+b.dataset.i],{a,b:bb}=lead(w);const tip=b.nextElementSibling;tip.hidden=false;tip.innerHTML=twoSides({wei:bb,ally:a},'점')+`<span class="tip-v">${a>bb?'그래도 연합군이 앞섭니다':'조조군이 앞섭니다'}</span>`});
  const run=()=>{let win=0,tot=0;for(let a=0;a<=5;a++)for(let b=0;b<=5;b++)for(let c=0;c<=5;c++){if(!a&&!b&&!c)continue;tot++;const x=lead({ship:a,fire:b,plan:c});if(x.a>x.b)win++}
   L4.win=win;L4.tot=tot;save();setT("s4","run");
-  $("#allRes").innerHTML=`<p class="big-change"><b class="num">${win}</b> / ${tot}가지에서 연합군이 앞섭니다</p><div class="pctbar"><i style="width:${win/tot*100}%"></i></div>`;
+  const cells=[];for(let a=0;a<=5;a++)for(let b=0;b<=5;b++)for(let c=0;c<=5;c++){if(!a&&!b&&!c)continue;const x=lead({ship:a,fire:b,plan:c});cells.push(`<i class="${x.a>x.b?"a":"w"}" style="--k:${cells.length}" title="배 ${a} · 불 ${b} · 계책 ${c} → ${x.a>x.b?"연합군":"조조군"} 앞섬"></i>`)}
+  $("#allRes").innerHTML=`<p class="big-change"><b class="num">${win}</b> / ${tot}가지에서 연합군이 앞섭니다</p><div class="waffle" role="img" aria-label="점수 규칙 ${tot}가지 중 ${win}가지에서 연합군이 앞섬">${cells.join("")}</div><p class="waffle-key"><span><i class="a"></i>연합군 앞섬 ${win}</span><span><i class="w"></i>조조군 앞섬 ${tot-win}</span><span>칸 하나가 점수 규칙 하나입니다. 칸에 마우스를 올리면 그 규칙이 보입니다.</span></p>`;$("#runAll").hidden=true;
   show('s4name',named("민감도 확인","내가 정한 점수 대신 다른 점수를 넣어 봐도 결론이 같은지 확인하는 것입니다. 거의 모든 경우에 같다면, 결론이 점수 고르기에 달려 있지 않다는 뜻입니다."))};
  $("#runAll").onclick=run;if(tk("s4","run"))run();
 };
@@ -221,7 +285,7 @@ RENDER[5]=()=>{
  const drawAsk=ask5Wire(L5,{ok:2,good:"조조는 불에 당하고 있습니다. 그래도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 읽어 보시지요."},
   ()=>show('s5name',named("근거 확인","뜻밖의 숫자가 나왔다면, 그 숫자가 비롯된 기록을 직접 펼쳐 보시지요. 글자를 세는 방법은 '불을 지른 사람'과 '불에 당한 사람'을 구분하지 못했습니다.")));
  const open=()=>{setT("s5","victim");$("#open5").hidden=true;
-  $("#txt5").innerHTML=e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} 조조와 '불'이 함께 나온 문단</p><blockquote class="evq">${hiFire(e[1])}</blockquote>`:'';
+  $("#txt5").innerHTML=e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} 조조와 '불'이 함께 나온 문단</p><blockquote class="evq">${hiFire(e[1])}</blockquote>${allParaLink('曹操','fire')}`:'';
   $("#ask5sec").hidden=false;drawAsk()};
  $("#open5").onclick=open;if(tk("s5","victim"))open();
 };

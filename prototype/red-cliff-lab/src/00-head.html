@@ -1,4 +1,4 @@
-<title>삼국지로 배우는 데이터분석</title>
+<title>계책록 — 삼국지로 배우는 데이터 분석</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,8 @@
 }
 
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+html{color-scheme:dark;scrollbar-width:thin;scrollbar-color:rgba(236,228,212,.22) transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.3;margin:0}
 p{margin:0}
@@ -379,6 +380,7 @@ select,input[type=search]{background:rgba(0,0,0,.35);border-color:rgba(236,228,2
 .timeline b{font-family:var(--f-display);font-size:17px;color:#f0e6d3}
 .timeline p{font-size:14px;color:var(--ink-2)}
 .data.lib td{white-space:normal;vertical-align:top;min-width:7em}
+@media (max-width:560px){.data.lib thead{display:none}.data.lib tr{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;padding:12px;align-items:center}.data.lib tr+tr{border-top:1px solid var(--rule)}.data.lib td{display:block;border:0;padding:0;min-width:0}.data.lib td:nth-child(2){grid-column:1/-1}.data.lib td:nth-child(3){grid-row:1;grid-column:2;text-align:right;color:var(--ink-3);font-size:12px}}
 .rules{margin:0;padding-left:20px;display:grid;gap:8px;font-size:15px}
 .howto{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .howto li{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:14px;color:var(--ink-2);align-items:start}

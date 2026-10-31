@@ -6,22 +6,14 @@ const WI_WIND={env:"바람은 날씨 (연합군 +10)",zg:"바람은 제갈량이
 const WI_KIND={move:"인물 옮기기",drop:"인물 빼기",cond:"조건 바꾸기",multi:"여러 조건",source:"기록 바꾸기"};
 const WHATIFS=[
  {id:"zg",kind:"move",q:"제갈량이 조조 편이었다면?",mut:{"諸葛亮":"wei"},review:"순서 6"},
- {id:"zy",kind:"move",q:"주유가 조조 편이었다면?",mut:{"周瑜":"wei"},review:"순서 6"},
- {id:"hg",kind:"move",q:"황개의 거짓 항복이 진짜였다면?",mut:{"黃蓋":"wei"},review:"순서 6",note:"황개는 거짓으로 항복한 뒤 불붙은 배로 조조의 함대에 들어갔습니다."},
- {id:"zyout",kind:"drop",q:"주유가 병으로 빠졌다면?",mut:{"周瑜":null},review:"순서 2 · 한 사람의 무게"},
- {id:"ptout",kind:"drop",q:"방통이 없었다면?",mut:{"龐統":null},review:"순서 2 · 한 사람의 무게",note:"방통은 조조에게 배를 서로 묶으라고 권한 인물입니다."},
- {id:"nowind",kind:"cond",q:"바람이 불지 않았다면?",wind:"none",review:"순서 6 · 가정"},
- {id:"nofire",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"순서 5 · 숫자의 뜻",note:"조조의 '불' 점수는 불에 당한 기록에서 나온 숫자였습니다."},
- {id:"combo",kind:"multi",q:"주유·황개가 조조 편이고, 바람도 없었다면?",mut:{"周瑜":"wei","黃蓋":"wei"},wind:"none",review:"종합"},
- {id:"jb",kind:"source",q:"소설 대신 역사책⁠(정사)으로 센다면?",lens:"jb",review:"순서 5 · 근거"}
+ {id:"zyout",does:"한 사람을 빼기 전에 평균을 예측하고, 평균과 가운데 값을 견줍니다",kind:"drop",q:"주유가 병으로 빠졌다면?",mut:{"周瑜":null},review:"순서 2 · 한 사람의 무게"},
+ {id:"nofire",model:"불에 준 점수를 0으로 둔다고 가정해 계산합니다",does:"‘불’ 기록이 공격인지 피해인지 가려 보고, 결론을 뒤집는 점수 규칙을 찾습니다",kind:"cond",q:"화공이 통하지 않았다면? (불 점수 0)",w:"fire0",review:"순서 5 · 숫자의 뜻",note:"조조의 '불' 점수는 불에 당한 기록에서 나온 숫자였습니다."},
+ {id:"jb",does:"역사책의 본문과 주석 중 무엇을 확인할지 고르고, 그 숫자를 어떻게 쓸지 정합니다",kind:"source",q:"소설 대신 역사책⁠(정사)으로 센다면?",lens:"jb",review:"순서 5 · 근거"},
+ {id:"combo",model:"바람이 연합군에 주던 +10을 뺀다고 가정해 계산합니다",does:"명단·점수·믿을 기준을 직접 정하고, 가정과 한계를 담아 결론을 씁니다",kind:"multi",q:"주유·황개가 조조 편이고, 바람도 없었다면?",mut:{"周瑜":"wei","黃蓋":"wei"},wind:"none",review:"종합"}
 ];
 const WI_STORIES={
  zg:{teaser:"제갈량의 소속을 바꾸어 봅니다",story:"소설 속 제갈량은 손권과 유비가 힘을 모으는 데 관여하고, 적벽에서는 계책을 펼칩니다.",change:"제갈량의 점수를 연합군에서 빼고 조조군에 더합니다. 다른 인물과 바람의 조건은 그대로 둡니다.",method:"제갈량의 점수를 옮겨 두 진영을 견주어 봅시다",person:"諸葛亮",metric:"plan"},
- zy:{teaser:"연합군을 이끈 주유가 다른 편에 선다면",story:"주유는 손권의 군대를 이끌며 조조군에 맞섰습니다. 황개와 함께 화공을 준비한 인물이기도 하지요.",change:"주유의 기록으로 만든 점수를 연합군에서 빼고 조조군에 더합니다.",method:"주유 한 사람의 몫을 옮겨 봅시다",person:"周瑜",metric:"fire"},
- hg:{teaser:"거짓 항복이라는 계책을 바꾸어 봅니다",story:"황개는 조조에게 항복하겠다고 전한 뒤, 불붙은 배를 이끌고 함대로 향합니다. 항복은 화공을 위한 계책이었지요.",change:"이번 계산에서는 황개가 실제로 조조 편에 섰다고 두고, 황개의 점수만 조조군으로 옮깁니다.",method:"황개의 소속을 바꾸어 비교해 봅시다",person:"黃蓋",metric:"fire"},
  zyout:{teaser:"주유 한 사람이 빠진 자리를 살펴봅니다",story:"연합군의 주유는 전투를 지휘하고 화공을 준비했습니다. 그가 싸움에 참여하지 못했다면 연합군의 기록 점수는 얼마나 달라질까요?",change:"주유를 명단에서 제외해 연합군의 합계를 다시 셉니다. 나머지 조건은 유지합니다.",method:"주유를 빼기 전과 후를 견주어 봅시다",person:"周瑜",metric:"plan"},
- ptout:{teaser:"배를 묶으라는 방통의 제안이 없었다면",story:"소설에서 방통은 조조에게 배들을 서로 묶으라고 권합니다. 배를 묶어 둔 일이 이어지는 화공 장면에서 중요한 구실을 하지요.",change:"방통의 기록 점수를 계산에서 제외합니다. 배를 묶지 않은 새로운 장면을 만들어 내는 계산은 아니므로, 기록 점수의 차이를 살펴봅니다.",method:"방통의 기록이 차지한 몫을 살펴봅시다",person:"龐統",metric:"ship"},
- nowind:{teaser:"그날 밤의 바람을 바꾸어 봅니다",story:"적벽의 밤, 동남풍이 불고 불붙은 배들이 조조의 함대로 향했습니다. 바람은 소설 속 화공 장면을 이끄는 조건이지요.",change:"인물별 기록 점수는 그대로 두고, 연합군에 더했던 바람 보너스 10만 뺍니다.",method:"바람의 조건만 달리해 봅시다",person:"諸葛亮",metric:"fire"},
  nofire:{teaser:"불에 주었던 점수를 없애 봅니다",story:"황개의 배에서 시작된 불길은 조조의 함대로 번졌습니다. 그런데 기록에 ‘불’이 많다는 사실은 공격과 피해를 모두 담고 있지요.",change:"두 진영 모두 불 관련 기록의 가중치를 0으로 바꿉니다. 화공이 실패한 전투를 재현하는 대신, 불 점수를 없앤 비교 결과를 확인합니다.",method:"불 점수를 빼고 다시 견주어 봅시다",person:"曹操",metric:"fire"},
  combo:{teaser:"인물의 소속과 바람을 함께 바꾸어 봅니다",story:"주유와 황개는 연합군에서 화공을 준비했고, 그날 밤의 바람은 불길이 번지는 조건이 되었습니다.",change:"주유와 황개의 점수를 조조군으로 옮기고, 연합군의 바람 보너스 10도 뺍니다.",method:"두 인물과 바람의 변화를 함께 살펴봅시다",person:"黃蓋",metric:"fire"},
  jb:{teaser:"같은 질문에 다른 기록을 펼쳐 봅니다",story:"지금까지의 질문은 『삼국지연의』 속 기록에서 출발했습니다. 역사책인 정사 『삼국지』에는 인물과 사건이 다른 분량과 방식으로 남아 있지요.",change:"인물 명단과 점수 규칙은 유지하고, 집계 자료를 정사 본문으로 바꿉니다. 자료에 따른 차이를 비교하며, 사실 여부를 자동으로 판정하지는 않습니다.",method:"같은 기준에 다른 자료를 넣어 봅시다",person:"曹操",metric:"fire"}
@@ -60,17 +52,9 @@ const WI_PRED=[["up","연합군에 더 유리해질 것 같습니다"],["same","
    the records that matter for it (see 92-scenario-stages.js). */
 const WI_JOURNEY={
  zg:{title:"제갈량이 조조의 편이었다면?",act:"제갈량을 조조 편으로 옮기기",did:"제갈량의 점수가 조조군으로 옮겨 갔습니다. 바람은 그대로 연합군 편이라고 두었습니다.",todo:"제갈량을 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"제갈량을 옮기기 전에",uses:"제갈량을 옮기면 그 사람의 점수도 함께 넘어갑니다.",
-  altQ:"그런데 바람은 누가 불게 했을까요?",opts:[["env","바람은 환경 조건입니다","바람이 그냥 날씨라면, 제갈량이 옮겨 가도 바람은 그대로 연합군 편입니다.",{}],["zg","바람이 제갈량을 따라갑니다","제갈량이 바람을 부른다면, 바람도 조조군 편으로 붑니다.",{wind:"zg"}]]},
- zy:{act:"주유를 조조 편으로 옮기기",did:"주유의 점수가 조조군으로 옮겨 갔습니다. 바람은 날씨로 두었습니다.",todo:"주유를 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"주유를 옮기기 전에",uses:"주유를 옮기면 그 사람의 점수도 함께 넘어갑니다.",
-  altQ:"그날 밤 바람마저 불지 않았다면?",opts:[["env","바람은 그대로 불었습니다","바람은 날씨로 두고, 연합군에 더한 +10을 그대로 둡니다.",{}],["none","바람도 불지 않았습니다","바람 보너스까지 빼면 이렇게 됩니다.",{wind:"none"}]]},
- hg:{act:"황개를 조조 편으로 옮기기",did:"황개의 점수가 조조군으로 옮겨 갔습니다. 바람은 날씨로 두었습니다.",todo:"황개를 조조 편으로 옮긴 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"황개를 옮기기 전에",uses:"황개를 옮기면 그 사람의 점수도 함께 넘어갑니다.",
-  altQ:"그날 밤 바람마저 불지 않았다면?",opts:[["env","바람은 그대로 불었습니다","바람은 날씨로 두고, 연합군에 더한 +10을 그대로 둡니다.",{}],["none","바람도 불지 않았습니다","바람 보너스까지 빼면 이렇게 됩니다.",{wind:"none"}]]},
+  altQ:"제갈량이 조조군으로 가면, 바람도 제갈량을 따라갈까요?",opts:[["env","따라가지 않을 것이다","바람은 그냥 날씨라고 봅니다. 제갈량이 옮겨 가도 바람은 연합군 편으로 불어, 연합군 지수의 +10점이 그대로 남습니다.",{}],["zg","따라갈 것이다","바람을 부른 사람이 제갈량이라고 봅니다. 바람도 조조군 편으로 불어, 바람의 10점이 조조군 쪽으로 넘어갑니다.",{wind:"zg"}]]},
  zyout:{act:"주유를 명단에서 빼기",did:"주유의 점수가 연합군에서 빠졌습니다. 바람은 날씨로 두었습니다.",todo:"주유를 명단에서 뺀 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"주유를 빼기 전에",uses:"주유를 빼면 그 사람의 점수도 함께 빠집니다.",
   altQ:"그날 밤 바람마저 불지 않았다면?",opts:[["env","바람은 그대로 불었습니다","바람은 날씨로 두고, 연합군에 더한 +10을 그대로 둡니다.",{}],["none","바람도 불지 않았습니다","바람 보너스까지 빼면 이렇게 됩니다.",{wind:"none"}]]},
- ptout:{act:"방통을 명단에서 빼기",did:"방통의 점수가 연합군에서 빠졌습니다. 바람은 날씨로 두었습니다.",todo:"방통을 명단에서 뺀 뒤, 바람에 관한 가정도 바꾸어 보시지요.",before:"방통을 빼기 전에",uses:"방통을 빼면 그 사람의 점수도 함께 빠집니다.",
-  altQ:"그날 밤 바람마저 불지 않았다면?",opts:[["env","바람은 그대로 불었습니다","바람은 날씨로 두고, 연합군에 더한 +10을 그대로 둡니다.",{}],["none","바람도 불지 않았습니다","바람 보너스까지 빼면 이렇게 됩니다.",{wind:"none"}]]},
- nowind:{act:"바람 보너스 빼기",did:"인물 점수는 그대로 두고, 연합군에 더했던 바람 +10을 뺐습니다.",todo:"바람 보너스를 뺀 뒤, 불에 관한 가정도 바꾸어 보시지요.",before:"바람을 바꾸기 전에",uses:"바람은 이 점수와 따로 더하는 조건입니다.",
-  altQ:"바람이 없으면 불도 번지지 않았을까요?",opts:[["keep","불 점수는 그대로입니다","기록 속 ‘불’ 점수는 그대로 둡니다.",{}],["fire0","불 점수도 0으로 둡니다","바람이 없어 불도 번지지 않았다고 보면 이렇게 됩니다.",{w:"fire0"}]]},
  nofire:{title:"화공이 통하지 않았다면?",act:"불 점수를 0으로 바꾸기",did:"두 진영 모두 ‘불’ 기록의 점수를 0으로 바꾸었습니다. 바람은 날씨로 두었습니다.",todo:"불 점수를 0으로 바꾼 뒤, 다른 점수 가정도 바꾸어 보시지요.",before:"불 점수를 바꾸기 전에",uses:"불 점수를 0으로 두면 이 점수가 다시 계산됩니다.",
   altQ:"불 대신 배 싸움으로만 겨루었다면?",opts:[["keep","배·계책 점수는 그대로입니다","배와 계책 점수는 앞에서 정한 대로 둡니다.",{}],["ship","배 점수만 남깁니다","배 싸움만 따진다면 이렇게 됩니다.",{w:"ship"}]]},
  combo:{title:"주유·황개가 조조 편이고, 바람도 없었다면?",act:"주유·황개를 옮기고 바람 빼기",did:"주유와 황개의 점수가 조조군으로 옮겨 갔고, 바람 보너스도 뺐습니다.",todo:"두 사람을 옮기고 바람을 뺀 뒤, 바람 가정을 되돌려 보시지요.",before:"두 사람을 옮기기 전에",uses:"주유와 황개를 옮기면 그 사람의 점수도 함께 넘어갑니다.",
@@ -78,6 +62,8 @@ const WI_JOURNEY={
  jb:{title:"소설 대신 역사책⁠(정사)으로 센다면?",act:"정사 본문으로 바꿔 세기",did:"같은 명단과 점수 규칙으로 정사 본문을 다시 세었습니다.",todo:"정사 본문으로 바꿔 센 뒤, 주석까지 넣어 보시지요.",before:"기록을 바꾸기 전에",uses:"정사로 세면 이 점수가 다시 계산됩니다.",
   altQ:"배송지의 주석까지 함께 센다면?",opts:[["jb","정사 본문만 셉니다","정사 본문의 문장만 셉니다.",{}],["all","주석까지 함께 셉니다","배송지 주석까지 더해 세면 이렇게 됩니다.",{lens:"all"}]]}
 };
+/* 제갈량 질문은 본편이 다루므로 실험 탭에는 나머지 넷만 보입니다 */
+const LAB_Q=WHATIFS.filter(x=>x.id!=="zg");
 const scenario=()=>WHATIFS.find(x=>x.id===S.scenario)||WHATIFS[0];
 function setScenario(id){
  const next=WHATIFS.find(x=>x.id===id)?id:"zg",cur=S.scenario||"zg";
@@ -138,43 +124,46 @@ RENDER[6]=function(){
  const D=S.t.s6d=S.t.s6d||{};
  const r=roster();
  const vd=wiVerdict;
- const meter=(i,label)=>`<div class="meter"><div class="meter-row"><span class="big num">${i}</span><span class="verdict">${vd(i)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${i}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div>${label?`<p class="simple-note">${label}</p>`:''}</div>`;
  const base=wiCalc().i,changed=wiCalc(x).i;
  const optVal=o=>wiCalc({...x,...o[3]}).i;
  const v0=optVal(j.opts[0]),v1=optVal(j.opts[1]);
+ const moveLabel=j.act.replace(/기$/,"면"),optLabel=p=>x.id==="zg"?{env:"옮기고 바람은 그대로",zg:"옮기고 바람도 따라감"}[p[0]]:p[1];
  const isZg=x.id==="zg",isMoveWind=/바람은 (날씨로|그대로)/.test(j.did);
  const check=isZg?{q:"'제갈량이 조조 편이었다면 조조가 이겼다'고 말할 수 있을까요?",opts:["계산 결과만으로 조조가 이겼다고 말할 수 있습니다.","바람에 관한 가정에 따라 결과가 달라지므로 단정할 수 없습니다.","어떤 조건에서도 연합군이 이깁니다."],ok:1,
    good:"같은 실험이라도 어떤 가정을 하느냐에 따라 결과가 달라집니다. 가정 실험의 답은 '이렇게 가정하면 이렇다'로 말해야 합니다.",bad:"바람에 관한 두 가정에서 숫자가 어떻게 달랐는지 살펴보시지요."}
   :{q:`'${ST[5].q}'의 답을 한 문장으로 말한다면?`,opts:["계산 결과 하나로 승패를 말할 수 있습니다.","어떤 가정을 두었는지에 따라 결과가 달라지므로, 가정과 함께 말해야 합니다.","어떤 조건에서도 결과는 같습니다."],ok:1,
    good:"같은 질문이라도 가정을 바꾸면 숫자가 달라집니다. 그래서 가정 실험의 답에는 가정을 함께 적습니다.",bad:"두 가정에서 숫자가 어떻게 달랐는지 살펴보시지요."};
- check.ev=()=>`기록대로 ${base} → ${j.act.replace(/기$/,"")}(${j.opts[0][1]}) ${v0} · (${j.opts[1][1]}) ${v1}`;
+ check.ev=()=>isZg?`기록대로 ${base} → 제갈량 이동, 바람이 따라가지 않으면 ${v0} · 따라가면 ${v1}`:`기록대로 ${base} → ${j.act.replace(/기$/,"")}(${j.opts[0][1]}) ${v0} · (${j.opts[1][1]}) ${v1}`;
  originalStageRenderer(6,[["s6","move",j.act],["s6","wind","가정 하나 바꾸기"]],
-  step(1,"지금 기록대로 계산하면",isMoveWind?"먼저 점수와 명단만 바꿔서 계산합니다. 바람은 처음 기록 그대로 둡니다.":"",`<section class="card pane">${meter(base)}<button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
-  `<div class="named-wrap" id="wind6sec" hidden>${step(2,esc(j.altQ),isZg?"방금 숫자는 바람이 그대로 연합군 편으로 분다고 두고 계산한 결과입니다. 소설에서 동남풍을 불러온 사람은 제갈량입니다. 제갈량이 조조 편이 되면 바람도 따라갈까요?":isMoveWind?"방금 숫자에는 바람에 관한 가정이 숨어 있습니다. 그 가정을 바꾸면 결과가 어떻게 달라지는지 비교해 보세요.":"",`<section class="card pane"><div class="pick wide" id="wind6">${j.opts.map(o=>`<button data-v="${o[0]}">${esc(o[1])}</button>`).join("")}</div><div id="wr6"></div></section>`)}</div>`+
+  step(1,"지금 기록대로 계산하면",isMoveWind?"먼저 점수와 명단만 바꿔서 계산합니다. 바람은 처음 기록 그대로 둡니다.":"",`<section class="card pane"><div id="cmp6a">${cmpChart([{label:"기록 그대로",i:base,now:1}])}</div><button class="btn" id="move6">${esc(j.act)}</button><div id="mv6"></div></section>`)+
+  `<div class="named-wrap" id="wind6sec" hidden>${isZg?step(2,"적벽대전의 바람은 계산에 어떻게 들어가 있을까요?","",`<section class="card pane"><p>적벽대전에서는 동남풍이 불어 연합군의 불길이 조조의 함대로 번졌습니다. 승패를 가른 조건이지요.</p><p class="simple-note">그래서 이 계산은 바람을 <b>바람이 돕는 편의 지수에 +10점</b>으로 넣었습니다. 방금 결과도 바람이 연합군 편으로 분다고 두고 계산한 값입니다.</p><button class="btn ghost" id="whoWind">그 바람은 누가 불게 했을까요?</button><p class="wind-answer" id="whoWindA" hidden>소설에서 동남풍을 불러온 사람은 제갈량입니다. 제49회에서 칠성단을 쌓고 바람을 빌지요.</p></section>`)+`<div id="wind6q" hidden>${step(3,esc(j.altQ),"정답은 없습니다. 하나를 골라 계산한 뒤, 반대 가정으로도 계산해 보시지요.",`<section class="card pane"><div class="pick wide" id="wind6">${j.opts.map(o=>`<button data-v="${o[0]}">${esc(o[1])}</button>`).join("")}</div><div id="wr6"></div></section>`)}</div>`:step(2,esc(j.altQ),isZg?"방금 숫자는 바람이 그대로 연합군 편으로 분다고 두고 계산한 결과입니다. 소설에서 동남풍을 불러온 사람은 제갈량입니다. 제갈량이 조조 편이 되면 바람도 따라갈까요?":isMoveWind?"방금 숫자에는 바람에 관한 가정이 숨어 있습니다. 그 가정을 바꾸면 결과가 어떻게 달라지는지 비교해 보세요.":"",`<section class="card pane"><div class="pick wide" id="wind6">${j.opts.map(o=>`<button data-v="${o[0]}">${esc(o[1])}</button>`).join("")}</div><div id="wr6"></div></section>`)}</div>`+
   reveal('s6name')+`<div class="named-wrap" id="s6pred" hidden></div>`,check);
  simplifyStage(6);
  const afterMove=()=>{
   if(isZg)Object.assign(L,{who:"諸葛亮",act:"wei",lens:"yy",wind:1});else Object.assign(L,{scenario:x.id});
   save();setT("s6","move");
   $("#move6").hidden=true;
-  $("#mv6").innerHTML=`<p class="big-change"><b class="num">${base}</b> → <b class="num">${changed}</b></p>${meter(changed,esc(j.did))}`;
+  $("#cmp6a").hidden=true;
+  $("#mv6").innerHTML=`<p class="big-change"><b class="num">${base}</b> → <b class="num">${changed}</b></p>${cmpChart([{label:"기록 그대로",i:base},{label:moveLabel,i:changed,now:1}])}<p class="simple-note">${esc(j.did)}</p>`;
   $("#wind6sec").hidden=false;drawAlt();
  };
  const drawAlt=()=>{$$("#wind6 button").forEach(b=>b.setAttribute('aria-pressed',String(D.w===b.dataset.v)));
   const o=j.opts.find(o=>o[0]===D.w);if(!o)return;L.wmode=D.w;save();
   const tried=new Set((D.tried||[]).filter(v=>j.opts.some(o=>o[0]===v)));tried.add(D.w);D.tried=[...tried];save();
-  $("#wr6").innerHTML=meter(optVal(o),esc(o[2]));
+  $("#wr6").innerHTML=cmpChart([{label:"기록 그대로",i:base},...j.opts.filter(p=>tried.has(p[0])).map(p=>({label:optLabel(p),i:optVal(p),now:p===o}))],{key:false})+`<p class="simple-note"><b>${esc(o[1])}</b> ${esc(o[2])}</p>`+(tried.size<2?`<p class="simple-note">이번에는 반대 가정으로도 계산해 보시지요.</p>`:"");
   if(tried.size>=2){setT("s6","wind");
-   show('s6name',named("가정 실험과 전제",isZg?`같은 '제갈량 이동'인데도 바람을 날씨로 보면 <b>${v0}</b>, 제갈량이 불렀다고 보면 <b>${v1}</b>입니다. 결과는 어떤 가정을 하느냐에 달려 있습니다. 그래서 가정 실험의 답에는 항상 가정을 함께 적습니다.`:`같은 질문인데도 ‘${esc(j.opts[0][1])}’로 보면 <b>${v0}</b>, ‘${esc(j.opts[1][1])}’로 보면 <b>${v1}</b>입니다. 결과는 어떤 가정을 하느냐에 달려 있습니다. 그래서 가정 실험의 답에는 항상 가정을 함께 적습니다.`)+
-    `<details class="card pane step-more"><summary>다른 사람도 옮겨 보기</summary><div class="ctrls"><label class="field">인물<select id="who6">${r.filter(n=>PP[n].pa>=8).sort((a,b)=>PP[b].pa-PP[a].pa).map(n=>`<option value="${n}">${PP[n].ko} (${FN[PP[n].f]})</option>`).join('')}</select></label>${seg("to6",[["wei","조조군으로"],["ally","연합군으로"],["out","빼기"]],"wei","어디로")}</div><p class="simple-note" id="other6"></p></details>`);
-   const other=()=>{const n=$("#who6").value,to=$$("#to6 button").find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.v||'wei';const m={[n]:to==='out'?null:to==='ally'?(PP[n].f==='wei'?'wu':PP[n].f):'wei'};$("#other6").textContent=`${PP[n].ko}: ${base} → ${wiCalc({mut:m}).i} (바람=날씨)`};
+   show('s6name',named("가정 실험과 전제",isZg?`바람이 제갈량을 따라가지 않는다고 보면 <b>${v0}</b>(${vd(v0)}), 따라간다고 보면 <b>${v1}</b>(${vd(v1)})입니다. 같은 '제갈량 이동'이라도 바람을 어떻게 보느냐에 따라 결과가 달라집니다. 그래서 가정 실험의 답에는 항상 가정을 함께 적습니다.`:`같은 질문인데도 ‘${esc(j.opts[0][1])}’로 보면 <b>${v0}</b>, ‘${esc(j.opts[1][1])}’로 보면 <b>${v1}</b>입니다. 결과는 어떤 가정을 하느냐에 달려 있습니다. 그래서 가정 실험의 답에는 항상 가정을 함께 적습니다.`)+
+    `<details class="card pane step-more"><summary>다른 사람도 옮겨 보기</summary><div class="ctrls"><label class="field">인물<select id="who6">${r.filter(n=>PP[n].pa>=8).sort((a,b)=>PP[b].pa-PP[a].pa).map(n=>`<option value="${n}">${PP[n].ko} (${FN[PP[n].f]})</option>`).join('')}</select></label>${seg("to6",[["wei","조조군으로"],["ally","연합군으로"],["out","빼기"]],"wei","어디로")}</div><div id="other6"></div></details>`);
+   const other=()=>{const n=$("#who6").value,to=$$("#to6 button").find(b=>b.getAttribute('aria-pressed')==='true')?.dataset.v||'wei';const m={[n]:to==='out'?null:to==='ally'?(PP[n].f==='wei'?'wu':PP[n].f):'wei'};const ko=PP[n].ko,side=PP[n].f==="wei"?"wei":"ally",same=to!=="out"&&to===side,v=wiCalc({mut:m}).i,d=v-base,act=to==="out"?"명단에서 빼면":to==="wei"?"조조군으로 옮기면":"연합군으로 옮기면";
+    $("#other6").innerHTML=same?`<p class="simple-note">${ko}${jo(ko,"은","는")} 이미 ${to==="wei"?"조조군":"연합군"}이라, 옮겨도 지수는 그대로 ${base}입니다. 다른 쪽으로 옮기거나 빼 보시지요.</p>`:cmpChart([{label:"기록 그대로",i:base},{label:`${ko} ${to==="out"?"뺌":to==="wei"?"→ 조조군":"→ 연합군"}`,i:v,now:1}],{key:false})+`<p class="simple-note">${ko}${jo(ko,"을","를")} ${act} 지수가 ${base}에서 ${v}로 ${d?`${Math.abs(d)} ${d<0?"내려갑니다":"올라갑니다"}`:"그대로입니다"}. 판정은 ‘${wiVerdict(v)}’입니다. ${Math.abs(d)<=2?"이 사람의 기록이 적어 결과가 거의 흔들리지 않습니다.":"제갈량과 견주어 보면 누가 결과를 더 크게 흔드는지 보입니다."} 바람은 날씨로 두고 계산했습니다.</p>`};
    $("#who6").onchange=other;onSeg("to6",other);other();
    const pred=Number.isInteger(S.prediction)&&PREDICTIONS[S.prediction];
-   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>${isZg?`바람=날씨 ${v0} (${vd(v0)}) · 바람=제갈량 ${v1} (${vd(v1)})`:`${esc(j.opts[0][1])} ${v0} (${vd(v0)}) · ${esc(j.opts[1][1])} ${v1} (${vd(v1)})`}</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 정사의 기록으로 보면 달라질까요?</summary><p>지금까지는 소설 『삼국지연의』의 기록으로 계산했습니다. 같은 기준으로 정사의 기록을 세면 무엇이 달라질지 함께 살펴보시지요.</p><a class="btn ghost" href="#compare">정사와 비교하기</a></details>`;
+   const p=$("#s6pred");p.hidden=false;p.innerHTML=`<section class="prediction-review"><span class="journey-eyebrow">처음 예상과 비교</span><div class="prediction-comparison"><div><h3>처음 예상</h3><p data-original-prediction>${pred?esc(pred):'처음에 남긴 예상이 없습니다.'}</p></div><div><h3>계산 결과</h3><p>${isZg?`바람=날씨 ${v0} (${vd(v0)}) · 바람=제갈량 ${v1} (${vd(v1)})`:`${esc(j.opts[0][1])} ${v0} (${vd(v0)}) · ${esc(j.opts[1][1])} ${v1} (${vd(v1)})`}</p></div></div><label for="prediction-reflection">기록을 살핀 뒤 생각은 어떻게 달라지셨습니까? (선택)</label><textarea id="prediction-reflection" rows="3" maxlength="2000">${esc(S.reflection||'')}</textarea></section><details class="card pane step-more"><summary>더 살펴보기: 역사책(정사)으로 세어도 같은 결론일까요?</summary><p>지금 숫자는 소설 『삼국지연의』를 센 결과입니다. 같은 제갈량 실험을 역사책으로 다시 계산해, 결론이 소설의 기록에만 기대고 있지 않은지 확인합니다.</p><a class="btn ghost" href="#compare">정사로 다시 계산해 보기</a></details>`;
    $("#prediction-reflection").oninput=e=>{S.reflection=e.target.value;save()};
   }
  };
  $("#move6").onclick=afterMove;
+ if(isZg){const who=()=>{D.who=1;save();$("#whoWind").hidden=true;$("#whoWindA").hidden=false;$("#wind6q").hidden=false};$("#whoWind").onclick=who;if(D.who)who()}
  $("#wind6").addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;D.w=b.dataset.v;save();drawAlt()});
  if(tk("s6","move"))afterMove();
 };
@@ -192,13 +181,13 @@ RENDER[LAB_VIEW]=()=>{
  const base=wiCalc(),cur=scenario().id;
  const prog=id=>{const pack=id===cur?{prediction:S.prediction,done:S.done}:(S.scen||{})[id]||{};return {n:Object.keys(pack.done||{}).length,p:Number.isInteger(pack.prediction)}};
  const status=id=>{const {n,p}=prog(id);return n>=6?"완료":n?`${n}/6 완료`:p?"시작함":""};
- const finishedN=()=>WHATIFS.filter(x=>prog(x.id).n>=6).length,doingN=()=>WHATIFS.filter(x=>{const {n}=prog(x.id);return n>0&&n<6}).length;
+ const finishedN=()=>LAB_Q.filter(x=>prog(x.id).n>=6).length,doingN=()=>LAB_Q.filter(x=>{const {n}=prog(x.id);return n>0&&n<6}).length;
  // progress is shown, not written: a check when finished, a quiet n/6 while going, an accent edge on the current question
- const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b>${n>=6?`<i class="wi-mark done" aria-hidden="true">${ic("check")}완료</i>`:n?`<i class="wi-mark" aria-hidden="true">${n}/6 완료</i><i class="wi-prog" aria-hidden="true"><b style="width:${n/6*100}%"></b></i>`:""}</button>`};
+ const card=(x,i)=>{const {n}=prog(x.id),st=status(x.id),now=x.id===cur;return `<button class="wi-card${st?" tried":""}${now?" current":""}${n>=6?" finished":""}" data-id="${x.id}" ${now?'aria-current="true"':''} aria-label="${esc(x.q)}${now?", 지금 실험 중":""}${st?", "+st:""}"><b>${esc(x.q.replace(/\s*\(.*\)\s*$/,""))}</b><small class="wi-does">${esc(x.does)}</small>${x.model?`<small class="wi-does wi-model" title="${esc(x.model)}">가정 모형 · ${esc(x.model)}</small>`:""}${n>=6?`<i class="wi-mark done" aria-hidden="true">${ic("check")}완료</i>`:n?`<i class="wi-mark" aria-hidden="true">${n}/6 완료</i><i class="wi-prog" aria-hidden="true"><b style="width:${n/6*100}%"></b></i>`:""}</button>`};
  $("#main").classList.add("simple");
  const people=roster().filter(n=>PP[n].pa>=5).sort((a,b)=>PP[b].pa-PP[a].pa);
- $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count">완료 <span class="num"><span id="labCount">${finishedN()}</span> / ${WHATIFS.length}</span>${doingN()?` · 진행 중 <span class="num">${doingN()}</span>`:""}</p></div>
- <div class="wi-grid lab-catalog" id="wiGrid">${WHATIFS.map(card).join("")}</div></section>
+ $("#main").innerHTML=`<section class="lab-opening" aria-labelledby="lab-title"><div class="lab-head"><h1 id="lab-title">어느 이야기를 바꾸어 보시겠습니까?</h1><p class="lab-count">완료 <span class="num"><span id="labCount">${finishedN()}</span> / ${LAB_Q.length}</span>${doingN()?` · 진행 중 <span class="num">${doingN()}</span>`:""}</p></div>
+ <div class="wi-grid lab-catalog" id="wiGrid">${LAB_Q.map(card).join("")}</div></section>
  ${step(1,"직접 질문 만들기","인물, 바람, 점수 규칙, 기록을 골라 질문을 만들면 결과가 바로 계산됩니다.",`<section class="card pane wi-builder">
    <div class="ctrls"><label class="field">누구를<select id="wbWho">${people.map(n=>`<option value="${n}" ${n===L.b.who?"selected":""}>${PP[n].ko} (${FN[PP[n].f]})</option>`).join("")}</select></label>
    <div class="field">어떻게${seg("wbAct",[["wei","조조 편으로"],["ally","연합군 편으로"],["out","빼기"],["keep","그대로"]],L.b.act,"인물 변경")}</div>

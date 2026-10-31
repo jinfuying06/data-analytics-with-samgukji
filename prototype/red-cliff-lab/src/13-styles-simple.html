@@ -8,9 +8,8 @@
 .simple-todo>span{font-size:12px;letter-spacing:.12em;color:var(--seal);font-weight:600}
 .simple-todo>p{font-family:var(--f-display);font-size:clamp(16px,1.6vw,19px);color:#f0e6d3;line-height:1.5}
 .simple-todo details{grid-column:2}
-.simple-todo>.why-l,.simple-todo>.key-l{font-size:12px;letter-spacing:.06em;color:var(--ink-3);font-weight:600;white-space:nowrap}
+.simple-todo>.why-l{font-size:12px;letter-spacing:.06em;color:var(--ink-3);font-weight:600;white-space:nowrap}
 .simple-todo>p.why{font-family:inherit;font-size:14.5px;color:var(--ink-2)}
-.simple-todo>p.key{font-family:inherit;font-size:14.5px;color:var(--mark);font-weight:600}
 .step-more>summary{cursor:pointer;font-size:13px;color:var(--ink-3);min-height:32px;display:flex;align-items:center;gap:6px;list-style:none}
 .step-more>summary::-webkit-details-marker{display:none}
 .step-more>summary::before{content:"＋";font-family:var(--f-data);font-size:12px;color:var(--ink-3)}
@@ -87,4 +86,130 @@ details.card.step-more>summary{font-size:14px;color:var(--ink-2)}
 .pcard.doubt{border-color:rgba(242,182,114,.45)}
 .pcard.doubt .pick button[aria-pressed="true"]{border-color:rgba(242,182,114,.5);background:rgba(242,182,114,.08);color:var(--bad);box-shadow:none}
 .pick button.nudge{border-color:var(--mark);color:var(--ink);box-shadow:0 0 0 1px var(--mark) inset}
+
+/* 이번 장의 분석 개념: 할 일 묶음과 따로, 그 위에 한 줄로 */
+.stage-concept{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;max-width:52em;font-size:14px;line-height:1.6;color:var(--ink-2);word-break:keep-all}
+.stage-concept>span{font-size:12px;letter-spacing:.06em;font-weight:600;color:var(--wind)}
+.stage-concept>b{color:#f2e9da;font-weight:600}
+.main.simple>.stage-concept+.simple-todo{margin-top:14px}
+/* 배·불·계책 설명 */
+.main.simple>.kw-explain{margin-top:24px;padding:20px 24px;border-radius:var(--r);border:1px solid rgba(236,228,212,.08);background:rgba(18,23,28,.62)}
+.kw-explain h3{font-size:16px;margin-bottom:6px}
+.kw-explain ul{margin:10px 0 0;padding:0;list-style:none;display:grid;gap:6px;font-size:14px}
+.kw-explain li b{display:inline-block;min-width:3em;color:var(--flame)}
+/* 평균선 */
+.bar .track{position:relative}
+.bar .avg-mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:#f0e6d3;opacity:.85;transition:left .6s cubic-bezier(.2,.7,.2,1)}
+.bar.out{opacity:.3}.bar.out>span:first-child{text-decoration:line-through}
+.avg-key{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-2);margin-top:8px}
+.avg-key>i{width:2px;height:14px;background:#f0e6d3}
+.avg-key s{color:var(--ink-3)}
+.avg b s{display:block;font-size:12px;line-height:1.2;color:var(--ink-3);font-weight:400}.avg-key span{color:var(--ink-3)}
+/* 네 장의 카드는 3+1로 남지 않게 2×2로 */
+@media (min-width:561px){.pcards:has(>:nth-child(4):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* 브라우저 기본 표면도 팔레트로 */
+::selection{background:rgba(224,112,58,.38);color:#fff}
+input,textarea{caret-color:var(--flame)}
+.wind-answer{margin-top:14px;font-size:16px;line-height:1.6;font-weight:600;color:#f2e9da;word-break:keep-all}
+/* 지수 비교 차트 (6장, 정사 비교) */
+.cmp{display:grid;gap:10px;margin:4px 0 2px}
+.cmp-axis,.cmp-row{display:grid;grid-template-columns:minmax(7em,11em) minmax(0,1fr) 9.5em;gap:12px;align-items:center}
+.cmp-axis{font-size:12px;color:var(--ink-3)}
+.cmp-axis>span:first-child{grid-column:2;grid-row:1;justify-self:start}
+.cmp-axis>span:nth-child(2){grid-column:2;grid-row:1;justify-self:center}
+.cmp-axis>span:last-child{grid-column:2;grid-row:1;justify-self:end}
+.cmp-l{font-size:14px;color:var(--ink-2);word-break:keep-all;line-height:1.35}
+.cmp-row.now .cmp-l{color:#f2e9da;font-weight:600}
+.cmp-track{position:relative;height:22px;border-radius:5px;background:rgba(255,255,255,.05)}
+.cmp-band{position:absolute;top:0;bottom:0;left:45%;width:20%;background:rgba(236,228,212,.07)}
+.cmp-mid{position:absolute;top:-4px;bottom:-4px;left:calc(50% - 1px);width:2px;background:rgba(236,228,212,.55)}
+.cmp-bar{position:absolute;top:4px;bottom:4px;border-radius:3px;transition:width .4s cubic-bezier(.2,.7,.2,1),left .4s cubic-bezier(.2,.7,.2,1)}
+.cmp-bar.ally{background:var(--wu)}.cmp-bar.wei{background:var(--wei)}
+.cmp-row:not(.now) .cmp-bar{opacity:.45}
+.cmp-v{display:flex;align-items:baseline;gap:8px;font-size:13px;color:var(--ink-2);white-space:nowrap}
+.cmp-v b{font-size:20px;color:#f2e9da;font-variant-numeric:tabular-nums}
+.cmp-key{font-size:12.5px;line-height:1.6;color:var(--ink-3);margin-top:10px;word-break:keep-all}
+@media (max-width:560px){.cmp-axis,.cmp-row{grid-template-columns:minmax(0,1fr) auto}.cmp-l{grid-column:1/-1}.cmp-track{grid-column:1}.cmp-axis>span{grid-column:1!important}}
+.pager a{text-decoration:none}
+.main.simple>details.step-more{margin-top:12px}
+a.brand{color:var(--ink);text-decoration:none;border-radius:var(--r-sm)}a.brand:hover b{color:#fff}
+/* ===== 움직이는 차트 ===== */
+/* 줄다리기 */
+.tug{display:grid;gap:8px}
+.tug-nums{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--ink-2)}
+.tug-n{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}.tug-n.ally{justify-content:flex-end;text-align:right}
+.tug-n>i{width:10px;height:10px;border-radius:2px;align-self:center}.tug-n.wei>i{background:var(--wei)}.tug-n.ally>i{background:var(--wu)}
+.tug-n b{font-size:clamp(24px,3vw,32px);font-weight:600;color:#f2e9da;line-height:1.1;font-variant-numeric:tabular-nums}
+.tug-n small{font-size:13px;color:var(--ink-3)}
+.tug-d{font-style:normal;font-size:12.5px;font-weight:600;padding:1px 7px;border-radius:999px;opacity:0}
+.tug-d.up{color:var(--good);background:var(--good-bg)}.tug-d.down{color:var(--bad);background:var(--bad-bg)}
+.tug-d.pop{animation:dpop 1.6s ease-out forwards}
+@keyframes dpop{0%{opacity:0;transform:translateY(4px)}15%{opacity:1;transform:none}75%{opacity:1}100%{opacity:.75}}
+.tug-rope{position:relative;display:flex;height:16px;border-radius:999px;overflow:hidden;background:rgba(255,255,255,.05)}
+.tug-wei,.tug-ally{display:block;height:100%;transition:width .55s cubic-bezier(.2,.7,.2,1)}
+.tug-wei{background:var(--wei)}.tug-ally{background:linear-gradient(90deg,var(--wu),var(--shu))}
+.tug-ghost{position:absolute;left:0;top:0;bottom:0;width:0;opacity:0;background:repeating-linear-gradient(135deg,rgba(232,86,106,.55) 0 4px,transparent 4px 8px);transition:opacity .3s}
+.tug-ghost.on{opacity:1}
+.tug-mid{position:absolute;left:calc(50% - 1px);top:-2px;bottom:-2px;width:2px;background:rgba(240,230,211,.7)}
+.tug-share{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.pcard .tug{margin-top:8px}.pcard .tug-n b{font-size:20px}.tip-v{display:block;margin-top:6px;font-weight:600}
+/* 전투 지수 게이지 */
+.gauge{display:grid;gap:8px}
+.g-head{display:flex;align-items:baseline;gap:10px}
+.g-v{font-size:clamp(32px,4vw,44px);font-weight:600;color:#f2e9da;line-height:1;font-variant-numeric:tabular-nums}
+.g-verdict{font-size:15px;font-weight:600;color:var(--ink-2)}
+.g-d{font-style:normal;font-size:13px;font-weight:600;padding:2px 8px;border-radius:999px;opacity:0}
+.g-d.up{color:var(--good);background:var(--good-bg)}.g-d.down{color:var(--bad);background:var(--bad-bg)}.g-d.pop{animation:dpop 1.6s ease-out forwards}
+.g-track{position:relative;height:26px;border-radius:6px;background:linear-gradient(90deg,rgba(232,86,106,.12),rgba(255,255,255,.03) 50%,rgba(143,140,242,.12))}
+.g-band{position:absolute;top:0;bottom:0;left:45%;width:20%;background:rgba(236,228,212,.07)}
+.g-mid{position:absolute;left:calc(50% - 1px);top:-3px;bottom:-3px;width:2px;background:rgba(240,230,211,.6)}
+.g-fill{position:absolute;top:7px;bottom:7px;border-radius:3px;transition:left .5s cubic-bezier(.2,.7,.2,1),width .5s cubic-bezier(.2,.7,.2,1)}
+.g-fill.ally{background:var(--wu)}.g-fill.wei{background:var(--wei)}
+.g-pin{position:absolute;top:-6px;bottom:-6px;width:4px;margin-left:-2px;border-radius:2px;background:#f2e9da;box-shadow:0 2px 8px rgba(0,0,0,.5);transition:left .5s cubic-bezier(.2,.7,.2,1)}
+.g-trail>i{position:absolute;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:rgba(240,230,211,.35)}
+.g-best{position:absolute;top:-10px;bottom:-10px;width:0;border-left:2px dashed var(--mark);transition:left .4s}
+.g-best>span{position:absolute;bottom:100%;left:4px;white-space:nowrap;font-size:11.5px;font-weight:600;color:var(--mark)}
+.g-scale{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3)}
+.hit .g-pin{background:var(--mark);animation:hitpulse 1s ease-out 2}
+@keyframes hitpulse{50%{box-shadow:0 0 0 8px rgba(231,185,88,.25)}}
+.hit-t{color:var(--mark)}
+/* 215번의 모의 전투 */
+.waffle{display:grid;grid-template-columns:repeat(auto-fill,minmax(13px,1fr));gap:3px;margin-top:10px}
+.waffle>i{aspect-ratio:1;border-radius:2px;animation:wf .35s ease-out both;animation-delay:calc(var(--k)*5ms)}
+.waffle>i.a{background:var(--wu)}.waffle>i.w{background:var(--wei)}
+.waffle>i:hover{outline:2px solid #f2e9da;outline-offset:1px}
+@keyframes wf{from{opacity:0;transform:scale(.4)}}
+.waffle-key{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:12.5px;color:var(--ink-3)}
+.waffle-key i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}.waffle-key i.a{background:var(--wu)}.waffle-key i.w{background:var(--wei)}
+/* 긴 표는 상자 안에서만 스크롤 */
+.tscroll.tall{max-height:min(46vh,360px);overflow:auto}
+@media (prefers-reduced-motion:reduce){.tug-wei,.tug-ally,.g-fill,.g-pin,.g-best{transition:none}.waffle>i,.tug-d.pop,.g-d.pop,.hit .g-pin{animation:none;opacity:1}}
+/* 점수를 바꿨지만 아직 계산하지 않은 그래프 */
+.simple-result.stale #score3,.simple-result.stale #ratio3{opacity:.4;filter:saturate(.5);transition:opacity .2s}
+.simple-result.stale::after{content:"점수를 바꿨습니다. ‘바뀐 점수로 계산하기’를 누르면 그래프가 바뀝니다.";display:block;margin-top:10px;font-size:13px;color:var(--mark)}
+/* 원문 글자·개념 설명 목록 */
+.kw-list{display:grid;gap:8px;margin:12px 0 4px}
+.kw-list>div{display:grid;grid-template-columns:5.5em minmax(0,1fr);gap:10px;align-items:baseline}
+.kw-list dt{font-weight:600;color:var(--flame)}
+.kw-list dd{margin:0;font-size:14px;line-height:1.6;color:var(--ink-2);word-break:keep-all}
+.kw-list dd b[lang]{font-size:17px;color:#f2e9da;margin-right:2px}
+.kw-list dd small{display:block;font-size:12.5px;color:var(--ink-3)}
+/* 평균과 가운데 값 예시 */
+.mm-explain{margin-bottom:12px}.mm-explain h3{font-size:16px;margin-bottom:10px}
+.mm-ex{display:flex;align-items:flex-end;gap:8px;height:70px}
+.mm-ex>span{width:34px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:4px;font-size:13px;font-weight:600;border-radius:4px 4px 0 0;background:rgba(236,228,212,.12);color:#f2e9da}
+.mm-ex>span:nth-child(1){height:18%}.mm-ex>span:nth-child(2){height:26%}.mm-ex>span:nth-child(3){height:34%}.mm-ex>span:nth-child(4){height:42%}.mm-ex>span:nth-child(5){height:100%}
+.mm-ex>span.mid{background:rgba(231,185,88,.35)}.mm-ex>span.big{background:rgba(232,86,106,.4)}
+/* 가운데 값 선 */
+.bar .med-mark{position:absolute;top:-3px;bottom:-3px;width:0;border-left:2px dashed var(--mark);transition:left .6s cubic-bezier(.2,.7,.2,1)}
+.avg-key .mk-med{width:0;height:14px;border-left:2px dashed var(--mark);margin-left:10px}
+/* 전체 문단 보기 */
+.para-hint{margin-top:10px}.para-link{margin-top:6px}
+.para-guide{max-width:52em}
+.para-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.para-h{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.para-no{font-size:12px;color:var(--ink-3)}
+.para-zh{font-size:15px;line-height:1.8;color:#e9dfc9;word-break:break-all}
+.para-ko{margin-top:8px;font-size:14px;line-height:1.7;color:var(--ink-2)}.para-ko.none{color:var(--ink-3);font-style:italic}
+#paraMore{justify-self:start;margin-top:4px}
 </style>

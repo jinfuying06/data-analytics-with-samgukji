@@ -22,9 +22,9 @@ try{
 
  // Every stage: a one-line task, explanation folded, no jargon walls.
  for(let i=1;i<=6;i++){route('s'+i);const m=d.querySelector('#main');
-  assert.ok(m.querySelector('.simple-todo'),'s'+i+' task line');assert.ok(m.querySelector('.simple-todo .why').textContent.length>10,'s'+i+' why is visible');assert.ok(m.querySelector('.simple-todo .key').textContent.length>5,'s'+i+' key point is visible');
+  assert.ok(m.querySelector('.simple-todo'),'s'+i+' task line');assert.ok(m.querySelector('.simple-todo .why').textContent.length>10,'s'+i+' why is visible');assert.ok(m.querySelector('.stage-concept').textContent.length>10,'s'+i+' analysis concept is visible');assert.equal(m.querySelector('.simple-todo .concept'),null,'s'+i+' concept sits outside the task block');assert.equal(m.querySelector('.simple-todo .key'),null,'s'+i+' no key line repeating the concept');
   assert.equal(m.querySelector('.mission-brief'),null);assert.equal(m.querySelector('.experiment-stage-context'),null);assert.equal(m.querySelector('.subtitle'),null);
-  assert.ok(visible(m)<640,/* includes the always-visible question label */'s'+i+' visible text '+visible(m))}
+  assert.ok(visible(m)<1100,/* includes the question label, the analysis concept and, in 3장, the 원문 글자 explanation */'s'+i+' visible text '+visible(m))}
 
  // Stage 1: decide on concrete people first; the rule is named afterwards.
  route('s1');assert.equal(d.querySelector('#s1reveal').hidden,true);

@@ -34,25 +34,7 @@ const SC={
    check:{q:"황개의 ‘불’ 기록에서 알 수 있는 것은?",opts:["황개가 직접 불을 지른 장면만 세어졌습니다.","다른 사람의 대사 속에 이름이 나와도 같은 문단의 글자와 함께 세어집니다.","황개의 기록은 잘못 들어간 것입니다."],ok:1}}},
  zyout:{who:["周瑜"],side:"wu",verb:"빼기",
   s1:null,s5:null},
- ptout:{who:["龐統"],side:"shu",verb:"빼기",
-  s1:{title:"방통과 함께 살펴볼 네 사람, 모두 셀까요?",cards:[
-    ["劉備","core","적벽 편 7회에 나옴","연합군의 한 축인 유비이지요."],
-    ["龐統","two","2회만 나옴","이번 질문의 주인공이지요. 두 회에만 나오므로, 기준을 ‘3회 이상’으로 하면 명단에서 빠집니다."],
-    ["孫乾","one","딱 1회, 이름만 한 번","유비의 신하로 이름이 한 번 나옵니다."],
-    ["劉表","dead","2회 언급 · 적벽 직전에 사망","유비가 몸을 의탁했던 형주의 유표이지요. 자료에는 ‘위’로 분류됩니다."]]},
-  s5:{n:"龐統",k:"ship",q:"방통의 ‘배’ 기록은 어떤 장면일까요?",ask:{opts:["방통이 배를 지휘하는 장면", "방통이 배를 타고 달아나는 장면", "배를 묶으라고 권한 뒤 붙잡히는 장면"],ok:2,good:"방통은 배를 지휘하지 않습니다. 조조에게 배를 묶으라고 권하는 연환계를 꾸민 뒤 붙잡히는 장면입니다.",bad:"원문에서 방통이 무엇을 하는지 읽어 보시지요."},
-   take:"방통은 배를 지휘하지 않습니다. 조조에게 배를 서로 묶으라고 권하는 연환계를 꾸민 뒤, 그 계책을 꿰뚫어 본 사람에게 붙잡히는 장면이지요. 방통의 ‘배’ 점수는 조조의 배를 묶게 한 계책에서 나온 숫자입니다.",
-   check:{q:"방통의 ‘배’ 점수는 무엇을 센 것이었습니까?",opts:["방통이 연합군의 배를 지휘한 기록","조조의 배를 묶게 한 연환계 장면에 ‘배’ 글자가 함께 나온 것","방통의 수전 능력"],ok:1}}},
  combo:{who:["周瑜","黃蓋"],side:"wu",verb:"옮기기",s1:null,s5:null},
- nowind:{topic:"wind",
-  s1:{title:"‘바람(風)’ 글자와 함께 이름이 나온 네 사람, 모두 셀까요?",cards:[
-    ["諸葛亮","core","7회에 나옴 · 바람 문단 11","바람 기록이 가장 많은 사람이지요."],
-    ["徐盛","two","2회 나옴 · 바람 문단 3","바람이 분 뒤 제갈량을 뒤쫓은 장수이지요."],
-    ["夏侯淵","one","딱 1회 · 바람 기록 없음","이름만 한 번 나옵니다."],
-    ["劉表","dead","2회 언급 · 적벽 직전에 사망 · 바람 문단 1","이미 세상을 떠난 유표의 이름도 바람 문단에 섞여 있습니다."]]},
-  s5:{n:"諸葛亮",k:"wind",q:"소설은 그날의 바람을 어떻게 적었을까요?",ask:{opts:["그냥 날씨로 적었습니다", "바람이 불지 않았다고 적었습니다", "제갈량의 처방과 엮어 적었습니다"],ok:2,good:"소설은 바람을 제갈량의 ‘처방’과 엮어 씁니다. 병이 난 주유에게 제갈량이 열여섯 자를 써 주는 장면입니다.",bad:"원문에서 바람이 누구와 함께 나오는지 읽어 보시지요."},
-   take:"소설은 바람을 제갈량의 ‘처방’과 엮어 씁니다. 병이 난 주유에게 제갈량이 몰래 열여섯 자를 써 주는 장면이지요. 바람을 날씨로 볼지, 제갈량의 능력으로 볼지는 해석의 문제입니다. 그래서 마지막 순서에서 가정으로 다룹니다.",
-   check:{q:"바람 기록에서 알 수 있는 것은?",opts:["바람은 제갈량의 능력이라고 데이터가 증명합니다.","소설은 바람을 제갈량과 엮어 서술하므로, 바람을 어떻게 볼지는 가정으로 정해야 합니다.","바람은 기록에 나오지 않습니다."],ok:1}}},
  nofire:{topic:"fire",
   s1:{title:"‘불(火)’ 글자와 함께 이름이 나온 네 사람, 모두 셀까요?",cards:[
     ["黃蓋","core","6회에 나옴 · 불 문단 9","불붙은 배를 몬 인물로 알려져 있지요."],
@@ -177,8 +159,8 @@ function scStage2({x,c}){
     good:"평균과 크게 다른 사람이 빠지면 평균이 크게 움직입니다. 그 사람이 평균보다 적게 나왔다면 오히려 올라가기도 하지요.",bad:"막대에서 빠진 사람이 다른 사람들과 얼마나 다른지 살펴보시지요.",
     ev:()=>`${label} 평균 ${fmt1(avgOf())} → ${P} 빼면 ${fmt1(avgOf(1))} · 중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))}`});
   simplifyStage(2);
-  bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');
-  const done=()=>{const a=avgOf(),b=avgOf(1),up=b>a,small=!up&&a-b<a*0.1;
+  bars($("#memBars"),mem.map(n=>({label:scKo(n)+(c.who.includes(n)?" ●":""),v:PP[n].pa,c:fcol(f)})),PP[mem[0]].pa,'');markAvg($("#memBars"),PP[mem[0]].pa,avgOf());
+  const done=()=>{const a=avgOf(),b=avgOf(1),up=b>a,small=!up&&a-b<a*0.1;markAvg($("#memBars"),PP[mem[0]].pa,b,a,mem.map((n,k)=>drop.includes(n)?k:-1).filter(k=>k>=0));
    $("#avgNow").hidden=true;$("#dropTop")&&($("#dropTop").hidden=true);$("#dropRes").innerHTML=`<p class="big-change">${label} 평균 <b class="num">${fmt1(a)}</b> → <b class="num">${fmt1(b)}</b></p><p class="simple-note">${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"이","가")} 빠지자 평균이 ${up?"오히려 올라갔습니다. 평균보다 적게 나온 사람이었기 때문이지요.":small?"조금 내려갔습니다. 평균보다 약간 많이 나온 사람이었기 때문이지요.":"크게 내려갔습니다. 평균보다 훨씬 많이 나온 사람이었기 때문이지요."}</p>`;
    show('s2name',named(up?"평균보다 작은 한 사람":small?"한 사람의 무게":"평균의 함정",small?`${esc(P)}의 숫자는 ${label} 평균과 크게 다르지 않아서, 빼도 평균이 조금만 움직입니다. 한 사람이 결과를 얼마나 흔들지는, 그 사람의 숫자가 평균과 얼마나 다른지에 달려 있지요.`:up?`${esc(P)}의 숫자는 ${label} 평균보다 작습니다. 그래서 빼면 평균이 올라가지요. 한 사람을 옮기거나 뺄 때는, 그 사람의 숫자가 평균보다 큰지 작은지부터 보아야 합니다.`:`${esc(P)}의 숫자가 커서 ${label} 평균을 끌어올리고 있었습니다. 이런 사람을 옮기거나 빼면 결과가 크게 흔들리지요. 가운데 값(중앙값 ${fmt1(median(mem.map(n=>PP[n].pa)))})도 함께 살펴야 합니다.`))};
   const btn=$("#dropTop");if(btn)btn.onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped&&btn)done();
@@ -189,12 +171,13 @@ function scStage2({x,c}){
   const total=r.reduce((s,n)=>s+PP[n].yy[ki],0),side=f=>r.filter(n=>f==="wei"?PP[n].f==="wei":PP[n].f!=="wei").reduce((s,n)=>s+PP[n].yy[ki],0);
   const who=k==="wind"?"諸葛亮":"曹操";
   originalStageRenderer(2,[["s2","drop",`${scKo(who)} 빼 보기`]],
-   step(1,`‘${SC_KNAME[k]}’ 글자와 함께 나온 문단 수`,"",`<section class="card pane">${twoSides({wei:side("wei"),ally:side("ally")},"문단")}<div class="bars" id="memBars"></div><button class="btn" id="dropTop">${scKo(who)} 빼고 다시 세기</button><div id="dropRes"></div></section>`)+reveal('s2name'),
+   step(1,`‘${SC_KNAME[k]}’ 글자와 함께 나온 문단 수`,"",`<section class="card pane"><div id="sides2">${twoSides({wei:side("wei"),ally:side("ally")},"문단")}</div><div class="bars" id="memBars"></div><button class="btn" id="dropTop">${scKo(who)} 빼고 다시 세기</button><div id="dropRes"></div></section>`)+reveal('s2name'),
    k==="wind"?{q:"바람 기록을 사람별로 나누어 본 까닭은?",opts:["바람을 누가 일으켰는지 숫자로 증명하려고","바람 기록이 누구에게 얼마나 몰려 있는지 알아야, 바람에 대한 가정이 결과를 얼마나 바꿀지 짐작할 수 있어서","바람은 계산과 관계없어서"],ok:1,good:"글자 수로는 누가 바람을 일으켰는지 증명할 수 없습니다. 다만 기록이 어떻게 퍼져 있는지는 알 수 있지요.",bad:"막대에서 한 사람이 차지하는 몫을 살펴보시지요.",ev:()=>`바람 문단 ${total}개 중 제갈량 ${PP[who].yy[ki]}개`}
    :{q:"조조군의 ‘불’ 문단이 많은 까닭을 알려면?",opts:["조조군이 불을 잘 썼다고 보면 됩니다.","조조 한 사람의 몫이 큰지, 그 기록이 어떤 장면인지 살펴야 합니다.","불 기록은 볼 필요가 없습니다."],ok:1,good:"합계 속에 한 사람이 큰 몫을 차지하면, 그 사람의 기록부터 확인해야 하지요. 다섯 번째 순서에서 원문을 펼쳐 봅니다.",bad:"조조군 합계에서 조조 한 사람이 차지하는 몫을 살펴보시지요.",ev:()=>`조조군 불 문단 ${side("wei")}개 중 조조 ${PP[who].yy[ki]}개`});
   simplifyStage(2);
   bars($("#memBars"),top.map(o=>({label:scKo(o.n),v:o.v,c:fcol(PP[o.n].f)})),top[0].v,'문단');
-  const done=()=>{const v=PP[who].yy[ki],base=k==="wind"?total:side("wei"),pct=Math.round(v/base*100);
+  const done=()=>{const v=PP[who].yy[ki],base=k==="wind"?total:side("wei"),pct=Math.round(v/base*100),mine=PP[who].f==="wei"?"wei":"ally";
+   paintSides($("#sides2"),{wei:side("wei")-(mine==="wei"?v:0),ally:side("ally")-(mine==="ally"?v:0)},"문단",{ghost:true});outBars($("#memBars"),[top.findIndex(o=>o.n===who)]);$("#dropTop").hidden=true;
    $("#dropRes").innerHTML=`<p class="big-change">${k==="wind"?"바람 문단":"조조군의 불 문단"} <b class="num">${base}</b> → <b class="num">${base-v}</b></p><p class="simple-note">${scKo(who)} 한 사람이 <b>${pct}%</b>를 차지하고 있었습니다.</p>`;
    show('s2name',named(k==="wind"&&pct<30?"여러 사람에게 퍼진 기록":"한 사람에게 몰린 기록",k==="wind"?(pct<30?`제갈량은 바람 기록이 가장 많지만 전체의 ${pct}%이고, 나머지는 주유·조조 등 여러 사람에게 퍼져 있습니다. 글자 수만으로는 바람이 제갈량의 능력이라고 말하기 어렵지요. 그래서 바람은 마지막 순서에서 가정으로 다룹니다.`:`바람 기록의 ${pct}%가 제갈량 한 사람에게 몰려 있습니다. 그래서 바람을 제갈량의 능력으로 볼지, 날씨로 볼지가 결과를 크게 바꿉니다.`):`조조군 ‘불’ 기록의 ${pct}%가 조조 한 사람에게서 나옵니다. 불 점수를 없애면 조조군이 많이 잃게 되는 까닭이 여기 있지요. 그 기록이 어떤 장면인지는 다섯 번째 순서에서 확인합니다.`))};
   $("#dropTop").onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped)done();
@@ -203,11 +186,12 @@ function scStage2({x,c}){
  // source: share of each side in the novel vs the history
  const share=lens=>{const s=fs(lens),A=s.wu+s.shu,W=s.wei,T=A+W||1;return {wei:Math.round(W/T*100),ally:Math.round(A/T*100),shu:Math.round(s.shu/T*100)}};
  originalStageRenderer(2,[["s2","drop","정사로 바꿔 보기"]],
-  step(1,"같은 명단, 두 기록의 몫","",`<section class="card pane"><p class="simple-note">『삼국지연의』(소설)로 센 점수의 비중</p>${twoSides(share("yy"),"%")}<button class="btn" id="dropTop">정사 본문으로 바꿔 보기</button><div id="dropRes"></div></section>`)+reveal('s2name'),
+  step(1,"같은 명단, 두 기록의 몫","",`<section class="card pane"><p class="simple-note" id="share2l">『삼국지연의』(소설)로 센 점수의 비중</p><div id="sides2">${twoSides(share("yy"),"%")}</div><button class="btn" id="dropTop">정사 본문으로 바꿔 보기</button><div id="dropRes"></div></section>`)+reveal('s2name'),
   {q:"두 기록에서 각 편의 몫이 달랐다면?",opts:["한쪽 기록이 틀린 것입니다.","같은 사람이라도 어떤 책을 세느냐에 따라 몫이 달라집니다.","몫은 언제나 같습니다."],ok:1,good:"소설과 역사책은 같은 사람을 다른 분량으로 다룹니다. 그래서 어느 기록을 셌는지 밝혀 둡니다.",bad:"두 기록의 비중을 견주어 보시지요.",ev:()=>`촉의 비중 연의 ${share("yy").shu}% → 정사 본문 ${share("jb").shu}%`});
  simplifyStage(2);
  const done=()=>{const a=share("yy"),b=share("jb");
-  $("#dropRes").innerHTML=`<p class="simple-note">정사 본문으로 센 점수의 비중</p>${twoSides(b,"%")}<p class="big-change">촉의 비중 <b class="num">${a.shu}%</b> → <b class="num">${b.shu}%</b></p>`;
+  $("#share2l").textContent="정사 본문으로 센 점수의 비중";paintSides($("#sides2"),b,"%");$("#dropTop").hidden=true;
+  $("#dropRes").innerHTML=`<p class="big-change">촉의 비중 <b class="num">${a.shu}%</b> → <b class="num">${b.shu}%</b></p>`;
   show('s2name',named("같은 사람, 다른 기록",`같은 명단인데도 소설에서는 촉이 ${a.shu}%, 정사 본문에서는 ${b.shu}%입니다. 소설은 제갈량과 유비 쪽 이야기를 더 많이 다루지요. 어떤 책을 세느냐가 이미 결과의 일부입니다.`))};
  $("#dropTop").onclick=()=>{L.dropped=1;save();setT("s2","drop");done()};if(L.dropped)done();
 }
@@ -221,7 +205,7 @@ function scStage3({x,c}){
  const note=c.topic==="wind"?`<p class="wi-assume"><b>바람은 따로 둡니다</b> 바람은 사람의 능력인지 날씨인지 정할 수 없어 점수에 넣지 않고, 마지막 순서에서 +10이라는 가정으로 다룹니다.</p>`:c.topic==="source"?`<p class="wi-assume"><b>단위가 다릅니다</b> 소설은 문단을, 정사는 문장을 셉니다. 그래서 두 기록은 비중(%)으로 견줍니다.</p>`:"";
  originalStageRenderer(3,[["s3","weight","점수 정하기"]],
   step(1,c.who?`${c.who.map(scKo).join("·")}의 기록을 셉니다`:c.topic==="wind"?"바람도 세어 봅니다":c.topic==="fire"?"두 사람의 ‘불’ 기록":"두 책에서 같은 사람을 셉니다","",`<section class="card pane">${examples}${note}</section>`)+
-  step(2,"무엇에 무게를 둘지 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 정하기</button></section><section class="card pane simple-result"><p class="simple-note">두 진영의 점수${lens==="jb"?" (정사 본문)":""}</p><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+reveal('s3name'),
+  step(2,"무엇에 무게를 둘지 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 계산하기</button></section><section class="card pane simple-result"><p class="simple-note">두 진영의 점수${lens==="jb"?" (정사 본문)":""}</p><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)+reveal('s3name'),
   {...(c.who?{q:`${c.who.map(scKo).join("·")}의 점수가 ${c.verb==="빼기"?"빠지면":"옮겨 가면"}, 무엇이 함께 움직일까요?`,opts:["그 사람의 실제 능력이 움직입니다.","그 사람의 이름과 배·불·계책 글자가 함께 나온 기록이 움직입니다.","두 편의 점수는 그대로입니다."],ok:1,
     good:"넘어가거나 빠지는 것은 기록에서 센 숫자입니다. 그래서 무엇을 셌는지가 결론의 뜻을 정하지요.",bad:"점수를 무엇으로 만들었는지 떠올려 보시지요."}
    :c.topic==="wind"?{q:"바람을 배·불·계책 점수에 넣지 않은 까닭은?",opts:["바람은 기록에 나오지 않아서","바람이 사람의 능력인지 날씨인지 기록만으로 정할 수 없어서","바람은 결과와 관계없어서"],ok:1,good:"해석이 갈리는 것은 점수에 섞지 않고, 따로 가정으로 둡니다.",bad:"바람이 누구의 것인지 기록이 말해 주는지 살펴보시지요."}
@@ -231,7 +215,7 @@ function scStage3({x,c}){
  simplifyStage(3);
  const draw=()=>{
   $("#wts3").innerHTML=[['ship','배'],['fire','불'],['plan','계책']].map(([k,l])=>`<div class="w"><span>${l} 1번에</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${l} 점수 내리기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${l} 점수 올리기">+</button></span></div>`).join('');
-  const s=fs(lens),A=s.wu+s.shu,W=s.wei;$("#score3").innerHTML=twoSides({wei:W,ally:A},'점');
+  const s=fs(lens),A=s.wu+s.shu,W=s.wei;paintSides($("#score3"),{wei:W,ally:A},'점');
   const moved=c.who?c.who.reduce((t,n)=>t+(roster().includes(n)?scoreOf(n,lens):0),0):0;
   $("#ratio3").textContent=c.who?`이번 질문에서 ${c.verb==="빼기"?"빠질":"옮겨 갈"} 점수: ${moved}점 (연합군 점수의 ${A?Math.round(moved/A*100):0}%)`:W?`연합군 점수가 조조군의 약 ${(A/W).toFixed(1)}배`:'';
  };
@@ -258,8 +242,9 @@ function scStage4({x,c}){
    ev:()=>`${L4.tot}가지 중 ${L4.same}가지에서 판정 '${curV}' 유지 · 범위 ${L4.min}~${L4.max}`});
  simplifyStage(4);
  $("#friends").addEventListener('click',e=>{const b=e.target.closest('button[data-i]');if(!b)return;const [,w]=FRIENDS[+b.dataset.i];const tip=b.nextElementSibling;tip.hidden=false;
-  if(typeof w==="number"){const raw=wiCalc({...x,wind:"none"}).i,v=Math.max(0,Math.min(100,raw+w));tip.innerHTML=`지수 <b class="num">${v}</b> → ${wv(v)}`}
-  else{const v0=before(w),v1=after(w);tip.innerHTML=`<b class="num">${v0}</b> → <b class="num">${v1}</b> · ${wv(v1)}`}});
+  if(typeof w==="number"){const raw=wiCalc({...x,wind:"none"}).i,v=Math.max(0,Math.min(100,raw+w));tip.innerHTML=cmpChart([{label:"내가 정한 조건",i:cur},{label:`바람 +${w}`,i:v,now:1}],{key:false})+`<p class="tip-v">바람 보너스를 ${w}점으로 두면 지수는 ${v}, 판정은 ‘${wv(v)}’입니다. ${wv(v)===curV?"내 조건일 때와 판정이 같습니다.":`내 조건일 때(‘${curV}’)와 판정이 달라집니다.`}</p>`}
+  else{const v0=before(w),v1=after(w),act=c.who?`${P}${scJosa(scKo(c.who[c.who.length-1]),"을","를")} ${c.verb==="빼기"?"빼면":"옮기면"}`:"이번 질문을 적용하면";
+   tip.innerHTML=cmpChart([{label:"이 규칙 · 기록 그대로",i:v0},{label:"이 규칙 · 질문 적용",i:v1,now:1}],{key:false})+`<p class="tip-v">이 규칙으로 세면 ${act} 지수가 ${v0}에서 ${v1}로 ${v1===v0?"그대로입니다":`${Math.abs(v1-v0)} ${v1<v0?"내려갑니다":"올라갑니다"}`}. 판정은 ‘${wv(v1)}’로, 내가 정한 점수 규칙일 때(‘${curV}’)와 ${wv(v1)===curV?"같습니다":"다릅니다"}.</p>`}});
  const run=()=>{let same=0,min=100,max=0,down=0;for(const w of combos){const v=after(w),b=before(w);if(wv(v)===curV)same++;min=Math.min(min,v);max=Math.max(max,v);if(v<b)down++}
   Object.assign(L4,{same,tot:combos.length,min,max,down});save();setT("s4","run");
   $("#allRes").innerHTML=`<p class="big-change"><b class="num">${same}</b> / ${combos.length}가지에서 판정 ‘${curV}’이 그대로입니다</p><div class="pctbar"><i style="width:${same/combos.length*100}%"></i></div><p class="simple-note">이번 질문을 적용한 지수는 ${min}~${max} 사이에 있습니다.${c.who?` 그중 ${down}가지에서 ${esc(P)}${scJosa(scKo(c.who[c.who.length-1]),"을","를")} ${c.verb==="빼기"?"빼면":"옮기면"} 지수가 내려갑니다.`:""}</p>`;
@@ -270,7 +255,7 @@ function scStage4({x,c}){
 // 5) read the record behind the number that matters for the question
 function scStage5({x,c}){
  const L5=S.t.s5d=S.t.s5d||{},s=c.s5;
- const quote=(n,k)=>{const e=(EVID[n]||{})[k];return e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} ${scKo(n)}${scJosa(scKo(n),"과","와")} ‘${SC_KNAME[k]}’이 함께 나온 문단</p><blockquote class="evq">${hiKw(e[1],k)}</blockquote>`:""};
+ const quote=(n,k)=>{const e=(EVID[n]||{})[k];return e?`<p class="simple-note">${srcB('yy',`연의 ${e[0]}회`)} ${scKo(n)}${scJosa(scKo(n),"과","와")} ‘${SC_KNAME[k]}’이 함께 나온 문단</p><blockquote class="evq">${hiKw(e[1],k)}</blockquote>${allParaLink(n,k)}`:""};
  const layers=c.topic==="source"?`<div class="sides"><div class="side"><i style="background:var(--old)"></i><span>정사 본문 · 바람 / 계책</span><b class="num">${PP["諸葛亮"].jb[3]} / ${PP["諸葛亮"].jb[2]}<small>문장</small></b></div><div class="side"><i style="background:var(--wind)"></i><span>배송지 주석 · 바람 / 계책</span><b class="num">${PP["諸葛亮"].jn[3]} / ${PP["諸葛亮"].jn[2]}<small>문장</small></b></div></div>`:"";
  const lead=c.topic==="source"?`<p class="simple-note">제갈량의 기록을 정사의 두 층에서 셉니다.</p>`:`<p class="simple-note">${scKo(s.n)}의 ‘${SC_KNAME[s.k]}’ 문단 ${PP[s.n].yy[SC_KI[s.k]]}개${s.n2?` · ${scKo(s.n2)}의 ‘${SC_KNAME[s.k]}’ 문단 ${PP[s.n2].yy[SC_KI[s.k]]}개`:""}</p>`;
  originalStageRenderer(5,[["s5","victim","원문 읽기"]],

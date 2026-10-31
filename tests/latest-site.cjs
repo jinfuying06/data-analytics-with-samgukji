@@ -25,8 +25,8 @@ try{
  // Opening questions use the same medium-intensity treatment.
  route('home');const homeHeat=d.documentElement.style.getPropertyValue('--heat');
  assert.equal(d.querySelector('[data-intro].experiment-replay').textContent,'서막 다시 보기');
- route('lab?question=zy');assert.equal(d.documentElement.style.getPropertyValue('--heat'),homeHeat);assert.ok(d.querySelector('.experiment-opening>.cinema-bg'));
- assert.equal(d.querySelector('#main h1').textContent,'만약 주유가 조조 편이었다면?');assert.equal(w.location.hash,'#home','a question opens on the shared home screen');
+ route('lab?question=zyout');assert.equal(d.documentElement.style.getPropertyValue('--heat'),homeHeat);assert.ok(d.querySelector('.experiment-opening>.cinema-bg'));
+ assert.equal(d.querySelector('#main h1').textContent,'만약 주유가 병으로 빠졌다면?');assert.equal(w.location.hash,'#home','a question opens on the shared home screen');
  route('lab?question=zg');assert.equal(e('S.scenario'),'zg');
 
  route('s1');answer();assert.equal(e('Object.keys(S.done).length'),0,'unfinished activity must reject keyboard/programmatic activation');for(const [n,v] of [['曹操',1],['許褚',1],['夏侯淵',0],['袁紹',0]])click(`.pcard[data-n="${n}"] .pick button[data-v="${v}"]`);assert.equal(e('JSON.stringify(S.rule)'),JSON.stringify({min:2,dead:1}));assert.equal(e('roster().length'),42);answer();assert.ok(e('!!S.done[1]'));

@@ -1,41 +1,32 @@
-/* ===== Three levels of What-if =====
-   Level 1 · 세어 보기      choose among what is given (the six stages as they are)
-   Level 2 · 숫자 의심하기  sort the records before scoring (순서 3), hunt for the lowest index (순서 4)
-   Level 3 · 가정 설계하기  set the assumptions and write the conclusion (순서 6)
-   The other 순서 of levels 2 and 3 live in 96-level-paths.js. */
-const LEVEL_OF={zg:1,zyout:1,ptout:1,zy:2,hg:2,nofire:2,nowind:3,combo:3,jb:3};
-const LEVELS=[null,{tag:"기초",name:"세어 보기",does:"주어진 것 중에서 고릅니다"},{tag:"심화",name:"숫자 의심하기",does:"값을 바꿔 가며 찾아냅니다"},{tag:"응용",name:"가정 설계하기",does:"조건을 정하고 결론을 씁니다"}];
-WHATIFS.forEach(x=>x.level=LEVEL_OF[x.id]||1);
-const levelNow=()=>scenario().level||1;
+/* ===== 시나리오별 핵심 활동 =====
+   1단계 · 주어진 것 중에서 고르기 (기본 여섯 순서)
+   2단계 · 예측·검증: '불' 기록 나누기(순서 3), 지수가 가장 낮아지는 규칙 찾기(순서 4)
+   3단계 · 설계: 가정을 정하고 결론 쓰기(순서 6)
+   나머지 순서의 2·3단계 활동은 96-level-paths.js에 있습니다. */
+/* 시나리오마다 핵심 순서에만 2단계(예측·검증) 또는 3단계(설계) 활동을 붙이고, 나머지 순서는 1단계로 짧게 지나갑니다. */
+const FOCUS={zyout:{2:2},nofire:{3:2,4:2},jb:{5:3},combo:{1:3,2:3,3:3,4:3,5:3,6:3}};
+const levelAt=i=>(FOCUS[scenario().id]||{})[i]||1;
 
 /* ---- the words that change with the level ---- */
 const applyScenarioTextScene=applyScenarioText;
 applyScenarioText=function(){
  applyScenarioTextScene();
- const x=scenario(),lv=x.level;
- if(lv===2){
+ if(levelAt(3)===2){
   ST[2].q="‘불’ 기록부터 나누어 보시지요";
   SIMPLE_TODO[2]="세 문단의 ‘불’이 공격인지, 피해인지, 이름만 나온 것인지 나눈 뒤 점수를 매겨 보시지요.";
   SIMPLE_WHY[2]=["같은 글자라도 뜻이 다르면, 점수를 매기기 전에 나누어 보아야겠지요.","무엇을 셌는지 알고 나서 점수를 매깁니다."];
+ }
+ if(levelAt(4)===2){
   ST[3].q="결과를 가장 크게 바꾸는 점수 규칙을 찾아보시지요";
   SIMPLE_TODO[3]="점수를 직접 바꿔 가며, 이번 질문의 지수가 가장 낮아지는 규칙을 찾아보시지요.";
   SIMPLE_WHY[3]=["어디까지 흔들 수 있는지 직접 찾아보면, 결론이 얼마나 단단한지 알 수 있겠지요.","가장 나쁜 경우를 찾아보는 것도 민감도를 확인하는 방법입니다."];
  }
- if(lv===3){
+ if(levelAt(6)===3){
   ST[5].short="가정 정하고 결론 쓰기";
   SIMPLE_TODO[5]="바람·기록·조건을 직접 정하고, 그 가정을 담아 결론을 한 문장으로 써 보시지요.";
   SIMPLE_WHY[5]=["가정 실험의 답은 어떤 가정에서 나온 숫자인지까지 말해야 합니다.","결론에는 가정과 한계를 함께 적습니다."];
  }
 };
-
-/* ---- lab: questions grouped by level ---- */
-(()=>{const lab=RENDER[LAB_VIEW];RENDER[LAB_VIEW]=function(){lab.apply(this,arguments);
- const grid=$("#wiGrid");if(!grid)return;
- const cards=[...grid.querySelectorAll(".wi-card")];
- grid.classList.remove("wi-grid");grid.classList.add("lab-levels");
- grid.innerHTML=[1,2,3].map(lv=>`<section class="lab-level" data-level="${lv}"><header><span class="num">${LEVELS[lv].tag}</span><h2>${LEVELS[lv].name}</h2><p>${LEVELS[lv].does}</p></header><div class="wi-grid"></div></section>`).join("");
- cards.forEach(c=>{const x=WHATIFS.find(w=>w.id===c.dataset.id);grid.querySelector(`.lab-level[data-level="${x.level}"] .wi-grid`).append(c)});
-}})();
 
 /* ---- level 2 · stage 3: sort the fire records, then score ---- */
 const SORT_ITEMS=[["曹操","hurt"],["周瑜","attack"],["黃蓋","said"]];
@@ -46,7 +37,7 @@ function lv2Stage3({x,c}){
  const item=([n])=>{const e=(EVID[n]||{}).fire;return `<section class="card pane sort-item" data-n="${n}"><p class="simple-note">${srcB('yy',`연의 ${e?e[0]:""}회`)} ${PP[n].ko}</p>${e?`<blockquote class="evq">${hiFire(e[1])}</blockquote>`:""}<div class="pick three" role="group" aria-label="${PP[n].ko}의 불">${SORT_OPTS.map(([v,t])=>`<button data-v="${v}">${t}</button>`).join("")}</div><p class="pcard-tip" hidden></p></section>`};
  originalStageRenderer(3,[["s3","weight","나누고 점수 정하기"]],
   step(1,"세 문단의 ‘불’은 같은 뜻일까요?","",`<div class="sort-list" id="sort3">${SORT_ITEMS.map(item).join("")}</div>`)+
-  `<div class="named-wrap" id="s3score" hidden>${step(2,"나눈 것을 보고 점수를 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 정하기</button></section><section class="card pane simple-result"><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)}</div>`+reveal('s3name'),
+  `<div class="named-wrap" id="s3score" hidden>${step(2,"나눈 것을 보고 점수를 정해 보시지요","",`<div class="cols"><section class="card pane"><div class="weights" id="wts3"></div><button class="btn" id="fixW">이 점수로 계산하기</button></section><section class="card pane simple-result"><div id="score3"></div><p class="simple-note" id="ratio3"></p></section></div>`)}</div>`+reveal('s3name'),
   {q:"‘불’ 점수를 만들 때 알아 둘 것은?",opts:["‘불’ 글자는 모두 불을 지른 기록입니다.","공격·피해·언급이 함께 세어지므로, 점수의 뜻을 밝혀 두어야 합니다.","불 기록은 점수에 넣으면 안 됩니다."],ok:1,
    good:"글자를 세는 방법으로는 셋을 구분할 수 없습니다. 그래서 숫자가 무엇을 담고 있는지 먼저 나누어 봅니다.",bad:"방금 나눈 세 문단을 떠올려 보시지요.",
    ev:()=>`분류: ${SORT_ITEMS.map(([n])=>`${PP[n].ko} ${(SORT_OPTS.find(o=>o[0]===L[n])||[,"-"])[1]}`).join(" · ")}`});
@@ -61,7 +52,7 @@ function lv2Stage3({x,c}){
  $("#sort3").addEventListener("click",e=>{const b=e.target.closest(".pick button");if(!b)return;L[b.closest(".sort-item").dataset.n]=b.dataset.v;save();draw()});
  const drawW=()=>{
   $("#wts3").innerHTML=[['ship','배'],['fire','불'],['plan','계책']].map(([k,l])=>`<div class="w"><span>${l} 1번에</span><span class="stepper-n"><button data-w="${k}" data-d="-1" aria-label="${l} 점수 내리기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${l} 점수 올리기">+</button></span></div>`).join('');
-  const s=fs("yy"),A=s.wu+s.shu,W=s.wei;$("#score3").innerHTML=twoSides({wei:W,ally:A},'점');
+  const s=fs("yy"),A=s.wu+s.shu,W=s.wei;paintSides($("#score3"),{wei:W,ally:A},'점');
   const moved=c.who?c.who.reduce((t,n)=>t+(roster().includes(n)?scoreOf(n,"yy"):0),0):0;
   $("#ratio3").textContent=c.who?`이번 질문에서 옮겨 갈 점수 ${moved}점`:`조조군의 ‘불’ 점수 ${roster().filter(n=>PP[n].f==="wei").reduce((t,n)=>t+PP[n].yy[1]*S.w.fire,0)}점`;
  };
@@ -89,8 +80,8 @@ function lv2Stage4({x,c}){
  const draw=()=>{
   $("#wts4").innerHTML=[['ship','배'],['fire','불'],['plan','계책']].map(([k,l])=>`<div class="w"><span>${l} 1번에</span><span class="stepper-n"><button data-w="${k}" data-d="-1" ${fixFire&&k==="fire"?"disabled":""} aria-label="${l} 점수 내리기">−</button><output class="num">${L.w[k]}점</output><button data-w="${k}" data-d="1" ${fixFire&&k==="fire"?"disabled":""} aria-label="${l} 점수 올리기">+</button></span></div>`).join('');
   const v=L.w.ship+L.w.fire+L.w.plan?calc(L.w):wiCalc(x).i;
-  $("#meter4").innerHTML=`<div class="meter"><div class="meter-row"><span class="big num">${v}</span><span class="verdict">${wiVerdict(v)}</span></div><div class="track" aria-hidden="true"><i class="pin" style="left:calc(${v}% - 2px)"></i></div><div class="scale"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`;
-  $("#tries4").textContent=L.tries?`${L.tries}번 바꿔 봄`:"";
+  L.low=Math.min(L.low??v,v);gauge($("#meter4"),v,{trail:true,best:L.tries?L.low:null});$("#meter4").classList.toggle("hit",v===min);
+  $("#tries4").innerHTML=L.tries?`시도 <b class="num">${L.tries}</b>번 · 지금까지 최저 <b class="num">${L.low}</b>${L.low===min?" · <b class=\"hit-t\">가장 낮은 지수를 찾았습니다</b>":""}`:"점수를 바꾸면 깃발이 움직입니다. 지수를 최대한 낮춰 보시지요.";
   $("#reveal4").hidden=L.tries<3||!!L.found;
   if(v===min&&!L.found)done(`가장 낮은 지수 ${min}을 직접 찾았습니다.`);
  };
@@ -104,7 +95,7 @@ const LIMITS=["글자를 센 숫자이므로 실제 능력과는 다릅니다.",
 function lv3Stage6(){
  const x=scenario(),q=x.q.replace(/\s*\(.*\)\s*$/,"");
  // the question's own change stays fixed; the learner sets the other assumptions
- const SHOW={nowind:["fire","lens"],combo:["fire","lens"],jb:["wind","layer"]}[x.id]||["wind","lens"];
+ const SHOW={combo:["fire","lens"],jb:["wind","layer"]}[x.id]||["wind","lens"];
  const D=S.t.s6c=S.t.s6c||{wind:x.wind||"env",bonus:10,fire:"keep",lens:x.lens||"yy",limit:null,own:"",checks:{}};
  const base=wiCalc().i;
  const cur=()=>{const w=D.fire==="zero"?{...S.w,fire:0}:null,wind=SHOW.includes("wind")?D.wind:(x.wind||"env");
@@ -160,7 +151,7 @@ function lv3Stage6(){
 /* ---- route the overrides by level ---- */
 (()=>{
  const r3=RENDER[3],r4=RENDER[4],r6=RENDER[6];
- RENDER[3]=function(){if(levelNow()!==2)return r3.apply(this,arguments);applyScenarioText();lv2Stage3({x:scenario(),c:SC[scenario().id]});markScenario()};
- RENDER[4]=function(){if(levelNow()!==2)return r4.apply(this,arguments);applyScenarioText();lv2Stage4({x:scenario(),c:SC[scenario().id]});markScenario()};
- RENDER[6]=function(){if(levelNow()!==3)return r6.apply(this,arguments);applyScenarioText();lv3Stage6()};
+ RENDER[3]=function(){if(levelAt(3)!==2)return r3.apply(this,arguments);applyScenarioText();lv2Stage3({x:scenario(),c:SC[scenario().id]});markScenario()};
+ RENDER[4]=function(){if(levelAt(4)!==2)return r4.apply(this,arguments);applyScenarioText();lv2Stage4({x:scenario(),c:SC[scenario().id]});markScenario()};
+ RENDER[6]=function(){if(levelAt(6)!==3)return r6.apply(this,arguments);applyScenarioText();lv3Stage6()};
 })();

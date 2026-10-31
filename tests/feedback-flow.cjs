@@ -11,7 +11,7 @@ try{
  route('home');assert.equal(home(),true,'home hides the sidebar');route('src');assert.equal(home(),false,'home -> src shows the sidebar');
  route('home');route('lab');assert.equal(home(),false,'home -> lab');route('src');assert.equal(home(),false,'lab -> src');
  route('s1');assert.equal(home(),false);route('home');assert.equal(home(),true);
- e('location.hash="#lab?question=zy";route()');assert.equal(home(),true,'starting a lab question lands on its home');e('setScenario("zg")');route('home');
+ e('location.hash="#lab?question=zyout";route()');assert.equal(home(),true,'starting a lab question lands on its home');e('setScenario("zg")');route('home');
  // 이름 기준: 시작(메인 화면) · 서막(오프닝 연출)
  assert.equal(q('#anH').textContent,'시작');assert.equal(q('#tabH').textContent,'시작');assert.equal(q('[data-intro]').textContent.trim().length>0,true);
  // 완료 수 막대: 전용 클래스를 쓰고(.bar 그리드와 충돌 금지) 폭이 완료 수에 비례한다
@@ -22,12 +22,12 @@ try{
  // 가정 실험 탭: 질문을 고르는 화면이므로 순서·진행을 숨기고, 카드에 완료 상태를 글과 색으로 보여 준다
  route('lab');assert.equal(d.body.classList.contains('view-lab'),true);route('src');assert.equal(d.body.classList.contains('view-src'),true,'reference page also hides the steps');assert.equal(d.body.classList.contains('view-lab'),false);route('s1');assert.equal(d.body.classList.contains('view-lab')||d.body.classList.contains('view-src'),false);
  assert.ok(q('#progQ').textContent.length>3,'sidebar names the question being worked on');
- e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x"};save()');route('lab');
- const zgCard=q('.wi-card[data-id="zg"]');assert.ok(zgCard.textContent.includes('5/6 완료'),zgCard.textContent);assert.ok(zgCard.querySelector('.wi-prog b').style.width.startsWith('83'));assert.ok(!zgCard.classList.contains('finished'));
- assert.ok(q('.lab-count').textContent.includes('완료 0 / 9')&&q('.lab-count').textContent.includes('진행 중 1'),q('.lab-count').textContent);
+ e('setScenario("zyout");S.done={1:"x",2:"x",3:"x",4:"x",5:"x"};save()');route('lab');
+ const zgCard=q('.wi-card[data-id="zyout"]');assert.ok(zgCard.textContent.includes('5/6 완료'),zgCard.textContent);assert.ok(zgCard.querySelector('.wi-prog b').style.width.startsWith('83'));assert.ok(!zgCard.classList.contains('finished'));
+ assert.ok(q('.lab-count').textContent.includes('완료 0 / 4')&&q('.lab-count').textContent.includes('진행 중 1'),q('.lab-count').textContent);
  e('S.done={1:"x",2:"x",3:"x",4:"x",5:"x",6:"x"};save()');route('lab');
- assert.ok(q('.wi-card[data-id="zg"]').classList.contains('finished'));assert.ok(q('.wi-card[data-id="zg"]').textContent.includes('완료'));assert.ok(q('.lab-count').textContent.includes('완료 1 / 9'),q('.lab-count').textContent);assert.ok(!q('.lab-count').textContent.includes('진행 중'));
- e('S.done={};save()');route('s1');
+ assert.ok(q('.wi-card[data-id="zyout"]').classList.contains('finished'));assert.ok(q('.wi-card[data-id="zyout"]').textContent.includes('완료'));assert.ok(q('.lab-count').textContent.includes('완료 1 / 4'),q('.lab-count').textContent);assert.ok(!q('.lab-count').textContent.includes('진행 중'));
+ e('S.done={};save();setScenario("zg")');route('s1');
  // 사이드바 그룹 이름
  route('s1');assert.ok([...d.querySelectorAll('.navgrp p')].map(p=>p.textContent).includes('순서'));assert.ok(![...d.querySelectorAll('.navgrp p')].some(p=>p.textContent.includes('여섯')));
  // 1단계 카드: 처음부터 맞게 골라도 "맞습니다."가 나온다
