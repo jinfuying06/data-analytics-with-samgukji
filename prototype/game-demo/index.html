@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>계책록 — 제갈량이 조조 편이었다면</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/galmuri@2.39.3/dist/galmuri.css">
+<style>
+:root{--bg:#0d0f12;--grid:rgba(255,255,255,.035);--card:#121417;--line:#efe6d2;--ink:#efe6d2;--dim:#a49c8c;--red:#e2483c;--gold:#e8b030;--wei:#d6463c;--wu:#3f86b8;--shu:#5c9a5a;--ally:#3f86b8;--px:"Galmuri11","Galmuri9",monospace}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:15px/1.65 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;overflow-x:hidden}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:28px 16px 80px;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{margin:0}
+.px{font-family:var(--px)}
+.box{background:var(--card);border:3px solid var(--line);box-shadow:6px 6px 0 #000;padding:20px 22px}
+.box.gold{border-color:var(--gold)}.box.red{border-color:var(--red)}
+.tag{font-family:var(--px);font-size:12px;color:var(--gold);letter-spacing:.08em}
+.logo{font-family:var(--px);font-weight:700;color:var(--red);text-shadow:4px 4px 0 var(--line);line-height:1.15}
+.dim{color:var(--dim)}
+.num{font-family:var(--px);font-variant-numeric:tabular-nums}
+.btn{font-family:var(--px);background:var(--gold);color:#1a1205;border:3px solid #000;box-shadow:4px 4px 0 #000;padding:10px 18px;font-size:15px;text-decoration:none;display:inline-block}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 #000}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #000}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn:focus-visible,.opt:focus-visible{outline:3px dashed var(--gold);outline-offset:4px}
+[hidden]{display:none!important}
+.stack{display:grid;gap:20px}
+.row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.row.sb{justify-content:space-between}
+img.spr{image-rendering:pixelated;display:block}
+
+/* 대화창 */
+.dlg{position:relative;padding:14px 20px 22px;min-height:88px;cursor:pointer}
+.dlg .who{font-family:var(--px);font-size:12px;color:var(--gold);margin-bottom:4px}
+.dlg .say{font-size:16px;min-height:1.6em}
+.dlg .more{position:absolute;right:14px;bottom:10px;width:12px;height:8px;background:var(--gold);animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:0}}
+.talk{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:end}
+.face{aspect-ratio:1;display:grid;place-items:center;padding:0;overflow:hidden;background:#1b2530;font-family:var(--px);font-size:52px;color:var(--line)}
+.face img{width:160%;max-width:none}
+.face img.pt,.portrait img.pt{width:100%;max-width:100%;image-rendering:pixelated}
+.pcard .pt{width:64px;height:64px;border:2px solid var(--line);image-rendering:pixelated}
+
+/* 타이틀 */
+.title{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:82vh}
+.title .logo{font-size:clamp(56px,9vw,104px)}
+.title h2{font-family:var(--px);font-size:22px;margin:16px 0 4px}
+.portrait{aspect-ratio:1;display:grid;place-items:center;overflow:hidden;padding:0;background:#1b2530}
+.portrait img{width:125%;max-width:none}
+.press{font-family:var(--px);color:var(--gold);animation:blink 1.2s steps(2) infinite;margin-top:18px}
+
+/* HUD */
+.hud{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
+.hud .logo{font-size:26px;text-shadow:3px 3px 0 var(--line);background:none;border:0;padding:0}
+.stats{display:flex;flex-wrap:wrap;gap:16px;font-family:var(--px);font-size:13px;align-items:center}
+.bar{display:inline-block;width:130px;height:12px;border:2px solid var(--line);vertical-align:middle;margin-left:6px;background:#000}
+.bar i{display:block;height:100%;background:var(--gold);transition:width .4s steps(6)}
+.hearts{color:var(--red);letter-spacing:2px}
+
+/* 프롤로그 */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;text-align:center}
+.vs .side{display:grid;justify-items:center;gap:6px;font-family:var(--px)}
+.vs .side img{width:min(260px,100%)}
+.vs .vsmark{font-family:var(--px);font-size:34px;color:var(--gold);text-shadow:3px 3px 0 #000}
+.flip{transform:scaleX(-1)}
+.opts{display:grid;gap:10px}
+.opt{all:unset;cursor:pointer;border:2px solid var(--line);padding:10px 14px;font-size:15px;background:var(--card)}
+.opt:hover,.opt[aria-pressed="true"]{background:var(--line);color:#111}
+.opt:hover::before,.opt[aria-pressed="true"]::before{content:"▶ "}
+.opt.ok{background:var(--gold);color:#111;border-color:var(--gold)}
+.opt.no{border-color:var(--red);color:var(--red);background:transparent}
+.move{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;text-align:center;font-family:var(--px)}
+.move b{display:block;font-size:18px;margin-top:4px}
+
+/* 지도 */
+.map{position:relative;padding:26px 22px 22px}
+.map svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.nodes{position:relative;display:grid;grid-template-columns:repeat(6,1fr);gap:8px;height:190px}
+.node{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;font-family:var(--px);font-size:12px;color:var(--dim)}
+.node .sq{position:relative;z-index:1;width:30px;height:30px;background:var(--line);border:3px solid #000;box-shadow:3px 3px 0 #000}
+.node.now .sq{background:var(--red);animation:bob 1s steps(2) infinite}
+.node.clear .sq{background:var(--gold)}
+.node.lock{cursor:not-allowed;opacity:.45}
+.node.now,.node.clear{color:var(--ink)}
+.node:focus-visible .sq{outline:3px dashed var(--gold);outline-offset:5px}
+@keyframes bob{50%{transform:translateY(-4px)}}
+
+/* 퀘스트 공통 */
+.qhead h1{font-family:var(--px);font-size:clamp(22px,3.2vw,34px);color:var(--red);text-shadow:3px 3px 0 var(--line);margin:8px 0 10px;line-height:1.35}
+.concept{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline}
+.concept b{font-family:var(--px);color:var(--gold)}
+.mission{font-family:var(--px);font-size:12px;color:var(--dim)}
+.step{display:grid;gap:12px}
+.step>h2{font-family:var(--px);font-size:17px;display:flex;gap:10px;align-items:center}
+.step>h2 .sno{background:var(--gold);color:#111;padding:2px 8px;font-size:12px}
+.named{border-color:var(--gold)}
+.named .tag{color:#111;background:var(--gold);padding:2px 8px;display:inline-block}
+.named h3{font-family:var(--px);font-size:18px;margin:10px 0 6px;color:var(--gold)}
+.named p{margin:0}
+.big{font-family:var(--px);font-size:28px}
+.note{color:var(--dim);font-size:14px;margin:8px 0 0}
+.fb{margin:10px 0 0;padding:10px 14px;border-left:4px solid var(--gold);background:rgba(232,176,48,.08)}
+.fb.bad{border-color:var(--red);background:rgba(226,72,60,.08)}
+.shake{animation:shake .3s steps(3)}
+@keyframes shake{33%{transform:translateX(-6px)}66%{transform:translateX(6px)}}
+
+/* 1: 인물 카드 */
+.pcards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pcard{display:grid;gap:8px;align-content:start;padding:16px}
+.pcard h3{font-family:var(--px);font-size:18px;display:flex;gap:8px;align-items:center}
+.chip{display:inline-block;font-family:var(--px);font-size:11px;padding:2px 7px;border:2px solid currentColor}
+.chip.wei{color:var(--wei)}.chip.wu{color:var(--wu)}.chip.shu{color:var(--shu)}
+.pcard .fact{font-size:13px;color:var(--dim);margin:0}
+.pcard .pick{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.pcard .pick button{border:2px solid var(--line);background:transparent;padding:6px 4px;font-family:var(--px);font-size:12px}
+.pcard .pick button[aria-pressed="true"]{background:var(--line);color:#111}
+.pcard .tip{font-size:13px;margin:0;color:var(--ink)}
+.pcard.in{border-color:var(--gold)}.pcard.out{opacity:.7;border-style:dashed}
+.sides{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.side-n{display:grid;gap:2px;padding:14px;border:3px solid var(--line)}
+.side-n.wei{border-color:var(--wei)}.side-n.ally{border-color:var(--ally)}
+.side-n b{font-family:var(--px);font-size:34px}
+.seg{display:inline-flex;border:2px solid var(--line)}
+.seg button{border:0;background:transparent;padding:6px 10px;font-family:var(--px);font-size:12px}
+.seg button[aria-pressed="true"]{background:var(--line);color:#111}
+
+/* 막대 */
+.bars{display:grid;gap:8px}
+.brow{display:grid;grid-template-columns:5.5em 1fr 3.5em;gap:10px;align-items:center;font-size:14px}
+.brow .track{position:relative;height:18px;background:#000;border:2px solid #333}
+.brow .fill{display:block;height:100%;transition:width .5s steps(8)}
+.brow.out{opacity:.3}
+.brow .avgm{position:absolute;top:-6px;bottom:-6px;width:3px;background:var(--gold);transition:left .5s steps(8)}
+.brow b{font-family:var(--px);text-align:right}
+
+/* 줄다리기 */
+.tug{display:grid;gap:8px}
+.tug .nums{display:flex;justify-content:space-between;font-family:var(--px);font-size:14px}
+.tug .nums b{font-size:22px}
+.tug .rope{display:flex;height:26px;border:3px solid var(--line);background:#000;position:relative}
+.tug .rope i{display:block;height:100%;transition:width .5s steps(10)}
+.tug .rope .w{background:var(--wei)}.tug .rope .a{background:repeating-linear-gradient(90deg,var(--wu) 0 12px,var(--shu) 12px 24px)}
+.tug .rope::after{content:"";position:absolute;left:50%;top:-8px;bottom:-8px;width:3px;background:var(--gold)}
+.stepper{display:grid;gap:10px}
+.stepper .w{display:grid;grid-template-columns:5em auto;gap:10px;align-items:center;font-family:var(--px)}
+.stepper .ctl{display:inline-flex;align-items:center;border:2px solid var(--line)}
+.stepper .ctl button{border:0;background:transparent;width:34px;height:32px;font-family:var(--px);font-size:16px}
+.stepper .ctl button:hover{background:var(--line);color:#111}
+.stepper .ctl output{min-width:3.4em;text-align:center}
+.pips{display:inline-flex;gap:3px;margin-left:8px}.pips i{width:10px;height:10px;background:#333}.pips i.on{background:var(--gold)}
+.kcount{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kcount div{border:2px solid var(--line);padding:12px;display:grid}
+.kcount b{font-family:var(--px);font-size:30px;color:var(--gold)}
+.kcount span{font-size:13px;color:var(--dim)}
+.cols{display:grid;grid-template-columns:1fr 1.3fr;gap:18px}
+
+/* 4: 와플 */
+.friends{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.waffle{display:grid;grid-template-columns:repeat(36,1fr);gap:3px;margin-top:12px}
+.waffle i{aspect-ratio:1;background:#222;animation:pop .01s steps(1) backwards;animation-delay:calc(var(--k)*8ms)}
+.waffle i.a{background:var(--ally)}.waffle i.w{background:var(--wei)}
+@keyframes pop{from{opacity:0}}
+.key{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--dim);margin-top:8px}
+.key i{display:inline-block;width:10px;height:10px;margin-right:4px;vertical-align:middle}
+
+/* 5: 원문 */
+blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);background:#0a0b0d;font-size:15px;line-height:1.8}
+.kw{color:#111;background:var(--gold);padding:0 2px}
+
+/* 6: 전장 */
+.arena{display:grid;grid-template-columns:1fr 1.4fr 1fr;align-items:end;gap:8px;text-align:center}
+.arena img{width:100%;max-width:240px;margin:0 auto}
+.arena .lbl{font-family:var(--px);font-size:13px}
+.gauge{display:grid;gap:8px}
+.gauge .head{display:flex;justify-content:space-between;align-items:baseline}
+.gauge .v{font-family:var(--px);font-size:40px;color:var(--gold)}
+.gauge .verd{font-family:var(--px)}
+.gauge .trk{position:relative;height:26px;border:3px solid var(--line);background:linear-gradient(90deg,rgba(79,127,214,.35),transparent 45%,transparent 55%,rgba(217,80,63,.35))}
+.gauge .pin{position:absolute;top:-10px;width:8px;height:40px;background:var(--gold);border:2px solid #000;transform:translateX(-50%);transition:left .7s steps(14)}
+.gauge .mid{position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--line);opacity:.5}
+.gauge .ghost{position:absolute;top:2px;width:6px;height:16px;background:var(--dim);transform:translateX(-50%)}
+.gauge .sc{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);font-family:var(--px)}
+
+/* 한자 이름 패와 깃발 (인물 그림 대신) */
+.hz{display:inline-grid;place-items:center;font-family:"Noto Serif KR","Batang",serif;font-weight:700;font-size:18px;padding:4px 8px;border:3px solid var(--line);background:#0a0b0d;color:var(--ink);box-shadow:3px 3px 0 #000;letter-spacing:.06em;line-height:1.1}
+.hz.wei{border-color:var(--wei)}.hz.wu{border-color:var(--wu)}.hz.shu{border-color:var(--shu)}
+.hz.big{width:100%;height:100%;border:0;box-shadow:none;background:transparent;font-size:clamp(26px,3.4vw,40px);writing-mode:vertical-rl;padding:0}
+.face:has(.hz.wei){background:#2a1214}.face:has(.hz.wu){background:#10202e}.face:has(.hz.shu){background:#132219}
+.pcard .hz{justify-self:start}
+.flags{display:flex;justify-content:center;gap:4px;transition:opacity .3s}
+.flag{width:100%;max-width:200px;image-rendering:pixelated;display:block}
+.flags .flag+.flag{margin-left:-8%}
+.flags.win{animation:rally .4s steps(2) 3}
+.flags.lose{opacity:.45;filter:grayscale(.6)}
+@keyframes rally{50%{transform:translateY(-8px) scale(1.04)}}
+.vs .side .flag{max-width:180px}
+.arena .flags .flag{max-width:130px}
+.zg-token{display:flex;gap:12px;align-items:center;justify-content:center;margin-top:14px}
+.zg-token .hz{border-color:var(--ally);transition:transform .6s steps(6)}
+.zg-token.to-wei .hz{border-color:var(--wei);animation:hop .6s steps(3)}
+@keyframes hop{50%{transform:translateY(-12px)}}
+.clear-pt{width:160px!important;border:3px solid var(--line);margin:4px auto}
+
+/* 확인 문제 */
+.quiz h2{font-family:var(--px);font-size:16px;margin:6px 0 12px}
+
+/* 결과 창 */
+.pop{position:fixed;inset:0;display:grid;place-items:center;z-index:5;background:rgba(0,0,0,.6);padding:16px}
+.pop .box{text-align:center;padding:28px 32px;max-width:520px}
+.pop .logo{font-size:52px}
+.pop img{width:220px;margin:0 auto}
+.report{display:grid;gap:16px}
+.report ol{margin:0;padding-left:1.4em;display:grid;gap:8px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cmp>div{border:3px solid var(--line);padding:14px}
+.cmp b{font-family:var(--px);display:block;font-size:17px;margin-top:4px}
+
+@media (max-width:760px){
+ .title{grid-template-columns:1fr;gap:22px;min-height:auto;padding-top:12px}
+ .portrait{max-width:240px}
+ .pcards{grid-template-columns:1fr 1fr}
+ .friends,.cols,.cmp,.kcount{grid-template-columns:1fr}
+ .nodes{grid-template-columns:repeat(3,1fr);height:auto;row-gap:24px}
+ .map svg{display:none}
+ .node{padding-top:0!important}
+ .kcount{grid-template-columns:repeat(3,1fr)}
+ .talk{grid-template-columns:80px 1fr}.face{font-size:32px}
+ .bar{width:80px}
+ .waffle{grid-template-columns:repeat(18,1fr)}
+ .arena{grid-template-columns:1fr 1fr}.arena .gauge{grid-column:1/-1;order:-1}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.waffle i{opacity:1}}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<main id="app"></main>
+
+<!-- 실제 프로토타입과 같은 데이터(『삼국지연의』 43~50회 집계)를 그대로 씁니다 -->
+<script src="../red-cliff-lab/src/30-data.js"></script>
+<script>
+/* ===== 데이터와 계산: prototype/red-cliff-lab/src/40-app.js, 80-simplify.js 와 같은 규칙 ===== */
+const PP={};DB.forEach(r=>PP[r[0]]={id:r[0],ko:r[1],f:r[2],ch:r[3],yy:r[4],chs:r[3].filter(x=>x).length,pa:r[3].reduce((a,b)=>a+b,0)});
+const NAMES=DB.map(r=>r[0]);
+const DEAD={袁紹:202,呂布:198,孫策:200,袁術:199,董卓:192,郭嘉:207,劉表:208};
+const FN={wei:"위",wu:"오",shu:"촉"};
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0;
+const median=a=>{if(!a.length)return 0;const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length%2?s[m]:(s[m-1]+s[m])/2};
+const f1=x=>Number.isInteger(x)?String(x):x.toFixed(1);
+const fresh=()=>({rule:{min:2,dead:1},w:{ship:3,fire:3,plan:2},done:{},t:{},pred:null,stage:0,miss:0});
+let S=fresh();try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem("gyechaek-zg")||"{}"))}catch{}
+const save=()=>{try{localStorage.setItem("gyechaek-zg",JSON.stringify(S))}catch{}};
+const roster=()=>NAMES.filter(n=>PP[n].chs>=S.rule.min&&!(S.rule.dead&&DEAD[n]));
+const scoreOf=(n,w=S.w)=>{const v=PP[n].yy;return w.ship*v[0]+w.fire*v[1]+w.plan*v[2]};
+const fs=(w=S.w,r=roster(),mut)=>{const o={wei:0,wu:0,shu:0};r.forEach(n=>{const f=mut&&mut[n]!==undefined?mut[n]:PP[n].f;if(f)o[f]+=scoreOf(n,w)});return o};
+const facMembers=f=>roster().filter(n=>PP[n].f===f);
+const MOVED={"諸葛亮":"wei"};
+/* 연합군이 앞서는 정도(0~100). 바람: env=날씨라 연합군 +10, zg=제갈량을 따라감 */
+function idx(mut,wmode){const r=roster(),s=fs(S.w,r,mut),A=s.wu+s.shu,W=s.wei;let i=A+W?A/(A+W)*100:50;
+ if(wmode==="env")i+=10;else if(r.includes("諸葛亮")){const f=mut&&mut["諸葛亮"]!==undefined?mut["諸葛亮"]:"shu";i+=f==="wei"?-10:10}
+ return Math.max(0,Math.min(100,Math.round(i)))}
+const verdict=i=>i>=65?"연합군이 크게 앞섬":i>=45?"비슷함":"조조군이 앞섬";
+
+/* ===== 화면 도우미 ===== */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],app=$("#app");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const jo=(w,a,b)=>{const c=w.charCodeAt(w.length-1)-44032;return c>=0&&c<11172&&c%28?a:b};
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+/* 이미지는 기록관 그림과 세력 깃발만 씁니다. 그 밖의 인물은 한자 이름 패로 표시합니다. */
+const FLAG_DIR="../../frontend/public/sprites/factions/";
+const FLAG_KO={wei:"위",wu:"오",shu:"촉"};
+const flag=(f,cls="")=>`<img class="flag ${cls}" src="${FLAG_DIR}${f}-flag.${RM?"png":"gif"}" alt="${FLAG_KO[f]} 깃발">`;
+const ARCHIVIST="assets/portraits/archivist.png";
+const BY_KO={};DB.forEach(r=>BY_KO[r[1]]=r[0]);
+/* 한자 이름 패: 세력색 테두리 */
+const nameTile=(ko,cls="")=>{const h=BY_KO[ko],f=h&&PP[h].f;return `<span class="hz ${f||""} ${cls}" lang="zh-Hant">${esc(h||ko)}</span>`};
+const PREDICTIONS=["조조 쪽에 더 유리해질 것 같습니다","큰 차이가 없을 것 같습니다","아직 판단하기 어렵습니다"];
+const REPORT_LIMIT="이 숫자는 기록에 이름과 낱말이 나온 횟수로 만든 지표입니다. 이 결과만으로 실제 전투의 승패를 단정할 수는 없습니다.";
+const hiKw=(t,re)=>esc(t).replace(re,m=>`<b class="kw">${m}</b>`);
+
+let typing=null;
+function type(el,text){clearInterval(typing);el.dataset.full=text;if(RM){el.textContent=text;return}let i=0;el.textContent="";typing=setInterval(()=>{el.textContent=text.slice(0,++i);if(i>=text.length)clearInterval(typing)},26)}
+function skipType(){const el=$(".dlg .say");if(el&&el.dataset.full&&el.textContent!==el.dataset.full){clearInterval(typing);el.textContent=el.dataset.full;return true}return false}
+/* 두 진영 깃발: 앞서는 쪽은 들썩이고, 밀리는 쪽은 흐려집니다 */
+const duel=(wSel,aSel,winner)=>{const w=$(wSel),a=$(aSel);if(!w||!a)return;
+ [[w,"wei"],[a,"ally"]].forEach(([el,k])=>{el.classList.remove("win","lose");void el.offsetWidth;if(winner!=="tie")el.classList.add(winner===k?"win":"lose")})};
+const portrait=who=>who==="기록관"?`<img class="pt" src="${ARCHIVIST}" alt="">`:nameTile(who,"big");
+const talk=(who,side,hz,text)=>`<div class="talk"><div class="box face" aria-hidden="true">${portrait(who)}</div><div class="box dlg" role="status"><div class="who">${esc(who)} · ${esc(side)}</div><div class="say" data-text="${esc(text)}"></div><span class="more"></span></div></div>`;
+const startTalk=()=>{const el=$(".dlg .say[data-text]");if(el)type(el,el.dataset.text)};
+const stepH=(n,t)=>`<h2><span class="sno">활동 ${n}</span>${t}</h2>`;
+const named=(term,text)=>`<section class="box named"><span class="tag">방금 한 것</span><h3>${term}</h3><p>${text}</p></section>`;
+const seg=(id,opts,v)=>`<span class="seg" id="${id}">${opts.map(([k,l])=>`<button data-v="${k}" aria-pressed="${String(k)===String(v)}">${l}</button>`).join("")}</span>`;
+const onSeg=(id,fn)=>$("#"+id).addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;$$(`#${id} button`).forEach(x=>x.setAttribute("aria-pressed",String(x===b)));fn(b.dataset.v)});
+function barsHTML(items,max,unit=""){return `<div class="bars">${items.map(it=>`<div class="brow"><span>${esc(it.label)}</span><span class="track"><span class="fill" style="width:${max?it.v/max*100:0}%;background:${it.c}"></span></span><b>${f1(it.v)}${unit}</b></div>`).join("")}</div>`}
+function tugHTML(w,a,unit="점"){const t=(w+a)||1,p=w/t*100;return `<div class="tug" role="img" aria-label="조조군 ${w}${unit}, 손권·유비 연합군 ${a}${unit}"><div class="nums"><span>조조군 <b>${w.toLocaleString()}</b>${unit}</span><span>연합군 <b>${a.toLocaleString()}</b>${unit}</span></div><div class="rope"><i class="w" style="width:${p}%"></i><i class="a" style="width:${100-p}%"></i></div><div class="nums dim"><span>${Math.round(p)}%</span><span>${100-Math.round(p)}%</span></div></div>`}
+function gaugeHTML(i,ghost){return `<div class="gauge"><div class="head"><span class="v">${i}</span><span class="verd">${verdict(i)}</span></div><div class="trk" aria-hidden="true"><i class="mid"></i>${ghost!=null?`<i class="ghost" style="left:${ghost}%"></i>`:""}<i class="pin" style="left:${i}%"></i></div><div class="sc"><span>조조군 앞섬</span><span>비슷함</span><span>연합군 앞섬</span></div></div>`}
+
+/* ===== 6단계: 프로토타입 70-learning-journey.js / 80-simplify.js 의 문구 ===== */
+const MISSION="만약 제갈량이 조조의 편이었다면?";
+const STAGES=[
+ {short:"두 진영의 인물 구성",q:"명단에 올릴 인물을 살펴보시지요",concept:["분석 대상 정하기","무엇을 셀지 기준부터 정합니다. 누구를 넣고 빼느냐에 따라 모든 숫자가 달라지므로, 분석의 첫걸음입니다."],
+  why:"누구를 세느냐에 따라 두 편의 인원이 달라집니다. 마지막 가정 실험도 여기서 정한 명단으로 계산합니다.",
+  say:["기록관","안내","記","소속이 바뀌었을 때의 차이를 보려면, 먼저 두 진영의 인물 구성을 알아야 합니다."],
+  check:{q:"기록을 살펴보니, 무엇을 알 수 있었습니까?",opts:["기록만 보면 셀 사람이 저절로 정해집니다.","누구를 명단에 올리느냐에 따라 숫자가 달라집니다.","이름이 나온 사람은 모두 싸움에 참여했습니다."],ok:1,
+   good:"이름이 나온 사람을 모두 세면 분석에 맞지 않는 인물도 포함되지요. 먼저 누구를 셀지 정해야 하는 까닭입니다.",bad:"원소처럼 이름만 언급된 인물을 떠올려 보시지요.",
+   ev:()=>{const r=roster(),w=r.filter(n=>PP[n].f==="wei").length;return `내 기준: ${S.rule.min}회 이상 · 죽은 사람 ${S.rule.dead?"뺌":"셈"} → 조조군 ${w}명, 연합군 ${r.length-w}명`}}},
+ {short:"등장 기록 비교",q:"평균에 가려진 한 사람을 찾아보시지요",concept:["대표값: 평균과 중앙값","여러 숫자를 숫자 하나로 요약하는 값입니다. 평균은 아주 큰 값 하나에 끌려가고, 중앙값은 줄 세운 한가운데 값이라 덜 흔들립니다."],
+  why:"제갈량을 옮기기 전에, 한 사람이 숫자에 미치는 영향을 살펴야겠지요.",
+  say:["조조","위","曹","제갈량의 등장 문단 수가 특히 많다면, 촉의 평균은 어떻게 달라질까요?"],
+  check:{q:"촉의 평균을 높인 것은 무엇이었습니까?",opts:["촉의 인물이 모두 많이 등장했기 때문입니다.","한 사람이 많이 등장하여 평균을 끌어올렸기 때문입니다.","촉의 인원이 가장 많기 때문입니다."],ok:1,
+   good:"평균은 한 사람의 큰 숫자에 쉽게 끌려갑니다. 그래서 가운데 값(중앙값)도 함께 봅니다.",bad:"막대를 살펴보시지요. 유독 긴 막대가 하나 보입니다.",
+   ev:()=>{const t=shuTop();return `촉 평균 ${f1(avgOf("shu"))} → ${PP[t].ko} 빼면 ${f1(avgOf("shu",1))} · 중앙값 촉 ${f1(median(facMembers("shu").map(n=>PP[n].pa)))}`}}},
+ {short:"적벽에 맞는 지표",q:"두 진영을 견줄 기준을 세워 보시지요",concept:["지표 설계와 가중치","직접 잴 수 없는 것을 셀 수 있는 것으로 바꾸고, 항목마다 점수(가중치)를 주어 숫자 하나로 만듭니다."],
+  why:"제갈량을 옮기면 그 사람의 점수도 함께 넘어갑니다. 여기서 정한 점수가 마지막 실험의 숫자가 되지요.",
+  say:["주유","오","周","제갈량의 어떤 기록을 점수로 정리해야, 소속을 바꾸기 전과 후를 비교할 수 있을까요?"],
+  check:{q:"이 점수가 재는 것은 무엇일까요?",opts:["장수의 실제 능력입니다.","인물의 이름과 배·불·계책 글자가 함께 나온 정도입니다.","전투에서 세운 공입니다."],ok:1,
+   good:"글자를 센 숫자입니다. 모두에게 같은 규칙을 쓰므로 서로 비교할 수 있습니다.",bad:"첫 활동에서 무엇을 세었는지 떠올려 보시지요.",
+   ev:()=>{const s=fs();return `점수(배 ${S.w.ship}·불 ${S.w.fire}·계책 ${S.w.plan}): 연합군 ${s.wu+s.shu} vs 조조군 ${s.wei}`}}},
+ {short:"계산 기준 점검",q:"점수를 달리 매겨도 같은 결론에 이를까요?",concept:["민감도 분석","점수 규칙 같은 가정을 바꿔도 결론이 그대로인지 확인합니다. 결론이 얼마나 단단한지 재는 방법입니다."],
+  why:"제갈량을 옮긴 결과도 이 점수 규칙으로 계산합니다. 규칙 하나에만 기댄 결론이라면 그 결과를 믿기 어렵겠지요.",
+  say:["노숙","오","魯","제갈량의 소속을 바꾸기 전에, 지금 정한 가중치만으로 결론이 결정되는지 확인합니다."],
+  check:{q:"점수 규칙을 다 바꿔 봐도 연합군이 앞섰다면?",opts:["점수 규칙은 어떻게 정해도 상관없습니다.","살펴본 범위에서 결론이 점수 규칙에 크게 흔들리지 않습니다.","연합군이 반드시 이깁니다."],ok:1,
+   good:"규칙을 바꿔도 같은 답이 나오면 그 답을 더 믿을 수 있습니다. 다만 '이 기록으로 센 점수'라는 조건은 남습니다.",bad:"215가지 결과를 살펴보시지요.",
+   ev:()=>`215가지 점수 규칙 중 ${S.t.win}가지에서 연합군 점수가 더 높음`}},
+ {short:"점수의 근거",q:"숫자가 비롯된 기록을 펼쳐 보시지요",concept:["데이터 검증과 출처","숫자가 실제로 무엇을 센 것인지 원본 기록을 열어 확인합니다. 같은 글자라도 뜻이 다를 수 있습니다."],
+  why:"마지막 실험에서는 이 점수가 그대로 옮겨 갑니다. 그 숫자가 무엇을 센 것인지 알아야 결과를 바르게 읽을 수 있지요.",
+  say:["황개","오","黃","불에 피해를 입은 장면도 화공 점수에 포함된다면, 그 점수를 어떻게 해석해야 할까요?"],
+  check:{q:"조조의 '불' 숫자가 높았던 이유는?",opts:["조조가 불을 가장 잘 다뤄서","불에 당한 장면에서도 '불' 글자가 함께 나와서","기록이 잘못돼서"],ok:1,
+   good:"글자를 센 숫자는 불을 지른 쪽과 당한 쪽을 구분하지 못합니다. 그래서 숫자가 이상하면 원문을 확인합니다.",bad:"원문에서 조조가 무엇을 하는지 살펴보시지요.",
+   ev:()=>`조조의 '불' ${PP["曹操"].yy[1]}회는 불에 당한 장면이 섞인 숫자`}},
+ {short:"가정 실험",q:"제갈량이 조조 편이었다면?",concept:["가정 실험(시뮬레이션)","조건 하나를 바꿔 결과를 비교합니다. 답에는 어떤 가정에서 나온 숫자인지를 함께 적습니다."],
+  why:"이제 앞에서 만든 명단과 점수로 처음 질문을 살펴볼 차례입니다.",
+  say:["조조","위","曹","어떤 자료와 가정을 사용했는지 밝히며, 소속 변경 전후의 차이를 남겨 주십시오."],
+  check:{q:"'제갈량이 조조 편이었다면 조조가 이겼다'고 말할 수 있을까요?",opts:["계산 결과만으로 조조가 이겼다고 말할 수 있습니다.","바람에 관한 가정에 따라 결과가 달라지므로 단정할 수 없습니다.","어떤 조건에서도 연합군이 이깁니다."],ok:1,
+   good:"같은 실험이라도 어떤 가정을 하느냐에 따라 결과가 달라집니다. 가정 실험의 답은 '이렇게 가정하면 이렇다'로 말해야 합니다.",bad:"바람에 관한 두 가정에서 숫자가 어떻게 달랐는지 살펴보시지요.",
+   ev:()=>`기록대로 ${idx(null,"env")} → 제갈량 이동(바람=날씨) ${idx(MOVED,"env")} · (바람=제갈량) ${idx(MOVED,"zg")}`}}
+];
+const avgOf=(f,drop)=>{let v=facMembers(f).map(n=>PP[n].pa).sort((a,b)=>b-a);if(drop)v=v.slice(1);return avg(v)};
+const shuTop=()=>facMembers("shu").sort((a,b)=>PP[b].pa-PP[a].pa)[0];
+
+/* ===== 공통 틀 ===== */
+let onAdvance=null,onBack=null,fxLevel=1;
+const doneCount=()=>Object.keys(S.done).length;
+const nextStage=()=>{const i=STAGES.findIndex((_,k)=>!S.done[k+1]);return i<0?6:i};
+function hud(){const n=doneCount();return `<header class="hud"><button class="logo" id="toMap" aria-label="원정 지도로">계책록</button>
+ <div class="stats"><span>진행 ${n}/6<span class="bar"><i style="width:${n/6*100}%"></i></span></span><span>EXP ${n*120}</span><span class="hearts" aria-label="남은 기회">${"♥".repeat(Math.max(0,3-S.miss))}${"♡".repeat(Math.min(3,S.miss))}</span></div></header>`}
+const wireHud=()=>{$("#toMap").onclick=()=>map()};
+
+/* ===== 타이틀 ===== */
+function title(){
+ fxLevel=1;onBack=null;
+ app.innerHTML=`<section class="title">
+  <div><div class="tag">『삼국지연의』 데이터 실험 01 · 赤壁</div>
+   <h1 class="logo">계책록</h1>
+   <h2>삼국지로 배우는 데이터 분석</h2>
+   <p class="dim">${MISSION}</p>
+   <div class="box dlg"><div class="who">기록관</div><div class="say"></div><span class="more"></span></div>
+   <div class="press">▶ ENTER 또는 클릭으로 시작</div></div>
+  <div class="box portrait"><img class="pt" src="assets/portraits/archivist.png" alt="돋보기를 든 기록관"></div></section>`;
+ type($(".say"),"어서 오세요. 지난날의 기록을 함께 펼쳐 보시지요.");
+ onAdvance=()=>{if(!skipType())S.pred==null?prologue():map()};
+}
+
+/* ===== 프롤로그: 이야기와 처음 짐작 ===== */
+function prologue(){
+ onBack=title;
+ app.innerHTML=`${hud()}<section class="stack">
+  <div class="box"><div class="tag">PROLOGUE · 第四十三回 — 第五十回</div><h1 class="logo" style="font-size:clamp(26px,4vw,40px);margin:8px 0">${MISSION}</h1>
+   <p style="margin:0">조조군이 남쪽으로 내려오자 손권과 유비는 힘을 모았습니다. 연합군은 거짓 항복과 화공을 준비했고, 동남풍을 타고 번진 불길에 조조군은 물러났습니다. 제갈량은 이 과정에서 연합군의 계책과 바람에 관여합니다.</p>
+   <p class="note">『삼국지연의』 제43–50회의 이야기를 학습을 위해 요약했습니다.</p></div>
+  <div class="box vs" aria-label="장강을 사이에 둔 조조군과 손권·유비 연합군">
+   <div class="side"><div class="flags">${flag("wei")}</div>${nameTile("조조")}<span style="color:var(--wei)">조조군</span></div>
+   <span class="vsmark">VS</span>
+   <div class="side"><div class="flags">${flag("wu")}${flag("shu")}</div><span class="row" style="justify-content:center;gap:6px">${nameTile("손권")}${nameTile("유비")}</span><span style="color:var(--ally)">손권·유비 연합군</span></div></div>
+  <div class="box move"><div><span class="dim">이야기 속 제갈량</span><b style="color:var(--ally)">손권·유비 연합군</b></div><span class="big" aria-hidden="true">→</span><div><span class="dim">바꾸어 볼 소속</span><b style="color:var(--wei)">조조군</b></div></div>
+  <div class="box red"><div class="tag">어떤 결과가 나올지 먼저 짐작해 보시겠습니까?</div>
+   <div class="opts" id="pred" style="margin-top:10px">${PREDICTIONS.map((p,i)=>`<button class="opt" data-i="${i}" aria-pressed="${S.pred===i}">${p}</button>`).join("")}</div>
+   <p class="note">짐작은 마지막에 계산 결과와 비교합니다.</p></div>
+  <div class="row sb"><button class="btn ghost" id="back">◀ 타이틀</button><button class="btn" id="go" ${S.pred==null?"disabled":""}>원정 시작 ▶</button></div></section>`;
+ wireHud();
+ $("#pred").onclick=e=>{const b=e.target.closest(".opt");if(!b)return;S.pred=+b.dataset.i;save();$$("#pred .opt").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#go").disabled=false};
+ $("#back").onclick=title;$("#go").onclick=()=>map();
+ onAdvance=null;
+}
+
+/* ===== 원정 지도 ===== */
+function map(focus){
+ fxLevel=1;
+ const cur=nextStage();
+ app.innerHTML=`${hud()}
+ <section class="box map" aria-label="원정 지도">
+  <div class="tag">赤壁 원정 지도 · ${MISSION}</div>
+  <svg aria-hidden="true"><polyline fill="none" stroke="#e8b030" stroke-width="3" stroke-dasharray="6 6"/></svg>
+  <div class="nodes">${STAGES.map((e,i)=>{const st=S.done[i+1]?"clear":i===cur?"now":"lock";
+   return `<button class="node ${st}" data-i="${i}" style="padding-top:${[52,24,72,32,80,44][i]}px" ${st==="lock"?'aria-disabled="true"':""} aria-label="순서 ${i+1}: ${esc(e.short)}${st==="lock"?" (잠김)":st==="clear"?" (완료)":""}"><span class="sq"></span>${i+1}. ${esc(e.short)}</button>`}).join("")}</div>
+ </section>
+ <section class="box gold" style="margin-top:22px">${cur<6?`<div class="tag">다음 퀘스트 · 순서 ${cur+1}</div><h2 class="px" style="font-size:20px;margin:6px 0">${esc(STAGES[cur].q)}</h2><p class="note" style="margin:0 0 14px">${esc(STAGES[cur].why)}</p><button class="btn" id="goNext">퀘스트 시작 ▶</button>`
+  :`<div class="tag">원정 완료</div><h2 class="px" style="font-size:20px;margin:6px 0">여섯 퀘스트를 모두 마쳤습니다</h2><button class="btn" id="goNext">계책 보고서 보기 ▶</button>`}</section>
+ <p class="row" style="margin-top:22px"><button class="btn ghost" id="prol">처음 짐작 다시 보기</button>${doneCount()?`<button class="btn ghost" id="reset">처음부터 다시</button>`:""}</p>`;
+ wireHud();
+ $$(".node").forEach(b=>b.onclick=()=>{if(!b.classList.contains("lock"))quest(+b.dataset.i)});
+ $("#goNext").onclick=()=>cur<6?quest(cur):report();
+ $("#prol").onclick=prologue;
+ $("#reset")&&($("#reset").onclick=()=>{S=fresh();save();title()});
+ drawPath();
+ if(focus!=null)$(`.node[data-i="${focus}"]`)?.focus();
+ onAdvance=()=>$("#goNext").click();onBack=null;
+}
+function drawPath(){const m=$(".map"),pl=m&&m.querySelector("polyline");if(!pl)return;const b=m.getBoundingClientRect();
+ pl.setAttribute("points",[...m.querySelectorAll(".sq")].map(s=>{const r=s.getBoundingClientRect();return `${r.left-b.left+r.width/2},${r.top-b.top+r.height/2}`}).join(" "))}
+addEventListener("resize",drawPath);
+
+/* ===== 퀘스트 틀: 머리글 + 대사 + 활동 + 확인 문제 ===== */
+function quest(i){
+ const e=STAGES[i];fxLevel=i===5?2.2:i===4?1.6:1;
+ app.innerHTML=`${hud()}<section class="stack">
+  <div class="box qhead"><div class="tag">QUEST ${i+1} / 6 · ${esc(e.short)}</div><h1>${esc(e.q)}</h1>
+   <div class="concept"><b>분석 개념</b><span><b style="color:var(--ink)">${esc(e.concept[0])}</b> — ${esc(e.concept[1])}</span><b>왜</b><span>${esc(e.why)}</span></div></div>
+  ${talk(...e.say.slice(0,2),e.say[2],e.say[3])}
+  <div id="act" class="stack"></div>
+  <section class="box red quiz" id="quiz" hidden><div class="tag">확인 문제</div><h2>${esc(e.check.q)}</h2><div class="opts" id="qopts">${e.check.opts.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div><p class="fb" id="qfb" hidden></p></section>
+  <div class="row sb"><button class="btn ghost" id="back">◀ 지도로</button><span class="mission">${MISSION} · Esc: 지도로</span></div></section>`;
+ wireHud();startTalk();
+ $("#back").onclick=()=>map(i);onBack=()=>map(i);
+ onAdvance=()=>skipType();
+ const unlock=()=>{const q=$("#quiz");if(q.hidden){q.hidden=false;if(!RM)q.scrollIntoView({behavior:"smooth",block:"nearest"})}};
+ ACT[i]($("#act"),unlock);
+ $("#qopts").onclick=ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled)return;const k=+b.dataset.k,fb=$("#qfb");fb.hidden=false;
+  if(k===e.check.ok){b.classList.add("ok");$$("#qopts .opt").forEach(x=>x.disabled=true);fb.className="fb";fb.innerHTML=`<b>맞습니다.</b> ${esc(e.check.good)}`;setTimeout(()=>clearStage(i),RM?0:700)}
+  else{b.classList.add("no");S.miss++;save();fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${esc(e.check.bad)}`;const q=$("#quiz");q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake");$(".hearts").outerHTML=hud().match(/<span class="hearts"[^]*?<\/span>/)[0]}};
+}
+
+function clearStage(i){
+ const e=STAGES[i];S.done[i+1]=e.check.ev();save();
+ const last=doneCount()===6;
+ const pop=document.createElement("div");pop.className="pop";pop.setAttribute("role","dialog");pop.setAttribute("aria-modal","true");pop.setAttribute("aria-label",`퀘스트 ${i+1} 완료`);
+ pop.innerHTML=`<div class="box gold"><div class="tag">QUEST ${i+1} CLEAR · EXP +120</div><p class="logo" style="margin:6px 0">CLEAR!</p><img class="pt clear-pt" src="${ARCHIVIST}" alt=""><p style="margin:8px 0 4px"><b class="px">획득한 기록</b></p><p style="margin:0">${esc(S.done[i+1])}</p><p style="margin-top:18px"><button class="btn" id="ok">${last?"계책 보고서 보기 ▶":"지도로 ▶"}</button></p></div>`;
+ document.body.append(pop);$("#ok").focus();
+ const close=()=>{pop.remove();last?report():map(Math.min(i+1,5))};
+ $("#ok").onclick=close;onAdvance=close;onBack=close;
+}
+
+/* ===== 단계별 활동 (계산은 원본과 같음) ===== */
+const ACT=[];
+
+/* 1. 명단에 올릴 네 사람 */
+const PEOPLE1=[
+ {n:"曹操",fact:"적벽 편 모든 회에 나옴",tip:"조조군을 이끈 인물이지요. 명단에서 빼면 조조의 기록도 계산에서 빠집니다."},
+ {n:"許褚",fact:"2회 나옴",tip:"조조의 호위 장수이지요. 이 이야기에서는 두 회에 등장합니다."},
+ {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급됩니다. 이번 분석에 포함할지 생각해 보시지요."},
+ {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적",tip:"원소는 이름만 언급됩니다. 역사책이 원소의 전기를 「위서」에 실어 데이터에 ‘위’로 들어갔을 뿐, 조조군 소속으로 읽어서는 곤란하겠지요."}];
+ACT[0]=(el,unlock)=>{
+ const L=S.t.p1=S.t.p1||{};
+ el.innerHTML=`<section class="step">${stepH(1,"데이터에 '위'로 분류된 네 사람, 모두 조조군으로 셀까요?")}
+  <div class="pcards" id="pc">${PEOPLE1.map(p=>`<div class="box pcard" data-n="${p.n}">${nameTile(PP[p.n].ko)}<h3>${PP[p.n].ko}<span class="chip wei">위</span></h3><p class="fact">${p.fact}</p><div class="pick" role="group" aria-label="${PP[p.n].ko}"><button data-v="1">넣기</button><button data-v="0">빼기</button></div><p class="tip" hidden>${p.tip}</p></div>`).join("")}</div></section>
+  <div id="r1" class="stack" hidden></div>`;
+ const draw=()=>{
+  $$("#pc .pcard").forEach(c=>{const v=L[c.dataset.n];c.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(v!==undefined&&+b.dataset.v===v)));c.classList.toggle("in",v===1);c.classList.toggle("out",v===0);c.querySelector(".tip").hidden=v===undefined});
+  if(!PEOPLE1.every(p=>L[p.n]!==undefined))return;
+  S.rule.min=L["夏侯淵"]===1?1:L["許褚"]===1?2:3;S.rule.dead=L["袁紹"]===1?0:1;save();
+  const totals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==="wei").length;return {all:r.length,wei:w,ally:r.length-w}};
+  const t=totals(),r1=$("#r1");r1.hidden=false;
+  r1.innerHTML=`<section class="step">${stepH(2,"방금 하신 일이 ‘기준 정하기’입니다")}<div class="box">
+   <p style="margin-top:0">내 기준: <b class="px">${S.rule.min}회 이상 나온 사람</b>만, 이미 죽은 사람은 <b class="px">${S.rule.dead?"빼고":"넣고"}</b></p>
+   <div class="sides"><div class="side-n wei"><span>조조군</span><b>${t.wei}<small>명</small></b></div><div class="side-n ally"><span>손권·유비 연합군</span><b>${t.ally}<small>명</small></b></div></div>
+   <p class="note">기록에 이름이 나온 63명 중 <b>${t.all}명</b>을 셉니다. 이 명단으로 마지막 실험까지 계산합니다.</p>
+   <details style="margin-top:10px"><summary class="px" style="cursor:pointer">다른 기준도 살펴보기</summary><div class="row" style="margin-top:10px">${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"]],S.rule.min)}${seg("rDead",[[1,"죽은 사람 빼기"],[0,"넣기"]],S.rule.dead)}</div><p class="note" id="alt"></p></details></div></section>
+   ${named("분석 대상 정하기","이름이 기록에 남았어도, 모두 이 싸움에 나온 것은 아니지요. 누구를 셀지 정하는 기준에 따라 이후의 모든 숫자가 달라집니다.")}`;
+  const alt=()=>{const a=totals();$("#alt").textContent=`→ 조조군 ${a.wei}명 · 연합군 ${a.ally}명 (모두 ${a.all}명)`};
+  onSeg("rMin",v=>{S.rule.min=+v;save();alt()});onSeg("rDead",v=>{S.rule.dead=+v;save();alt()});alt();
+  unlock();
+ };
+ $("#pc").onclick=e=>{const b=e.target.closest(".pick button");if(!b)return;L[b.closest(".pcard").dataset.n]=+b.dataset.v;save();draw()};
+ draw();
+};
+
+/* 2. 평균의 함정 */
+ACT[1]=(el,unlock)=>{
+ const fac=[["shu","촉"],["wu","오"],["wei","위"]],top=shuTop(),mem=facMembers("shu").sort((a,b)=>PP[b].pa-PP[a].pa),mx=Math.max(...fac.map(([f])=>avgOf(f)));
+ const avgBars=drop=>barsHTML(fac.map(([f,l])=>({label:l,v:avgOf(f,drop&&f==="shu"),c:`var(--${f})`})),mx,"");
+ const shuBars=drop=>{const max=PP[mem[0]].pa,a=avgOf("shu",drop);return `<div class="bars">${mem.map((n,k)=>`<div class="brow ${drop&&!k?"out":""}"><span>${PP[n].ko}</span><span class="track"><span class="fill" style="width:${PP[n].pa/max*100}%;background:var(--shu)"></span><i class="avgm" style="left:${a/max*100}%"></i></span><b>${PP[n].pa}</b></div>`).join("")}</div><p class="note"><span style="color:var(--gold)">▮</span> 평균 ${drop?`<s>${f1(avgOf("shu"))}</s> → `:""}<b class="px">${f1(a)}</b>문단${drop?" · 흐린 막대는 뺀 사람":""}</p>`};
+ el.innerHTML=`<section class="step">${stepH(1,"한 사람은 평균 몇 문단에 나올까요?")}<div class="box"><div id="avgs">${avgBars(false)}</div><p class="note" id="avgNote"></p></div></section>
+  <section class="step">${stepH(2,"촉 사람들을 한 명씩 보면")}<div class="box"><div id="shu">${shuBars(false)}</div><p class="note">${PP[top].ko}${jo(PP[top].ko,"은","는")} ${PP[top].pa}문단에 나오고, 나머지 촉 사람들은 평균 ${f1(avgOf("shu",1))}문단에 나옵니다.</p><p><button class="btn" id="drop">${PP[top].ko} 빼고 다시 계산하기</button></p><div id="dropRes"></div></div></section>
+  <div id="n2"></div>`;
+ const rank=[...fac].sort((a,b)=>avgOf(b[0])-avgOf(a[0]));
+ $("#avgNote").textContent=`한 사람은 평균 ${rank.map(([f,l])=>`${l} ${f1(avgOf(f))}문단`).join(", ")}에 나옵니다. ${rank[0][1]}${jo(rank[0][1],"이","가")} 가장 높습니다.`;
+ const done=()=>{
+  $("#drop").hidden=true;$("#avgs").innerHTML=avgBars(true);$("#shu").innerHTML=shuBars(true);
+  const rk=[...fac].sort((a,b)=>avgOf(b[0],b[0]==="shu")-avgOf(a[0],a[0]==="shu"));
+  $("#avgNote").textContent=`${PP[top].ko}${jo(PP[top].ko,"을","를")} 빼면 촉은 ${f1(avgOf("shu",1))}문단으로 내려가, ${rk.map(([f,l])=>`${l} ${f1(avgOf(f,f==="shu"))}`).join(", ")} 순이 됩니다.`;
+  $("#dropRes").innerHTML=`<p class="big">촉 평균 ${f1(avgOf("shu"))} → <span style="color:var(--gold)">${f1(avgOf("shu",1))}</span></p>`;
+  $("#n2").innerHTML=named("평균의 함정","한 사람의 숫자가 아주 크면 평균이 함께 올라가서 '다들 많이 나온 것처럼' 보입니다. 줄을 세웠을 때 가운데 사람의 값인 중앙값도 함께 살펴야겠지요.")+
+   `<div class="box" style="margin-top:20px"><div class="tag">가운데 값(중앙값)으로 보면</div><div class="sides" style="grid-template-columns:repeat(3,1fr);margin-top:10px">${fac.map(([f,l])=>`<div class="side-n" style="border-color:var(--${f})"><span>${l}</span><b>${f1(median(facMembers(f).map(n=>PP[n].pa)))}</b></div>`).join("")}</div></div>`;
+  unlock();
+ };
+ $("#drop").onclick=()=>{S.t.dropped=1;save();done()};
+ if(S.t.dropped)done();
+};
+
+/* 3. 배·불·계책 점수 만들기 */
+ACT[2]=(el,unlock)=>{
+ const zy=PP["周瑜"].yy,ex=(EVID["周瑜"]||{}).fire;
+ el.innerHTML=`<section class="step">${stepH(1,"기록에서 '배·불·계책'을 셉니다")}<div class="box">
+   <p style="margin-top:0">번역문의 낱말이 아니라 <b>원문(한문)의 글자</b>를 셉니다. 인물의 이름이 나온 문단에 아래 글자가 하나라도 있으면 그 문단을 1로 셉니다. 예: 주유의 이름이 나온 문단 중에</p>
+   <div class="kcount"><div><b>${zy[0]}</b><span>배 · 船 舟 水軍 艦</span></div><div><b>${zy[1]}</b><span>불 · 火 燒 焚</span></div><div><b>${zy[2]}</b><span>계책 · 計 謀 策</span></div></div>
+   ${ex?`<details style="margin-top:12px"><summary class="px" style="cursor:pointer">'불' 글자가 나온 문단 하나 보기</summary><blockquote class="ev">${hiKw(ex[1],/불(?![러렀구과평만안편어었])/g)}</blockquote></details>`:""}</div></section>
+  <section class="step">${stepH(2,"무엇에 무게를 둘지 정해 보시지요")}<div class="cols">
+   <div class="box"><div class="stepper" id="wts"></div><p><button class="btn" id="fix">이 점수로 계산하기</button></p></div>
+   <div class="box"><div class="tag">두 진영의 점수</div><div class="arena duel" style="grid-template-columns:1fr 1fr;margin:6px 0"><div class="flags" id="a3w">${flag("wei")}</div><div class="flags" id="a3a">${flag("wu")}${flag("shu")}</div></div><div id="tug"></div><p class="note" id="ratio"></p></div></div></section>
+  <div id="n3"></div>`;
+ const KS=[["ship","배"],["fire","불"],["plan","계책"]];
+ const drawW=()=>{$("#wts").innerHTML=KS.map(([k,l])=>`<div class="w"><span>${l} 1번에</span><span><span class="ctl"><button data-w="${k}" data-d="-1" aria-label="${l} 점수 내리기">−</button><output class="num">${S.w[k]}점</output><button data-w="${k}" data-d="1" aria-label="${l} 점수 올리기">+</button></span><span class="pips" aria-hidden="true">${[1,2,3,4,5].map(n=>`<i class="${n<=S.w[k]?"on":""}"></i>`).join("")}</span></span></div>`).join("")};
+ const calc=()=>{const s=fs(),A=s.wu+s.shu,W=s.wei;$("#tug").innerHTML=tugHTML(W,A);$("#ratio").textContent=W?`연합군 점수가 조조군의 약 ${(A/W).toFixed(1)}배`:"";
+  duel("#a3w","#a3a",W>A?"wei":"ally")};
+ $("#wts").onclick=e=>{const b=e.target.closest("button[data-w]");if(!b)return;const k=b.dataset.w;S.w[k]=Math.max(0,Math.min(5,S.w[k]+ +b.dataset.d));if(!S.w.ship&&!S.w.fire&&!S.w.plan)S.w[k]=1;save();drawW();$("#fix").textContent="바뀐 점수로 계산하기"};
+ $("#fix").onclick=()=>{calc();$("#fix").textContent="이 점수로 계산하기";S.t.fixed=1;save();
+  $("#n3").innerHTML=named("지표 만들기","'무엇을 셀지'와 '몇 점을 줄지'를 정해 숫자 하나로 만든 것을 지표라고 합니다. 이 점수가 마지막 실험에서 그대로 쓰입니다.");unlock()};
+ drawW();{const s=fs();$("#tug").innerHTML=tugHTML(s.wei,s.wu+s.shu)}
+ if(S.t.fixed)$("#fix").click();
+};
+
+/* 4. 점수 규칙 215가지 */
+ACT[3]=(el,unlock)=>{
+ const r=roster(),A=r.filter(n=>PP[n].f!=="wei"),W=r.filter(n=>PP[n].f==="wei");
+ const lead=w=>({a:A.reduce((s,n)=>s+scoreOf(n,w),0),b:W.reduce((s,n)=>s+scoreOf(n,w),0)});
+ const FR=[["불에만 무게를 두겠습니다",{ship:0,fire:5,plan:0},"규칙 A"],["배에만 무게를 두겠습니다",{ship:5,fire:0,plan:0},"규칙 B"],["계책에만 무게를 두겠습니다",{ship:0,fire:0,plan:5},"규칙 C"]];
+ el.innerHTML=`<section class="step">${stepH(1,"이런 점수 규칙도 생각해 볼 수 있지요")}<div class="friends" id="fr">${FR.map(([t,w,who],k)=>`<div class="box pcard"><span class="tag">${who}</span><h3 style="font-size:15px">“${t}”</h3><p class="fact">배 ${w.ship} · 불 ${w.fire} · 계책 ${w.plan}</p><button class="btn ghost" data-k="${k}">계산해 보기</button><div class="tip" hidden></div></div>`).join("")}</div></section>
+  <section class="step">${stepH(2,"가능한 점수 규칙을 모두 살펴보시지요")}<div class="box"><p style="margin-top:0">배·불·계책에 0~5점을 주는 모든 경우는 215가지입니다.</p><button class="btn" id="run">215가지 전부 계산하기</button><div id="all"></div></div></section><div id="n4"></div>`;
+ $("#fr").onclick=e=>{const b=e.target.closest("button[data-k]");if(!b)return;const [,w]=FR[+b.dataset.k],x=lead(w),tip=b.nextElementSibling;tip.hidden=false;tip.innerHTML=tugHTML(x.b,x.a)+`<p class="px" style="margin:6px 0 0;color:var(--gold)">${x.a>x.b?"그래도 연합군이 앞섭니다":"조조군이 앞섭니다"}</p>`};
+ const run=()=>{let win=0;const cells=[];
+  for(let a=0;a<=5;a++)for(let b=0;b<=5;b++)for(let c=0;c<=5;c++){if(!a&&!b&&!c)continue;const x=lead({ship:a,fire:b,plan:c}),ok=x.a>x.b;if(ok)win++;cells.push(`<i class="${ok?"a":"w"}" style="--k:${cells.length}" title="배 ${a} · 불 ${b} · 계책 ${c} → ${ok?"연합군":"조조군"} 앞섬"></i>`)}
+  S.t.win=win;save();$("#run").hidden=true;
+  $("#all").innerHTML=`<p class="big">${win} <span class="dim" style="font-size:18px">/ 215가지에서 연합군이 앞섭니다</span></p><div class="waffle" role="img" aria-label="점수 규칙 215가지 중 ${win}가지에서 연합군이 앞섬">${cells.join("")}</div><p class="key"><span><i style="background:var(--ally)"></i>연합군 앞섬 ${win}</span><span><i style="background:var(--wei)"></i>조조군 앞섬 ${215-win}</span><span>칸 하나가 점수 규칙 하나입니다.</span></p>`;
+  setTimeout(()=>{$("#n4")&&($("#n4").innerHTML=named("민감도 확인","내가 정한 점수 대신 다른 점수를 넣어 봐도 결론이 같은지 확인하는 것입니다. 거의 모든 경우에 같다면, 결론이 점수 고르기에 달려 있지 않다는 뜻입니다."));unlock()},RM?0:1900)};
+ $("#run").onclick=run;if(S.t.win!=null)run();
+};
+
+/* 5. 원문 확인 */
+ACT[4]=(el,unlock)=>{
+ const top=roster().map(n=>({n,v:PP[n].yy[1]})).sort((a,b)=>b.v-a.v).slice(0,4),e=(EVID["曹操"]||{}).fire;
+ const ASK={opts:["불을 지르는 쪽입니다.","원문만으로는 알 수 없습니다.","불에 당해 달아나고 있습니다."],ok:2,good:"조조는 불에 당하고 있습니다. 그래도 ‘불’ 글자가 함께 나와서 점수가 높아졌습니다.",bad:"원문에서 조조가 무엇을 하고 있는지 읽어 보시지요."};
+ el.innerHTML=`<section class="step">${stepH(1,"'불' 글자와 함께 나온 횟수")}<div class="box">${barsHTML(top.map(x=>({label:PP[x.n].ko,v:x.v,c:`var(--${PP[x.n].f})`})),top[0].v,"회")}<p class="note">조조의 '불' 숫자가 가장 높습니다. 조조가 불을 잘 다뤘다는 뜻일까요?</p></div></section>
+  <section class="step">${stepH(2,"원문을 먼저 읽어 보시지요")}<div class="box"><button class="btn" id="open">📜 원문 펼치기</button><div id="txt"></div></div></section>
+  <section class="step" id="ask" hidden>${stepH(3,"조조는 불을 잘 다뤘을까요?")}<div class="box"><div class="opts" id="aopts">${ASK.opts.map((o,k)=>`<button class="opt" data-k="${k}">${o}</button>`).join("")}</div><p class="fb" id="afb" hidden></p></div></section><div id="n5"></div>`;
+ const open=()=>{$("#open").hidden=true;$("#txt").innerHTML=e?`<p class="note" style="margin-top:0">『삼국지연의』 ${e[0]}회 · 조조와 '불'이 함께 나온 문단</p><blockquote class="ev">${hiKw(e[1],/불(?![러렀구과평만안편어었])/g)}</blockquote>`:"";$("#ask").hidden=false;S.t.opened=1;save()};
+ $("#open").onclick=open;
+ $("#aopts").onclick=ev=>{const b=ev.target.closest(".opt");if(!b)return;const k=+b.dataset.k,fb=$("#afb");fb.hidden=false;$$("#aopts .opt").forEach(x=>x.classList.remove("ok","no"));
+  if(k===ASK.ok){b.classList.add("ok");fb.className="fb";fb.innerHTML=`<b>맞습니다.</b> ${ASK.good}`;S.t.read=1;save();$("#n5").innerHTML=named("근거 확인","뜻밖의 숫자가 나왔다면, 그 숫자가 비롯된 기록을 직접 펼쳐 보시지요. 글자를 세는 방법은 '불을 지른 사람'과 '불에 당한 사람'을 구분하지 못했습니다.");unlock()}
+  else{b.classList.add("no");fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${ASK.bad}`}};
+ if(S.t.opened)open();
+};
+
+/* 6. 제갈량 옮기기 + 바람 가정 */
+ACT[5]=(el,unlock)=>{
+ const D=S.t.d6=S.t.d6||{tried:[]},base=idx(null,"env");
+ el.innerHTML=`<section class="step">${stepH(1,"지금 기록대로 계산하면")}<div class="box">
+   <div class="arena"><div><div class="flags" id="aw">${flag("wei")}</div><div class="lbl" style="color:var(--wei)">조조군</div></div>
+   <div id="g6">${gaugeHTML(base)}</div>
+   <div><div class="flags" id="aa">${flag("wu")}${flag("shu")}</div><div class="lbl" style="color:var(--ally)">손권·유비 연합군</div></div></div>
+   <div class="zg-token" id="zg">${nameTile("제갈량")}<span class="dim">제갈량 · 지금 소속: <b id="zgside" style="color:var(--ally)">연합군</b></span></div>
+   <p class="note">앞 순서에서 정한 명단과 점수로 계산한 '연합군이 앞서는 정도'(0~100)입니다. 바람은 날씨로 보아 연합군에 +10을 더했습니다.</p>
+   <p><button class="btn" id="mv">⚑ 제갈량을 조조 편으로 옮기기</button></p><div id="mvres"></div></div></section>
+  <section class="step" id="w6" hidden>${stepH(2,"그런데 바람은 누가 불게 했을까요?")}<div class="box"><div class="opts" id="wopts"><button class="opt" data-v="env">바람은 환경 조건입니다 (날씨)</button><button class="opt" data-v="zg">바람이 제갈량을 따라갑니다</button></div><div id="wres"></div></div></section>
+  <div id="n6"></div>`;
+ const anim=i=>duel("#aw","#aa",i<45?"wei":i>=65?"ally":"tie");
+ const setG=(i,ghost)=>{$("#g6").innerHTML=gaugeHTML(ghost??i,ghost);requestAnimationFrame(()=>requestAnimationFrame(()=>{const g=$("#g6");if(!g)return;g.querySelector(".pin").style.left=i+"%";g.querySelector(".v").textContent=i;g.querySelector(".verd").textContent=verdict(i)}));anim(i)};
+ const moved=()=>{const m=idx(MOVED,"env");$("#mv").hidden=true;setG(m,base);
+  const zs=$("#zgside");zs.textContent="조조군";zs.style.color="var(--wei)";$("#zg").classList.add("to-wei");
+  $("#mvres").innerHTML=`<p class="big">${base} → <span style="color:var(--gold)">${m}</span></p><p class="note">제갈량의 점수가 조조군으로 옮겨 갔습니다. 바람은 그대로 연합군 편이라고 두었습니다.</p>`;$("#w6").hidden=false;S.t.moved=1;save();drawWind(true)};
+ const drawWind=quiet=>{$$("#wopts .opt").forEach(b=>b.setAttribute("aria-pressed",String(D.w===b.dataset.v)));if(!D.w)return;
+  const v=idx(MOVED,D.w);if(!quiet)setG(v,base);
+  $("#wres").innerHTML=`<p class="big" style="margin-bottom:0">${v} · ${verdict(v)}</p><p class="note">${D.w==="zg"?"제갈량이 바람을 부른다면, 바람도 조조군 편으로 붑니다.":"바람이 그냥 날씨라면, 제갈량이 옮겨 가도 바람은 그대로 연합군 편입니다."}${D.tried.length<2?" 다른 가정도 눌러 보시지요.":""}</p>`;
+  if(D.tried.length>=2){const e=idx(MOVED,"env"),z=idx(MOVED,"zg");
+   $("#n6").innerHTML=named("가정 실험과 전제",`같은 '제갈량 이동'인데도 바람을 날씨로 보면 <b>${e}</b>(${verdict(e)}), 제갈량이 불렀다고 보면 <b>${z}</b>(${verdict(z)})입니다. 결과는 어떤 가정을 하느냐에 달려 있습니다. 그래서 가정 실험의 답에는 항상 가정을 함께 적습니다.`);unlock()}};
+ $("#mv").onclick=moved;
+ $("#wopts").onclick=e=>{const b=e.target.closest(".opt");if(!b)return;D.w=b.dataset.v;if(!D.tried.includes(D.w))D.tried.push(D.w);save();drawWind()};
+ if(S.t.moved)moved();
+};
+
+/* ===== 계책 보고서: 처음 짐작과 결과 비교 ===== */
+function report(){
+ fxLevel=2;onBack=()=>map();
+ const e=idx(MOVED,"env"),z=idx(MOVED,"zg"),base=idx(null,"env");
+ const caoUp=z<base||e<base;
+ const predTxt=S.pred!=null?PREDICTIONS[S.pred]:"남긴 예상이 없습니다";
+ app.innerHTML=`${hud()}<section class="report">
+  <div class="box gold"><div class="tag">계책 보고서 · ${MISSION}</div><h1 class="logo" style="font-size:clamp(26px,4vw,40px);margin:8px 0">원정 완료!</h1>
+   <div class="arena" style="grid-template-columns:auto 1fr;max-width:620px;align-items:center;text-align:left;gap:20px"><img class="pt" src="${ARCHIVIST}" alt="기록관" style="width:140px;border:3px solid var(--line)"><p style="margin:0">여섯 장의 기록을 모았습니다. 처음 짐작과 계산 결과를 견주어 보시지요.</p></div></div>
+  <div class="cmp"><div><span class="dim">처음 짐작</span><b>${esc(predTxt)}</b></div><div style="border-color:var(--gold)"><span class="dim">계산 결과 (연합군이 앞서는 정도)</span><b>기록대로 ${base} → 바람=날씨 ${e} · 바람=제갈량 ${z}</b></div></div>
+  <div class="box"><div class="tag">해석</div><p style="margin:8px 0 0">${caoUp?"제갈량을 옮기면 조조군 쪽으로 기울지만, ":""}바람을 날씨로 보면 <b>${verdict(e)}</b>, 제갈량이 바람을 불렀다고 보면 <b>${verdict(z)}</b>입니다. 같은 이동이라도 바람에 관한 가정에 따라 결론이 달라집니다.</p><p class="note">${REPORT_LIMIT}</p></div>
+  <div class="box"><div class="tag">순서별로 남긴 기록</div><ol style="margin-top:10px">${STAGES.map((s,k)=>`<li><b class="px">${esc(s.short)}</b><br><span class="dim">${esc(S.done[k+1]||"아직 하지 않음")}</span></li>`).join("")}</ol></div>
+  <div class="row"><button class="btn" id="again">처음부터 다시 하기</button><button class="btn ghost" id="tomap">지도로</button><a class="btn ghost" href="../../frontend/public/learning/index.html">실제 실습 화면 열기</a></div></section>`;
+ wireHud();
+ $("#again").onclick=()=>{S=fresh();save();title()};$("#tomap").onclick=()=>map();
+ onAdvance=null;
+}
+
+/* ===== 키보드 ===== */
+addEventListener("keydown",ev=>{
+ if(ev.key==="Escape"&&onBack){const f=onBack;onBack=null;f();return}
+ if((ev.key==="Enter"||ev.key===" ")&&onAdvance&&!ev.target.closest("button,a,summary,input")){ev.preventDefault();onAdvance()}
+});
+addEventListener("click",ev=>{if(ev.target.closest(".dlg, .title .press, .portrait")&&onAdvance)onAdvance()});
+
+/* ===== 불길 배경: prototype/red-cliff-lab/src/50-fx.js 의 fire 모드를 오른쪽 아래에 은은하게 ===== */
+(function(){
+ const cv=$("#fx"),ctx=cv.getContext("2d");let w,h;const dpr=Math.min(2,devicePixelRatio||1);
+ const size=()=>{w=innerWidth;h=innerHeight;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};size();addEventListener("resize",size);
+ const rnd=(a,b)=>a+Math.random()*(b-a);let lv=1;
+ const P=[...Array(70)].map(()=>({x:rnd(.5,1),y:rnd(0,1.2),r:rnd(.6,2),vy:rnd(.00025,.0008),vx:rnd(-.0002,.0002),ph:rnd(0,6.28)}));
+ function draw(t){
+  lv+=(fxLevel-lv)*.03;ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(w*.85,h*1.08,0,w*.85,h*1.08,Math.max(w,h)*(.5+.1*lv));
+  g.addColorStop(0,`rgba(226,98,43,${.22+.08*lv})`);g.addColorStop(.5,`rgba(140,42,30,${.06+.04*lv})`);g.addColorStop(1,"rgba(140,42,30,0)");
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  const n=Math.round(30*lv);
+  for(let k=0;k<Math.min(n,P.length);k++){const p=P[k];
+   p.y-=p.vy*(.8+.3*lv);p.x+=p.vx+Math.sin(t/700+p.ph)*.0004;if(p.y<.2){p.y=1.05;p.x=rnd(.5,1)}
+   const life=Math.max(0,Math.min(1,p.y));
+   ctx.fillStyle=`rgba(255,${150+Math.round(60*(1-life))},70,${(.1+.5*life)*Math.min(1,(p.y-.2)*3)})`;
+   ctx.fillRect(Math.round(p.x*w),Math.round(p.y*h),Math.ceil(p.r*1.5),Math.ceil(p.r*1.5)); // 네모 불티로 도트 느낌
+  }
+ }
+ const loop=t=>{if(!document.hidden)draw(t);requestAnimationFrame(loop)};
+ if(RM)draw(0);else requestAnimationFrame(loop);
+})();
+
+title();
+</script>
+</body>
+</html>
