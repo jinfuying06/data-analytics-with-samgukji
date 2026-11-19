@@ -59,7 +59,14 @@ img.spr{image-rendering:pixelated;display:block}
 .stats{display:flex;flex-wrap:wrap;gap:16px;font-family:var(--px);font-size:13px;align-items:center}
 .bar{display:inline-block;width:130px;height:12px;border:2px solid var(--line);vertical-align:middle;margin-left:6px;background:#000}
 .bar i{display:block;height:100%;background:var(--gold);transition:width .4s steps(6)}
-.hearts{color:var(--red);letter-spacing:2px}
+.tools{display:inline-flex;gap:4px}
+.tl{display:inline-grid;place-items:center;width:26px;height:26px;border:2px solid var(--line);font-family:"Noto Serif KR","Batang",serif;font-size:14px;opacity:.3}
+.tl.on{opacity:1;border-color:var(--gold);color:var(--gold);background:#000}
+.tool-get{display:flex;gap:12px;align-items:center;justify-content:center;margin:10px 0 0}
+.tool-get .tl{width:44px;height:44px;font-size:24px}
+.skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-top:10px;padding:0;list-style:none}
+.skills li{display:flex;gap:10px;align-items:center}
+.skills .tl{width:36px;height:36px;font-size:20px;flex:none}
 
 /* 프롤로그 */
 .vs{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;text-align:center}
@@ -251,7 +258,16 @@ const DEAD=Core.DEAD;
 const FN={wei:"위",wu:"오",shu:"촉"};
 const {avg,median}=Core;
 const f1=x=>Number.isInteger(x)?String(x):x.toFixed(1);
-const fresh=()=>({rule:{min:2,dead:1},w:{ship:3,fire:3,plan:2},done:{},t:{},pred:null,stage:0,miss:0});
+const fresh=()=>({rule:{min:2,dead:1},w:{ship:3,fire:3,plan:2},done:{},t:{},pred:null,stage:0});
+/* 퀘스트를 마치면 얻는 도구. 도구 하나가 분석 기술 하나다. pro는 보고서에서만 보여 주는 실무 용어 */
+const TOOLS=[
+ {ch:"筆",name:"붓",does:"셀 대상 정하기",pro:"분석 대상 정의 · 필터"},
+ {ch:"算",name:"주판",does:"모아 세고 대표값 구하기",pro:"집계 · 평균과 중앙값"},
+ {ch:"衡",name:"저울",does:"기록에 무게 달기",pro:"지표 설계 · 가중치"},
+ {ch:"篩",name:"체",does:"규칙을 바꿔 걸러 보기",pro:"민감도 분석"},
+ {ch:"鏡",name:"돋보기",does:"숫자 뒤의 원문 보기",pro:"근거 확인 · 타당도"},
+ {ch:"扇",name:"부채",does:"조건 하나 바꿔 보기",pro:"What-if 시뮬레이션 · 가정"}];
+const toolTile=(i,on)=>`<span class="tl${on?" on":""}" aria-hidden="true">${TOOLS[i].ch}</span>`;
 let S=fresh();try{S=Object.assign(fresh(),JSON.parse(localStorage.getItem("gyechaek-zg")||"{}"))}catch{}
 const save=()=>{try{localStorage.setItem("gyechaek-zg",JSON.stringify(S))}catch{}};
 const roster=()=>Core.roster(PP,S.rule);
@@ -344,7 +360,7 @@ let onAdvance=null,onBack=null,fxLevel=1;
 const doneCount=()=>Object.keys(S.done).length;
 const nextStage=()=>{const i=STAGES.findIndex((_,k)=>!S.done[k+1]);return i<0?6:i};
 function hud(){const n=doneCount();return `<header class="hud"><button class="logo" id="toMap" aria-label="원정 지도로">계책록</button>
- <div class="stats"><span>진행 ${n}/6<span class="bar"><i style="width:${n/6*100}%"></i></span></span><span>EXP ${n*120}</span><span class="hearts" aria-label="남은 기회">${"♥".repeat(Math.max(0,3-S.miss))}${"♡".repeat(Math.min(3,S.miss))}</span></div></header>`}
+ <div class="stats"><span>진행 ${n}/6<span class="bar"><i style="width:${n/6*100}%"></i></span></span><span class="tools" role="img" aria-label="얻은 도구: ${TOOLS.filter((_,k)=>S.done[k+1]).map(t=>t.name).join(", ")||"없음"}">${TOOLS.map((_,k)=>toolTile(k,S.done[k+1])).join("")}</span></div></header>`}
 const wireHud=()=>{$("#toMap").onclick=()=>map()};
 
 /* ===== 타이틀 ===== */
@@ -428,14 +444,14 @@ function quest(i){
  ACT[i]($("#act"),unlock);
  $("#qopts").onclick=ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled)return;const k=+b.dataset.k,fb=$("#qfb");fb.hidden=false;
   if(k===e.check.ok){b.classList.add("ok");$$("#qopts .opt").forEach(x=>x.disabled=true);fb.className="fb";fb.innerHTML=`<b>맞습니다.</b> ${esc(e.check.good)}`;setTimeout(()=>clearStage(i),RM?0:700)}
-  else{b.classList.add("no");S.miss++;save();fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${esc(e.check.bad)}`;const q=$("#quiz");q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake");$(".hearts").outerHTML=hud().match(/<span class="hearts"[^]*?<\/span>/)[0]}};
+  else{b.classList.add("no");fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${esc(e.check.bad)}`;const q=$("#quiz");q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake")}};
 }
 
 function clearStage(i){
  const e=STAGES[i];S.done[i+1]=e.check.ev();save();
  const last=doneCount()===6;
  const pop=document.createElement("div");pop.className="pop";pop.setAttribute("role","dialog");pop.setAttribute("aria-modal","true");pop.setAttribute("aria-label",`퀘스트 ${i+1} 완료`);
- pop.innerHTML=`<div class="box gold"><div class="tag">QUEST ${i+1} CLEAR · EXP +120</div><p class="logo" style="margin:6px 0">CLEAR!</p><img class="pt clear-pt" src="${ARCHIVIST}" alt=""><p style="margin:8px 0 4px"><b class="px">획득한 기록</b></p><p style="margin:0">${esc(S.done[i+1])}</p><p style="margin-top:18px"><button class="btn" id="ok">${last?"계책 보고서 보기 ▶":"지도로 ▶"}</button></p></div>`;
+ pop.innerHTML=`<div class="box gold"><div class="tag">QUEST ${i+1} CLEAR</div><p class="logo" style="margin:6px 0">CLEAR!</p><img class="pt clear-pt" src="${ARCHIVIST}" alt=""><div class="tool-get">${toolTile(i,true)}<div style="text-align:left"><span class="dim">새 도구</span><br><b class="px">${TOOLS[i].name}</b> · ${TOOLS[i].does}</div></div><p style="margin:14px 0 4px"><b class="px">획득한 기록</b></p><p style="margin:0">${esc(S.done[i+1])}</p><p style="margin-top:18px"><button class="btn" id="ok">${last?"계책 보고서 보기 ▶":"지도로 ▶"}</button></p></div>`;
  document.body.append(pop);$("#ok").focus();
  const close=()=>{pop.remove();last?report():map(Math.min(i+1,5))};
  $("#ok").onclick=close;onAdvance=close;onBack=close;
@@ -588,6 +604,7 @@ function report(){
    <div class="arena" style="grid-template-columns:auto 1fr;max-width:620px;align-items:center;text-align:left;gap:20px"><img class="pt" src="${ARCHIVIST}" alt="기록관" style="width:140px;border:3px solid var(--line)"><p style="margin:0">여섯 장의 기록을 모았습니다. 처음 짐작과 계산 결과를 견주어 보시지요.</p></div></div>
   <div class="cmp"><div><span class="dim">처음 짐작</span><b>${esc(predTxt)}</b></div><div style="border-color:var(--gold)"><span class="dim">계산 결과 (연합군이 앞서는 정도)</span><b>기록대로 ${base} → 바람=날씨 ${e} · 바람=제갈량 ${z}</b></div></div>
   <div class="box"><div class="tag">해석</div><p style="margin:8px 0 0">${caoUp?"제갈량을 옮기면 조조군 쪽으로 기울지만, ":""}바람을 날씨로 보면 <b>${verdict(e)}</b>, 제갈량이 바람을 불렀다고 보면 <b>${verdict(z)}</b>입니다. 같은 이동이라도 바람에 관한 가정에 따라 결론이 달라집니다.</p><p class="note">${REPORT_LIMIT}</p></div>
+  <div class="box"><div class="tag">얻은 도구와 익힌 분석 기술</div><ul class="skills">${TOOLS.map((t,k)=>`<li>${toolTile(k,S.done[k+1])}<div><b class="px">${t.name}</b> · ${t.does}<br><span class="dim">실무에서는: ${t.pro}</span></div></li>`).join("")}</ul></div>
   <div class="box"><div class="tag">순서별로 남긴 기록</div><ol style="margin-top:10px">${STAGES.map((s,k)=>`<li><b class="px">${esc(s.short)}</b><br><span class="dim">${esc(S.done[k+1]||"아직 하지 않음")}</span></li>`).join("")}</ol></div>
   <div class="row"><button class="btn" id="again">처음부터 다시 하기</button><button class="btn ghost" id="tomap">지도로</button><a class="btn ghost" href="../../frontend/public/learning/index.html">실제 실습 화면 열기</a></div></section>`;
  wireHud();
