@@ -16,6 +16,16 @@ rmSync('dist',{recursive:true,force:true});mkdirSync('dist',{recursive:true});//
 writeFileSync('dist/index.html',html.replaceAll("url('/images/","url('images/").replaceAll('"/sprites/factions/','"sprites/factions/'));
 cpSync('frontend/public/sprites/factions','dist/sprites/factions',{recursive:true});
 cpSync('frontend/public/images','dist/images',{recursive:true});
+// 새 본 화면(계책록 게임)을 /game/에 함께 배포한다. 기존 화면은 갈아타기 전까지 루트에 둔다.
+const game='prototype/game-demo/';
+mkdirSync('dist/game/assets',{recursive:true});
+writeFileSync('dist/game/index.html',readFileSync(game+'index.html','utf8')
+  .replace('"../red-cliff-lab/src/30-data.js"','"data.js"')
+  .replace('"../../frontend/public/sprites/factions/"','"../sprites/factions/"')
+  .replace('"../../frontend/public/learning/index.html"','"../"'));
+cpSync(base+'30-data.js','dist/game/data.js');
+cpSync(game+'core.js','dist/game/core.js');
+cpSync(game+'assets/portraits','dist/game/assets/portraits',{recursive:true});
 mkdirSync('frontend/public/learning',{recursive:true});
 writeFileSync('frontend/public/learning/index.html',html);
 console.log('Built latest GitHub six-stage app from 5113da1, from canonical source, with shared Next.js and static entry points.');
