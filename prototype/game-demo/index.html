@@ -465,21 +465,26 @@ const ACT=[];
 
 /* 1. 명단에 올릴 네 사람 */
 const PEOPLE1=[
- {n:"曹操",fact:"적벽 편 모든 회에 나옴",tip:"조조군을 이끈 인물이지요. 명단에서 빼면 조조의 기록도 계산에서 빠집니다."},
- {n:"許褚",fact:"2회 나옴",tip:"조조의 호위 장수이지요. 이 이야기에서는 두 회에 등장합니다."},
- {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",tip:"한 회에 이름이 언급됩니다. 이번 분석에 포함할지 생각해 보시지요."},
- {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적",tip:"원소는 이름만 언급됩니다. 역사책이 원소의 전기를 「위서」에 실어 데이터에 ‘위’로 들어갔을 뿐, 조조군 소속으로 읽어서는 곤란하겠지요."}];
+ // ok: 정답이 있는 사람만 1(넣기)/0(빼기), null이면 어느 쪽도 맞음. say[0]=빼기, say[1]=넣기
+ {n:"曹操",fact:"적벽 편 모든 회에 나옴",ok:1,say:["아니에요. 조조는 조조군을 이끈 사람입니다. 빼면 조조군의 가장 큰 기록이 통째로 사라집니다.","맞아요. 조조군을 이끈 사람이니 꼭 세야지요."]},
+ {n:"許褚",fact:"2회 나옴",ok:null,say:["빼도 됩니다. 두 번만 나온 사람까지 셀지는 정하기 나름이지요.","넣어도 됩니다. 조조의 호위 장수로 두 회에 나옵니다."]},
+ {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",ok:null,say:["빼도 됩니다. 이름만 한 번 나온 사람은 이 싸움에 나왔다고 보기 어렵지요.","넣어도 됩니다. 다만 이름만 한 번 나온 사람까지 세면 명단이 크게 늘어납니다."]},
+ {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적",ok:0,say:["맞아요. 원소는 이미 죽어 이 싸움에 나올 수 없지요. 역사책이 원소의 전기를 「위서」에 실어서 데이터에 ‘위’로 들어갔을 뿐입니다.","아니에요. 원소는 6년 전에 죽어 이 싸움에 나올 수 없습니다. 데이터의 ‘위’는 역사책이 전기를 「위서」에 실었다는 뜻일 뿐, 조조군이라는 뜻이 아니에요."]}];
+const wrong1=(p,v)=>p.ok!==null&&v!==undefined&&v!==p.ok;
 ACT[0]=(el,unlock)=>{
  const L=S.t.p1=S.t.p1||{};
  el.innerHTML=`<section class="step">${stepH(1,"데이터에 '위'로 분류된 네 사람, 모두 조조군으로 셀까요?")}
-  <div class="pcards" id="pc">${PEOPLE1.map(p=>`<div class="box pcard" data-n="${p.n}">${nameTile(PP[p.n].ko)}<h3>${PP[p.n].ko}<span class="chip wei">위</span></h3><p class="fact">${p.fact}</p><div class="pick" role="group" aria-label="${PP[p.n].ko}"><button data-v="1">넣기</button><button data-v="0">빼기</button></div><p class="tip" hidden>${p.tip}</p></div>`).join("")}</div></section>
+  <div class="pcards" id="pc">${PEOPLE1.map(p=>`<div class="box pcard" data-n="${p.n}">${nameTile(PP[p.n].ko)}<h3>${PP[p.n].ko}<span class="chip wei">위</span></h3><p class="fact">${p.fact}</p><div class="pick" role="group" aria-label="${PP[p.n].ko}"><button data-v="1">넣기</button><button data-v="0">빼기</button></div><p class="tip fb" hidden></p></div>`).join("")}</div></section>
   <div id="r1" class="stack" hidden></div>`;
  const draw=()=>{
-  $$("#pc .pcard").forEach(c=>{const v=L[c.dataset.n];c.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(v!==undefined&&+b.dataset.v===v)));c.classList.toggle("in",v===1);c.classList.toggle("out",v===0);c.querySelector(".tip").hidden=v===undefined});
-  if(!PEOPLE1.every(p=>L[p.n]!==undefined))return;
+  $$("#pc .pcard").forEach(c=>{const v=L[c.dataset.n];c.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(v!==undefined&&+b.dataset.v===v)));c.classList.toggle("in",v===1);c.classList.toggle("out",v===0);
+   const p=PEOPLE1.find(x=>x.n===c.dataset.n),tip=c.querySelector(".tip");tip.hidden=v===undefined;if(v!==undefined){tip.textContent=p.say[v];tip.classList.toggle("bad",wrong1(p,v))}});
+  const r1=$("#r1");
+  if(!PEOPLE1.every(p=>L[p.n]!==undefined)){r1.hidden=true;return}
+  if(PEOPLE1.some(p=>wrong1(p,L[p.n]))){r1.hidden=false;r1.innerHTML=`<p class="fb bad">‘아니에요’가 나온 사람을 다시 골라 보세요.</p>`;return}
   S.rule.min=L["夏侯淵"]===1?1:L["許褚"]===1?2:3;S.rule.dead=L["袁紹"]===1?0:1;save();
   const totals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==="wei").length;return {all:r.length,wei:w,ally:r.length-w}};
-  const t=totals(),r1=$("#r1");r1.hidden=false;
+  const t=totals();r1.hidden=false;
   r1.innerHTML=`<section class="step">${stepH(2,"방금 하신 일이 ‘기준 정하기’입니다")}<div class="box">
    <p style="margin-top:0">내 기준: <b class="px">${S.rule.min}회 이상 나온 사람</b>만, 이미 죽은 사람은 <b class="px">${S.rule.dead?"빼고":"넣고"}</b></p>
    <div class="sides"><div class="side-n wei"><span>조조군</span><b>${t.wei}<small>명</small></b></div><div class="side-n ally"><span>손권·유비 연합군</span><b>${t.ally}<small>명</small></b></div></div>
