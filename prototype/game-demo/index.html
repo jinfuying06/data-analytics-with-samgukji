@@ -322,7 +322,7 @@ const STAGES=[
   why:"누구를 세느냐에 따라 두 편의 인원이 달라집니다. 마지막 가정 실험도 여기서 정한 명단으로 계산합니다.",
   say:["기록관","안내","記","소속이 바뀌었을 때의 차이를 보려면, 먼저 두 진영의 인물 구성을 알아야 합니다."],
   check:{q:"기록을 살펴보니, 무엇을 알 수 있었습니까?",opts:["기록만 보면 셀 사람이 저절로 정해집니다.","누구를 명단에 올리느냐에 따라 숫자가 달라집니다.","이름이 나온 사람은 모두 싸움에 참여했습니다."],ok:1,
-   good:"이름이 나온 사람을 모두 세면 분석에 맞지 않는 인물도 포함되지요. 먼저 누구를 셀지 정해야 하는 까닭입니다.",bad:"원소처럼 이름만 언급된 인물을 떠올려 보시지요.",
+   good:"이름이 나온 사람을 모두 세면 분석에 맞지 않는 인물도 포함됩니다. 먼저 누구를 셀지 정해야 하는 까닭입니다.",bad:"원소처럼 이름만 언급된 인물을 떠올려 보시지요.",
    ev:()=>{const r=roster(),w=r.filter(n=>PP[n].f==="wei").length;return `내 기준: ${S.rule.min}회 이상 · 죽은 사람 ${S.rule.dead?"뺌":"셈"} → 조조군 ${w}명, 연합군 ${r.length-w}명`}}},
  {short:"등장 기록 비교",q:"평균에 가려진 한 사람을 찾아보시지요",concept:["대표값: 평균과 중앙값","여러 숫자를 숫자 하나로 요약하는 값입니다. 평균은 아주 큰 값 하나에 끌려가고, 중앙값은 줄 세운 한가운데 값이라 덜 흔들립니다."],
   why:"제갈량을 옮기기 전에, 한 사람이 숫자에 미치는 영향을 살펴야겠지요.",
@@ -466,10 +466,10 @@ const ACT=[];
 /* 1. 명단에 올릴 네 사람 */
 const PEOPLE1=[
  // ok: 정답이 있는 사람만 1(넣기)/0(빼기), null이면 어느 쪽도 맞음. say[0]=빼기, say[1]=넣기
- {n:"曹操",fact:"적벽 편 모든 회에 나옴",ok:1,say:["아니에요. 조조는 조조군을 이끈 사람입니다. 빼면 조조군의 가장 큰 기록이 통째로 사라집니다.","맞아요. 조조군을 이끈 사람이니 꼭 세야지요."]},
- {n:"許褚",fact:"2회 나옴",ok:null,say:["빼도 됩니다. 두 번만 나온 사람까지 셀지는 정하기 나름이지요.","넣어도 됩니다. 조조의 호위 장수로 두 회에 나옵니다."]},
- {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",ok:null,say:["빼도 됩니다. 이름만 한 번 나온 사람은 이 싸움에 나왔다고 보기 어렵지요.","넣어도 됩니다. 다만 이름만 한 번 나온 사람까지 세면 명단이 크게 늘어납니다."]},
- {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적",ok:0,say:["맞아요. 원소는 이미 죽어 이 싸움에 나올 수 없지요. 역사책이 원소의 전기를 「위서」에 실어서 데이터에 ‘위’로 들어갔을 뿐입니다.","아니에요. 원소는 6년 전에 죽어 이 싸움에 나올 수 없습니다. 데이터의 ‘위’는 역사책이 전기를 「위서」에 실었다는 뜻일 뿐, 조조군이라는 뜻이 아니에요."]}];
+ {n:"曹操",fact:"적벽 편 모든 회에 나옴",ok:1,say:["다시 생각해 보시지요. 조조는 조조군을 이끈 사람입니다. 빼면 조조군에서 가장 큰 기록이 계산에서 빠집니다.","맞습니다. 조조는 조조군을 이끈 사람입니다."]},
+ {n:"許褚",fact:"2회 나옴",ok:null,say:["빼면 두 번만 나온 사람은 세지 않습니다. 어느 쪽을 골라도 됩니다.","넣으면 두 번 나온 사람까지 셉니다. 어느 쪽을 골라도 됩니다."]},
+ {n:"夏侯淵",fact:"딱 1회, 이름만 한 번",ok:null,say:["빼면 이름만 한 번 나온 사람은 세지 않습니다. 어느 쪽을 골라도 됩니다.","넣으면 이름만 한 번 나온 사람까지 셉니다. 명단이 크게 늘어납니다. 어느 쪽을 골라도 됩니다."]},
+ {n:"袁紹",fact:"5회 나옴 · 6년 전 사망한 조조의 옛 적",ok:0,say:["맞습니다. 원소는 6년 전에 죽어 이 싸움에 나올 수 없습니다. 데이터의 ‘위’는 역사책이 원소의 전기를 「위서」에 실었다는 뜻입니다.","다시 생각해 보시지요. 원소는 6년 전에 죽어 이 싸움에 나올 수 없습니다. 데이터의 ‘위’는 역사책이 원소의 전기를 「위서」에 실었다는 뜻입니다. 조조군 소속을 뜻하는 표시가 아닙니다."]}];
 const wrong1=(p,v)=>p.ok!==null&&v!==undefined&&v!==p.ok;
 ACT[0]=(el,unlock)=>{
  const L=S.t.p1=S.t.p1||{};
@@ -478,10 +478,10 @@ ACT[0]=(el,unlock)=>{
   <div id="r1" class="stack" hidden></div>`;
  const draw=()=>{
   $$("#pc .pcard").forEach(c=>{const v=L[c.dataset.n];c.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(v!==undefined&&+b.dataset.v===v)));c.classList.toggle("in",v===1);c.classList.toggle("out",v===0);
-   const p=PEOPLE1.find(x=>x.n===c.dataset.n),tip=c.querySelector(".tip");tip.hidden=v===undefined;if(v!==undefined){tip.textContent=p.say[v];tip.classList.toggle("bad",wrong1(p,v))}});
+   const p=PEOPLE1.find(x=>x.n===c.dataset.n),tip=c.querySelector(".tip");tip.hidden=v===undefined;if(v!==undefined){tip.innerHTML=p.say[v].replace(/^(맞습니다\.|다시 생각해 보시지요\.)/,"<b>$1</b>");tip.classList.toggle("bad",wrong1(p,v))}});
   const r1=$("#r1");
   if(!PEOPLE1.every(p=>L[p.n]!==undefined)){r1.hidden=true;return}
-  if(PEOPLE1.some(p=>wrong1(p,L[p.n]))){r1.hidden=false;r1.innerHTML=`<p class="fb bad">‘아니에요’가 나온 사람을 다시 골라 보세요.</p>`;return}
+  if(PEOPLE1.some(p=>wrong1(p,L[p.n]))){r1.hidden=false;r1.innerHTML=`<p class="fb bad">‘다시 생각해 보시지요’가 나온 사람을 한 번 더 골라 보세요.</p>`;return}
   S.rule.min=L["夏侯淵"]===1?1:L["許褚"]===1?2:3;S.rule.dead=L["袁紹"]===1?0:1;save();
   const totals=()=>{const r=roster(),w=r.filter(n=>PP[n].f==="wei").length;return {all:r.length,wei:w,ally:r.length-w}};
   const t=totals();r1.hidden=false;
