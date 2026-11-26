@@ -93,3 +93,7 @@ window.CONTENT = {
 - `check`: `{q, opts, ok, why[보기마다 설명]}`. 정답을 고른 뒤에도 다른 보기를 눌러 이유를 볼 수 있다.
 - `conclusion`: `{who}{a}{b}{lens}` 자리표시. `who`는 연의 쪽 몫이 가장 크게 늘어난 사람.
 - 숫자: 연의 비중은 학습자 명단 안의 등장 문단 비중, 정사 비중은 같은 명단의 정사 문장 비중(`JEONGSA` = [본문, 주석]). '가장 크게 다른 사람' 질문은 0.1%p 안의 동점을 모두 정답으로 받는다(적벽: 조조와 손권이 12.2%p로 같음).
+
+## 4. 가정 설계 (`CONTENT.design`, ★★★)
+
+`{title, q, intro:[화자,소속,한자,대사], condTitle, env, follow, envShort, followShort, limit}`. `env`/`follow`는 보너스 조건의 두 보기(엔진의 `allyIndex` env/zg), `*Short`는 문장 속에 들어갈 짧은 꼴("바람을 날씨로 볼 때"), `limit`은 결론에 고를 수 있는 한계 문장. 후보 인물은 지금 명단에서 점수가 높은 12명을 엔진이 고른다.
