@@ -610,6 +610,49 @@ const sayBox=([who,side,hz,text])=>`<div class="talk"><div class="box face" aria
 /* 정사 대조 의뢰: 같은 명단, 같은 이름 표로 연의(문단)와 정사(문장)를 세어 비중(%)으로 견준다 */
 function request(i){
  const r=REQS[i],Rq=S.req[r.id]=S.req[r.id]||{};save();fxLevel=1;onBack=()=>map();onAdvance=null;
+ (r.type==="classify"?reqClassify:reqCompare)(r,Rq);
+}
+/* 분류하기 의뢰: 지표가 센 문단을 학습자가 직접 읽고 나눠, 재려던 것만 남긴 숫자로 다시 계산한다 */
+function reqClassify(r,Rq){
+ const pick=Rq.pick=Rq.pick||{},fi=at(r.indicator),ko=indKo(r.indicator),P=r.person;
+ const catKo=Object.fromEntries(r.cats);
+ app.innerHTML=`${hud()}<section class="stack">
+  <div class="box qhead"><div class="tag">★★ 숫자 의심하기 · ${esc(r.sub)}</div><h1>${esc(r.title)}</h1><p class="note" style="margin:0">${esc(r.line)}</p></div>
+  ${r.intro.map(sayBox).join("")}
+  <section class="step">${stepH(1,`${esc(PP[P].ko)}의 '${esc(ko)}' 문단 ${r.cards.length}개를 나눠 보시지요`)}<div class="stack" id="ccards">${r.cards.map((c,k)=>`<div class="box" data-k="${k}"><p class="note" style="margin-top:0">『삼국지연의』 ${c.ch}회</p><blockquote class="ev">${hiKw(c.ko,ko)}<br><span class="dim" lang="zh-Hant">${esc(c.zh)}</span></blockquote>
+   <div class="row" style="margin-top:8px">${seg("cc"+k,r.cats,pick[k]||"")}</div><p class="fb" hidden></p></div>`).join("")}</div></section>
+  <section class="step" id="c2" hidden>${stepH(2,"내가 나눈 대로 다시 세면")}<div class="box" id="c2box"></div></section>
+  <section class="step" id="c3" hidden>${stepH(3,esc(r.check.q))}<div class="box"><div class="opts" id="ccheck">${r.check.opts.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div><p class="fb" id="ccfb" hidden></p></div></section>
+  <div id="c4" class="stack" hidden></div>
+  <div class="row sb"><button class="btn ghost" id="back">◀ 지도로</button><span class="mission">의뢰 · ${esc(r.title)} · Esc: 지도로</span></div></section>`;
+ wireHud();$("#back").onclick=()=>map();
+ const ro=roster();
+ const fixed=()=>{const Q=JSON.parse(JSON.stringify(PP)),mine=r.cards.filter((_,k)=>pick[k]===r.keep).length;
+  Q[P].yy[fi]=mine;for(const [n,v] of Object.entries(r.others||{}))if(Q[n])Q[n].yy[fi]=v;return {Q,mine}};
+ const fb=k=>{const c=r.cards[k],box=$(`#ccards [data-k="${k}"] .fb`),v=pick[k];if(!v){box.hidden=true;return}
+  const ok=c.ans.includes(v);box.hidden=false;box.className=ok?"fb":"fb bad";box.innerHTML=`<b>${ok?"맞습니다.":"다시 생각해 보시지요."}</b> ${esc(c.why)}`};
+ const recount=()=>{
+  const all=r.cards.every((_,k)=>pick[k]);$("#c2").hidden=!all;$("#c3").hidden=!all;if(!all)return;
+  const {Q,mine}=fixed(),top=(T)=>[...ro].sort((a,b)=>T[b].yy[fi]-T[a].yy[fi]).slice(0,5);
+  const before=idx(null,"env"),after=C.allyIndex(Q,S.w,ro,null,"env");
+  const bars=T=>{const t=top(T);return barsHTML(t.map(n=>({label:PP[n].ko,v:T[n].yy[fi],c:`var(--${PP[n].f})`})),Math.max(T[t[0]].yy[fi],1),"")};
+  Rq.vals={mine,other:Object.values(r.others||{})[0],before,after};save();
+  $("#c2box").innerHTML=`<p style="margin-top:0">'${esc(catKo[r.keep])}'만 남기면 ${esc(PP[P].ko)}의 '${esc(ko)}'은 <b>${PP[P].yy[fi]} → ${mine}</b>입니다.</p>
+   <div class="cols"><div><div class="tag">기계로 센 '${esc(ko)}'</div>${bars(PP)}</div><div><div class="tag">내가 나눈 '${esc(ko)}'</div>${bars(Q)}</div></div>
+   <p class="note">${esc(r.othersNote||"")}</p>
+   <p class="big" style="margin-bottom:0">지수 ${before} → <span style="color:var(--gold)">${after}</span></p><p class="note">같은 명단과 점수 규칙으로, 고친 '${esc(ko)}' 숫자만 바꿔 다시 계산했습니다.</p>`};
+ const conclude=()=>{const v=Rq.vals;Rq.text=fill(r.conclusion,v);Rq.done=1;save();
+  $("#c4").hidden=false;$("#c4").innerHTML=`<section class="box gold"><div class="tag">결론</div><p style="margin:8px 0 0">${esc(Rq.text)}</p></section>${named(r.named[0],r.named[1])}${r.outro.map(sayBox).join("")}
+   <section class="box"><div class="tool-get"><span class="tl on" aria-hidden="true">${r.reward.ch}</span><div><span class="dim">의뢰 보상</span><br><b class="px">${esc(r.reward.name)}</b> · ${esc(r.reward.does)}</div></div><p style="margin-top:14px"><button class="btn" id="cdone">지도로 ▶</button></p></section>`;
+  $("#cdone").onclick=()=>map()};
+ r.cards.forEach((_,k)=>{onSeg("cc"+k,v=>{pick[k]=v;save();fb(k);recount()});fb(k)});
+ $("#ccheck").onclick=e=>{const b=e.target.closest(".opt");if(!b)return;const k=+b.dataset.k,ok=k===r.check.ok,f=$("#ccfb");f.hidden=false;$$("#ccheck .opt").forEach(x=>x.classList.remove("ok","no"));
+  b.classList.add(ok?"ok":"no");f.className=ok?"fb":"fb bad";f.innerHTML=`<b>${ok?"맞습니다.":"다시 생각해 보시지요."}</b> ${esc(r.check.why[k])}`;if(ok)conclude()};
+ recount();if(Rq.done)conclude();
+}
+
+/* 정사 대조 의뢰 */
+function reqCompare(r,Rq){
  const ro=roster(),share=f=>{const t=ro.reduce((x,n)=>x+f(n),0)||1;return Object.fromEntries(ro.map(n=>[n,f(n)/t*100]))};
  const YY=share(n=>PP[n].pa),JS=lens=>share(n=>{const v=JEONGSA[n]||[0,0];return lens==="all"?v[0]+v[1]:v[0]});
  const lensKo=l=>l==="all"?"본문과 주석":"본문";

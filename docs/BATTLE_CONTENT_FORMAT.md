@@ -97,3 +97,7 @@ window.CONTENT = {
 ## 4. 가정 설계 (`CONTENT.design`, ★★★)
 
 `{title, q, intro:[화자,소속,한자,대사], condTitle, env, follow, envShort, followShort, limit}`. `env`/`follow`는 보너스 조건의 두 보기(엔진의 `allyIndex` env/zg), `*Short`는 문장 속에 들어갈 짧은 꼴("바람을 날씨로 볼 때"), `limit`은 결론에 고를 수 있는 한계 문장. 후보 인물은 지금 명단에서 점수가 높은 12명을 엔진이 고른다.
+
+### 분류하기 의뢰 (`type: "classify"`)
+
+`{person, indicator, keep, cats:[[키, 이름]...], cards:[{ch, zh, ko, ans:[정답 키...], why}], others:{인물: 고친 수}, othersNote, check, conclusion, named, outro, reward}`. 카드 수는 그 인물의 그 지표 문단 수와 같아야 한다(테스트가 확인). 학습자가 고른 분류 중 `keep`만 세어 그 인물의 지표 숫자를 바꾸고, `others`의 숫자도 바꿔 지수를 다시 계산한다. `conclusion` 자리표시: `{mine}{other}{before}{after}`. 숫자 뒤에 조사가 붙지 않게 괄호로 쓴다.

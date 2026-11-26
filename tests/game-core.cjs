@@ -71,9 +71,15 @@ for (const id of ['red-cliff', 'yiling']) {
   for (const k of ['ev', 'named', 'moveButton', 'baseNote', 'movedNote', 'askTitle']) assert.ok(K.q6[k], `${id} q6.${k}`);
   for (const k of ['result', 'interpret', 'movedLean']) assert.ok(K.report[k], `${id} report.${k}`);
   for (const r of K.requests || []) {
-    for (const n of r.guessPeople) assert.ok(P[n], `${id} request ${r.id}: ${n} in data`);
+    for (const n of r.guessPeople || [r.person]) assert.ok(P[n], `${id} request ${r.id}: ${n} in data`);
     assert.ok(r.cards.length && r.check.why.length === r.check.opts.length && r.reward && r.conclusion, `${id} request ${r.id} fields`);
+    if (r.type === 'classify') {
+      const keys = r.cats.map(c => c[0]), fi = Object.keys(B.indicators).indexOf(r.indicator);
+      assert.equal(r.cards.length, P[r.person].yy[fi], `${id} ${r.id}: 카드 수 = ${r.person}의 '${r.indicator}' 문단 수`);
+      r.cards.forEach((c, k) => assert.ok(c.ans.length && c.ans.every(a => keys.includes(a)) && c.why, `${id} ${r.id} card ${k}`));
+    }
   }
+  if (K.design) for (const k of ['q', 'env', 'follow', 'envShort', 'followShort', 'limit', 'condTitle']) assert.ok(K.design[k], `${id} design.${k}`);
 }
 assert.equal(JSON.stringify(ctx.JEONGSA['周瑜']), '[150,101]', '정사 주유 본문 150·주석 101문장');
 assert.equal(JSON.stringify(ctx.JEONGSA['曹操']), '[1810,1319]', '정사 조조');
