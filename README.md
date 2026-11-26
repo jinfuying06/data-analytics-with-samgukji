@@ -13,6 +13,7 @@
 - `scripts/build_red_cliff_seed.py`: 로컬 전체 DB에서 공개용 seed DB를 재생성하는 스크립트
 - `docs/`: PRD, 데이터 구조, 픽셀 캐릭터 제작 규칙
 - `prototype/game-demo/`: 새 본 화면으로 키우는 계책록 게임. 계산은 `core.js`, 배포 시 `dist/game/`에 함께 올라간다. 옮기는 계획은 `docs/MIGRATION_PLAN.md`
+  - 전투는 `?b=<id>`로 고른다(적벽 `red-cliff`, 이릉 `yiling`). 전투 설정은 `data/curated/battles.json`, 화면 문구는 `prototype/game-demo/battles/<id>.js`. 새 전투를 넣는 방법은 `docs/BATTLE_CONTENT_FORMAT.md`
 - `prototype/red-cliff-lab/`: 「삼국지로 배우는 데이터분석 — 적벽대전 편」 단일 HTML 학습 웹앱 (seed DB 기반 6단계 + What-if)
 
 ## 학습 웹앱 프로토타입 (적벽대전 편)

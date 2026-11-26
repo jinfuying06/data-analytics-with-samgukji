@@ -83,7 +83,10 @@ CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER
   PRIMARY KEY (name, chapter, idx), FOREIGN KEY (chapter, idx) REFERENCES paragraphs (chapter, idx));
 CREATE INDEX idx_mentions_chapter ON mentions (chapter, idx);
 """
-# 분석 표(scripts/build_analysis_tables.py)를 회차 범위만큼 복사한다
+# 분석 표(scripts/build_analysis_tables.py)는 data/curated/battles.json의 모든 전투 회차만큼 복사한다.
+# 옛 형식 표(yeonui_mentions 등)는 적벽(CHAPTER_START~END)만 둔다.
+BATTLE_RANGES = [tuple(b["chapters"]) for b in __import__("json").loads(
+    (ROOT / "data" / "curated" / "battles.json").read_text(encoding="utf-8"))["battles"]]
 ANALYSIS_COPY = [
     ("paragraphs", "SELECT * FROM paragraphs WHERE chapter BETWEEN ? AND ?"),
     ("mentions", "SELECT * FROM mentions WHERE chapter BETWEEN ? AND ?"),
@@ -186,9 +189,11 @@ def build_seed(source_path: Path, target_path: Path) -> None:
         if not table_exists(source, "mentions"):
             raise RuntimeError("analysis tables missing: run scripts/build_analysis_tables.py first")
         for table, query in ANALYSIS_COPY:
-            rows = source.execute(query, (CHAPTER_START, CHAPTER_END)).fetchall()
-            marks = ",".join("?" * len(rows[0]))
-            target.executemany(f"INSERT INTO {table} VALUES ({marks})", [tuple(r) for r in rows])
+            rows = {tuple(r) for a, b in BATTLE_RANGES for r in source.execute(query, (a, b))}
+            marks = ",".join("?" * len(next(iter(rows))))
+            target.executemany(f"INSERT INTO {table} VALUES ({marks})", sorted(rows))
+        target.execute("INSERT INTO seed_metadata VALUES ('analysis_chapters', ?)",
+                       (",".join(f"{a}-{b}" for a, b in BATTLE_RANGES),))
 
         target.commit()
         integrity = target.execute("PRAGMA integrity_check").fetchone()[0]

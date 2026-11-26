@@ -40,14 +40,14 @@
       return o;
     }
 
-    // 편 a의 우세 지수(0~100). wmode: "env"=보너스는 환경이라 편 a에 +points,
-    // 그 밖에는 보너스가 B.bonus.person을 따라간다(그 사람이 명단에 있을 때 편 a면 +, 편 b면 −)
+    // 편 a의 우세 지수(0~100). wmode: "env"=보너스는 환경이라 B.bonus.side(기본 a) 편에 붙고,
+    // 그 밖에는 보너스가 B.bonus.person을 따라간다(그 사람이 명단에 있을 때 편 a면 +, 편 b면 −, 명단에서 빠지면 0)
     function allyIndex(PP, w, r, mut, wmode) {
       const s = factionScores(PP, w, r, mut), a = A.reduce((x, f) => x + s[f], 0), b = W.reduce((x, f) => x + s[f], 0);
       let i = a + b ? a / (a + b) * 100 : 50;
-      const { points, person } = B.bonus;
-      if (wmode === "env") i += points;
-      else if (r.includes(person)) i += side(factionOf(PP, person, mut)) === "b" ? -points : points;
+      const { points, person } = B.bonus, sign = s => s === "a" ? points : s === "b" ? -points : 0;
+      if (wmode === "env") i += sign(B.bonus.side || "a");
+      else if (r.includes(person)) i += sign(side(factionOf(PP, person, mut)));
       return Math.max(0, Math.min(100, Math.round(i)));
     }
 

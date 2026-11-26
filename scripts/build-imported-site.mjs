@@ -25,6 +25,7 @@ writeFileSync('dist/game/index.html',readFileSync(game+'index.html','utf8')
   .replace('"../../frontend/public/learning/index.html"','"../"'));
 cpSync(base+'30-data.js','dist/game/data.js');
 cpSync(game+'core.js','dist/game/core.js');
+cpSync(game+'battles','dist/game/battles',{recursive:true});
 cpSync(game+'assets/portraits','dist/game/assets/portraits',{recursive:true});
 mkdirSync('frontend/public/learning',{recursive:true});
 writeFileSync('frontend/public/learning/index.html',html);
