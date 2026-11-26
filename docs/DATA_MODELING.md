@@ -150,6 +150,7 @@
 - 등장 문단 수는 `mentions` 행 수, 공동등장은 `mentions`에서 같은 회차를 공유한 인물 쌍을 바로 센다.
 - 사람이 정한 값(세력 보충, 이름, 사망 연도)은 git에 남도록 `data/curated/`에 둔다. 사망 연도가 불확실한 인물은 `uncertain: true`, 모르면 `null`.
 - 순서: `build_analysis_tables.py` → `build_red_cliff_seed.py` → `build_red_cliff_lab_data.py`.
+- 전투마다 다른 값(회차 범위, 지표 글자, 편 나누기, 이미 죽은 인물, 바람 같은 보너스)은 `data/curated/battles.json`에 둔다. 게임 데이터에 `BATTLE`로 함께 실리고, `prototype/game-demo/core.js`의 `Core.battle(BATTLE)`이 이 값으로 계산한다. '이미 죽은 인물'은 사망 연도로 자동 계산하지 않고 연의 이야기 기준으로 직접 적는다(태사자·유복은 역사상 208년 전후 사망이지만 연의의 적벽에는 살아 있다).
 
 ### 6.4 현재 seed 규모 (2026-10-30 조회)
 

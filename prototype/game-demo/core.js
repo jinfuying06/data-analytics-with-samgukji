@@ -1,12 +1,9 @@
 /* 계책록 계산 코어.
    화면 상태(S)를 모르는 순수 함수만 둔다. 같은 입력이면 같은 결과.
-   규칙 출처: prototype/red-cliff-lab/src/40-app.js, 80-simplify.js
-   브라우저: window.Core / Node 테스트: require("./core.js") */
+   전투마다 다른 값(편, 지표, 사망자, 보너스)은 BATTLE(data/curated/battles.json → 게임 데이터)에서 받는다.
+   브라우저: const C = Core.battle(BATTLE) / Node 테스트: require("./core.js").battle(BATTLE) */
 (function (root) {
-  // 적벽(208년) 전에 죽은 인물. 명단 기준 '죽은 사람 뺌'에 쓴다.
-  const DEAD = { 袁紹: 202, 呂布: 198, 孫策: 200, 袁術: 199, 董卓: 192, 郭嘉: 207, 劉表: 208 };
-
-  // 30-data.js의 DB 행 → 인물 사전. chs: 등장한 회 수, pa: 등장 문단 합계, yy: [배, 불, 계책, ...]
+  // 게임 데이터의 DB 행 → 인물 사전. chs: 등장한 회 수, pa: 등장 문단 합계, yy: 지표별 문단 수(BATTLE.indicators 순서)
   function people(DB) {
     const PP = {};
     DB.forEach(r => {
@@ -23,54 +20,63 @@
     return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
   };
 
-  // 명단: rule.min회 이상 나오고, rule.dead면 적벽 전에 죽은 사람은 뺀다.
-  const roster = (PP, rule) => Object.keys(PP).filter(n => PP[n].chs >= rule.min && !(rule.dead && DEAD[n]));
+  function battle(B) {
+    const DEAD = new Set(B.dead);
+    const at = Object.fromEntries(Object.keys(B.indicators).map((k, i) => [k, i]));
+    const A = B.sides.a.factions, W = B.sides.b.factions;
+    const side = f => A.includes(f) ? "a" : W.includes(f) ? "b" : null;
+    const factionOf = (PP, n, mut) => mut && mut[n] !== undefined ? mut[n] : PP[n].f;
 
-  // 한 사람의 점수 = 배·불·계책 기록 수 × 가중치
-  const score = (PP, n, w) => { const v = PP[n].yy; return w.ship * v[0] + w.fire * v[1] + w.plan * v[2]; };
+    // 명단: rule.min회 이상 나오고, rule.dead면 이 전투 전에 죽은 사람은 뺀다.
+    const roster = (PP, rule) => Object.keys(PP).filter(n => PP[n].chs >= rule.min && !(rule.dead && DEAD.has(n)));
 
-  // 진영별 점수 합계. mut: {이름: 옮길 진영}으로 소속을 바꿔 계산한다.
-  function factionScores(PP, w, r, mut) {
-    const o = { wei: 0, wu: 0, shu: 0 };
-    r.forEach(n => {
-      const f = mut && mut[n] !== undefined ? mut[n] : PP[n].f;
-      if (f) o[f] += score(PP, n, w);
-    });
-    return o;
-  }
+    // 한 사람의 점수 = 점수 지표별 기록 수 × 가중치
+    const score = (PP, n, w) => B.score.reduce((s, k) => s + w[k] * PP[n].yy[at[k]], 0);
 
-  // 연합군 우세 지수(0~100). wmode: "env"=바람은 날씨라 연합군 +10, "zg"=바람은 제갈량을 따라감(±10)
-  function allyIndex(PP, w, r, mut, wmode) {
-    const s = factionScores(PP, w, r, mut), A = s.wu + s.shu, W = s.wei;
-    let i = A + W ? A / (A + W) * 100 : 50;
-    if (wmode === "env") i += 10;
-    else if (r.includes("諸葛亮")) {
-      const f = mut && mut["諸葛亮"] !== undefined ? mut["諸葛亮"] : "shu";
-      i += f === "wei" ? -10 : 10;
+    // 세력별 점수 합계. mut: {이름: 옮길 세력}으로 소속을 바꿔 계산한다.
+    function factionScores(PP, w, r, mut) {
+      const o = Object.fromEntries([...A, ...W].map(f => [f, 0]));
+      r.forEach(n => { const f = factionOf(PP, n, mut); if (f in o) o[f] += score(PP, n, w); });
+      return o;
     }
-    return Math.max(0, Math.min(100, Math.round(i)));
-  }
 
-  const verdict = i => i >= 65 ? "연합군이 크게 앞섬" : i >= 45 ? "비슷함" : "조조군이 앞섬";
-
-  // 연합(위가 아닌 쪽)과 위의 점수 합계
-  function lead(PP, r, w) {
-    let a = 0, b = 0;
-    r.forEach(n => { if (PP[n].f === "wei") b += score(PP, n, w); else a += score(PP, n, w); });
-    return { a, b };
-  }
-
-  // 민감도: 배·불·계책에 0~5점을 주는 215가지(전부 0 제외) 규칙마다 연합군이 앞서는지
-  function sensitivity(PP, r) {
-    const cells = [];
-    for (let ship = 0; ship <= 5; ship++) for (let fire = 0; fire <= 5; fire++) for (let plan = 0; plan <= 5; plan++) {
-      if (!ship && !fire && !plan) continue;
-      const w = { ship, fire, plan }, x = lead(PP, r, w);
-      cells.push({ w, ok: x.a > x.b });
+    // 편 a의 우세 지수(0~100). wmode: "env"=보너스는 환경이라 편 a에 +points,
+    // 그 밖에는 보너스가 B.bonus.person을 따라간다(그 사람이 명단에 있을 때 편 a면 +, 편 b면 −)
+    function allyIndex(PP, w, r, mut, wmode) {
+      const s = factionScores(PP, w, r, mut), a = A.reduce((x, f) => x + s[f], 0), b = W.reduce((x, f) => x + s[f], 0);
+      let i = a + b ? a / (a + b) * 100 : 50;
+      const { points, person } = B.bonus;
+      if (wmode === "env") i += points;
+      else if (r.includes(person)) i += side(factionOf(PP, person, mut)) === "b" ? -points : points;
+      return Math.max(0, Math.min(100, Math.round(i)));
     }
-    return { win: cells.filter(c => c.ok).length, cells };
+
+    const verdict = i => i >= 65 ? `${B.sides.a.short}이 크게 앞섬` : i >= 45 ? "비슷함" : `${B.sides.b.short}이 앞섬`;
+
+    // 편 a와 편 b의 점수 합계 (어느 편에도 없는 세력은 세지 않음)
+    function lead(PP, r, w) {
+      let a = 0, b = 0;
+      r.forEach(n => { const s = side(PP[n].f); if (s === "a") a += score(PP, n, w); else if (s === "b") b += score(PP, n, w); });
+      return { a, b };
+    }
+
+    // 민감도: 점수 지표마다 0~5점을 주는 모든 규칙(전부 0 제외)에서 편 a가 앞서는지. 지표 3개면 215가지
+    function sensitivity(PP, r) {
+      const cells = [];
+      const walk = (i, w) => {
+        if (i === B.score.length) {
+          if (B.score.some(k => w[k])) { const x = lead(PP, r, w); cells.push({ w: { ...w }, ok: x.a > x.b }); }
+          return;
+        }
+        for (let v = 0; v <= 5; v++) { w[B.score[i]] = v; walk(i + 1, w); }
+      };
+      walk(0, {});
+      return { win: cells.filter(c => c.ok).length, cells };
+    }
+
+    return { B, DEAD, people, avg, median, roster, score, factionScores, allyIndex, verdict, lead, sensitivity };
   }
 
-  root.Core = { DEAD, people, avg, median, roster, score, factionScores, allyIndex, verdict, lead, sensitivity };
+  root.Core = { people, avg, median, battle };
   if (typeof module !== "undefined") module.exports = root.Core;
 })(typeof window !== "undefined" ? window : globalThis);

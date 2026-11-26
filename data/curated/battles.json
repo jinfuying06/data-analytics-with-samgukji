@@ -1,0 +1,25 @@
+{
+  "_설명": "전투 설정. scripts/build_red_cliff_lab_data.py가 읽어 게임 데이터의 BATTLE로 내보내고, prototype/game-demo/core.js가 계산에 쓴다. indicators의 순서가 DB 행 yy 배열의 순서다. dead는 연의 이야기에서 이 전투 전에 이미 죽은 인물(사망 연도만으로 정하지 않는다: 태사자·유복은 역사에서는 208년 전후에 죽었지만 연의에서는 적벽 때 살아 있다).",
+  "battles": [
+    {
+      "id": "red-cliff",
+      "name": "적벽대전",
+      "year": 208,
+      "chapters": [43, 50],
+      "indicators": {
+        "ship": {"ko": "배", "chars": ["船", "舟", "水軍", "艦"]},
+        "fire": {"ko": "불", "chars": ["火", "燒", "焚"]},
+        "plan": {"ko": "계책", "chars": ["計", "謀", "策"]},
+        "wind": {"ko": "바람", "chars": ["風"]}
+      },
+      "score": ["ship", "fire", "plan"],
+      "sides": {
+        "a": {"name": "손권·유비 연합군", "short": "연합군", "factions": ["wu", "shu"]},
+        "b": {"name": "조조군", "short": "조조군", "factions": ["wei"]}
+      },
+      "dead": ["董卓", "呂布", "袁術", "孫策", "袁紹", "郭嘉", "劉表"],
+      "bonus": {"indicator": "wind", "points": 10, "person": "諸葛亮"},
+      "evidence_people": ["諸葛亮", "曹操", "周瑜", "黃蓋"]
+    }
+  ]
+}
