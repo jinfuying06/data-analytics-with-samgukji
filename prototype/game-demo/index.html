@@ -446,8 +446,11 @@ function quest(i){
  const unlock=()=>{const q=$("#quiz");if(q.hidden){q.hidden=false;if(!RM)q.scrollIntoView({behavior:"smooth",block:"nearest"})}};
  ACT[i]($("#act"),unlock);
  $("#qopts").onclick=ev=>{const b=ev.target.closest(".opt");if(!b||b.disabled)return;const k=+b.dataset.k,fb=$("#qfb");fb.hidden=false;
-  if(k===e.check.ok){b.classList.add("ok");$$("#qopts .opt").forEach(x=>x.disabled=true);fb.className="fb";fb.innerHTML=`<b>맞습니다.</b> ${esc(e.check.good)}`;setTimeout(()=>clearStage(i),RM?0:700)}
-  else{b.classList.add("no");fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${esc(e.check.bad)}`;const q=$("#quiz");q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake")}};
+  // 정답을 골라도 바로 완료하지 않는다: 설명을 읽고 '퀘스트 완료'를 직접 누른다. 정답 뒤에도 다른 보기를 눌러 이유를 볼 수 있다
+  if(k===e.check.ok){b.classList.add("ok");fb.className="fb";fb.innerHTML=`<b>맞습니다.</b> ${esc(e.check.good)}`;
+   if(!$("#clearBtn")){$("#quiz").insertAdjacentHTML("beforeend",`<p style="margin:14px 0 0"><button class="btn" id="clearBtn">QUEST ${i+1} 완료 ▶</button></p>`);$("#clearBtn").onclick=()=>clearStage(i)}
+   onAdvance=()=>clearStage(i)}
+  else{b.classList.add("no");fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${esc(e.check.bad)}`;if(!$("#clearBtn")){const q=$("#quiz");q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake")}}};
 }
 
 function clearStage(i){
