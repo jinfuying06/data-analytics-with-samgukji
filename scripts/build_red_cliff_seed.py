@@ -84,6 +84,7 @@ CREATE TABLE aliases (alias TEXT NOT NULL, name TEXT NOT NULL, chapter_from INTE
 CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
   PRIMARY KEY (name, chapter, idx), FOREIGN KEY (chapter, idx) REFERENCES paragraphs (chapter, idx));
 CREATE INDEX idx_mentions_chapter ON mentions (chapter, idx);
+CREATE TABLE jeongsa_counts (name TEXT PRIMARY KEY, body INTEGER NOT NULL, note INTEGER NOT NULL);
 """
 # 분석 표(scripts/build_analysis_tables.py)는 data/curated/battles.json의 모든 전투 회차만큼 복사한다.
 # 옛 형식 표(yeonui_mentions 등)는 적벽(CHAPTER_START~END)만 둔다.
@@ -197,6 +198,12 @@ def build_seed(source_path: Path, target_path: Path) -> None:
                 continue
             marks = ",".join("?" * len(next(iter(rows))))
             target.executemany(f"INSERT INTO {table} VALUES ({marks})", sorted(rows))
+        # 정사에서 그 인물의 이름이 나온 문장 수(본문/배송지 주석). 정사 문장 전체 대신 개수만 싣는다
+        counts = {tuple(r) for a, b in BATTLE_RANGES for r in source.execute(
+            "SELECT m.name, SUM(s.is_note = 0), SUM(s.is_note = 1) FROM jeongsa_mentions m "
+            "JOIN jeongsa_sentences s USING (juan, idx) WHERE m.name IN "
+            "(SELECT name FROM mentions WHERE chapter BETWEEN ? AND ?) GROUP BY m.name", (a, b))}
+        target.executemany("INSERT INTO jeongsa_counts VALUES (?,?,?)", sorted(counts))
         target.execute("INSERT INTO seed_metadata VALUES ('analysis_chapters', ?)",
                        (",".join(f"{a}-{b}" for a, b in BATTLE_RANGES),))
 

@@ -3,7 +3,7 @@
 const fs = require('node:fs'), vm = require('node:vm'), assert = require('node:assert/strict');
 const Core = require('../prototype/game-demo/core.js').battle;
 const ctx = {};
-vm.runInNewContext(fs.readFileSync('prototype/red-cliff-lab/src/30-data.js', 'utf8') + ';this.DB=DB;this.BATTLE=BATTLE', ctx);
+vm.runInNewContext(fs.readFileSync('prototype/red-cliff-lab/src/30-data.js', 'utf8') + ';this.DB=DB;this.BATTLE=BATTLE;this.JEONGSA=JEONGSA', ctx);
 const C = Core(ctx.BATTLE);
 
 const PP = C.people(ctx.DB);
@@ -70,5 +70,11 @@ for (const id of ['red-cliff', 'yiling']) {
   for (const k of ['ev', 'named', 'note', 'askTitle']) assert.ok(K.q5[k], `${id} q5.${k}`);
   for (const k of ['ev', 'named', 'moveButton', 'baseNote', 'movedNote', 'askTitle']) assert.ok(K.q6[k], `${id} q6.${k}`);
   for (const k of ['result', 'interpret', 'movedLean']) assert.ok(K.report[k], `${id} report.${k}`);
+  for (const r of K.requests || []) {
+    for (const n of r.guessPeople) assert.ok(P[n], `${id} request ${r.id}: ${n} in data`);
+    assert.ok(r.cards.length && r.check.why.length === r.check.opts.length && r.reward && r.conclusion, `${id} request ${r.id} fields`);
+  }
 }
-console.log('PASS game core: roster 53 (20/24/9), scores 1356/647, index 78→68 and 48, sensitivity 215/215, shu average 20.6→11.9, bounds, other battle shape; yiling 18/13, 363/441, 55→49/39, sensitivity 13/215; both content files complete');
+assert.equal(JSON.stringify(ctx.JEONGSA['周瑜']), '[150,101]', '정사 주유 본문 150·주석 101문장');
+assert.equal(JSON.stringify(ctx.JEONGSA['曹操']), '[1810,1319]', '정사 조조');
+console.log('PASS game core: roster 53 (20/24/9), scores 1356/647, index 78→68 and 48, sensitivity 215/215, shu average 20.6→11.9, bounds, other battle shape; yiling 18/13, 363/441, 55→49/39, sensitivity 13/215; both content files complete; jeongsa counts');
