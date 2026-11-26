@@ -56,7 +56,8 @@ def main() -> None:
     con = sqlite3.connect(DB_PATH)
     faction, korean = {}, {}
     for n, ko, f in con.execute("select name, ko, faction from persons"):
-        faction[n], korean[n] = f, ko
+        faction[n], korean[n] = BATTLE.get("faction", {}).get(n, f), ko
+    leave_out = set(BATTLE.get("leave_out", []))
 
     people: dict[str, dict] = {}
     evidence: dict[str, dict] = {}
@@ -87,10 +88,18 @@ def main() -> None:
         people[name]["jb"] = {k: sum(1 for s in sentences(body) if has(s, k)) for k in ORDER}
         people[name]["jn"] = {k: sum(1 for s in sentences(notes) if has(s, k)) for k in ORDER}
 
-    names = sorted(people, key=lambda n: -sum(people[n]["ch"]))
+    for row in people.values():  # 정사에 전기가 없는 연의 인물
+        row.setdefault("jb", {k: 0 for k in ORDER})
+        row.setdefault("jn", {k: 0 for k in ORDER})
+
+    names = sorted((n for n in people if n not in leave_out), key=lambda n: -sum(people[n]["ch"]))
     missing = [n for n in names if not korean.get(n)]
     if missing:
         raise SystemExit(f"Korean name missing for: {missing}")
+    sided = set(BATTLE["sides"]["a"]["factions"]) | set(BATTLE["sides"]["b"]["factions"])
+    unsided = [n for n in names if faction[n] not in sided]
+    if unsided:
+        raise SystemExit(f"no side in this battle (set faction or leave_out in battles.json): {unsided}")
 
     rows = [
         [n, korean[n], faction[n], people[n]["ch"],
@@ -104,7 +113,7 @@ def main() -> None:
     edges = [[index[a], index[b], k] for a, b, k in con.execute(
         "with c as (select distinct name, chapter from mentions where chapter between ? and ?) "
         "select x.name, y.name, count(*) from c x join c y on x.chapter = y.chapter and x.name < y.name "
-        "group by x.name, y.name order by x.name, y.name", (FIRST, LAST))]
+        "group by x.name, y.name order by x.name, y.name", (FIRST, LAST)) if a in index and b in index]
     evid = {
         n: {k: [ch, ko[:EXCERPT_LEN] + ("…" if len(ko) > EXCERPT_LEN else "")] for k, (ch, ko) in v.items()}
         for n, v in evidence.items()

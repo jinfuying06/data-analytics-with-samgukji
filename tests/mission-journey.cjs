@@ -30,10 +30,10 @@ try{
  route('s1');assert.equal(d.querySelector('#s1reveal').hidden,true);
  click('.pcard[data-n="曹操"] .pick button[data-v="1"]');click('.pcard[data-n="許褚"] .pick button[data-v="1"]');click('.pcard[data-n="夏侯淵"] .pick button[data-v="0"]');
  answer();assert.equal(ev('!!S.done[1]'),false,'unfinished activity keeps the check locked');
- click('.pcard[data-n="袁紹"] .pick button[data-v="0"]');assert.equal(d.querySelector('#s1reveal').hidden,false);assert.equal(ev('roster().length'),42);answer();assert.ok(ev('!!S.done[1]'));
+ click('.pcard[data-n="袁紹"] .pick button[data-v="0"]');assert.equal(d.querySelector('#s1reveal').hidden,false);assert.equal(ev('roster().length'),53);answer();assert.ok(ev('!!S.done[1]'));
 
  // Stage 6: move 제갈량, then change the wind assumption; prediction and reflection persist.
- route('s6');assert.equal(d.querySelector('#s6pred').hidden,true);click('#move6');assert.ok(d.querySelector('#mv6').textContent.includes('72'));
+ route('s6');assert.equal(d.querySelector('#s6pred').hidden,true);click('#move6');assert.ok(d.querySelector('#mv6').textContent.includes('68'));
  assert.equal(d.querySelector('#s6pred').hidden,true,'comparison waits for both assumptions');
  click('#wind6 button[data-v="zg"]');click('#wind6 button[data-v="env"]');assert.equal(d.querySelector('#s6pred').hidden,false);
  assert.ok(d.querySelector('[data-original-prediction]').textContent.includes('조조 쪽'));

@@ -487,7 +487,7 @@ ACT[0]=(el,unlock)=>{
   r1.innerHTML=`<section class="step">${stepH(2,"방금 하신 일이 ‘기준 정하기’입니다")}<div class="box">
    <p style="margin-top:0">내 기준: <b class="px">${S.rule.min}회 이상 나온 사람</b>만, 이미 죽은 사람은 <b class="px">${S.rule.dead?"빼고":"넣고"}</b></p>
    <div class="sides"><div class="side-n wei"><span>조조군</span><b>${t.wei}<small>명</small></b></div><div class="side-n ally"><span>손권·유비 연합군</span><b>${t.ally}<small>명</small></b></div></div>
-   <p class="note">기록에 이름이 나온 63명 중 <b>${t.all}명</b>을 셉니다. 이 명단으로 마지막 실험까지 계산합니다.</p>
+   <p class="note">기록에 이름이 나온 ${DB.length}명 중 <b>${t.all}명</b>을 셉니다. 이 명단으로 마지막 실험까지 계산합니다.</p>
    <details style="margin-top:10px"><summary class="px" style="cursor:pointer">다른 기준도 살펴보기</summary><div class="row" style="margin-top:10px">${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"]],S.rule.min)}${seg("rDead",[[1,"죽은 사람 빼기"],[0,"넣기"]],S.rule.dead)}</div><p class="note" id="alt"></p></details></div></section>
    ${named("분석 대상 정하기","이름이 기록에 남았어도, 모두 이 싸움에 나온 것은 아니지요. 누구를 셀지 정하는 기준에 따라 이후의 모든 숫자가 달라집니다.")}`;
   const alt=()=>{const a=totals();$("#alt").textContent=`→ 조조군 ${a.wei}명 · 연합군 ${a.ally}명 (모두 ${a.all}명)`};

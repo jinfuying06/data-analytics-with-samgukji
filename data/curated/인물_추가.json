@@ -1,0 +1,4148 @@
+{
+ "_설명": "연의 태깅 보완(2026-11-26). 세 에이전트가 세력별로 찾고 팀장이 병합. new_persons: 인물 목록에 없던 사람(aliases에 본명 포함, chapters가 있으면 그 회차에서만 셈 — 동명이인 구분). add_aliases: 기존 인물의 빠진 별명. alias_chapters: 그 회차에서만 쓰는 별명. block: 인물명이 아닌데 별명에 걸리는 문자열(먼저 가림). risky·homonyms: 넣지 않은 호칭과 동명이인 메모(참고용).",
+ "new_persons": {
+  "丁謐": {
+   "ko": "정밀",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "丁謐"
+   ]
+  },
+  "于吉": {
+   "ko": "우길",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "于吉"
+   ]
+  },
+  "于詮": {
+   "ko": "우전",
+   "faction": "wu",
+   "death_year": 258,
+   "aliases": [
+    "于詮"
+   ]
+  },
+  "伊籍": {
+   "ko": "이적",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "伊籍",
+    "伊藉",
+    "機伯"
+   ]
+  },
+  "伏完": {
+   "ko": "복완",
+   "faction": "han",
+   "death_year": 209,
+   "aliases": [
+    "伏完"
+   ]
+  },
+  "伏皇后": {
+   "ko": "복황후",
+   "faction": "han",
+   "death_year": 214,
+   "aliases": [
+    "伏皇后",
+    "伏后"
+   ]
+  },
+  "何儀": {
+   "ko": "하의",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "何儀"
+   ]
+  },
+  "何晏": {
+   "ko": "하안",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "何晏"
+   ]
+  },
+  "何曾": {
+   "ko": "하증",
+   "faction": "wei",
+   "death_year": 278,
+   "aliases": [
+    "何曾"
+   ],
+   "chapters": [
+    100,
+    120
+   ]
+  },
+  "侯成": {
+   "ko": "후성",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "侯成"
+   ]
+  },
+  "侯選": {
+   "ko": "후선",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "侯選"
+   ]
+  },
+  "傅僉": {
+   "ko": "부첨",
+   "faction": "shu",
+   "death_year": 263,
+   "aliases": [
+    "傅僉"
+   ]
+  },
+  "傅彤": {
+   "ko": "부동",
+   "faction": "shu",
+   "death_year": 222,
+   "aliases": [
+    "傅彤"
+   ]
+  },
+  "兀突骨": {
+   "ko": "올돌골",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "兀突骨"
+   ]
+  },
+  "全懌": {
+   "ko": "전역",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "全懌"
+   ]
+  },
+  "全端": {
+   "ko": "전단",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "全端"
+   ]
+  },
+  "公孫康": {
+   "ko": "공손강",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "公孫康"
+   ]
+  },
+  "公孫淵": {
+   "ko": "공손연",
+   "faction": "wei",
+   "death_year": 238,
+   "aliases": [
+    "公孫淵"
+   ]
+  },
+  "冷苞": {
+   "ko": "냉포",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "冷苞"
+   ]
+  },
+  "凌操": {
+   "ko": "능조",
+   "faction": "wu",
+   "death_year": 203,
+   "aliases": [
+    "凌操"
+   ]
+  },
+  "劉岱": {
+   "ko": "유대",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "劉岱"
+   ],
+   "chapters": [
+    20,
+    30
+   ]
+  },
+  "劉度": {
+   "ko": "유도",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "劉度"
+   ]
+  },
+  "劉循": {
+   "ko": "유순",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "劉循"
+   ]
+  },
+  "劉琦": {
+   "ko": "유기",
+   "faction": "other",
+   "death_year": 209,
+   "aliases": [
+    "劉琦"
+   ]
+  },
+  "劉琮": {
+   "ko": "유종",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "劉琮"
+   ],
+   "chapters": [
+    1,
+    117
+   ]
+  },
+  "劉璋": {
+   "ko": "유장",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "劉璋",
+    "季玉",
+    "劉益州"
+   ],
+   "uncertain": true
+  },
+  "劉璝": {
+   "ko": "유괴",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "劉璝"
+   ]
+  },
+  "劉諶": {
+   "ko": "유심",
+   "faction": "shu",
+   "death_year": 263,
+   "aliases": [
+    "劉諶",
+    "北地王"
+   ]
+  },
+  "劉賢": {
+   "ko": "유현",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "劉賢"
+   ]
+  },
+  "劉辟": {
+   "ko": "유벽",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "劉辟"
+   ]
+  },
+  "卑衍": {
+   "ko": "비연",
+   "faction": "other",
+   "death_year": 238,
+   "aliases": [
+    "卑衍"
+   ]
+  },
+  "卓膺": {
+   "ko": "탁응",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "卓膺"
+   ]
+  },
+  "句安": {
+   "ko": "구안",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "句安"
+   ]
+  },
+  "史渙": {
+   "ko": "사환",
+   "faction": "wei",
+   "death_year": 209,
+   "aliases": [
+    "史渙"
+   ]
+  },
+  "司馬孚": {
+   "ko": "사마부",
+   "faction": "wei",
+   "death_year": 272,
+   "aliases": [
+    "司馬孚"
+   ]
+  },
+  "司馬師": {
+   "ko": "사마사",
+   "faction": "wei",
+   "death_year": 255,
+   "aliases": [
+    "司馬師"
+   ]
+  },
+  "司馬徽": {
+   "ko": "사마휘",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "司馬徽",
+    "水鏡",
+    "德操"
+   ]
+  },
+  "司馬昭": {
+   "ko": "사마소",
+   "faction": "wei",
+   "death_year": 265,
+   "aliases": [
+    "司馬昭",
+    "晉公"
+   ]
+  },
+  "司馬望": {
+   "ko": "사마망",
+   "faction": "wei",
+   "death_year": 271,
+   "aliases": [
+    "司馬望"
+   ]
+  },
+  "司馬炎": {
+   "ko": "사마염",
+   "faction": "wei",
+   "death_year": 290,
+   "aliases": [
+    "司馬炎",
+    "晉主",
+    "晉帝"
+   ]
+  },
+  "吉平": {
+   "ko": "길평",
+   "faction": "han",
+   "death_year": null,
+   "aliases": [
+    "吉平"
+   ]
+  },
+  "吳國太": {
+   "ko": "오국태",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "吳國太",
+    "國太"
+   ]
+  },
+  "吳子蘭": {
+   "ko": "오자란",
+   "faction": "han",
+   "death_year": 200,
+   "aliases": [
+    "吳子蘭",
+    "子蘭"
+   ]
+  },
+  "吳懿": {
+   "ko": "오의",
+   "faction": "shu",
+   "death_year": 237,
+   "aliases": [
+    "吳懿"
+   ]
+  },
+  "吳敦": {
+   "ko": "오돈",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "吳敦"
+   ]
+  },
+  "吳班": {
+   "ko": "오반",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "吳班"
+   ]
+  },
+  "吳碩": {
+   "ko": "오석",
+   "faction": "han",
+   "death_year": 200,
+   "aliases": [
+    "吳碩"
+   ]
+  },
+  "吳蘭": {
+   "ko": "오란",
+   "faction": "shu",
+   "death_year": 218,
+   "aliases": [
+    "吳蘭"
+   ]
+  },
+  "呂公": {
+   "ko": "여공",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "呂公"
+   ]
+  },
+  "呂建": {
+   "ko": "여건",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "呂建"
+   ]
+  },
+  "呂據": {
+   "ko": "여거",
+   "faction": "wu",
+   "death_year": 256,
+   "aliases": [
+    "呂據"
+   ]
+  },
+  "呂曠": {
+   "ko": "여광",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "呂曠"
+   ]
+  },
+  "呂翔": {
+   "ko": "여상",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "呂翔"
+   ]
+  },
+  "周倉": {
+   "ko": "주창",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "周倉"
+   ]
+  },
+  "周善": {
+   "ko": "주선",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "周善"
+   ]
+  },
+  "唐咨": {
+   "ko": "당자",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "唐咨"
+   ]
+  },
+  "喬國老": {
+   "ko": "교국로",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "喬國老",
+    "國老"
+   ]
+  },
+  "嚴氏": {
+   "ko": "엄씨",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "嚴氏"
+   ],
+   "chapters": [
+    16,
+    19
+   ]
+  },
+  "嚴白虎": {
+   "ko": "엄백호",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "嚴白虎"
+   ]
+  },
+  "嚴輿": {
+   "ko": "엄여",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "嚴輿"
+   ]
+  },
+  "嚴顏": {
+   "ko": "엄안",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "嚴顏"
+   ]
+  },
+  "夏侯和": {
+   "ko": "하후화",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "夏侯和"
+   ]
+  },
+  "夏侯威": {
+   "ko": "하후위",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "夏侯威"
+   ]
+  },
+  "夏侯德": {
+   "ko": "하후덕",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "夏侯德"
+   ]
+  },
+  "夏侯惠": {
+   "ko": "하후혜",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "夏侯惠"
+   ]
+  },
+  "夏侯楙": {
+   "ko": "하후무",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "夏侯楙",
+    "夏侯駙馬"
+   ]
+  },
+  "夏侯玄": {
+   "ko": "하후현",
+   "faction": "wei",
+   "death_year": 254,
+   "aliases": [
+    "夏侯玄"
+   ]
+  },
+  "夏侯霸": {
+   "ko": "하후패",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "仲權",
+    "夏侯霸"
+   ]
+  },
+  "姜敘": {
+   "ko": "강서",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "姜敘"
+   ]
+  },
+  "媯覽": {
+   "ko": "규람",
+   "faction": "wu",
+   "death_year": 204,
+   "aliases": [
+    "媯覽"
+   ]
+  },
+  "孔秀": {
+   "ko": "공수",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "孔秀"
+   ]
+  },
+  "孔融": {
+   "ko": "공융",
+   "faction": "han",
+   "death_year": 208,
+   "aliases": [
+    "孔融",
+    "文舉",
+    "孔文舉",
+    "孔北海"
+   ]
+  },
+  "孟優": {
+   "ko": "맹우",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "孟優"
+   ]
+  },
+  "孟獲": {
+   "ko": "맹획",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "孟獲"
+   ]
+  },
+  "孟達": {
+   "ko": "맹달",
+   "faction": "shu",
+   "death_year": 228,
+   "aliases": [
+    "孟達"
+   ]
+  },
+  "孫仲": {
+   "ko": "손중",
+   "faction": "other",
+   "death_year": 184,
+   "aliases": [
+    "孫仲"
+   ],
+   "chapters": [
+    1,
+    10
+   ]
+  },
+  "孫夫人": {
+   "ko": "손부인",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "孫夫人"
+   ]
+  },
+  "孫觀": {
+   "ko": "손관",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "孫觀"
+   ]
+  },
+  "孫資": {
+   "ko": "손자",
+   "faction": "wei",
+   "death_year": 251,
+   "aliases": [
+    "孫資"
+   ]
+  },
+  "孫韶": {
+   "ko": "손소",
+   "faction": "wu",
+   "death_year": 241,
+   "aliases": [
+    "孫韶",
+    "公禮"
+   ]
+  },
+  "宋忠": {
+   "ko": "송충",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "宋忠"
+   ]
+  },
+  "宋憲": {
+   "ko": "송헌",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "宋憲"
+   ]
+  },
+  "宋謙": {
+   "ko": "송겸",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "宋謙"
+   ],
+   "uncertain": true
+  },
+  "審榮": {
+   "ko": "심영",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "審榮"
+   ]
+  },
+  "審配": {
+   "ko": "심배",
+   "faction": "other",
+   "death_year": 204,
+   "aliases": [
+    "審配",
+    "審正南"
+   ]
+  },
+  "封諝": {
+   "ko": "봉서",
+   "faction": "han",
+   "death_year": null,
+   "aliases": [
+    "封諝"
+   ]
+  },
+  "尹大目": {
+   "ko": "윤대목",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "尹大目"
+   ]
+  },
+  "尹奉": {
+   "ko": "윤봉",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "尹奉"
+   ]
+  },
+  "尹禮": {
+   "ko": "윤례",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "尹禮"
+   ]
+  },
+  "尹賞": {
+   "ko": "윤상",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "尹賞"
+   ]
+  },
+  "岑昏": {
+   "ko": "잠혼",
+   "faction": "wu",
+   "death_year": 280,
+   "aliases": [
+    "岑昏"
+   ]
+  },
+  "崔州平": {
+   "ko": "최주평",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "崔州平"
+   ]
+  },
+  "崔諒": {
+   "ko": "최량",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "崔諒"
+   ]
+  },
+  "州泰": {
+   "ko": "주태",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "州泰"
+   ]
+  },
+  "左慈": {
+   "ko": "좌자",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "左慈",
+    "元放"
+   ]
+  },
+  "師纂": {
+   "ko": "사찬",
+   "faction": "wei",
+   "death_year": 264,
+   "aliases": [
+    "師纂"
+   ]
+  },
+  "帶來洞主": {
+   "ko": "대래동주",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "帶來洞主"
+   ]
+  },
+  "張任": {
+   "ko": "장임",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "張任"
+   ]
+  },
+  "張允": {
+   "ko": "장윤",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "張允"
+   ]
+  },
+  "張勳": {
+   "ko": "장훈",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "張勳"
+   ]
+  },
+  "張南": {
+   "ko": "장남",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "張南"
+   ],
+   "chapters": [
+    1,
+    80
+   ]
+  },
+  "張南_蜀": {
+   "ko": "장남",
+   "faction": "shu",
+   "death_year": 222,
+   "aliases": [
+    "張南"
+   ],
+   "chapters": [
+    81,
+    85
+   ]
+  },
+  "張布": {
+   "ko": "장포",
+   "faction": "wu",
+   "death_year": 264,
+   "aliases": [
+    "張布"
+   ]
+  },
+  "張悌": {
+   "ko": "장제",
+   "faction": "wu",
+   "death_year": 280,
+   "aliases": [
+    "張悌"
+   ]
+  },
+  "張松": {
+   "ko": "장송",
+   "faction": "shu",
+   "death_year": 212,
+   "aliases": [
+    "張松"
+   ]
+  },
+  "張濟": {
+   "ko": "장제",
+   "faction": "other",
+   "death_year": 196,
+   "aliases": [
+    "張濟"
+   ]
+  },
+  "張燕": {
+   "ko": "장연",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "張燕"
+   ]
+  },
+  "張特": {
+   "ko": "장특",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "張特"
+   ]
+  },
+  "張約": {
+   "ko": "장약",
+   "faction": "wu",
+   "death_year": 253,
+   "aliases": [
+    "張約"
+   ]
+  },
+  "張紹": {
+   "ko": "장소",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "張紹"
+   ]
+  },
+  "張緝": {
+   "ko": "장집",
+   "faction": "wei",
+   "death_year": 254,
+   "aliases": [
+    "張緝"
+   ]
+  },
+  "張繡": {
+   "ko": "장수",
+   "faction": "wei",
+   "death_year": 207,
+   "aliases": [
+    "張繡"
+   ]
+  },
+  "張苞": {
+   "ko": "장포",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "張苞"
+   ]
+  },
+  "張英": {
+   "ko": "장영",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "張英"
+   ]
+  },
+  "張華": {
+   "ko": "장화",
+   "faction": "wei",
+   "death_year": 300,
+   "aliases": [
+    "張華"
+   ]
+  },
+  "張著": {
+   "ko": "장저",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "張著"
+   ]
+  },
+  "張虎": {
+   "ko": "장호",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "張虎"
+   ],
+   "chapters": [
+    90,
+    120
+   ]
+  },
+  "張衛": {
+   "ko": "장위",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "張衛"
+   ]
+  },
+  "張超": {
+   "ko": "장초",
+   "faction": "other",
+   "death_year": 195,
+   "aliases": [
+    "張超"
+   ]
+  },
+  "張闓": {
+   "ko": "장개",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "張闓"
+   ]
+  },
+  "張顗": {
+   "ko": "장의",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "張顗"
+   ]
+  },
+  "彭羕": {
+   "ko": "팽양",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "彭羕"
+   ]
+  },
+  "徐商": {
+   "ko": "서상",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "徐商"
+   ]
+  },
+  "徐庶": {
+   "ko": "서서",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "徐庶",
+    "元直",
+    "單福"
+   ]
+  },
+  "徐榮": {
+   "ko": "서영",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "徐榮"
+   ]
+  },
+  "徐氏": {
+   "ko": "서씨",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "徐氏"
+   ],
+   "chapters": [
+    38,
+    38
+   ]
+  },
+  "徐質": {
+   "ko": "서질",
+   "faction": "wei",
+   "death_year": 254,
+   "aliases": [
+    "徐質"
+   ]
+  },
+  "忙牙長": {
+   "ko": "망아장",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "忙牙長"
+   ]
+  },
+  "慶童": {
+   "ko": "경동",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "慶童",
+    "秦慶童"
+   ]
+  },
+  "成倅": {
+   "ko": "성쉬",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "成倅"
+   ]
+  },
+  "成廉": {
+   "ko": "성렴",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "成廉"
+   ]
+  },
+  "戴員": {
+   "ko": "대원",
+   "faction": "wu",
+   "death_year": 204,
+   "aliases": [
+    "戴員"
+   ]
+  },
+  "戴陵": {
+   "ko": "대릉",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "戴陵"
+   ]
+  },
+  "文欽": {
+   "ko": "문흠",
+   "faction": "wei",
+   "death_year": 258,
+   "aliases": [
+    "文欽"
+   ]
+  },
+  "文醜": {
+   "ko": "문추",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "文醜"
+   ]
+  },
+  "文鴦": {
+   "ko": "문앙",
+   "faction": "wei",
+   "death_year": 291,
+   "aliases": [
+    "文鴦"
+   ]
+  },
+  "昌豨": {
+   "ko": "창희",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "昌豨"
+   ]
+  },
+  "曹安民": {
+   "ko": "조안민",
+   "faction": "wei",
+   "death_year": 197,
+   "aliases": [
+    "曹安民"
+   ]
+  },
+  "曹嵩": {
+   "ko": "조숭",
+   "faction": "wei",
+   "death_year": 193,
+   "aliases": [
+    "曹嵩"
+   ],
+   "uncertain": true
+  },
+  "曹性": {
+   "ko": "조성",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "曹性"
+   ]
+  },
+  "曹昂": {
+   "ko": "조앙",
+   "faction": "wei",
+   "death_year": 197,
+   "aliases": [
+    "曹昂"
+   ]
+  },
+  "曹爽": {
+   "ko": "조상",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "曹爽",
+    "昭伯"
+   ]
+  },
+  "曹節": {
+   "ko": "조절",
+   "faction": "han",
+   "death_year": 181,
+   "aliases": [
+    "曹節"
+   ],
+   "chapters": [
+    1,
+    10
+   ]
+  },
+  "曹純": {
+   "ko": "조순",
+   "faction": "wei",
+   "death_year": 210,
+   "aliases": [
+    "曹純"
+   ]
+  },
+  "曹羲": {
+   "ko": "조희",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "曹羲"
+   ]
+  },
+  "曹豹": {
+   "ko": "조표",
+   "faction": "other",
+   "death_year": 196,
+   "aliases": [
+    "曹豹"
+   ]
+  },
+  "曹遵": {
+   "ko": "조준",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "曹遵"
+   ]
+  },
+  "木鹿大王": {
+   "ko": "목록대왕",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "木鹿大王"
+   ]
+  },
+  "朱光": {
+   "ko": "주광",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "朱光"
+   ]
+  },
+  "朱異": {
+   "ko": "주이",
+   "faction": "wu",
+   "death_year": 257,
+   "aliases": [
+    "朱異"
+   ]
+  },
+  "朱褒": {
+   "ko": "주포",
+   "faction": "other",
+   "death_year": 225,
+   "aliases": [
+    "朱褒"
+   ]
+  },
+  "朱讚": {
+   "ko": "주찬",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "朱讚"
+   ]
+  },
+  "朱靈": {
+   "ko": "주령",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "朱靈"
+   ]
+  },
+  "朵思大王": {
+   "ko": "타사대왕",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "朵思大王",
+    "朵思"
+   ]
+  },
+  "李傕": {
+   "ko": "이각",
+   "faction": "other",
+   "death_year": 198,
+   "aliases": [
+    "李傕"
+   ]
+  },
+  "李儒": {
+   "ko": "이유",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "李儒"
+   ]
+  },
+  "李勝": {
+   "ko": "이승",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "李勝"
+   ]
+  },
+  "李堪": {
+   "ko": "이감",
+   "faction": "other",
+   "death_year": 211,
+   "aliases": [
+    "李堪"
+   ]
+  },
+  "李暹": {
+   "ko": "이섬",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "李暹"
+   ]
+  },
+  "李樂": {
+   "ko": "이락",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "李樂"
+   ]
+  },
+  "李歆": {
+   "ko": "이흠",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "李歆"
+   ]
+  },
+  "李異": {
+   "ko": "이이",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "李異"
+   ]
+  },
+  "李福": {
+   "ko": "이복",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "李福"
+   ]
+  },
+  "李蒙": {
+   "ko": "이몽",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "李蒙"
+   ]
+  },
+  "李豐": {
+   "ko": "이풍",
+   "faction": "wei",
+   "death_year": 254,
+   "aliases": [
+    "李豐"
+   ],
+   "chapters": [
+    109,
+    110
+   ]
+  },
+  "李豐_袁術": {
+   "ko": "이풍",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "李豐"
+   ],
+   "chapters": [
+    1,
+    17
+   ]
+  },
+  "李輔": {
+   "ko": "이보",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "李輔"
+   ]
+  },
+  "杜預": {
+   "ko": "두예",
+   "faction": "wei",
+   "death_year": 285,
+   "aliases": [
+    "杜預"
+   ]
+  },
+  "桓範": {
+   "ko": "환범",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "桓範"
+   ]
+  },
+  "梁剛": {
+   "ko": "양강",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "梁剛"
+   ]
+  },
+  "梁寬": {
+   "ko": "양관",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "梁寬"
+   ]
+  },
+  "梁緒": {
+   "ko": "양서",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "梁緒"
+   ]
+  },
+  "梁興": {
+   "ko": "양흥",
+   "faction": "other",
+   "death_year": 212,
+   "aliases": [
+    "梁興"
+   ]
+  },
+  "梁虔": {
+   "ko": "양건",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "梁虔"
+   ]
+  },
+  "楊任": {
+   "ko": "양임",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊任"
+   ]
+  },
+  "楊修": {
+   "ko": "양수",
+   "faction": "wei",
+   "death_year": 219,
+   "aliases": [
+    "楊修",
+    "楊德祖"
+   ]
+  },
+  "楊大將": {
+   "ko": "양대장",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊大將"
+   ]
+  },
+  "楊奉": {
+   "ko": "양봉",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "楊奉"
+   ]
+  },
+  "楊彪": {
+   "ko": "양표",
+   "faction": "han",
+   "death_year": 225,
+   "aliases": [
+    "楊彪"
+   ]
+  },
+  "楊懷": {
+   "ko": "양회",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "楊懷"
+   ]
+  },
+  "楊昂": {
+   "ko": "양앙",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊昂"
+   ]
+  },
+  "楊松": {
+   "ko": "양송",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊松"
+   ]
+  },
+  "楊柏": {
+   "ko": "양백",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊柏"
+   ]
+  },
+  "楊祚": {
+   "ko": "양조",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊祚"
+   ]
+  },
+  "楊秋": {
+   "ko": "양추",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊秋"
+   ]
+  },
+  "楊鋒": {
+   "ko": "양봉",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "楊鋒"
+   ]
+  },
+  "楊陵": {
+   "ko": "양릉",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "楊陵"
+   ]
+  },
+  "樂就": {
+   "ko": "악취",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "樂就"
+   ]
+  },
+  "樂綝": {
+   "ko": "악침",
+   "faction": "wei",
+   "death_year": 257,
+   "aliases": [
+    "樂綝",
+    "樂琳"
+   ]
+  },
+  "樊建": {
+   "ko": "번건",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "樊建"
+   ]
+  },
+  "樊稠": {
+   "ko": "번조",
+   "faction": "other",
+   "death_year": 195,
+   "aliases": [
+    "樊稠"
+   ]
+  },
+  "橋蕤": {
+   "ko": "교유",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "橋蕤"
+   ]
+  },
+  "段珪": {
+   "ko": "단규",
+   "faction": "han",
+   "death_year": 189,
+   "aliases": [
+    "段珪",
+    "段圭"
+   ]
+  },
+  "沙摩柯": {
+   "ko": "사마가",
+   "faction": "other",
+   "death_year": 222,
+   "aliases": [
+    "沙摩柯"
+   ]
+  },
+  "沮授": {
+   "ko": "저수",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "沮授"
+   ]
+  },
+  "沮鵠": {
+   "ko": "저곡",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "沮鵠"
+   ]
+  },
+  "淳于瓊": {
+   "ko": "순우경",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "淳于瓊"
+   ]
+  },
+  "焦觸": {
+   "ko": "초촉",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "焦觸"
+   ]
+  },
+  "牛輔": {
+   "ko": "우보",
+   "faction": "other",
+   "death_year": 192,
+   "aliases": [
+    "牛輔"
+   ]
+  },
+  "牛金": {
+   "ko": "우금",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "牛金"
+   ]
+  },
+  "牽弘": {
+   "ko": "견홍",
+   "faction": "wei",
+   "death_year": 271,
+   "aliases": [
+    "牽弘"
+   ]
+  },
+  "王允": {
+   "ko": "왕윤",
+   "faction": "han",
+   "death_year": 192,
+   "aliases": [
+    "王允"
+   ]
+  },
+  "王匡": {
+   "ko": "왕광",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "王匡"
+   ]
+  },
+  "王含": {
+   "ko": "왕함",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "王含"
+   ]
+  },
+  "王威": {
+   "ko": "왕위",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "王威"
+   ]
+  },
+  "王子服": {
+   "ko": "왕자복",
+   "faction": "han",
+   "death_year": 200,
+   "aliases": [
+    "王子服",
+    "子服"
+   ]
+  },
+  "王必": {
+   "ko": "왕필",
+   "faction": "wei",
+   "death_year": 218,
+   "aliases": [
+    "王必"
+   ]
+  },
+  "王忠": {
+   "ko": "왕충",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "王忠"
+   ]
+  },
+  "王方": {
+   "ko": "왕방",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "王方"
+   ]
+  },
+  "王植": {
+   "ko": "왕식",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "王植"
+   ]
+  },
+  "王楷": {
+   "ko": "왕개",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "王楷"
+   ]
+  },
+  "王濬": {
+   "ko": "왕준",
+   "faction": "wei",
+   "death_year": 286,
+   "aliases": [
+    "王濬"
+   ]
+  },
+  "王瓘": {
+   "ko": "왕관",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "王瓘"
+   ]
+  },
+  "王甫": {
+   "ko": "왕보",
+   "faction": "shu",
+   "death_year": 222,
+   "aliases": [
+    "王甫"
+   ],
+   "uncertain": true
+  },
+  "王祥": {
+   "ko": "왕상",
+   "faction": "wei",
+   "death_year": 268,
+   "aliases": [
+    "王祥"
+   ]
+  },
+  "王累": {
+   "ko": "왕루",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "王累"
+   ]
+  },
+  "王經": {
+   "ko": "왕경",
+   "faction": "wei",
+   "death_year": 260,
+   "aliases": [
+    "王經"
+   ]
+  },
+  "王肅": {
+   "ko": "왕숙",
+   "faction": "wei",
+   "death_year": 256,
+   "aliases": [
+    "王肅"
+   ]
+  },
+  "王雙": {
+   "ko": "왕쌍",
+   "faction": "wei",
+   "death_year": 228,
+   "aliases": [
+    "王雙"
+   ]
+  },
+  "王頎": {
+   "ko": "왕기",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "王頎"
+   ],
+   "chapters": [
+    100,
+    120
+   ]
+  },
+  "甘夫人": {
+   "ko": "감부인",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "甘夫人"
+   ]
+  },
+  "田楷": {
+   "ko": "전해",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "田楷"
+   ]
+  },
+  "田續": {
+   "ko": "전속",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "田續"
+   ]
+  },
+  "田豐": {
+   "ko": "전풍",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "田豐"
+   ]
+  },
+  "申儀": {
+   "ko": "신의",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "申儀"
+   ]
+  },
+  "申耽": {
+   "ko": "신탐",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "申耽"
+   ]
+  },
+  "皇甫酈": {
+   "ko": "황보력",
+   "faction": "han",
+   "death_year": null,
+   "aliases": [
+    "皇甫酈"
+   ]
+  },
+  "石廣元": {
+   "ko": "석광원",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "石廣元"
+   ]
+  },
+  "石苞": {
+   "ko": "석포",
+   "faction": "wei",
+   "death_year": 273,
+   "aliases": [
+    "石苞"
+   ]
+  },
+  "祝融夫人": {
+   "ko": "축융부인",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "祝融夫人"
+   ]
+  },
+  "禰衡": {
+   "ko": "예형",
+   "faction": "other",
+   "death_year": 198,
+   "aliases": [
+    "禰衡",
+    "正平"
+   ],
+   "uncertain": true
+  },
+  "种輯": {
+   "ko": "충집",
+   "faction": "han",
+   "death_year": 200,
+   "aliases": [
+    "种輯"
+   ]
+  },
+  "秦朗": {
+   "ko": "진랑",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "秦朗"
+   ]
+  },
+  "秦琪": {
+   "ko": "진기",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "秦琪"
+   ]
+  },
+  "秦良": {
+   "ko": "진량",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "秦良"
+   ]
+  },
+  "程畿": {
+   "ko": "정기",
+   "faction": "shu",
+   "death_year": 222,
+   "aliases": [
+    "程畿"
+   ]
+  },
+  "穆順": {
+   "ko": "목순",
+   "faction": "han",
+   "death_year": null,
+   "aliases": [
+    "穆順"
+   ],
+   "chapters": [
+    60,
+    70
+   ]
+  },
+  "笮融": {
+   "ko": "착융",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "笮融"
+   ]
+  },
+  "管亥": {
+   "ko": "관해",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "管亥"
+   ]
+  },
+  "糜夫人": {
+   "ko": "미부인",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "糜夫人"
+   ]
+  },
+  "紀靈": {
+   "ko": "기령",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "紀靈"
+   ]
+  },
+  "羊祜": {
+   "ko": "양호",
+   "faction": "wei",
+   "death_year": 278,
+   "aliases": [
+    "羊祜"
+   ]
+  },
+  "耿紀": {
+   "ko": "경기",
+   "faction": "han",
+   "death_year": 218,
+   "aliases": [
+    "耿紀",
+    "季行"
+   ]
+  },
+  "胡濟": {
+   "ko": "호제",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "胡濟"
+   ]
+  },
+  "胡班": {
+   "ko": "호반",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "胡班"
+   ]
+  },
+  "胡遵": {
+   "ko": "호준",
+   "faction": "wei",
+   "death_year": 256,
+   "aliases": [
+    "胡遵"
+   ]
+  },
+  "苗澤": {
+   "ko": "묘택",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "苗澤"
+   ]
+  },
+  "荀顗": {
+   "ko": "순의",
+   "faction": "wei",
+   "death_year": 274,
+   "aliases": [
+    "荀顗"
+   ]
+  },
+  "華雄": {
+   "ko": "화웅",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "華雄"
+   ]
+  },
+  "萬彧": {
+   "ko": "만욱",
+   "faction": "wu",
+   "death_year": 272,
+   "aliases": [
+    "萬彧"
+   ]
+  },
+  "董厥": {
+   "ko": "동궐",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "董厥"
+   ]
+  },
+  "董承": {
+   "ko": "동승",
+   "faction": "han",
+   "death_year": 200,
+   "aliases": [
+    "董承",
+    "董國舅"
+   ]
+  },
+  "董旻": {
+   "ko": "동민",
+   "faction": "other",
+   "death_year": 192,
+   "aliases": [
+    "董旻"
+   ]
+  },
+  "董禧": {
+   "ko": "동희",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "董禧"
+   ]
+  },
+  "董荼那": {
+   "ko": "동도나",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "董荼那"
+   ]
+  },
+  "董貴妃": {
+   "ko": "동귀비",
+   "faction": "han",
+   "death_year": 200,
+   "aliases": [
+    "董貴妃",
+    "董貴人",
+    "董妃"
+   ]
+  },
+  "蒯良": {
+   "ko": "괴량",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蒯良",
+    "子柔"
+   ]
+  },
+  "蒯越": {
+   "ko": "괴월",
+   "faction": "other",
+   "death_year": 214,
+   "aliases": [
+    "蒯越",
+    "異度"
+   ]
+  },
+  "蔡中": {
+   "ko": "채중",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蔡中"
+   ]
+  },
+  "蔡和": {
+   "ko": "채화",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蔡和"
+   ]
+  },
+  "蔡夫人": {
+   "ko": "채부인",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蔡夫人"
+   ]
+  },
+  "蔡瑁": {
+   "ko": "채모",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蔡瑁"
+   ],
+   "uncertain": true
+  },
+  "蔡邕": {
+   "ko": "채옹",
+   "faction": "han",
+   "death_year": 192,
+   "aliases": [
+    "蔡邕"
+   ]
+  },
+  "蔡陽": {
+   "ko": "채양",
+   "faction": "wei",
+   "death_year": 201,
+   "aliases": [
+    "蔡陽"
+   ],
+   "uncertain": true
+  },
+  "蔣奇": {
+   "ko": "장기",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蔣奇"
+   ]
+  },
+  "蔣幹": {
+   "ko": "장간",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "蔣幹"
+   ]
+  },
+  "蔣斌": {
+   "ko": "장빈",
+   "faction": "shu",
+   "death_year": 264,
+   "aliases": [
+    "蔣斌"
+   ]
+  },
+  "蔣舒": {
+   "ko": "장서",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "蔣舒"
+   ]
+  },
+  "薛則": {
+   "ko": "설칙",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "薛則"
+   ]
+  },
+  "薛禮": {
+   "ko": "설례",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "薛禮"
+   ]
+  },
+  "薛蘭": {
+   "ko": "설란",
+   "faction": "other",
+   "death_year": 195,
+   "aliases": [
+    "薛蘭"
+   ]
+  },
+  "蘇飛": {
+   "ko": "소비",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "蘇飛"
+   ]
+  },
+  "衛瓘": {
+   "ko": "위관",
+   "faction": "wei",
+   "death_year": 291,
+   "aliases": [
+    "衛瓘"
+   ]
+  },
+  "袁尚": {
+   "ko": "원상",
+   "faction": "wei",
+   "death_year": 207,
+   "aliases": [
+    "袁尚",
+    "顯甫"
+   ]
+  },
+  "袁熙": {
+   "ko": "원희",
+   "faction": "wei",
+   "death_year": 207,
+   "aliases": [
+    "袁熙",
+    "顯奕"
+   ]
+  },
+  "袁譚": {
+   "ko": "원담",
+   "faction": "wei",
+   "death_year": 205,
+   "aliases": [
+    "袁譚"
+   ]
+  },
+  "袁隗": {
+   "ko": "원외",
+   "faction": "han",
+   "death_year": 190,
+   "aliases": [
+    "袁隗"
+   ]
+  },
+  "裴元紹": {
+   "ko": "배원소",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "裴元紹"
+   ]
+  },
+  "裴秀": {
+   "ko": "배수",
+   "faction": "wei",
+   "death_year": 271,
+   "aliases": [
+    "裴秀"
+   ]
+  },
+  "許允": {
+   "ko": "허윤",
+   "faction": "wei",
+   "death_year": 254,
+   "aliases": [
+    "許允"
+   ],
+   "chapters": [
+    100,
+    120
+   ]
+  },
+  "許攸": {
+   "ko": "허유",
+   "faction": "wei",
+   "death_year": 204,
+   "aliases": [
+    "許攸"
+   ],
+   "uncertain": true
+  },
+  "許汜": {
+   "ko": "허사",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "許汜"
+   ]
+  },
+  "許芝": {
+   "ko": "허지",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "許芝"
+   ]
+  },
+  "許貢": {
+   "ko": "허공",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "許貢"
+   ]
+  },
+  "諸葛均": {
+   "ko": "제갈균",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "諸葛均"
+   ]
+  },
+  "諸葛尚": {
+   "ko": "제갈상",
+   "faction": "shu",
+   "death_year": 263,
+   "aliases": [
+    "諸葛尚"
+   ]
+  },
+  "諸葛瞻": {
+   "ko": "제갈첨",
+   "faction": "shu",
+   "death_year": 263,
+   "aliases": [
+    "諸葛瞻"
+   ]
+  },
+  "諸葛緒": {
+   "ko": "제갈서",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "諸葛緒"
+   ]
+  },
+  "諸葛靚": {
+   "ko": "제갈정",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "諸葛靚"
+   ]
+  },
+  "謝旌": {
+   "ko": "사정",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "謝旌"
+   ]
+  },
+  "譚雄": {
+   "ko": "담웅",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "譚雄"
+   ]
+  },
+  "貂蟬": {
+   "ko": "초선",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "貂蟬"
+   ]
+  },
+  "費耀": {
+   "ko": "비요",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "費耀"
+   ]
+  },
+  "費觀": {
+   "ko": "비관",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "費觀"
+   ]
+  },
+  "賈充": {
+   "ko": "가충",
+   "faction": "wei",
+   "death_year": 282,
+   "aliases": [
+    "賈充",
+    "公閭"
+   ]
+  },
+  "賈範": {
+   "ko": "가범",
+   "faction": "other",
+   "death_year": 238,
+   "aliases": [
+    "賈範"
+   ]
+  },
+  "賈華": {
+   "ko": "가화",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "賈華"
+   ]
+  },
+  "趙咨": {
+   "ko": "조자",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "趙咨",
+    "德度"
+   ]
+  },
+  "趙弘": {
+   "ko": "조홍",
+   "faction": "other",
+   "death_year": 184,
+   "aliases": [
+    "趙弘"
+   ]
+  },
+  "趙忠": {
+   "ko": "조충",
+   "faction": "han",
+   "death_year": 189,
+   "aliases": [
+    "趙忠"
+   ]
+  },
+  "趙昂": {
+   "ko": "조앙",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "趙昂"
+   ]
+  },
+  "趙範": {
+   "ko": "조범",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "趙範"
+   ]
+  },
+  "趙累": {
+   "ko": "조루",
+   "faction": "shu",
+   "death_year": 220,
+   "aliases": [
+    "趙累"
+   ]
+  },
+  "趙衢": {
+   "ko": "조구",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "趙衢"
+   ]
+  },
+  "路昭": {
+   "ko": "노소",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "路昭"
+   ]
+  },
+  "蹇碩": {
+   "ko": "건석",
+   "faction": "han",
+   "death_year": 189,
+   "aliases": [
+    "蹇碩"
+   ]
+  },
+  "車冑": {
+   "ko": "차주",
+   "faction": "wei",
+   "death_year": 199,
+   "aliases": [
+    "車冑"
+   ]
+  },
+  "辛敞": {
+   "ko": "신창",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "辛敞"
+   ]
+  },
+  "辛評": {
+   "ko": "신평",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "辛評"
+   ]
+  },
+  "逢紀": {
+   "ko": "봉기",
+   "faction": "other",
+   "death_year": 202,
+   "aliases": [
+    "逢紀",
+    "逢元圖"
+   ]
+  },
+  "邊洪": {
+   "ko": "변홍",
+   "faction": "wu",
+   "death_year": 204,
+   "aliases": [
+    "邊洪"
+   ]
+  },
+  "郗慮": {
+   "ko": "치려",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "郗慮"
+   ]
+  },
+  "郝昭": {
+   "ko": "학소",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "郝昭",
+    "伯道"
+   ]
+  },
+  "郝萌": {
+   "ko": "학맹",
+   "faction": "other",
+   "death_year": 196,
+   "aliases": [
+    "郝萌"
+   ]
+  },
+  "郭勝": {
+   "ko": "곽승",
+   "faction": "han",
+   "death_year": 189,
+   "aliases": [
+    "郭勝"
+   ]
+  },
+  "郭圖": {
+   "ko": "곽도",
+   "faction": "other",
+   "death_year": 205,
+   "aliases": [
+    "郭圖"
+   ]
+  },
+  "郭汜": {
+   "ko": "곽사",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "郭汜"
+   ]
+  },
+  "鄂煥": {
+   "ko": "악환",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "鄂煥"
+   ]
+  },
+  "鄒靖": {
+   "ko": "추정",
+   "faction": "han",
+   "death_year": null,
+   "aliases": [
+    "鄒靖"
+   ]
+  },
+  "鄧忠": {
+   "ko": "등충",
+   "faction": "wei",
+   "death_year": 264,
+   "aliases": [
+    "鄧忠"
+   ]
+  },
+  "鄧賢": {
+   "ko": "등현",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "鄧賢"
+   ],
+   "chapters": [
+    60,
+    62
+   ]
+  },
+  "鄧颺": {
+   "ko": "등양",
+   "faction": "wei",
+   "death_year": 249,
+   "aliases": [
+    "鄧颺"
+   ]
+  },
+  "鄭文": {
+   "ko": "정문",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "鄭文"
+   ]
+  },
+  "鄭玄": {
+   "ko": "정현",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "鄭玄"
+   ]
+  },
+  "金旋": {
+   "ko": "금선",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "金旋"
+   ]
+  },
+  "金環三結": {
+   "ko": "금환삼결",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "金環三結"
+   ]
+  },
+  "金禕": {
+   "ko": "금위",
+   "faction": "han",
+   "death_year": 218,
+   "aliases": [
+    "金禕",
+    "金褘"
+   ]
+  },
+  "閻圃": {
+   "ko": "염포",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "閻圃"
+   ]
+  },
+  "關平": {
+   "ko": "관평",
+   "faction": "shu",
+   "death_year": 220,
+   "aliases": [
+    "關平"
+   ]
+  },
+  "關索": {
+   "ko": "관색",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "關索"
+   ]
+  },
+  "關興": {
+   "ko": "관흥",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "關興"
+   ]
+  },
+  "阿會喃": {
+   "ko": "아회남",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "阿會喃"
+   ]
+  },
+  "陳式": {
+   "ko": "진식",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "陳式"
+   ]
+  },
+  "陳應": {
+   "ko": "진응",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "陳應"
+   ]
+  },
+  "陳泰": {
+   "ko": "진태",
+   "faction": "wei",
+   "death_year": 260,
+   "aliases": [
+    "陳泰"
+   ]
+  },
+  "陳珪": {
+   "ko": "진규",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "陳珪"
+   ]
+  },
+  "陳琳": {
+   "ko": "진림",
+   "faction": "wei",
+   "death_year": 217,
+   "aliases": [
+    "陳琳"
+   ]
+  },
+  "陳登": {
+   "ko": "진등",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "陳登",
+    "元龍",
+    "陳元龍"
+   ]
+  },
+  "陳紀": {
+   "ko": "진기",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "陳紀"
+   ]
+  },
+  "陳群": {
+   "ko": "진군",
+   "faction": "wei",
+   "death_year": 236,
+   "aliases": [
+    "陳群",
+    "陳羣"
+   ]
+  },
+  "陳蘭": {
+   "ko": "진란",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "陳蘭"
+   ]
+  },
+  "陳騫": {
+   "ko": "진건",
+   "faction": "wei",
+   "death_year": 292,
+   "aliases": [
+    "陳騫"
+   ]
+  },
+  "陸抗": {
+   "ko": "육항",
+   "faction": "wu",
+   "death_year": 274,
+   "aliases": [
+    "陸抗"
+   ]
+  },
+  "雍闓": {
+   "ko": "옹개",
+   "faction": "other",
+   "death_year": 225,
+   "aliases": [
+    "雍闓"
+   ]
+  },
+  "雷薄": {
+   "ko": "뇌박",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "雷薄",
+    "雷簿"
+   ]
+  },
+  "雷銅": {
+   "ko": "뇌동",
+   "faction": "shu",
+   "death_year": 218,
+   "aliases": [
+    "雷銅"
+   ]
+  },
+  "鞏志": {
+   "ko": "공지",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "鞏志"
+   ]
+  },
+  "韋晃": {
+   "ko": "위황",
+   "faction": "han",
+   "death_year": 218,
+   "aliases": [
+    "韋晃"
+   ]
+  },
+  "韓嵩": {
+   "ko": "한숭",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "韓嵩"
+   ]
+  },
+  "韓德": {
+   "ko": "한덕",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "韓德"
+   ]
+  },
+  "韓暹": {
+   "ko": "한섬",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "韓暹"
+   ]
+  },
+  "韓浩": {
+   "ko": "한호",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "韓浩"
+   ]
+  },
+  "韓猛": {
+   "ko": "한맹",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "韓猛"
+   ]
+  },
+  "韓玄": {
+   "ko": "한현",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "韓玄"
+   ]
+  },
+  "韓福": {
+   "ko": "한복",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "韓福"
+   ]
+  },
+  "韓胤": {
+   "ko": "한윤",
+   "faction": "other",
+   "death_year": 197,
+   "aliases": [
+    "韓胤"
+   ]
+  },
+  "韓融": {
+   "ko": "한융",
+   "faction": "han",
+   "death_year": null,
+   "aliases": [
+    "韓融"
+   ]
+  },
+  "韓遂": {
+   "ko": "한수",
+   "faction": "other",
+   "death_year": 215,
+   "aliases": [
+    "韓遂"
+   ]
+  },
+  "韓馥": {
+   "ko": "한복",
+   "faction": "other",
+   "death_year": 191,
+   "aliases": [
+    "韓馥"
+   ]
+  },
+  "顏良": {
+   "ko": "안량",
+   "faction": "other",
+   "death_year": 200,
+   "aliases": [
+    "顏良"
+   ]
+  },
+  "馬休": {
+   "ko": "마휴",
+   "faction": "other",
+   "death_year": 212,
+   "aliases": [
+    "馬休"
+   ]
+  },
+  "馬岱": {
+   "ko": "마대",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "馬岱"
+   ]
+  },
+  "馬延": {
+   "ko": "마연",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "馬延"
+   ]
+  },
+  "馬忠_吳": {
+   "ko": "마충",
+   "faction": "wu",
+   "death_year": null,
+   "aliases": [
+    "馬忠"
+   ],
+   "chapters": [
+    77,
+    83
+   ]
+  },
+  "馬玩": {
+   "ko": "마완",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "馬玩"
+   ]
+  },
+  "馬遵": {
+   "ko": "마준",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "馬遵"
+   ]
+  },
+  "馬鈞": {
+   "ko": "마균",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "馬鈞"
+   ],
+   "chapters": [
+    100,
+    110
+   ]
+  },
+  "馬鐵": {
+   "ko": "마철",
+   "faction": "other",
+   "death_year": 212,
+   "aliases": [
+    "馬鐵"
+   ]
+  },
+  "馬騰": {
+   "ko": "마등",
+   "faction": "other",
+   "death_year": 212,
+   "aliases": [
+    "馬騰",
+    "壽成"
+   ]
+  },
+  "馮習": {
+   "ko": "풍습",
+   "faction": "shu",
+   "death_year": 222,
+   "aliases": [
+    "馮習"
+   ]
+  },
+  "高定": {
+   "ko": "고정",
+   "faction": "other",
+   "death_year": 225,
+   "aliases": [
+    "高定"
+   ],
+   "uncertain": true
+  },
+  "高幹": {
+   "ko": "고간",
+   "faction": "other",
+   "death_year": 206,
+   "aliases": [
+    "高幹"
+   ]
+  },
+  "高沛": {
+   "ko": "고패",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "高沛"
+   ]
+  },
+  "高翔": {
+   "ko": "고상",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "高翔"
+   ]
+  },
+  "高覽": {
+   "ko": "고람",
+   "faction": "wei",
+   "death_year": null,
+   "aliases": [
+    "高覽"
+   ]
+  },
+  "高順": {
+   "ko": "고순",
+   "faction": "other",
+   "death_year": 198,
+   "aliases": [
+    "高順"
+   ]
+  },
+  "魏續": {
+   "ko": "위속",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "魏續"
+   ]
+  },
+  "魯芝": {
+   "ko": "노지",
+   "faction": "wei",
+   "death_year": 273,
+   "aliases": [
+    "魯芝"
+   ]
+  },
+  "鮑信": {
+   "ko": "포신",
+   "faction": "other",
+   "death_year": 192,
+   "aliases": [
+    "鮑信"
+   ]
+  },
+  "鮑隆": {
+   "ko": "포륭",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "鮑隆"
+   ]
+  },
+  "黃劭": {
+   "ko": "황소",
+   "faction": "other",
+   "death_year": 196,
+   "aliases": [
+    "黃劭"
+   ]
+  },
+  "黃奎": {
+   "ko": "황규",
+   "faction": "han",
+   "death_year": 212,
+   "aliases": [
+    "黃奎"
+   ]
+  },
+  "黃承彥": {
+   "ko": "황승언",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "黃承彥"
+   ]
+  },
+  "黃琬": {
+   "ko": "황완",
+   "faction": "han",
+   "death_year": 192,
+   "aliases": [
+    "黃琬"
+   ]
+  },
+  "黃皓": {
+   "ko": "황호",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "黃皓"
+   ]
+  },
+  "黃祖": {
+   "ko": "황조",
+   "faction": "other",
+   "death_year": 208,
+   "aliases": [
+    "黃祖"
+   ]
+  },
+  "龐羲": {
+   "ko": "방희",
+   "faction": "shu",
+   "death_year": null,
+   "aliases": [
+    "龐羲"
+   ]
+  },
+  "龔都": {
+   "ko": "공도",
+   "faction": "other",
+   "death_year": null,
+   "aliases": [
+    "龔都"
+   ]
+  }
+ },
+ "add_aliases": {
+  "丁奉": [
+   "承淵"
+  ],
+  "何太后": [
+   "何后"
+  ],
+  "傅嘏": [
+   "傅嘏"
+  ],
+  "全琮": [
+   "子璜"
+  ],
+  "劉備": [
+   "劉皇叔",
+   "劉豫州",
+   "漢中王",
+   "昭烈",
+   "大耳兒"
+  ],
+  "劉協": [
+   "漢帝"
+  ],
+  "劉封": [
+   "寇封"
+  ],
+  "劉放": [
+   "劉放"
+  ],
+  "劉曄": [
+   "劉曄",
+   "子陽"
+  ],
+  "劉禪": [
+   "安樂公"
+  ],
+  "劉繇": [
+   "劉繇"
+  ],
+  "劉表": [
+   "劉景升"
+  ],
+  "吳夫人": [
+   "吳太夫人"
+  ],
+  "呂凱": [
+   "季平"
+  ],
+  "呂布": [
+   "溫侯",
+   "呂溫侯"
+  ],
+  "呂範": [
+   "子衡"
+  ],
+  "呂蒙": [
+   "呂子明"
+  ],
+  "呂虔": [
+   "子恪"
+  ],
+  "周泰": [
+   "幼平"
+  ],
+  "周瑜": [
+   "周郎",
+   "周都督"
+  ],
+  "嚴畯": [
+   "曼才"
+  ],
+  "夏侯尚": [
+   "夏侯尚"
+  ],
+  "孫乾": [
+   "公祐"
+  ],
+  "孫亮": [
+   "孫亮"
+  ],
+  "孫休": [
+   "孫休"
+  ],
+  "孫匡": [
+   "孫匡",
+   "季佐"
+  ],
+  "孫和": [
+   "孫和"
+  ],
+  "孫堅": [
+   "文臺",
+   "孫文臺"
+  ],
+  "孫峻": [
+   "孫峻"
+  ],
+  "孫桓": [
+   "孫桓",
+   "叔武"
+  ],
+  "孫登": [
+   "孫登"
+  ],
+  "孫皓": [
+   "孫皓",
+   "元宗",
+   "歸命侯"
+  ],
+  "孫策": [
+   "孫郎"
+  ],
+  "孫綝": [
+   "孫綝",
+   "子通"
+  ],
+  "孫翊": [
+   "孫翊",
+   "叔弼"
+  ],
+  "孫靜": [
+   "孫靜",
+   "幼臺"
+  ],
+  "宗預": [
+   "德豔"
+  ],
+  "廖化": [
+   "元儉"
+  ],
+  "張寶": [
+   "地公將軍"
+  ],
+  "張昭": [
+   "張子布"
+  ],
+  "張梁": [
+   "人公將軍"
+  ],
+  "張楊": [
+   "張揚"
+  ],
+  "張紘": [
+   "張紘",
+   "子綱"
+  ],
+  "張角": [
+   "天公將軍",
+   "大賢良師"
+  ],
+  "張飛": [
+   "張車騎"
+  ],
+  "徐盛": [
+   "文嚮"
+  ],
+  "文昭甄皇后": [
+   "甄氏"
+  ],
+  "文聘": [
+   "仲業"
+  ],
+  "曹休": [
+   "曹休",
+   "文烈"
+  ],
+  "曹奂": [
+   "曹奐"
+  ],
+  "曹彰": [
+   "曹彰",
+   "黃鬚兒"
+  ],
+  "曹操": [
+   "曹丞相",
+   "曹阿瞞",
+   "操賊",
+   "魏公"
+  ],
+  "曹植": [
+   "曹植"
+  ],
+  "曹熊": [
+   "曹熊"
+  ],
+  "曹真": [
+   "曹真",
+   "子丹",
+   "曹子丹"
+  ],
+  "曹芳": [
+   "蘭卿"
+  ],
+  "曹髦": [
+   "高貴鄉公"
+  ],
+  "朱桓": [
+   "休穆"
+  ],
+  "朱然": [
+   "朱然"
+  ],
+  "李典": [
+   "曼成"
+  ],
+  "李嚴": [
+   "正方"
+  ],
+  "李恢": [
+   "德昂"
+  ],
+  "楊阜": [
+   "義山"
+  ],
+  "武宣卞皇后": [
+   "卞氏"
+  ],
+  "歩騭": [
+   "步騭",
+   "子山"
+  ],
+  "毌丘儉": [
+   "仲恭"
+  ],
+  "毛玠": [
+   "孝先"
+  ],
+  "滿寵": [
+   "伯寧"
+  ],
+  "潘璋": [
+   "文珪"
+  ],
+  "王平": [
+   "子均"
+  ],
+  "王脩": [
+   "王修"
+  ],
+  "甘寧": [
+   "甘興霸"
+  ],
+  "程普": [
+   "程德謀"
+  ],
+  "程秉": [
+   "德樞"
+  ],
+  "簡雍": [
+   "憲和"
+  ],
+  "臧霸": [
+   "宣高"
+  ],
+  "華佗": [
+   "元化"
+  ],
+  "董卓": [
+   "董太師",
+   "董賊"
+  ],
+  "董和": [
+   "幼宰"
+  ],
+  "董太后": [
+   "董后"
+  ],
+  "董襲": [
+   "董襲",
+   "元代"
+  ],
+  "蔣欽": [
+   "公奕"
+  ],
+  "蔣琬": [
+   "公琰"
+  ],
+  "薛綜": [
+   "敬文"
+  ],
+  "虞翻": [
+   "仲翔"
+  ],
+  "許褚": [
+   "許仲康",
+   "虎侯"
+  ],
+  "諸葛亮": [
+   "武侯",
+   "武鄉侯",
+   "諸葛丞相",
+   "伏龍"
+  ],
+  "諸葛恪": [
+   "諸葛恪",
+   "元遜"
+  ],
+  "諸葛瑾": [
+   "諸葛子瑜"
+  ],
+  "諸葛誕": [
+   "諸葛誕"
+  ],
+  "譙周": [
+   "允南"
+  ],
+  "費禕": [
+   "費褘",
+   "文偉"
+  ],
+  "贾逵": [
+   "賈逵"
+  ],
+  "辛毗": [
+   "佐治"
+  ],
+  "郭淮": [
+   "伯濟",
+   "郭伯濟"
+  ],
+  "鄧艾": [
+   "士載",
+   "鄧士載"
+  ],
+  "鄧芝": [
+   "伯苗"
+  ],
+  "鍾會": [
+   "鍾會",
+   "士季"
+  ],
+  "關羽": [
+   "關某"
+  ],
+  "闞澤": [
+   "德潤"
+  ],
+  "陳宮": [
+   "公臺"
+  ],
+  "陳武": [
+   "陳武"
+  ],
+  "陳矫": [
+   "陳矯"
+  ],
+  "陳震": [
+   "孝起"
+  ],
+  "陸凱": [
+   "陸凱"
+  ],
+  "陸績": [
+   "公紀"
+  ],
+  "陸遜": [
+   "陸伯言",
+   "陸議"
+  ],
+  "霍峻": [
+   "仲邈"
+  ],
+  "韓當": [
+   "義公"
+  ],
+  "馬謖": [
+   "幼常"
+  ],
+  "馬超": [
+   "錦馬超"
+  ],
+  "魯肅": [
+   "魯子敬"
+  ],
+  "麋竺": [
+   "糜竺",
+   "子仲"
+  ],
+  "黃權": [
+   "公衡"
+  ],
+  "黃蓋": [
+   "黃公覆"
+  ],
+  "龐德": [
+   "令名"
+  ]
+ },
+ "alias_chapters": {
+  "吳主": [
+   1,
+   107
+  ],
+  "吳侯": [
+   19,
+   120
+  ],
+  "陳留王": [
+   1,
+   118
+  ]
+ },
+ "block": [
+  "天子明",
+  "主公明",
+  "蔡中郎",
+  "魏王威震"
+ ],
+ "risky": [
+  {
+   "alias": "皇叔",
+   "why": "劉備 지칭이 대부분이나 일반 호칭(황제의 숙부)이라 다른 종친에게도 쓰일 수 있음. 대신 劉皇叔 추가"
+  },
+  {
+   "alias": "先帝",
+   "why": "촉에서는 유비지만 위(조비·조예)·오·후한 황제에게도 쓰임"
+  },
+  {
+   "alias": "蜀主",
+   "why": "유비(81~86회)와 유선(113~120회) 둘 다 가리킴"
+  },
+  {
+   "alias": "丞相",
+   "why": "조조·제갈량 등 여러 승상. 대신 諸葛丞相 추가"
+  },
+  {
+   "alias": "軍師",
+   "why": "제갈량·방통·서서 등 여러 군사"
+  },
+  {
+   "alias": "主公",
+   "why": "모든 군주 호칭"
+  },
+  {
+   "alias": "老將",
+   "why": "황충·엄안·조운·요화 등 여러 노장"
+  },
+  {
+   "alias": "壽亭侯",
+   "why": "16회 '益壽亭侯'는 다른 사람 봉작, 119회 關彝도 '漢壽亭侯'. 관우 전용 아님"
+  },
+  {
+   "alias": "關將軍",
+   "why": "대부분 관우지만 관흥·관평도 관 장군으로 불릴 수 있음"
+  },
+  {
+   "alias": "張將軍",
+   "why": "장비·장료·장합 등"
+  },
+  {
+   "alias": "燕人",
+   "why": "장비 자칭이지만 지역명으로도 쓰임. 燕人張翼德은 이미 張翼德로 잡힘"
+  },
+  {
+   "alias": "豫州",
+   "why": "지명. 대신 劉豫州 추가"
+  },
+  {
+   "alias": "益州",
+   "why": "지명. 대신 劉益州·季玉 사용"
+  },
+  {
+   "alias": "使君",
+   "why": "이미 劉備 별명으로 등록되어 있으나 도겸·유장·유표 등도 使君으로 불림. 기존 항목 재검토 필요"
+  },
+  {
+   "alias": "張翼",
+   "why": "기존 본명 별명 張翼이 張翼德(장비)의 부분 문자열이라 7·25·35·42·50·52·53·60·64·65·99회 등 장비 문단이 장익으로 잡힘. 매칭 시 張翼德 제외 처리 필요"
+  },
+  {
+   "alias": "雷同",
+   "why": "62·64회에 雷銅의 이체 표기로 4문단 나오지만 '뇌동하다'라는 일반어라 넣지 않음"
+  },
+  {
+   "alias": "子初",
+   "why": "62회 劉巴의 자이나 81회 '天子初臨'에 부분 일치"
+  },
+  {
+   "alias": "安國",
+   "why": "관흥의 자지만 82회 1회뿐이고 武安國·'民安國富' 오탐이 더 많음"
+  },
+  {
+   "alias": "公舉",
+   "why": "費詩의 자이나 유일 등장(94회)은 '公舉事'로 다른 뜻"
+  },
+  {
+   "alias": "思遠",
+   "why": "諸葛瞻의 자이나 16·19회 일반어 오탐"
+  },
+  {
+   "alias": "帶來",
+   "why": "帶來洞主 약칭이지만 '가지고 오다' 일반어"
+  },
+  {
+   "alias": "祝融",
+   "why": "화신 이름과 겹침. 祝融夫人만 사용"
+  },
+  {
+   "alias": "吳侯",
+   "why": "기존 손권 별명이지만 18회(18.9)는 손책에게 내린 작위. 손책·손권 공용"
+  },
+  {
+   "alias": "吳主",
+   "why": "기존 손권 별명이지만 105회 이후는 손량·손휴·손호를 가리킴"
+  },
+  {
+   "alias": "子明",
+   "why": "기존 여몽 별명이지만 '天子明詔'에 5문단(17·23·73·103·117회) 오탐"
+  },
+  {
+   "alias": "吳王",
+   "why": "본문 17문단 모두 손권(82~103회)이나 칭호라서 제외"
+  },
+  {
+   "alias": "孫將軍",
+   "why": "손견·손책·손권 공용 호칭"
+  },
+  {
+   "alias": "都督",
+   "why": "주유·노숙·여몽·육손 등 여러 사람의 직함"
+  },
+  {
+   "alias": "主公",
+   "why": "모든 세력의 군주 호칭"
+  },
+  {
+   "alias": "子烈",
+   "why": "진무(15회)와 손휴(113회)의 자가 같음"
+  },
+  {
+   "alias": "子遠",
+   "why": "허유(30·33회)와 손준(108회)의 자가 같음"
+  },
+  {
+   "alias": "正禮",
+   "why": "유요(15회)와 정의(79회)의 자가 같음"
+  },
+  {
+   "alias": "吳夫人",
+   "why": "7회는 손견 정실(persons 吳夫人), 54회는 '國太吳夫人'으로 오국태"
+  },
+  {
+   "alias": "蔡氏",
+   "why": "채부인을 가리키기도 하지만 '蔡氏宗族' 등 채씨 일족에도 쓰임"
+  },
+  {
+   "alias": "太夫人",
+   "why": "단독으로는 모친 일반 호칭. 吳太夫人만 넣음"
+  },
+  {
+   "alias": "劉荊州",
+   "why": "34회는 유표지만 형주목 칭호라 유기·유비에게도 쓰일 수 있음"
+  },
+  {
+   "alias": "二喬",
+   "why": "대교·소교 두 사람을 함께 가리킴(大喬·小喬는 각 2문단으로 기준 미달)"
+  },
+  {
+   "alias": "紫髯",
+   "why": "손권의 외모 묘사이지 이름이 아님"
+  },
+  {
+   "alias": "國太",
+   "why": "본문에선 오국태만 가리켜 오국태 별명으로 넣었으나 일반명사 성격이 있어 검토 필요"
+  },
+  {
+   "alias": "丞相",
+   "why": "曹操·諸葛亮·司馬昭 등 여러 승상에게 쓰임 (325문단)"
+  },
+  {
+   "alias": "天子",
+   "why": "역대 황제 전반 (153문단)"
+  },
+  {
+   "alias": "魏王",
+   "why": "曹操(66~79회) → 曹丕(79~80회)"
+  },
+  {
+   "alias": "魏主",
+   "why": "曹丕·曹叡·曹芳·曹髦·曹奐 모두에게 쓰임"
+  },
+  {
+   "alias": "晉王",
+   "why": "司馬昭(119회) → 司馬炎(119~120회)"
+  },
+  {
+   "alias": "太師",
+   "why": "대부분 董卓이나 일반 관직명, 15회 \"太師祖郎\" 오탐 → 董太師만 넣음"
+  },
+  {
+   "alias": "大將軍",
+   "why": "何進·曹爽·司馬師·司馬昭·姜維 등"
+  },
+  {
+   "alias": "國舅",
+   "why": "何進·董承 등 여러 외척"
+  },
+  {
+   "alias": "曹賊",
+   "why": "대부분 曹操이나 85회 등 조위 전체를 가리키기도 함"
+  },
+  {
+   "alias": "國賊",
+   "why": "여러 인물에게 쓰임"
+  },
+  {
+   "alias": "司馬公",
+   "why": "司馬懿·司馬昭 공용"
+  },
+  {
+   "alias": "司馬都督",
+   "why": "司馬懿 외 사마씨에게도 쓰일 수 있음"
+  },
+  {
+   "alias": "齊王",
+   "why": "109회 폐위된 曹芳이나 다른 제왕과 겹침, 1문단"
+  },
+  {
+   "alias": "陳留王",
+   "why": "기존 劉協 별명이지만 119회에는 폐위된 曹奐을 가리킴(1문단) — 119회 이후 제외 필요"
+  },
+  {
+   "alias": "公明",
+   "why": "기존 徐晃 별명이지만 管輅의 자도 公明(69회)이고 \"主公明日\"(16·28회) 오탐"
+  },
+  {
+   "alias": "公與",
+   "why": "沮授의 자이나 \"公與~\" 일반 구문 다수(14문단 대부분 오탐)"
+  },
+  {
+   "alias": "正南",
+   "why": "審配의 자이나 방향어 \"正南\" 오탐 다수 → 審正南만 넣음"
+  },
+  {
+   "alias": "公則",
+   "why": "郭圖의 자이나 \"非公則\" 구문 오탐"
+  },
+  {
+   "alias": "子遠",
+   "why": "許攸(30·33회)와 孫峻(108회) 둘 다 자가 子遠"
+  },
+  {
+   "alias": "子建",
+   "why": "曹植의 자이나 13회 \"天子建都\" 오탐"
+  },
+  {
+   "alias": "子文",
+   "why": "曹彰의 자이나 \"子文鴦\"(110~111회) 오탐"
+  },
+  {
+   "alias": "公休",
+   "why": "諸葛誕의 자이나 \"主公休~\" 오탐 5문단"
+  },
+  {
+   "alias": "子元",
+   "why": "司馬師의 자이나 29회 顧雍 \"子元嘆\" 오탐"
+  },
+  {
+   "alias": "子尚",
+   "why": "司馬昭의 자(94회)이나 다른 4문단 오탐"
+  },
+  {
+   "alias": "子上",
+   "why": "\"天子上~\" 등 일반 구문"
+  },
+  {
+   "alias": "子全",
+   "why": "王雙의 자이나 41회 \"此子全賴\" 오탐"
+  },
+  {
+   "alias": "德祖",
+   "why": "楊修의 자이나 1회 \"玄德祖\" 오탐 → 楊德祖만 넣음"
+  },
+  {
+   "alias": "稱平",
+   "why": "吉平의 자이나 28회 \"大稱平生\" 오탐"
+  },
+  {
+   "alias": "惡來",
+   "why": "典韋를 옛 인물 惡來에 비유한 말(10회 1문단)"
+  },
+  {
+   "alias": "孫仲",
+   "why": "황건 孫仲(2회)은 孫權의 \"孫仲謀\" 부분 문자열 → new_persons에 넣었지만 chapter_range 1~10 안에서만 매칭할 것"
+  },
+  {
+   "alias": "何曾",
+   "why": "119회 인물이지만 29회 \"何曾有~\"(어찌 일찍이) 오탐 → chapter_range 100~120"
+  },
+  {
+   "alias": "馬鈞",
+   "why": "105회 인물이지만 119회 \"司馬鈞\" 부분 문자열 → chapter_range 100~110"
+  },
+  {
+   "alias": "嚴氏",
+   "why": "呂布 처(16~19회)이나 15회는 嚴白虎 일족 → chapter_range 16~19"
+  },
+  {
+   "alias": "張揚",
+   "why": "張楊의 이표기로 추가했지만 103회 \"張揚聲勢\"(위세를 떨침) 오탐 1문단"
+  },
+  {
+   "alias": "黃巾",
+   "why": "집단명(인물 아님)"
+  },
+  {
+   "alias": "白波帥",
+   "why": "집단·직함(韓暹 등)"
+  }
+ ],
+ "homonyms": [
+  {
+   "name": "馬忠",
+   "chapters": [
+    77,
+    83
+   ],
+   "is": "오의 마충(반장 휘하, 77회 관우 생포, 83회 미방·부사인에게 피살). 촉 마충은 87~102회"
+  },
+  {
+   "name": "張南",
+   "chapters": [
+    33,
+    48
+   ],
+   "is": "원소 휘하에서 조조에 투항한 장남(焦觸과 함께, 33·41·48회). 촉 장남은 81~85회"
+  },
+  {
+   "name": "鄧賢",
+   "chapters": [
+    94,
+    95
+   ],
+   "is": "맹달의 외조카 등현(사마의에 내통). 유장 휘하 등현은 60~62회"
+  },
+  {
+   "name": "李豐",
+   "chapters": [
+    17,
+    17
+   ],
+   "is": "원술 휘하 이풍"
+  },
+  {
+   "name": "李豐",
+   "chapters": [
+    94,
+    101
+   ],
+   "is": "촉 이엄의 아들 이풍(2문단뿐이라 신규 인물에서 제외)"
+  },
+  {
+   "name": "李豐",
+   "chapters": [
+    109,
+    110
+   ],
+   "is": "위 중서령 이풍(사마사에게 피살)"
+  },
+  {
+   "name": "馬忠",
+   "chapters": [
+    77,
+    83
+   ],
+   "is": "오의 마충(반장 휘하, 관우 생포). new_persons의 馬忠_吳"
+  },
+  {
+   "name": "馬忠",
+   "chapters": [
+    87,
+    102
+   ],
+   "is": "촉의 마충(기존 persons 馬忠)"
+  },
+  {
+   "name": "李豐",
+   "chapters": [
+    17,
+    17
+   ],
+   "is": "원술의 장수(new_persons 李豐)"
+  },
+  {
+   "name": "李豐",
+   "chapters": [
+    94,
+    101
+   ],
+   "is": "촉 李嚴의 아들"
+  },
+  {
+   "name": "李豐",
+   "chapters": [
+    109,
+    110
+   ],
+   "is": "위의 중서령(사마사에게 피살)"
+  },
+  {
+   "name": "劉琮",
+   "chapters": [
+    34,
+    43
+   ],
+   "is": "유표의 아들(new_persons 劉琮)"
+  },
+  {
+   "name": "劉琮",
+   "chapters": [
+    118,
+    118
+   ],
+   "is": "유선의 셋째 아들"
+  },
+  {
+   "name": "張虎",
+   "chapters": [
+    7,
+    7
+   ],
+   "is": "황조의 부장(1문단, 미등록)"
+  },
+  {
+   "name": "張虎",
+   "chapters": [
+    98,
+    106
+   ],
+   "is": "위 張遼의 아들"
+  },
+  {
+   "name": "王威",
+   "chapters": [
+    69,
+    69
+   ],
+   "is": "사람 아님: '魏王威震' 오탐(제외하고 셈)"
+  },
+  {
+   "name": "蔡中",
+   "chapters": [
+    40,
+    40
+   ],
+   "is": "사람 아님: '蔡中郎'(채옹) 오탐(제외하고 셈)"
+  },
+  {
+   "name": "吳夫人",
+   "chapters": [
+    7,
+    54
+   ],
+   "is": "7회 손견 정실 / 54회 오국태"
+  },
+  {
+   "name": "張虎",
+   "note": "7회 江夏 黃祖 부장 / 98~106회 張遼의 아들(위). new_persons는 위 張虎, chapter_range 90~120"
+  },
+  {
+   "name": "李豐",
+   "note": "17회 袁術 장수 / 94·101회 李嚴의 아들(촉) / 109~110회 위 中書令. new_persons는 위 李豐"
+  },
+  {
+   "name": "穆順",
+   "note": "5회 張楊 부장(呂布에게 전사) / 66회 한 환관. new_persons는 66회 한 穆順"
+  },
+  {
+   "name": "王頎",
+   "note": "9회 한 越騎校尉 / 116~118회 위 天水太守. new_persons는 위"
+  },
+  {
+   "name": "許允",
+   "note": "91회 촉 許允 / 107회 위 侍中 許允(15회 \"許允\"은 일반 구문). new_persons는 위"
+  },
+  {
+   "name": "張南",
+   "note": "33~48회 원소→조조 항장 / 81~85회 촉 장수. new_persons는 조조 쪽(1~80회)"
+  },
+  {
+   "name": "劉岱",
+   "note": "5~6·15회 兗州刺史 / 22~24회 조조 장수. 연의 22회는 \"劉岱昔為兗州刺史\"로 동일인 취급. new_persons는 20~30회 조조 장수"
+  },
+  {
+   "name": "李輔",
+   "note": "94~95회 孟達 심복(위에 내응) / 116회 鍾會 前軍. 둘 다 위, 한 항목으로 묶음"
+  },
+  {
+   "name": "曹節",
+   "note": "1~3회 환관 曹節 / 曹操의 딸 曹皇后(원문엔 80회 \"曹后\"로만 등장). new_persons는 환관, chapter_range 1~10"
+  },
+  {
+   "name": "陳留王",
+   "note": "2~4회 劉協 / 119회 曹奐"
+  },
+  {
+   "name": "張溫",
+   "note": "8회 한 司空 張溫(董卓에게 죽음) / 38~86회 오 張溫(기존 인물)"
+  },
+  {
+   "name": "子遠",
+   "note": "許攸 / 孫峻"
+  },
+  {
+   "name": "公明",
+   "note": "徐晃 / 管輅"
+  }
+ ]
+}

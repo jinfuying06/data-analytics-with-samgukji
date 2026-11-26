@@ -16,11 +16,11 @@ try{
 
  // every question runs the same six-stage journey, but stages 1–5 look at the records that matter for it
  const expected={
-  zg:{cards:['조조','허저','하후연','원소'],s5:'조조',changed:'72',alt:'52'},
-  zyout:{cards:['주유','서성','여범','손책'],s2:'평균의 함정',s5:'주유',changed:'79',alt:'69'},
-  nofire:{cards:['황개','정봉','하후연','유표'],s2:'한 사람에게 몰린 기록',s5:'조조',changed:'85',alt:'83'},
+  zg:{cards:['조조','허저','하후연','원소'],s5:'조조',changed:'68',alt:'48'},
+  zyout:{cards:['주유','서성','여범','손책'],s2:'평균의 함정',s5:'주유',changed:'73',alt:'63'},
+  nofire:{cards:['황개','정봉','하후연','유표'],s2:'한 사람에게 몰린 기록',s5:'조조',changed:'79',alt:'77'},
   combo:{cards:['주유','정봉','여범','손책'],s2:'평균의 함정',s5:'황개',changed:'54',alt:'64'},
-  jb:{cards:['제갈량','서성','여범','손책'],s2:'같은 사람, 다른 기록',changed:'81',alt:'80'}};
+  jb:{cards:['제갈량','서성','여범','손책'],s2:'같은 사람, 다른 기록',changed:'82',alt:'81'}};
  const s1Titles=new Set(),s5Titles=new Set(),L=i=>e(`levelAt(${i})`);
  for(const [id,x] of Object.entries(expected)){
   if(id==='zg')route('lab?question=zg');else{route('lab');click(`.wi-card[data-id="${id}"]`)}e('route()');
@@ -47,7 +47,7 @@ try{
    click('#rWhy button[data-v="1"]');click('#rMin button[data-v="3"]');click('#rFix');assert.ok(q('#rWhyTip').textContent.startsWith('다시 생각'),'a reason that does not fit the rule is flagged');
    assert.equal(e('!!(S.t.s1&&S.t.s1.reason)'),false);click('#rMin button[data-v="2"]');click('#rFix');assert.equal(q('#s1name h3').textContent,'기준과 까닭');
   }
-  answer();assert.ok(e('!!S.done[1]'),id+' stage 1');assert.equal(e('roster().length'),42);
+  answer();assert.ok(e('!!S.done[1]'),id+' stage 1');assert.equal(e('roster().length'),53);
   // 순서 2 — drop a person · predict then compare mean and median · choose the measure with a reason
   route('s2');
   if(L(2)===1){click('#dropTop');if(x.s2)assert.equal(q('#s2name h3').textContent,x.s2,id+' stage 2 lesson')}
@@ -116,7 +116,7 @@ try{
  // each question keeps its own progress, rule and weights
  route('lab');assert.equal(q('#labCount').textContent,'4');assert.ok(q('.wi-card[data-id="zyout"]').classList.contains('finished'));assert.ok(q('.wi-card[data-id="zyout"] .wi-mark .ico'));
  e('S.w.ship=5');route('lab?question=zg');assert.equal(e('S.scenario'),'zg');assert.equal(w.location.hash,'#home');assert.equal(e('S.w.ship'),3,'weights belong to each question');
- route('s6');assert.ok(q('#mv6 .big-change').textContent.endsWith('72'),'main question keeps its own progress');assert.deepEqual(JSON.parse(e('JSON.stringify(S.t.s6d.tried)')).sort(),['env','zg']);
+ route('s6');assert.ok(q('#mv6 .big-change').textContent.endsWith('68'),'main question keeps its own progress');assert.deepEqual(JSON.parse(e('JSON.stringify(S.t.s6d.tried)')).sort(),['env','zg']);
  assert.equal(e('S.t.s6x.who'),'諸葛亮');assert.equal(e('S.t.s6x.act'),'wei');
  for(let i=1;i<=6;i++)assert.ok(e(`!!S.done[${i}]`));
  // 계책 보고서: 순서 6을 마치면 버튼이 나오고, 누르면 대화상자로 한 장의 보고서를 연다
@@ -144,7 +144,7 @@ try{
  // builder: a sandbox that writes the question from the choices
  route('lab');q('.lab-tools').open=true;
  assert.equal(q('#wbQ').textContent,'만약 주유가 조조 편이었다면?');
- click('#wbWind button[data-v="none"]');assert.equal(q('#wbQ').textContent,'만약 주유가 조조 편이었다면 · 바람이 불지 않았다면?');assert.equal(q('#wbRes .big').textContent,'83 → 59');
+ click('#wbWind button[data-v="none"]');assert.equal(q('#wbQ').textContent,'만약 주유가 조조 편이었다면 · 바람이 불지 않았다면?');assert.equal(q('#wbRes .big').textContent,'78 → 56');
  const who=q('#wbWho');who.value='曹操';who.dispatchEvent(new w.Event('change'));click('#wbAct button[data-v="wei"]');click('#wbWind button[data-v="env"]');
  assert.ok(q('#wbQ').textContent.includes('이미 그 편'));assert.equal(q('#wbRes').textContent,'');
  click('#wbAct button[data-v="out"]');assert.equal(q('#wbQ').textContent,'만약 조조가 없었다면?');

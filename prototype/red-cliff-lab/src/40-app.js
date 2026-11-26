@@ -9,7 +9,8 @@ const srcB=(k,t)=>`<span class="sb ${k}">${t||SRC[k]}</span>`;
 const FN={wei:"위",wu:"오",shu:"촉"},FS=["wei","wu","shu"];
 const KI={ship:0,fire:1,plan:2,wind:3},KN={ship:"수전",fire:"화공",plan:"계책",wind:"바람"};
 const KW={ship:"船·舟·水軍·艦",fire:"火·燒·焚",plan:"計·謀·策",wind:"風"};
-const DEAD={袁紹:202,呂布:198,孫策:200,袁術:199,董卓:192,郭嘉:207,劉表:208};
+// 이 전투 전에 죽은 인물: data/curated/battles.json → 30-data.js의 BATTLE
+const DEAD=Object.fromEntries(BATTLE.dead.map(n=>[n,1]));
 /* DB rows: [hanja, ko, faction, ch[8], yy[4], jb[4], jn[4]] */
 const PP={};DB.forEach(r=>PP[r[0]]={id:r[0],ko:r[1],f:r[2],ch:r[3],yy:r[4],jb:r[5],jn:r[6],chs:r[3].filter(x=>x).length,pa:r[3].reduce((a,b)=>a+b,0)});
 const NAMES=DB.map(r=>r[0]);
@@ -133,8 +134,8 @@ function home(){
 function s1(){
   const L=S.t.s1x=S.t.s1x||{};
   stage(1,[["s1","look","기록 구조 확인하기"],["s1","min","등장 기준 바꾸기"],["s1","dead","사망 인물 포함 여부 바꾸기"]],
-    step(1,"기록의 구조 살펴보기","한 행에는 인물 이름, 등장 회차, 해당 인물의 이름이 포함된 문단이 저장되어 있습니다. 공개 데이터에는 인물 63명의 기록 186건이 있습니다.",
-    `<section class="card pane"><div class="pane-h"><h2>${ic("table")}등장 기록 186건 중 일부</h2>${srcB("yy","연의 43–50회")}</div>
+    step(1,"기록의 구조 살펴보기",`한 행에는 인물 이름, 등장 회차, 해당 인물의 이름이 포함된 문단이 저장되어 있습니다. 공개 데이터에는 인물 ${DB.length}명의 기록 ${DB.reduce((a,r)=>a+r[3].filter(x=>x).length,0)}건이 있습니다.`,
+    `<section class="card pane"><div class="pane-h"><h2>${ic("table")}등장 기록 ${DB.reduce((a,r)=>a+r[3].filter(x=>x).length,0)}건 중 일부</h2>${srcB("yy","연의 43–50회")}</div>
       <div class="tscroll"><table class="data rec"><thead><tr><th>인물</th><th>진영</th><th class="n">회차</th><th class="n">문단 수</th><th>근거 문단 발췌 · 한국어 번역</th></tr></thead><tbody id="recs"></tbody></table></div>
       <button class="btn ghost" id="more">${ic("search")}다른 기록 보기</button></section>`)+
     step(2,"분석 대상의 포함 기준 정하기","최소 등장 회차 수와 사망 인물 포함 여부를 정합니다. 여기서 선택한 명단을 2~6번째 순서의 계산에 사용합니다.",
@@ -368,8 +369,8 @@ function lib(){
   $("#main").innerHTML=`${hero({hz:"史 料",where:"공개 데이터",title:"데이터와 집계 기준",sub:`<span class="reg rec">참고</span>자료와 집계 기준`,fx:"mist"})}
     <section class="card pane"><div class="pane-h"><h2>${ic("table")}공개 데이터의 구성</h2></div>
       <div class="tscroll"><table class="data lib"><thead><tr><th>데이터</th><th>내용</th><th>쓰는 장</th></tr></thead><tbody>
-        <tr><td>${srcB("yy","연의 등장 기록")}</td><td>제43–50회에서 추출한 인물 63명의 기록 186건입니다. 각 기록에는 해당 인물의 이름이 포함된 문단이 연결되어 있습니다.</td><td>1 명단 · 2 등장 문단 수 · 3 지표</td></tr>
-        <tr><td>${srcB("jb","정사 열전")}</td><td>인물 63명의 전기 본문입니다. 인물의 진영은 정사의 위·촉·오 분류를 따릅니다.</td><td>1 진영 · 5 · 6 정사 자료</td></tr>
+        <tr><td>${srcB("yy","연의 등장 기록")}</td><td>제43–50회에서 추출한 인물 ${DB.length}명의 기록 ${DB.reduce((a,r)=>a+r[3].filter(x=>x).length,0)}건입니다. 각 기록에는 해당 인물의 이름이 포함된 문단이 연결되어 있습니다.</td><td>1 명단 · 2 등장 문단 수 · 3 지표</td></tr>
+        <tr><td>${srcB("jb","정사 열전")}</td><td>정사에 전기가 있는 인물의 전기 본문입니다. 인물의 진영은 정사의 위·촉·오 분류를 따르고, 적벽에서 편이 다른 사람(항복한 형주 수군 등)은 이 전투의 소속으로 셉니다.</td><td>1 진영 · 5 · 6 정사 자료</td></tr>
         <tr><td>${srcB("jn","배송지 주석")}</td><td>배송지가 덧붙인 주석으로, 『강표전』 등 다른 문헌의 인용이 포함되어 있습니다. 이 데이터에서 바람의 방향에 관한 설명은 주석에 나타납니다.</td><td>5 본문+주석</td></tr>
         <tr><td><span class="sb jb">동시 등장</span></td><td>같은 회차에 이름이 함께 나온 인물 쌍 1,340개입니다.</td><td>6 연결</td></tr>
         <tr><td><span class="sb yy">번역 문단</span></td><td>연의 문단의 한국어 번역 210개입니다. 근거 문단을 제시할 때 사용합니다.</td><td>1 · 3 · 5</td></tr>

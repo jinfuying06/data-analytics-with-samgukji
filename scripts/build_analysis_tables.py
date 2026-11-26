@@ -5,8 +5,10 @@
   aliases     alias                 alias -> canonical name (used by the tagger)
   mentions    (name, chapter, idx)  "this person appears in this paragraph"
 
-The old tables stay untouched. Mentions are moved from yeonui_mentions as-is
-(no re-tagging), so every count derived from them is unchanged.
+The old tables stay untouched. Mentions are re-tagged from the 원문 with
+tag_yeonui_persons.find_persons_in_text (longest alias first), using the alias table plus
+data/curated/인물_추가.json (new people, extra aliases, homonyms). With no additions the
+result is identical to yeonui_mentions.
 
   python scripts/build_analysis_tables.py
 """
@@ -16,7 +18,11 @@ import difflib
 import json
 import re
 import sqlite3
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from tag_yeonui_persons import find_persons_in_text  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "processed" / "samgukji.db"
@@ -34,7 +40,8 @@ CREATE TABLE paragraphs (chapter INTEGER NOT NULL, idx INTEGER NOT NULL, zh TEXT
   PRIMARY KEY (chapter, idx));
 CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, faction TEXT NOT NULL, death_year INTEGER,
   in_jeongsa INTEGER NOT NULL);
-CREATE TABLE aliases (alias TEXT PRIMARY KEY, name TEXT NOT NULL);
+CREATE TABLE aliases (alias TEXT NOT NULL, name TEXT NOT NULL, chapter_from INTEGER NOT NULL,
+  chapter_to INTEGER NOT NULL, PRIMARY KEY (alias, name));
 CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
   PRIMARY KEY (name, chapter, idx), FOREIGN KEY (chapter, idx) REFERENCES paragraphs (chapter, idx));
 CREATE INDEX idx_mentions_chapter ON mentions (chapter, idx);
@@ -73,21 +80,52 @@ def main() -> None:
             raise SystemExit(f"two translations for paragraph {key}")
         ko[key] = text
 
-    mentions = set()
-    for name, ch, excerpt in con.execute("select name, chapter, excerpt from yeonui_mentions"):
-        for p in json.loads(excerpt):
-            mentions.add((name, ch, raw[ch].index(p)))
-
     supplement = json.loads((CURATED / "인물_세력_보충.json").read_text(encoding="utf-8"))["people"]
     info_path = CURATED / "인물_정보.json"
     info = json.loads(info_path.read_text(encoding="utf-8")) if info_path.is_file() else {}
+    extra_path = CURATED / "인물_추가.json"
+    extra = json.loads(extra_path.read_text(encoding="utf-8")) if extra_path.is_file() else {}
+    added = extra.get("new_persons", {})
+    info.update(added)
     persons = {n: [FACTION[c], 1] for n, c in con.execute("select name, country from jeongsa_persons")}
     persons.update({n: [v["faction"], 0] for n, v in supplement.items()})
+    persons.update({n: [v["faction"], 0] for n, v in added.items() if n not in persons})
+
+    # (별명, 인물, 첫 회, 끝 회). 회차 범위가 있는 인물(동명이인)과 alias_chapters의 별명은 그 회차에서만 쓴다
+    limit = extra.get("alias_chapters", {})
+    entries = []
+    for n, al in json.loads(ALIAS_PATH.read_text(encoding="utf-8")).items():
+        entries += [(a, n, *limit.get(a, (1, 120))) for a in al]
+    for n, al in extra.get("add_aliases", {}).items():
+        entries += [(a, n, *limit.get(a, (1, 120))) for a in al]
+    for n, v in added.items():
+        entries += [(a, n, *v.get("chapters", (1, 120))) for a in v.get("aliases", [n])]
+    entries = sorted(set(entries))
+
+    def aliases_for(ch: int) -> dict[str, str]:
+        """그 회차에서 쓰는 별명 → 인물. 같은 별명이 겹치면 회차 범위가 좁은 쪽이 이긴다."""
+        best: dict[str, tuple[int, str]] = {}
+        for a, n, lo, hi in entries:
+            if lo <= ch <= hi:
+                width = hi - lo
+                if a in best and best[a][0] == width and best[a][1] != n:
+                    raise SystemExit(f"alias {a} points to both {best[a][1]} and {n} in chapter {ch}")
+                if a not in best or width < best[a][0]:
+                    best[a] = (width, n)
+        return {a: n for a, (_, n) in best.items()}
+
+    block = extra.get("block", [])
+    mentions = set()
+    for ch, lines in raw.items():
+        table = aliases_for(ch)
+        for i, p in enumerate(lines):
+            for b in block:  # 인물명이 아닌 문자열은 가린 뒤 찾는다
+                p = p.replace(b, "□" * len(b))
+            for n in find_persons_in_text(p, table):
+                mentions.add((n, ch, i))
     missing = {m[0] for m in mentions} - persons.keys()
     if missing:
         raise SystemExit(f"mentioned people without a faction: {sorted(missing)}")
-
-    aliases = json.loads(ALIAS_PATH.read_text(encoding="utf-8"))
 
     con.executescript(SCHEMA)
     con.executemany("insert into paragraphs values (?,?,?,?)",
@@ -95,7 +133,7 @@ def main() -> None:
     con.executemany("insert into persons values (?,?,?,?,?)",
                     [(n, info.get(n, {}).get("ko") or supplement.get(n, {}).get("ko"), f,
                       info.get(n, {}).get("death_year"), j) for n, (f, j) in persons.items()])
-    con.executemany("insert into aliases values (?,?)", [(a, n) for n, al in aliases.items() for a in al])
+    con.executemany("insert into aliases values (?,?,?,?)", entries)
     con.executemany("insert into mentions values (?,?,?)", sorted(mentions))
     con.commit()
     count = lambda t: con.execute(f"select count(*) from {t}").fetchone()[0]

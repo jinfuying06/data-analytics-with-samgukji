@@ -107,7 +107,7 @@ RENDER[1]=()=>{
   reveal.innerHTML=`<header class="step-h"><span class="sno">활동 2</span><h2>방금 하신 일이 ‘기준 정하기’입니다</h2></header>
    <section class="card pane simple-result"><p class="rule-line">내 기준: <b>${S.rule.min}회 이상 나온 사람</b>만, 이미 죽은 사람은 <b>${S.rule.dead?'빼고':'넣고'}</b></p>
    <div class="sides"><div class="side"><i style="background:var(--wei)"></i><span>조조군</span><b class="num">${t.wei}<small>명</small></b></div><div class="side"><i style="background:linear-gradient(90deg,var(--wu),var(--shu))"></i><span>손권·유비 연합군</span><b class="num">${t.ally}<small>명</small></b></div></div>
-   <p class="simple-note">기록에 이름이 나온 63명 중 <b>${t.all}명</b>을 셉니다. 이 명단으로 마지막 실험까지 계산하는 것이지요.</p>
+   <p class="simple-note">기록에 이름이 나온 ${DB.length}명 중 <b>${t.all}명</b>을 셉니다. 이 명단으로 마지막 실험까지 계산하는 것이지요.</p>
    <details class="step-more"><summary>다른 기준도 살펴보기</summary><div class="ctrls">${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"]],S.rule.min,"최소 등장")}${seg("rDead",[[1,"죽은 사람 빼기"],[0,"넣기"]],S.rule.dead,"사망자")}</div><p class="simple-note" id="altNote"></p></details></section>`;
   const alt=()=>{const a=rosterTotals();$("#altNote").textContent=`→ 조조군 ${a.wei}명 · 연합군 ${a.ally}명 (모두 ${a.all}명)`;};
   onSeg("rMin",v=>{S.rule.min=+v;save();alt()});onSeg("rDead",v=>{S.rule.dead=+v;save();alt()});alt();

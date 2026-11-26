@@ -77,7 +77,8 @@ CREATE TABLE paragraphs (chapter INTEGER NOT NULL, idx INTEGER NOT NULL, zh TEXT
   PRIMARY KEY (chapter, idx));
 CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, faction TEXT NOT NULL, death_year INTEGER,
   in_jeongsa INTEGER NOT NULL);
-CREATE TABLE aliases (alias TEXT PRIMARY KEY, name TEXT NOT NULL);
+CREATE TABLE aliases (alias TEXT NOT NULL, name TEXT NOT NULL, chapter_from INTEGER NOT NULL,
+  chapter_to INTEGER NOT NULL, PRIMARY KEY (alias, name));
 CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
   PRIMARY KEY (name, chapter, idx), FOREIGN KEY (chapter, idx) REFERENCES paragraphs (chapter, idx));
 CREATE INDEX idx_mentions_chapter ON mentions (chapter, idx);
@@ -133,7 +134,9 @@ def build_seed(source_path: Path, target_path: Path) -> None:
             [tuple(row) for row in mentions],
         )
 
-        people = sorted({row["name"] for row in mentions})
+        # 정사 전기는 옛 등장 기록과 새 분석 표(mentions) 어느 쪽에든 나온 인물 것을 복사한다
+        people = sorted({row["name"] for row in mentions} | {r[0] for r in source.execute(
+            "SELECT DISTINCT name FROM mentions WHERE chapter BETWEEN ? AND ?", (CHAPTER_START, CHAPTER_END))})
         placeholders = ",".join("?" for _ in people)
         if people:
             jeongsa_rows = source.execute(
