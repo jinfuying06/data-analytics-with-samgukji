@@ -591,6 +591,19 @@ ACT[5]=(el,unlock)=>{
  if(S.t.moved)moved();
 };
 
+/* ===== 지표 타당도: 기록 점수가 실제 승패와 맞았나 =====
+   이 점수는 '기록에 이름과 글자가 얼마나 함께 나왔나'(서사 비중)를 잰다. 승패를 재는 지표인지 결과와 견주어 본다 */
+function validityBox(base){
+ const W=BATTLE.winner==="a"?SA:SB,lead=base>55?SA:base<45?SB:null,ok=lead===W;
+ const say=lead?`기록 점수로는 <b>${esc(lead.short)}${jo(lead.short,"이","가")} 앞섭니다</b>(${base}).`:`기록 점수로는 두 편이 <b>비슷합니다</b>(${base}).`;
+ const others=BATTLE_LIST.filter(b=>b.id!==BATTLE_ID).map(b=>`<a href="?b=${b.id}">${b.hz} ${b.name}</a>`).join(" · ");
+ return `<div class="box"><div class="tag">지표 타당도 · 이 점수는 실제 승패와 맞았을까요?</div>
+  <p style="margin:8px 0 0">${say} 『삼국지연의』에서 실제로 이긴 편은 <b>${esc(W.name)}</b>입니다. ${ok
+   ?"지표와 결과가 맞았습니다. 다만 점수에 쓴 글자는 이 싸움의 결과를 알고 고른 것이라, 맞았다는 사실만으로 이 지표가 승패를 잰다고 말할 수는 없습니다."
+   :"지표와 결과가 어긋났습니다. 이 점수는 승패가 아니라 '누가 기록에 얼마나 많이 나왔나'를 잽니다. 이긴 편보다 진 편이 이야기에 더 많이 나올 수도 있습니다."}</p>
+  <p class="note">실무에서는 이것을 '지표 타당도 확인'이라고 합니다. 만든 지표가 재려던 것을 정말 재는지, 결과를 이미 아는 사례에 대어 봅니다.${others?` 다른 전투에서도 견주어 보시지요: ${others}`:""}</p></div>`;
+}
+
 /* ===== 계책 보고서: 처음 짐작과 결과 비교 ===== */
 function report(){
  fxLevel=2;onBack=()=>map();
@@ -601,6 +614,7 @@ function report(){
   <div class="box gold"><div class="tag">계책 보고서 · ${MISSION}</div><h1 class="logo" style="font-size:clamp(26px,4vw,40px);margin:8px 0">원정 완료!</h1>
    <div class="arena" style="grid-template-columns:auto 1fr;max-width:620px;align-items:center;text-align:left;gap:20px"><img class="pt" src="${ARCHIVIST}" alt="기록관" style="width:140px;border:3px solid var(--line)"><p style="margin:0">여섯 장의 기록을 모았습니다. 처음 짐작과 계산 결과를 견주어 보시지요.</p></div></div>
   <div class="cmp"><div><span class="dim">처음 짐작</span><b>${esc(predTxt)}</b></div><div style="border-color:var(--gold)"><span class="dim">계산 결과 (${SA.short}${jo(SA.short,"이","가")} 앞서는 정도)</span><b>${fill(K.report.result,vals)}</b></div></div>
+  ${validityBox(base)}
   <div class="box"><div class="tag">해석</div><p style="margin:8px 0 0">${fill(K.report.interpret,vals)}</p><p class="note">${REPORT_LIMIT}</p></div>
   <div class="box"><div class="tag">얻은 도구와 익힌 분석 기술</div><ul class="skills">${TOOLS.map((t,k)=>`<li>${toolTile(k,S.done[k+1])}<div><b class="px">${t.name}</b> · ${t.does}<br><span class="dim">실무에서는: ${t.pro}</span></div></li>`).join("")}</ul></div>
   <div class="box"><div class="tag">순서별로 남긴 기록</div><ol style="margin-top:10px">${STAGES.map((s,k)=>`<li><b class="px">${esc(s.short)}</b><br><span class="dim">${esc(S.done[k+1]||"아직 하지 않음")}</span></li>`).join("")}</ol></div>

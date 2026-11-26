@@ -52,11 +52,11 @@ assert.equal(Y.verdict(80), '촉군이 크게 앞섬');
 // 이릉대전: 오(a) 대 촉(b), 육손을 빼는 가정 실험
 const yc = {};
 vm.runInNewContext(fs.readFileSync('prototype/game-demo/battles/yiling-data.js', 'utf8') + ';this.DB=DB;this.BATTLE=BATTLE', yc);
-const YL = Core(yc.BATTLE), YP = YL.people(yc.DB), yr = YL.roster(YP, rule), yw = { fire: 3, camp: 3, chase: 2 }, OUT = { 陸遜: null };
+const YL = Core(yc.BATTLE), YP = YL.people(yc.DB), yr = YL.roster(YP, rule), yw = { fire: 3, plan: 3, camp: 2 }, OUT = { 陸遜: null };
 assert.deepEqual([yr.filter(n => YP[n].f === 'wu').length, yr.filter(n => YP[n].f === 'shu').length], [18, 13], '이릉 명단 오 18 · 촉 13 (미방·사인은 전투 당시 소속인 오)');
-assert.deepEqual(YL.factionScores(YP, yw, yr), { wu: 340, shu: 519 });
-assert.deepEqual([YL.allyIndex(YP, yw, yr, null, 'env'), YL.allyIndex(YP, yw, yr, OUT, 'env'), YL.allyIndex(YP, yw, yr, OUT, 'zg')], [55, 49, 34], '육손을 빼면 보너스가 따라 빠짐');
-assert.equal(YL.sensitivity(YP, yr).win, 0, '모든 점수 규칙에서 진 촉이 앞섬');
+assert.deepEqual(YL.factionScores(YP, yw, yr), { wu: 363, shu: 441 });
+assert.deepEqual([YL.allyIndex(YP, yw, yr, null, 'env'), YL.allyIndex(YP, yw, yr, OUT, 'env'), YL.allyIndex(YP, yw, yr, OUT, 'zg')], [55, 49, 39], '육손을 빼면 보너스가 따라 빠짐');
+assert.equal(YL.sensitivity(YP, yr).win, 13, '215가지 중 13가지만 이긴 오가 앞섬');
 
 // 전투 내용 파일: 엔진이 읽는 칸이 모두 있는지
 for (const id of ['red-cliff', 'yiling']) {
@@ -65,9 +65,10 @@ for (const id of ['red-cliff', 'yiling']) {
   assert.equal(K.stages.length, 6, id); assert.equal(K.q1.cards.length, 4, id); assert.equal(K.predictions.length, 3, id);
   K.stages.forEach((s, i) => assert.ok(s.short && s.q && s.concept.length === 2 && s.say.length === 4 && s.check.opts.length === 3 && s.check.ok in s.check.opts, `${id} stage ${i + 1}`));
   for (const n of [...K.q1.cards.map(c => c.n), K.q3.example, K.q5.person, K.q6.mover]) assert.ok(P[n], `${id}: ${n} in data`);
+  assert.ok(B.winner === 'a' || B.winner === 'b', `${id} winner`);
   assert.ok(B.score.includes(K.q5.indicator) && B.indicators[K.q5.indicator], `${id} q5 indicator`);
   for (const k of ['ev', 'named', 'note', 'askTitle']) assert.ok(K.q5[k], `${id} q5.${k}`);
   for (const k of ['ev', 'named', 'moveButton', 'baseNote', 'movedNote', 'askTitle']) assert.ok(K.q6[k], `${id} q6.${k}`);
   for (const k of ['result', 'interpret', 'movedLean']) assert.ok(K.report[k], `${id} report.${k}`);
 }
-console.log('PASS game core: roster 53 (20/24/9), scores 1356/647, index 78→68 and 48, sensitivity 215/215, shu average 20.6→11.9, bounds, other battle shape; yiling 18/13, 340/519, 55→49/34, sensitivity 0; both content files complete');
+console.log('PASS game core: roster 53 (20/24/9), scores 1356/647, index 78→68 and 48, sensitivity 215/215, shu average 20.6→11.9, bounds, other battle shape; yiling 18/13, 363/441, 55→49/39, sensitivity 13/215; both content files complete');
