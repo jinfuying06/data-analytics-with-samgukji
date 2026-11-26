@@ -37,6 +37,8 @@ DROP TABLE IF EXISTS persons;
 DROP TABLE IF EXISTS aliases;
 DROP TABLE IF EXISTS mentions;
 DROP TABLE IF EXISTS affiliations;
+DROP TABLE IF EXISTS jeongsa_sentences;
+DROP TABLE IF EXISTS jeongsa_mentions;
 CREATE TABLE paragraphs (chapter INTEGER NOT NULL, idx INTEGER NOT NULL, zh TEXT NOT NULL, ko TEXT,
   PRIMARY KEY (chapter, idx));
 CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, jeongsa_faction TEXT NOT NULL,
@@ -48,7 +50,75 @@ CREATE TABLE aliases (alias TEXT NOT NULL, name TEXT NOT NULL, chapter_from INTE
 CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
   PRIMARY KEY (name, chapter, idx), FOREIGN KEY (chapter, idx) REFERENCES paragraphs (chapter, idx));
 CREATE INDEX idx_mentions_chapter ON mentions (chapter, idx);
+CREATE TABLE jeongsa_sentences (juan INTEGER NOT NULL, idx INTEGER NOT NULL, text TEXT NOT NULL,
+  is_note INTEGER NOT NULL, bio TEXT, PRIMARY KEY (juan, idx));
+CREATE TABLE jeongsa_mentions (name TEXT NOT NULL, juan INTEGER NOT NULL, idx INTEGER NOT NULL,
+  PRIMARY KEY (name, juan, idx), FOREIGN KEY (juan, idx) REFERENCES jeongsa_sentences (juan, idx));
+CREATE INDEX idx_jeongsa_mentions_name ON jeongsa_mentions (name);
 """
+JEONGSA_DIR = ROOT / "data" / "raw" / "wikisource" / "정사"
+# 정사가 인물을 부르는 방식 중 연의 별명 표에 없는 것: 권 범위별 칭호
+JEONGSA_TITLES = [((1, 30), {"太祖": "曹操", "文帝": "曹丕", "明帝": "曹叡"}),   # 위서
+                  ((31, 45), {"先主": "劉備", "後主": "劉禪"}),                  # 촉서
+                  ((46, 65), {"權": "孫權"})]                                   # 오서: 손권을 '權'으로 부름
+# '權'이 사람 이름이 아닌 낱말
+JEONGSA_BLOCK = ["兵權", "權力", "權勢", "權宜", "權略", "權變", "權柄", "威權", "大權", "權謀", "權衡", "專權", "權重", "權時", "權道", "權貴", "權臣"]
+
+
+def jeongsa_units(text: str) -> list[tuple[str, int]]:
+    """정사 본문을 문장으로 나눈다. 배송지 주석 〈 〉은 따로 떼어 is_note=1."""
+    units, buf, note = [], "", 0
+    for ch in text:
+        if ch in "〈〉":
+            if buf.strip():
+                units.append((buf.strip(), note))
+            buf, note = "", 1 if ch == "〈" else 0
+            continue
+        buf += ch
+        if ch in "。！？":
+            if buf.strip():
+                units.append((buf.strip(), note))
+            buf = ""
+    if buf.strip():
+        units.append((buf.strip(), note))
+    return units
+
+
+def build_jeongsa(con: sqlite3.Connection, table: dict[str, str], block: list[str]) -> tuple[list, set]:
+    """정사 65권을 문장 표로 만들고 연의와 같은 별명 표(+정사 칭호)로 태깅한다.
+    자기 전기 안의 문장은 모두 그 사람에 관한 문장으로 센다(전기는 주인공을 '亮'처럼 이름 한 글자로 부르기 때문)."""
+    bios = {}
+    for n, j, bio in con.execute("select name, source_juan, biography from jeongsa_persons"):
+        bios.setdefault(int(re.search(r"\d+", j).group()), []).append((n, bio))
+    sentences, found = [], set()
+    for f in sorted(JEONGSA_DIR.glob("*.json")):
+        d = json.loads(f.read_text(encoding="utf-8"))
+        juan, body = d["num"], d["body_text"]
+        spans = []
+        for n, bio in bios.get(juan, []):
+            at = body.find(bio)
+            if at >= 0:
+                spans.append((at, at + len(bio), n))
+        titles = dict(table)
+        for (a, b), t in JEONGSA_TITLES:
+            if a <= juan <= b:
+                titles.update(t)
+        pos = 0
+        for i, (text, note) in enumerate(jeongsa_units(body)):
+            at = body.find(text, pos)
+            pos = at + len(text) if at >= 0 else pos
+            inside = [(e - s, n) for s, e, n in spans if s <= at < e]
+            bio = min(inside)[1] if inside else None
+            sentences.append((juan, i, text, note, bio))
+            masked = text
+            for b in block + JEONGSA_BLOCK:
+                masked = masked.replace(b, "□" * len(b))
+            names = find_persons_in_text(masked, titles)
+            if bio:
+                names.add(bio)
+            found |= {(n, juan, i) for n in names}
+    return sentences, found
+
 
 norm = lambda t: re.sub(r"[^一-鿿]", "", t)
 
@@ -129,6 +199,9 @@ def main() -> None:
     missing = {m[0] for m in mentions} - persons.keys()
     if missing:
         raise SystemExit(f"mentioned people without a faction: {sorted(missing)}")
+    # 정사: 회차가 없으므로 회차 제한이 없는 별명만 쓴다
+    global_aliases = {a: n for a, n, lo, hi in entries if (lo, hi) == (1, 120)}
+    j_sentences, j_mentions = build_jeongsa(con, global_aliases, block)
 
     con.executescript(SCHEMA)
     con.executemany("insert into paragraphs values (?,?,?,?)",
@@ -147,10 +220,13 @@ def main() -> None:
                       info.get(n, {}).get("death_year"), j) for n, (f, j) in persons.items()])
     con.executemany("insert into aliases values (?,?,?,?)", entries)
     con.executemany("insert into mentions values (?,?,?)", sorted(mentions))
+    con.executemany("insert into jeongsa_sentences values (?,?,?,?,?)", j_sentences)
+    con.executemany("insert into jeongsa_mentions values (?,?,?)", sorted(j_mentions))
     con.commit()
     count = lambda t: con.execute(f"select count(*) from {t}").fetchone()[0]
     print(f"paragraphs {count('paragraphs')} (translated {len(ko)}), persons {count('persons')}, "
-          f"aliases {count('aliases')}, mentions {count('mentions')}, affiliations {count('affiliations')}")
+          f"aliases {count('aliases')}, mentions {count('mentions')}, affiliations {count('affiliations')}, "
+          f"jeongsa sentences {count('jeongsa_sentences')}, jeongsa mentions {count('jeongsa_mentions')}")
 
 
 if __name__ == "__main__":
