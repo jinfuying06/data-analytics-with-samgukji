@@ -75,8 +75,10 @@ CREATE TABLE yeonui_paragraph_translations (
 
 CREATE TABLE paragraphs (chapter INTEGER NOT NULL, idx INTEGER NOT NULL, zh TEXT NOT NULL, ko TEXT,
   PRIMARY KEY (chapter, idx));
-CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, faction TEXT NOT NULL, death_year INTEGER,
-  in_jeongsa INTEGER NOT NULL);
+CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, jeongsa_faction TEXT NOT NULL,
+  first_faction TEXT NOT NULL, last_faction TEXT NOT NULL, death_year INTEGER, in_jeongsa INTEGER NOT NULL);
+CREATE TABLE affiliations (name TEXT NOT NULL, seq INTEGER NOT NULL, faction TEXT NOT NULL, lord TEXT,
+  chapter_from INTEGER NOT NULL, chapter_to INTEGER NOT NULL, change TEXT, evidence TEXT, PRIMARY KEY (name, seq));
 CREATE TABLE aliases (alias TEXT NOT NULL, name TEXT NOT NULL, chapter_from INTEGER NOT NULL,
   chapter_to INTEGER NOT NULL, PRIMARY KEY (alias, name));
 CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
@@ -92,6 +94,7 @@ ANALYSIS_COPY = [
     ("mentions", "SELECT * FROM mentions WHERE chapter BETWEEN ? AND ?"),
     ("persons", "SELECT * FROM persons WHERE name IN (SELECT name FROM mentions WHERE chapter BETWEEN ? AND ?)"),
     ("aliases", "SELECT * FROM aliases WHERE name IN (SELECT name FROM mentions WHERE chapter BETWEEN ? AND ?)"),
+    ("affiliations", "SELECT * FROM affiliations WHERE name IN (SELECT name FROM mentions WHERE chapter BETWEEN ? AND ?)"),
 ]
 
 
@@ -190,6 +193,8 @@ def build_seed(source_path: Path, target_path: Path) -> None:
             raise RuntimeError("analysis tables missing: run scripts/build_analysis_tables.py first")
         for table, query in ANALYSIS_COPY:
             rows = {tuple(r) for a, b in BATTLE_RANGES for r in source.execute(query, (a, b))}
+            if not rows:
+                continue
             marks = ",".join("?" * len(next(iter(rows))))
             target.executemany(f"INSERT INTO {table} VALUES ({marks})", sorted(rows))
         target.execute("INSERT INTO seed_metadata VALUES ('analysis_chapters', ?)",

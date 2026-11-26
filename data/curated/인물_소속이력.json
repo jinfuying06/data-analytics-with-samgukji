@@ -1,0 +1,3218 @@
+{
+ "_설명": "연의 소속 이력(2026-11-26). 세 에이전트가 정사 분류별로 조사하고 원문 회차로 확인. 소속이 바뀐 사람, 정사 분류와 연의 처음 소속이 다른 사람, 그리고 han·other 인물 전원(섬긴 사람 lord를 남기려고). 구간은 연의 회차 from~to. change: 시작/항복/귀순/포로/합류/망명/배신. 마지막 구간의 to는 죽은 회차, 죽는 장면이 없으면 마지막 등장 회차(위에 항복해 끝까지 산 사람은 120). 전투 당시 소속은 이 이력에서 그 전투에 처음 나온 회차의 소속으로 정한다(scripts/build_red_cliff_lab_data.py).",
+ "people": {
+  "丁原": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정) (형주자사·집금오)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "于禁": [
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 1,
+    "to": 74,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "관우",
+    "from": 74,
+    "to": 75,
+    "change": "항복",
+    "evidence": "74회: 칠군이 수몰되자 '口稱願降'"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 75,
+    "to": 79,
+    "change": "귀순",
+    "evidence": "75회: 손권이 형주 옥에서 풀어 조조에게 돌려보냄, 79회 수치로 병사"
+   }
+  ],
+  "伊籍": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 52,
+    "change": "시작",
+    "evidence": "34회: 형주(유표)의 막빈으로 유비를 도움"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 52,
+    "to": 80,
+    "change": "합류",
+    "evidence": "52회: 유비가 마량의 부관으로 등용"
+   }
+  ],
+  "伏完": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 66,
+    "change": "시작"
+   }
+  ],
+  "伏皇后": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 66,
+    "change": "시작"
+   }
+  ],
+  "何太后": [
+   {
+    "faction": "han",
+    "lord": "소제(후한 조정, 태후)",
+    "from": 1,
+    "to": 4,
+    "change": "시작"
+   }
+  ],
+  "何進": [
+   {
+    "faction": "han",
+    "lord": "영제(후한 조정)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "侯成": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 19,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 19,
+    "to": 19,
+    "change": "배신",
+    "evidence": "19회: 적토마를 훔쳐 조조 진영에 바치고 항복"
+   }
+  ],
+  "全懌": [
+   {
+    "faction": "wu",
+    "lord": "손량(동오)",
+    "from": 1,
+    "to": 112,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "사마소",
+    "from": 112,
+    "to": 120,
+    "change": "항복",
+    "evidence": "112회: 전위의 편지를 받고 전단과 함께 수춘 문을 열고 항복"
+   }
+  ],
+  "全端": [
+   {
+    "faction": "wu",
+    "lord": "손량(동오)",
+    "from": 1,
+    "to": 112,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "사마소",
+    "from": 112,
+    "to": 120,
+    "change": "항복",
+    "evidence": "112회: 아들 전위의 편지를 받고 수춘 문을 열고 항복"
+   }
+  ],
+  "公孫瓚": [
+   {
+    "faction": "other",
+    "lord": "공손찬",
+    "from": 1,
+    "to": 21,
+    "change": "시작",
+    "evidence": "21회 원소에게 패해 사망"
+   }
+  ],
+  "冷苞": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 62,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 62,
+    "to": 62,
+    "change": "포로",
+    "evidence": "62회: 위연에게 사로잡혀 '如何不降' 하며 항복"
+   },
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 62,
+    "to": 63,
+    "change": "배신",
+    "evidence": "62회: 풀려나 낙성으로 돌아가 다시 유장 편에 섬, 63회 재차 사로잡혀 처형"
+   }
+  ],
+  "劉協": [
+   {
+    "faction": "han",
+    "lord": "헌제 본인(후한 황제)",
+    "from": 1,
+    "to": 80,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조비",
+    "from": 80,
+    "to": 120,
+    "change": "항복",
+    "evidence": "80회: 수선대에서 조비에게 선양, 산양공으로 봉해짐"
+   }
+  ],
+  "劉巴": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 91,
+    "change": "항복",
+    "evidence": "62회 유장에게 간언, 65회: 좌장군으로 임명된 투항 관원"
+   }
+  ],
+  "劉焉": [
+   {
+    "faction": "han",
+    "lord": "후한 조정(유주태수·익주목)",
+    "from": 1,
+    "to": 59,
+    "change": "시작",
+    "evidence": "1회 유주태수로 유비를 거둠, 59회 익주목으로 병사했다고 서술"
+   }
+  ],
+  "劉琦": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 42,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 42,
+    "to": 53,
+    "change": "합류",
+    "evidence": "42회: 장판 뒤 강하 군사를 이끌고 유비와 합류, 이후 유비가 강하를 맡김(45회)"
+   }
+  ],
+  "劉琮": [
+   {
+    "faction": "other",
+    "lord": "유표(부친), 40회 이후 형주 계승",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 41,
+    "change": "항복",
+    "evidence": "40회 항복 문서를 보내고 41회 조조에게 항복, 같은 회 채부인과 함께 피살"
+   }
+  ],
+  "劉璋": [
+   {
+    "faction": "other",
+    "lord": "유장(익주목, 자립)",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 67,
+    "change": "항복",
+    "evidence": "65회: 인수와 문적을 들고 성을 나와 항복, 공안으로 옮겨짐"
+   }
+  ],
+  "劉璝": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 64,
+    "change": "시작",
+    "evidence": "64회: 낙성에서 항복 거부 중 장익에게 피살"
+   }
+  ],
+  "劉禪": [
+   {
+    "faction": "shu",
+    "lord": "촉한(유비→본인)",
+    "from": 1,
+    "to": 118,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "위(사마소)",
+    "from": 118,
+    "to": 120,
+    "change": "항복",
+    "evidence": "118회: 군신 60여 명과 면박여츤하고 등애에게 항복, 119회 낙양 이송"
+   }
+  ],
+  "劉表": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 40,
+    "change": "시작",
+    "evidence": "형주 독립 군웅, 40회 병사"
+   }
+  ],
+  "劉辟": [
+   {
+    "faction": "other",
+    "lord": "황건 잔당(여남)",
+    "from": 1,
+    "to": 27,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 27,
+    "to": 31,
+    "change": "합류",
+    "evidence": "27~28회: 여남에서 유비가 유벽·공도와 합류; 31회 유비를 위해 죽음"
+   }
+  ],
+  "劉辯": [
+   {
+    "faction": "han",
+    "lord": "소제 본인(후한 황제)",
+    "from": 1,
+    "to": 4,
+    "change": "시작"
+   }
+  ],
+  "句安": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 108,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "위",
+    "from": 108,
+    "to": 120,
+    "change": "항복",
+    "evidence": "108회: 원군이 오지 않자 국산성 문을 열고 위에 항복"
+   }
+  ],
+  "司馬徽": [
+   {
+    "faction": "other",
+    "lord": "없음(은사)",
+    "from": 1,
+    "to": 57,
+    "change": "시작"
+   }
+  ],
+  "吉平": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 23,
+    "change": "시작"
+   }
+  ],
+  "吳子蘭": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 24,
+    "change": "시작"
+   }
+  ],
+  "吳懿": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 64,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 64,
+    "to": 105,
+    "change": "포로",
+    "evidence": "64회: 생포되자 '我既被捉，如何不降' 하며 항복"
+   }
+  ],
+  "吳敦": [
+   {
+    "faction": "other",
+    "lord": "태산 도적(장패 무리, 여포와 연합)",
+    "from": 1,
+    "to": 20,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 20,
+    "to": 20,
+    "change": "항복",
+    "evidence": "20회: 장패의 부름으로 조조에게 항복"
+   }
+  ],
+  "吳碩": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 24,
+    "change": "시작"
+   }
+  ],
+  "吳蘭": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 64,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 64,
+    "to": 72,
+    "change": "항복",
+    "evidence": "64회: 유비·장비에게 퇴로가 막혀 본부군과 함께 투항"
+   }
+  ],
+  "呂布": [
+   {
+    "faction": "han",
+    "lord": "정원",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 3,
+    "to": 9,
+    "change": "배신",
+    "evidence": "3회: 이숙의 적토마에 넘어가 정원을 죽이고 동탁에게 감"
+   },
+   {
+    "faction": "other",
+    "lord": "여포(독립)",
+    "from": 9,
+    "to": 19,
+    "change": "배신",
+    "evidence": "9회: 왕윤과 동탁을 죽이고, 원술·원소·장양·장막을 전전하다 11회 연주 습격으로 독립 세력, 19회 처형"
+   }
+  ],
+  "呂曠": [
+   {
+    "faction": "other",
+    "lord": "원상",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원담",
+    "from": 32,
+    "to": 32,
+    "change": "항복",
+    "evidence": "32회: 원담에게 귀부"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 35,
+    "change": "귀순",
+    "evidence": "32회: 원담을 따라 조조에게 가서 혼인 중매, 35회 조운에게 전사"
+   }
+  ],
+  "呂範": [
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 1,
+    "to": 15,
+    "change": "시작",
+    "evidence": "15회: '袁術謀士'"
+   },
+   {
+    "faction": "wu",
+    "lord": "손책",
+    "from": 15,
+    "to": 85,
+    "change": "합류",
+    "evidence": "15회: 손책에게 원술에게서 병사를 빌리라 권하고 함께 거병"
+   }
+  ],
+  "呂翔": [
+   {
+    "faction": "other",
+    "lord": "원상",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원담",
+    "from": 32,
+    "to": 32,
+    "change": "항복",
+    "evidence": "32회: 형 여광과 함께 원담에게 귀부"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 35,
+    "change": "귀순",
+    "evidence": "32회: 원담과 함께 조조에게 감, 35회 장비에게 전사"
+   }
+  ],
+  "周倉": [
+   {
+    "faction": "other",
+    "lord": "황건(장보)·와우산 산적",
+    "from": 1,
+    "to": 28,
+    "change": "시작",
+    "evidence": "28회: '舊隨黃巾張寶…失身為盜'"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비(관우 휘하)",
+    "from": 28,
+    "to": 77,
+    "change": "귀순",
+    "evidence": "28회: 관우를 따라나섬"
+   }
+  ],
+  "周泰": [
+   {
+    "faction": "other",
+    "lord": "장강 수적",
+    "from": 1,
+    "to": 15,
+    "change": "시작"
+   },
+   {
+    "faction": "wu",
+    "lord": "손책",
+    "from": 15,
+    "to": 84,
+    "change": "귀순",
+    "evidence": "15회: 장흠과 무리 300을 이끌고 손책에게 투항"
+   }
+  ],
+  "唐咨": [
+   {
+    "faction": "wu",
+    "lord": "손량(동오)",
+    "from": 1,
+    "to": 112,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "사마소",
+    "from": 112,
+    "to": 120,
+    "change": "항복",
+    "evidence": "112회: 손침을 두려워해 귀국하지 않고 위에 투항"
+   }
+  ],
+  "嚴顏": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 63,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 63,
+    "to": 72,
+    "change": "항복",
+    "evidence": "63회: 장비에게 사로잡혔다가 의리에 감복해 항복"
+   }
+  ],
+  "士仁": [
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 1,
+    "to": 75,
+    "change": "시작"
+   },
+   {
+    "faction": "wu",
+    "lord": "손권",
+    "from": 75,
+    "to": 83,
+    "change": "항복",
+    "evidence": "75회: 우번의 설득으로 공안을 들어 동오에 항복"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 83,
+    "to": 83,
+    "change": "귀순",
+    "evidence": "83회: 미방과 마충을 죽이고 돌아갔으나 처형됨"
+   }
+  ],
+  "夏侯霸": [
+   {
+    "faction": "wei",
+    "lord": "조씨 위",
+    "from": 1,
+    "to": 107,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유선",
+    "from": 107,
+    "to": 115,
+    "change": "망명",
+    "evidence": "107회: 사마의의 유인을 피해 강유에게 '霸因此投降'"
+   }
+  ],
+  "太史慈": [
+   {
+    "faction": "other",
+    "lord": "유요",
+    "from": 1,
+    "to": 15,
+    "change": "시작",
+    "evidence": "11회 공융을 도운 객장, 15회 유요 휘하로 손책과 싸움"
+   },
+   {
+    "faction": "wu",
+    "lord": "손책",
+    "from": 15,
+    "to": 53,
+    "change": "포로",
+    "evidence": "15회: 생포되자 손책이 친히 결박을 풀어 귀순"
+   }
+  ],
+  "姜維": [
+   {
+    "faction": "wei",
+    "lord": "위(천수태수 마준)",
+    "from": 1,
+    "to": 93,
+    "change": "시작",
+    "evidence": "92회: 천수군 중랑장으로 등장"
+   },
+   {
+    "faction": "shu",
+    "lord": "제갈량·유선(촉한)",
+    "from": 93,
+    "to": 118,
+    "change": "항복",
+    "evidence": "93회: 퇴로가 막혀 말에서 내려 제갈량에게 투항"
+   },
+   {
+    "faction": "wei",
+    "lord": "종회",
+    "from": 118,
+    "to": 119,
+    "change": "항복",
+    "evidence": "118회: 후주 칙명으로 종회에게 항복(촉 부흥을 노린 거짓 항복), 119회 사망"
+   }
+  ],
+  "孔融": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 40,
+    "change": "시작"
+   }
+  ],
+  "孟優": [
+   {
+    "faction": "other",
+    "lord": "맹획(남만왕)",
+    "from": 1,
+    "to": 90,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유선(제갈량)",
+    "from": 90,
+    "to": 90,
+    "change": "귀순",
+    "evidence": "90회: 맹획과 함께 귀순"
+   }
+  ],
+  "孟獲": [
+   {
+    "faction": "other",
+    "lord": "맹획(남만왕, 독립)",
+    "from": 1,
+    "to": 90,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유선(제갈량)",
+    "from": 90,
+    "to": 91,
+    "change": "귀순",
+    "evidence": "90회: 일곱 번째 사로잡힌 뒤 진심으로 귀순"
+   }
+  ],
+  "孟達": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 60,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 60,
+    "to": 79,
+    "change": "귀순",
+    "evidence": "60회: 장송·법정과 익주를 유비에게 바치기로 모의(65회 투항 관원 명단)"
+   },
+   {
+    "faction": "wei",
+    "lord": "조비",
+    "from": 79,
+    "to": 94,
+    "change": "망명",
+    "evidence": "79회: 관우를 구하지 않은 죄를 두려워해 위에 투항"
+   }
+  ],
+  "孫乾": [
+   {
+    "faction": "other",
+    "lord": "서주 도겸",
+    "from": 1,
+    "to": 12,
+    "change": "시작",
+    "evidence": "12회: 도겸이 유비의 보좌로 천거"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 12,
+    "to": 65,
+    "change": "합류",
+    "evidence": "12회: 유비가 서주를 맡으며 손건·미축을 보좌로 삼음"
+   }
+  ],
+  "孫夫人": [
+   {
+    "faction": "wu",
+    "lord": "손권",
+    "from": 1,
+    "to": 54,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 54,
+    "to": 61,
+    "change": "합류",
+    "evidence": "54회: 유비와 혼인"
+   },
+   {
+    "faction": "wu",
+    "lord": "손권",
+    "from": 61,
+    "to": 84,
+    "change": "귀순",
+    "evidence": "61회: 아두를 데리고 동오로 돌아감, 84회 투신"
+   }
+  ],
+  "孫觀": [
+   {
+    "faction": "other",
+    "lord": "태산 장패 무리",
+    "from": 1,
+    "to": 20,
+    "change": "시작",
+    "evidence": "19회 '臧霸、孫觀之徒未曾歸順'"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 20,
+    "to": 120,
+    "change": "항복",
+    "evidence": "20회: 장패가 손관 등을 불러 항복시킴"
+   }
+  ],
+  "宋憲": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 19,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 19,
+    "to": 25,
+    "change": "배신",
+    "evidence": "19회: 여포를 묶어 하비성 문을 열고 조조에게 항복, 25회 안량에게 죽음"
+   }
+  ],
+  "審配": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원상",
+    "from": 32,
+    "to": 32,
+    "change": "합류",
+    "evidence": "31~32회: 원상을 지지, 32회 업성 함락 때 사로잡혀 처형"
+   }
+  ],
+  "尹禮": [
+   {
+    "faction": "other",
+    "lord": "태산 도적(장패 무리, 여포와 연합)",
+    "from": 1,
+    "to": 20,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 20,
+    "to": 20,
+    "change": "항복",
+    "evidence": "20회: 장패의 부름으로 조조에게 항복"
+   }
+  ],
+  "崔琰": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 33,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 33,
+    "to": 120,
+    "change": "합류",
+    "evidence": "33회: 원소에게 헌책했으나 쓰이지 않아 칭병, 조조가 기주 현사로 불러들임"
+   }
+  ],
+  "張任": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 64,
+    "change": "시작",
+    "evidence": "64회: '今日便降，久後也不降' 항복 거부 후 처형"
+   }
+  ],
+  "張允": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 45,
+    "change": "항복",
+    "evidence": "41회 형주 항복, 45회 반간계로 처형"
+   }
+  ],
+  "張南": [
+   {
+    "faction": "other",
+    "lord": "원희",
+    "from": 1,
+    "to": 33,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 33,
+    "to": 120,
+    "change": "항복",
+    "evidence": "33회: 초촉과 함께 투항"
+   }
+  ],
+  "張寶": [
+   {
+    "faction": "other",
+    "lord": "장각(황건)",
+    "from": 1,
+    "to": 2,
+    "change": "시작"
+   }
+  ],
+  "張松": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 62,
+    "change": "시작",
+    "evidence": "60회 유장의 별가로 유비와 내통, 62회 유장에게 처형"
+   }
+  ],
+  "張楊": [
+   {
+    "faction": "other",
+    "lord": "장양",
+    "from": 1,
+    "to": 19,
+    "change": "시작",
+    "evidence": "하내태수, 19회 부장 양추에게 피살"
+   }
+  ],
+  "張濟": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "장제(독립 군벌, 이각·곽사와 연합)",
+    "from": 9,
+    "to": 16,
+    "change": "합류",
+    "evidence": "9회: 동탁 사후 이각 등과 장안을 침; 16회 남양 공격 중 화살에 맞아 죽음"
+   }
+  ],
+  "張燕": [
+   {
+    "faction": "other",
+    "lord": "흑산적 장연",
+    "from": 1,
+    "to": 33,
+    "change": "시작",
+    "evidence": "11회 원소·여포에게 격파, 21회 공손찬과 연락"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 33,
+    "to": 120,
+    "change": "항복",
+    "evidence": "33회: '黑山賊張燕，引軍十萬來降'"
+   }
+  ],
+  "張紹": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 118,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "위(사마소)",
+    "from": 118,
+    "to": 120,
+    "change": "항복",
+    "evidence": "118회: 항서와 옥새를 등애에게 바침, 119회 후주를 따라 낙양"
+   }
+  ],
+  "張繡": [
+   {
+    "faction": "other",
+    "lord": "장수",
+    "from": 1,
+    "to": 16,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 16,
+    "to": 16,
+    "change": "항복",
+    "evidence": "16회: '舉城投降'"
+   },
+   {
+    "faction": "other",
+    "lord": "장수(유표와 연합)",
+    "from": 16,
+    "to": 23,
+    "change": "배신",
+    "evidence": "16회 완성에서 조조를 기습, 18회 유표와 연합"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 23,
+    "to": 120,
+    "change": "항복",
+    "evidence": "23회: 가후와 함께 허도에 가서 항복"
+   }
+  ],
+  "張翼": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 64,
+    "change": "시작",
+    "evidence": "64회: 유장이 낙성에 보낸 장수"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 64,
+    "to": 118,
+    "change": "항복",
+    "evidence": "64회: 유괴를 베고 낙성 문을 열어 항복"
+   },
+   {
+    "faction": "wei",
+    "lord": "종회",
+    "from": 118,
+    "to": 119,
+    "change": "항복",
+    "evidence": "118회: 강유와 함께 종회에게 항복, 119회 난군 속에 사망"
+   }
+  ],
+  "張衛": [
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 1,
+    "to": 67,
+    "change": "시작"
+   }
+  ],
+  "張角": [
+   {
+    "faction": "other",
+    "lord": "장각(황건 교주, 독립)",
+    "from": 1,
+    "to": 2,
+    "change": "시작"
+   }
+  ],
+  "張讓": [
+   {
+    "faction": "han",
+    "lord": "영제(후한 조정, 십상시)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "張遼": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 20,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 20,
+    "to": 120,
+    "change": "항복",
+    "evidence": "20회 첫 문단: 하비 함락 뒤 조조가 옷을 벗어 입혀 주자 '遼感其意，遂降'"
+   }
+  ],
+  "張邈": [
+   {
+    "faction": "other",
+    "lord": "장막",
+    "from": 1,
+    "to": 12,
+    "change": "시작",
+    "evidence": "진류태수, 11회 여포를 끌어들여 조조에 맞섬, 12회 원술에게 도주"
+   }
+  ],
+  "張郃": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 30,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 30,
+    "to": 120,
+    "change": "항복",
+    "evidence": "30회: 곽도의 참소로 고람과 함께 조조에게 투항, 편장군 임명"
+   }
+  ],
+  "張顗": [
+   {
+    "faction": "other",
+    "lord": "원상",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 120,
+    "change": "항복",
+    "evidence": "32회: 여광·여상의 초유로 마연과 함께 항복, 50회 '袁紹手下降將'"
+   }
+  ],
+  "張魯": [
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 1,
+    "to": 67,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 67,
+    "to": 120,
+    "change": "항복",
+    "evidence": "67회: 남정을 버리고 달아났다가 '魯乃下馬投拜'"
+   }
+  ],
+  "彭羕": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 63,
+    "change": "시작",
+    "evidence": "63회: 유장에게 직언하다 노역형을 받음"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 63,
+    "to": 79,
+    "change": "합류",
+    "evidence": "63회: 유비가 막빈으로 삼음(79회 처형)"
+   }
+  ],
+  "徐庶": [
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 1,
+    "to": 36,
+    "change": "시작",
+    "evidence": "35~36회 단복이라는 이름으로 유비의 군사"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 36,
+    "to": 120,
+    "change": "합류",
+    "evidence": "36회: 조조가 어머니를 볼모로 잡자 유비를 떠나 조조에게 감"
+   }
+  ],
+  "徐晃": [
+   {
+    "faction": "han",
+    "lord": "양봉(헌제 호위)",
+    "from": 1,
+    "to": 14,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 14,
+    "to": 120,
+    "change": "귀순",
+    "evidence": "14회: 만총의 설득으로 '連夜同滿寵來投曹操', 양봉이 '徐晃反賊' 이라 외침"
+   }
+  ],
+  "文欽": [
+   {
+    "faction": "wei",
+    "lord": "조씨 위",
+    "from": 1,
+    "to": 109,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "관구검(거병)",
+    "from": 109,
+    "to": 110,
+    "change": "배신",
+    "evidence": "109회: 관구검과 함께 거병"
+   },
+   {
+    "faction": "wu",
+    "lord": "손량(손침)",
+    "from": 110,
+    "to": 112,
+    "change": "망명",
+    "evidence": "110회 패한 뒤 오로 달아나 111회 오군의 향도로 출전, 112회 수춘에서 제갈탄에게 피살"
+   }
+  ],
+  "文聘": [
+   {
+    "faction": "other",
+    "lord": "유표·유종",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 120,
+    "change": "항복",
+    "evidence": "41회: 유종 항복 뒤 늦게 조조를 뵙고 등용, 유비가 '背主之賊' 이라 꾸짖음"
+   }
+  ],
+  "文醜": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 26,
+    "change": "시작"
+   }
+  ],
+  "文鴦": [
+   {
+    "faction": "other",
+    "lord": "관구검(거병)",
+    "from": 1,
+    "to": 110,
+    "change": "시작",
+    "evidence": "110회 아버지 문흠과 함께 관구검 편"
+   },
+   {
+    "faction": "wu",
+    "lord": "손량(손침)",
+    "from": 110,
+    "to": 112,
+    "change": "망명",
+    "evidence": "110회 패주 뒤 오로 감, 111회 수춘 원군"
+   },
+   {
+    "faction": "wei",
+    "lord": "사마소",
+    "from": 112,
+    "to": 120,
+    "change": "항복",
+    "evidence": "112회: 아버지가 제갈탄에게 죽자 '越壕赴魏寨投降'"
+   }
+  ],
+  "昌豨": [
+   {
+    "faction": "other",
+    "lord": "태산 도적(장패 무리, 여포와 연합)",
+    "from": 1,
+    "to": 20,
+    "change": "시작"
+   }
+  ],
+  "曹性": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 18,
+    "change": "시작"
+   }
+  ],
+  "曹豹": [
+   {
+    "faction": "other",
+    "lord": "도겸",
+    "from": 1,
+    "to": 12,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 12,
+    "to": 14,
+    "change": "합류",
+    "evidence": "12회: 도겸 사후 유비가 서주목을 맡음"
+   },
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 14,
+    "to": 14,
+    "change": "배신",
+    "evidence": "14회: 장비에게 매맞고 여포와 내통해 서주 문을 엶, 장비에게 죽음"
+   }
+  ],
+  "朱儁": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 13,
+    "change": "시작"
+   }
+  ],
+  "李傕": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "이각(독립 군벌, 장안 장악)",
+    "from": 9,
+    "to": 17,
+    "change": "합류",
+    "evidence": "9회: 동탁 사후 곽사·장제·번조와 장안을 쳐 조정 장악"
+   }
+  ],
+  "李儒": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   }
+  ],
+  "李嚴": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 104,
+    "change": "항복",
+    "evidence": "65회: 면죽에서 황충과 싸우다 계략에 빠져 투항"
+   }
+  ],
+  "李恢": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 102,
+    "change": "귀순",
+    "evidence": "65회: '捨劉璋而歸之' 유장을 버리고 유비에게 귀순"
+   }
+  ],
+  "李肅": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   },
+   {
+    "faction": "han",
+    "lord": "왕윤(후한 조정)",
+    "from": 9,
+    "to": 9,
+    "change": "배신",
+    "evidence": "9회: 왕윤의 계책에 가담해 동탁을 죽임, 같은 회 패전으로 여포에게 베임"
+   }
+  ],
+  "楊大將": [
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 1,
+    "to": 17,
+    "change": "시작"
+   }
+  ],
+  "楊奉": [
+   {
+    "faction": "other",
+    "lord": "이각",
+    "from": 1,
+    "to": 13,
+    "change": "시작"
+   },
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 13,
+    "to": 14,
+    "change": "배신",
+    "evidence": "13회: 이각에게 반기를 들고 '대한양봉' 기로 어가를 호위"
+   },
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 14,
+    "to": 17,
+    "change": "망명",
+    "evidence": "14회: 조조에게 패해 한섬과 원술에게 투탁"
+   },
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 17,
+    "to": 17,
+    "change": "배신",
+    "evidence": "17회: 진등의 설득으로 원술을 배반하고 여포에 호응, 같은 회 유비에게 피살"
+   }
+  ],
+  "楊彪": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 60,
+    "change": "시작"
+   }
+  ],
+  "楊松": [
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 1,
+    "to": 67,
+    "change": "시작"
+   }
+  ],
+  "楊洪": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 91,
+    "change": "항복",
+    "evidence": "65회: 투항 관원 명단"
+   }
+  ],
+  "樊建": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 118,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "위(사마소)",
+    "from": 118,
+    "to": 120,
+    "change": "항복",
+    "evidence": "118회 후주와 함께 항복, 119회 낙양에 따라가 봉작"
+   }
+  ],
+  "樊稠": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "이각·곽사(장안 군벌)",
+    "from": 9,
+    "to": 10,
+    "change": "합류",
+    "evidence": "9회: 동탁 사후 이각 등과 장안을 침; 10회 이각에게 베임"
+   }
+  ],
+  "段珪": [
+   {
+    "faction": "han",
+    "lord": "영제(후한 조정, 십상시)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "毌丘儉": [
+   {
+    "faction": "wei",
+    "lord": "조씨 위",
+    "from": 1,
+    "to": 109,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "관구검(사마사 토벌 거병)",
+    "from": 109,
+    "to": 110,
+    "change": "배신",
+    "evidence": "109회: '以廢主為名，起兵', 110회 패사"
+   }
+  ],
+  "沙摩柯": [
+   {
+    "faction": "other",
+    "lord": "사마가(오계 만왕, 유비 원군)",
+    "from": 1,
+    "to": 84,
+    "change": "시작"
+   }
+  ],
+  "沮授": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 30,
+    "change": "시작"
+   }
+  ],
+  "法正": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 60,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 60,
+    "to": 81,
+    "change": "귀순",
+    "evidence": "60회: '已有心見劉皇叔久矣' 형주로 가 유비를 익주로 맞이함"
+   }
+  ],
+  "淳于瓊": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정) (좌군교위)",
+    "from": 1,
+    "to": 21,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 22,
+    "to": 30,
+    "change": "합류",
+    "evidence": "22회: 원소 휘하 이름난 장수로 언급, 30회 오소에서 사로잡혀 처형"
+   }
+  ],
+  "焦觸": [
+   {
+    "faction": "other",
+    "lord": "원희",
+    "from": 1,
+    "to": 33,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 33,
+    "to": 120,
+    "change": "항복",
+    "evidence": "33회: '袁熙部將焦觸、張南…倒戈卸甲，特來投降'"
+   }
+  ],
+  "王允": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   }
+  ],
+  "王含": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 116,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "종회",
+    "from": 116,
+    "to": 120,
+    "change": "항복",
+    "evidence": "116회: 한중 함락 소식에 낙성(樂城) 문을 열고 항복"
+   }
+  ],
+  "王子服": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 24,
+    "change": "시작"
+   }
+  ],
+  "王平": [
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 1,
+    "to": 72,
+    "change": "시작",
+    "evidence": "71회: 조조가 서황의 부선봉으로 삼음"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 72,
+    "to": 105,
+    "change": "귀순",
+    "evidence": "72회: 서황과 불화하자 한수를 건너 조운에게 투항"
+   }
+  ],
+  "王朗": [
+   {
+    "faction": "han",
+    "lord": "회계태수(독립)",
+    "from": 1,
+    "to": 15,
+    "change": "시작",
+    "evidence": "15회 손책에게 패해 바닷가로 도주"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 56,
+    "to": 120,
+    "change": "합류",
+    "evidence": "56회 조조의 문관으로 등장(합류 경위는 원문에 없음)"
+   }
+  ],
+  "王粲": [
+   {
+    "faction": "other",
+    "lord": "유표·유종",
+    "from": 1,
+    "to": 41,
+    "change": "시작",
+    "evidence": "40회 유종에게 항복을 권함"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 120,
+    "change": "항복",
+    "evidence": "41회: 유종 항복 뒤 관내후에 봉해짐"
+   }
+  ],
+  "甘寧": [
+   {
+    "faction": "other",
+    "lord": "유표·강하 황조",
+    "from": 1,
+    "to": 38,
+    "change": "시작",
+    "evidence": "38회: '引眾投劉表…被黃祖留住在夏口'"
+   },
+   {
+    "faction": "wu",
+    "lord": "손권",
+    "from": 38,
+    "to": 83,
+    "change": "귀순",
+    "evidence": "38회: 여몽을 통해 동오에 투항"
+   }
+  ],
+  "田豐": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 31,
+    "change": "시작"
+   }
+  ],
+  "申儀": [
+   {
+    "faction": "shu",
+    "lord": "유비(상용)",
+    "from": 1,
+    "to": 79,
+    "change": "시작",
+    "evidence": "73회 형 신탐과 함께 상용에서 유비에게 귀부"
+   },
+   {
+    "faction": "wei",
+    "lord": "조비",
+    "from": 79,
+    "to": 120,
+    "change": "배신",
+    "evidence": "79회 상용이 위에 항복, 94회 위 금성태수로 맹달 모반을 밀고"
+   }
+  ],
+  "申耽": [
+   {
+    "faction": "wei",
+    "lord": "조조(상용 태수)",
+    "from": 1,
+    "to": 73,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 73,
+    "to": 79,
+    "change": "항복",
+    "evidence": "73회: 조조가 한중을 버리자 '申耽等…遂皆投降'"
+   },
+   {
+    "faction": "wei",
+    "lord": "조비",
+    "from": 79,
+    "to": 120,
+    "change": "배신",
+    "evidence": "79회: 유봉에게 '吾已降了魏也', 94회 위군으로 맹달 토벌"
+   }
+  ],
+  "皇甫嵩": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   }
+  ],
+  "盧植": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "禰衡": [
+   {
+    "faction": "wei",
+    "lord": "조조(공융 추천으로 북 치는 관리)",
+    "from": 1,
+    "to": 23,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "유표·황조",
+    "from": 23,
+    "to": 23,
+    "change": "합류",
+    "evidence": "23회: 조조가 유표에게 사신으로 보내고 유표가 황조에게 보냄, 황조에게 베임"
+   }
+  ],
+  "种輯": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 24,
+    "change": "시작"
+   }
+  ],
+  "秦宓": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 86,
+    "change": "항복",
+    "evidence": "65회: 투항 관원 명단"
+   }
+  ],
+  "糜芳": [
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 1,
+    "to": 76,
+    "change": "시작"
+   },
+   {
+    "faction": "wu",
+    "lord": "손권",
+    "from": 76,
+    "to": 83,
+    "change": "항복",
+    "evidence": "76회: 부사인과 함께 남군을 들어 동오에 항복"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 83,
+    "to": 83,
+    "change": "귀순",
+    "evidence": "83회: 마충을 죽이고 유비에게 돌아갔으나 처형됨"
+   }
+  ],
+  "紀靈": [
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 1,
+    "to": 21,
+    "change": "시작"
+   }
+  ],
+  "臧霸": [
+   {
+    "faction": "other",
+    "lord": "여포(태산 무리)",
+    "from": 1,
+    "to": 20,
+    "change": "시작",
+    "evidence": "11회 여포 편에서 조조와 싸움"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 20,
+    "to": 120,
+    "change": "항복",
+    "evidence": "20회: 장료의 권유로 '引本部軍投降'"
+   }
+  ],
+  "荀彧": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 10,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 10,
+    "to": 120,
+    "change": "귀순",
+    "evidence": "10회: '舊事袁紹，今棄紹投操'"
+   }
+  ],
+  "荀攸": [
+   {
+    "faction": "han",
+    "lord": "후한 조정(하진)",
+    "from": 1,
+    "to": 10,
+    "change": "시작",
+    "evidence": "2회 하진과 함께 입궐"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 10,
+    "to": 120,
+    "change": "합류",
+    "evidence": "10회: '曾拜黃門侍郎…今與其叔同投曹操'"
+   }
+  ],
+  "華歆": [
+   {
+    "faction": "han",
+    "lord": "예장태수(후한)",
+    "from": 1,
+    "to": 29,
+    "change": "시작"
+   },
+   {
+    "faction": "wu",
+    "lord": "손책",
+    "from": 29,
+    "to": 56,
+    "change": "항복",
+    "evidence": "29회: '豫章太守華歆投降'"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 56,
+    "to": 120,
+    "change": "합류",
+    "evidence": "56회: 손권의 사자로 갔다가 조조가 조정에 남겨 중용"
+   }
+  ],
+  "董卓": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작",
+    "evidence": "9회 여포에게 피살"
+   }
+  ],
+  "董厥": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 118,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "종회",
+    "from": 118,
+    "to": 119,
+    "change": "항복",
+    "evidence": "118회: 강유와 함께 종회에게 항복, 119회 병을 핑계로 은거하다 죽음"
+   }
+  ],
+  "董承": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 24,
+    "change": "시작"
+   }
+  ],
+  "董旻": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   }
+  ],
+  "蒯良": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 34,
+    "change": "시작"
+   }
+  ],
+  "蒯越": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 41,
+    "change": "항복",
+    "evidence": "40~41회: 유종에게 항복을 권해 함께 조조에게 항복"
+   }
+  ],
+  "蔡中": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 50,
+    "change": "항복",
+    "evidence": "41회 형주 항복; 46회 거짓 투항으로 오에 잠입, 50회 감녕에게 죽음"
+   }
+  ],
+  "蔡和": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 49,
+    "change": "항복",
+    "evidence": "41회 형주 항복; 46회 거짓 투항, 49회 주유에게 베임"
+   }
+  ],
+  "蔡夫人": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 41,
+    "change": "항복",
+    "evidence": "41회: 유종과 함께 항복 후 피살"
+   }
+  ],
+  "蔡瑁": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 41,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 41,
+    "to": 45,
+    "change": "항복",
+    "evidence": "41회: 유종과 함께 조조에게 항복, 45회 반간계로 처형"
+   }
+  ],
+  "蔡邕": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정) (동탁 집정기 관료)",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   }
+  ],
+  "蔣斌": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 116,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "종회",
+    "from": 116,
+    "to": 120,
+    "change": "항복",
+    "evidence": "116회: 한중 함락 소식에 한성 문을 열고 항복"
+   }
+  ],
+  "蔣欽": [
+   {
+    "faction": "other",
+    "lord": "장강 수적",
+    "from": 1,
+    "to": 15,
+    "change": "시작"
+   },
+   {
+    "faction": "wu",
+    "lord": "손책",
+    "from": 15,
+    "to": 76,
+    "change": "귀순",
+    "evidence": "15회: 주태와 무리 300을 이끌고 손책에게 투항"
+   }
+  ],
+  "蔣舒": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 116,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "종회",
+    "from": 116,
+    "to": 120,
+    "change": "항복",
+    "evidence": "116회: '吾已降了魏也' 양평관을 열고 항복"
+   }
+  ],
+  "虞翻": [
+   {
+    "faction": "other",
+    "lord": "회계태수 왕랑",
+    "from": 1,
+    "to": 15,
+    "change": "시작",
+    "evidence": "15회: 왕랑의 군리로 손책에 맞서지 말라 간언"
+   },
+   {
+    "faction": "wu",
+    "lord": "손책",
+    "from": 15,
+    "to": 75,
+    "change": "합류",
+    "evidence": "15회: 손책이 초빙해 공조로 삼음"
+   }
+  ],
+  "袁尚": [
+   {
+    "faction": "other",
+    "lord": "원소·원상",
+    "from": 1,
+    "to": 33,
+    "change": "시작",
+    "evidence": "원소 아들, 33회 공손강에게 참수"
+   }
+  ],
+  "袁熙": [
+   {
+    "faction": "other",
+    "lord": "원소·원희",
+    "from": 1,
+    "to": 33,
+    "change": "시작",
+    "evidence": "원소 아들, 33회 공손강에게 참수"
+   }
+  ],
+  "袁紹": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 32,
+    "change": "시작",
+    "evidence": "연의에서 독립 군웅(반동탁 연합 맹주), 32회 초 사망"
+   }
+  ],
+  "袁術": [
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 1,
+    "to": 21,
+    "change": "시작",
+    "evidence": "독립 군웅, 21회 사망"
+   }
+  ],
+  "袁譚": [
+   {
+    "faction": "other",
+    "lord": "원소·원담",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 33,
+    "change": "항복",
+    "evidence": "32회: 원상에게 몰려 신비를 보내 조조에게 항복"
+   },
+   {
+    "faction": "other",
+    "lord": "원담",
+    "from": 33,
+    "to": 33,
+    "change": "배신",
+    "evidence": "33회: 조조 영역을 약탈하다 남피에서 포위, '反覆無常' 이라며 항복 거절당하고 전사"
+   }
+  ],
+  "袁隗": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 5,
+    "change": "시작"
+   }
+  ],
+  "許攸": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 30,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 30,
+    "to": 33,
+    "change": "귀순",
+    "evidence": "30회: '許攸逕投曹寨', 33회 허저에게 피살"
+   }
+  ],
+  "諸葛誕": [
+   {
+    "faction": "wei",
+    "lord": "조씨 위",
+    "from": 1,
+    "to": 111,
+    "change": "시작"
+   },
+   {
+    "faction": "wu",
+    "lord": "손량(손침)",
+    "from": 111,
+    "to": 112,
+    "change": "배신",
+    "evidence": "111회: 사마소 토벌을 내걸고 아들을 볼모로 오에 '歸降', 112회 패사"
+   }
+  ],
+  "譙周": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작",
+    "evidence": "65회: 유장에게 천문으로 항복을 권함"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 118,
+    "change": "항복",
+    "evidence": "65회: 투항 관원 명단"
+   },
+   {
+    "faction": "wei",
+    "lord": "위(사마소)",
+    "from": 118,
+    "to": 120,
+    "change": "항복",
+    "evidence": "118회: 항서를 쓰고 후주와 함께 항복, 119회 위에서 봉작"
+   }
+  ],
+  "貂蟬": [
+   {
+    "faction": "han",
+    "lord": "왕윤(사도)",
+    "from": 1,
+    "to": 8,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 8,
+    "to": 9,
+    "change": "합류",
+    "evidence": "8회: 왕윤이 연환계로 동탁 상부에 보냄"
+   },
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 9,
+    "to": 19,
+    "change": "합류",
+    "evidence": "9회: 동탁 사후 여포가 미오에서 데려감, 16회 여포의 첩"
+   }
+  ],
+  "費禕": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 107,
+    "change": "항복",
+    "evidence": "65회: 유장 항복 후 투항 관원 명단에 포함"
+   }
+  ],
+  "費詩": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 91,
+    "change": "항복",
+    "evidence": "65회: 투항 관원 명단"
+   }
+  ],
+  "賈詡": [
+   {
+    "faction": "other",
+    "lord": "이각·곽사",
+    "from": 1,
+    "to": 16,
+    "change": "시작",
+    "evidence": "9·13·14회 이각의 모사"
+   },
+   {
+    "faction": "other",
+    "lord": "장수",
+    "from": 16,
+    "to": 16,
+    "change": "합류",
+    "evidence": "16회 장수의 모사로 등장"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 16,
+    "to": 16,
+    "change": "항복",
+    "evidence": "16회: 장수에게 항복을 권해 조조에게 귀부"
+   },
+   {
+    "faction": "other",
+    "lord": "장수",
+    "from": 16,
+    "to": 23,
+    "change": "배신",
+    "evidence": "16회: 조조가 추씨를 취하자 장수와 함께 완성에서 반란"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 23,
+    "to": 120,
+    "change": "항복",
+    "evidence": "23회: 유엽의 설득으로 '繡大喜，即同賈詡等赴許都投降'"
+   }
+  ],
+  "趙忠": [
+   {
+    "faction": "han",
+    "lord": "영제(후한 조정, 십상시)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "趙雲": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 7,
+    "change": "시작",
+    "evidence": "7회: '本袁紹轄下之人' 원소를 버리고 떠남"
+   },
+   {
+    "faction": "other",
+    "lord": "공손찬",
+    "from": 7,
+    "to": 28,
+    "change": "합류",
+    "evidence": "7회: 계교에서 공손찬을 구하고 휘하에 듦"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 28,
+    "to": 97,
+    "change": "귀순",
+    "evidence": "28회: '擇主而事，未有如使君者' 유비에게 합류"
+   }
+  ],
+  "辛毗": [
+   {
+    "faction": "other",
+    "lord": "원담",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 120,
+    "change": "귀순",
+    "evidence": "32회: 원담의 사자로 왔다가 조조 진영에 남아 중용됨(33회 '汝弟辛毗，吾已重用')"
+   }
+  ],
+  "辛評": [
+   {
+    "faction": "other",
+    "lord": "한복",
+    "from": 1,
+    "to": 7,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 7,
+    "to": 32,
+    "change": "합류",
+    "evidence": "7회: 한복이 기주를 원소에게 넘김"
+   },
+   {
+    "faction": "other",
+    "lord": "원담",
+    "from": 32,
+    "to": 33,
+    "change": "합류",
+    "evidence": "32회: 원소 사후 원담을 섬김, 33회 분사"
+   }
+  ],
+  "逢紀": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원상",
+    "from": 32,
+    "to": 32,
+    "change": "합류",
+    "evidence": "31~32회: 원상을 지지, 32회 원담에게 베임"
+   }
+  ],
+  "郝萌": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 19,
+    "change": "시작"
+   }
+  ],
+  "郤正": [
+   {
+    "faction": "shu",
+    "lord": "유선(촉한)",
+    "from": 1,
+    "to": 118,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "위(사마소)",
+    "from": 118,
+    "to": 120,
+    "change": "항복",
+    "evidence": "118회 후주와 함께 항복, 119회 낙양에 따라가 봉작"
+   }
+  ],
+  "郭勝": [
+   {
+    "faction": "han",
+    "lord": "영제(후한 조정, 십상시)",
+    "from": 1,
+    "to": 3,
+    "change": "시작"
+   }
+  ],
+  "郭圖": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "원담",
+    "from": 32,
+    "to": 33,
+    "change": "합류",
+    "evidence": "31~32회: 원담을 지지, 원소 사후 원담을 섬김"
+   }
+  ],
+  "郭汜": [
+   {
+    "faction": "other",
+    "lord": "동탁",
+    "from": 1,
+    "to": 9,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "곽사(독립 군벌, 이각과 연합)",
+    "from": 9,
+    "to": 17,
+    "change": "합류",
+    "evidence": "9회: 동탁 사후 이각과 장안을 침; 17회 오습에게 죽음"
+   }
+  ],
+  "鄧賢": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 62,
+    "change": "시작",
+    "evidence": "62회: 위연과 싸우다 전사"
+   }
+  ],
+  "鍾會": [
+   {
+    "faction": "wei",
+    "lord": "사마소",
+    "from": 1,
+    "to": 119,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "종회(강유와 연합 반란)",
+    "from": 119,
+    "to": 119,
+    "change": "배신",
+    "evidence": "118~119회: 강유와 모반, 119회 난군 속에 사망"
+   }
+  ],
+  "閻圃": [
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 1,
+    "to": 67,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 67,
+    "to": 67,
+    "change": "항복",
+    "evidence": "67회: 장로와 함께 조조에게 항복"
+   }
+  ],
+  "關羽": [
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 1,
+    "to": 25,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 25,
+    "to": 27,
+    "change": "항복",
+    "evidence": "25회: 토산에서 장료의 권유로 세 가지 약속을 걸고 조조에 항복"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 27,
+    "to": 77,
+    "change": "귀순",
+    "evidence": "26~27회: 인을 걸어두고 조조를 떠나 유비를 찾아감(28회 고성에서 재회)"
+   }
+  ],
+  "陳宮": [
+   {
+    "faction": "han",
+    "lord": "후한 조정(중모 현령)",
+    "from": 1,
+    "to": 4,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 4,
+    "to": 5,
+    "change": "합류",
+    "evidence": "4회: 벼슬을 버리고 조조를 따라 도주"
+   },
+   {
+    "faction": "han",
+    "lord": "동군 종사",
+    "from": 5,
+    "to": 11,
+    "change": "배신",
+    "evidence": "5회 첫 문단: 조조를 버리고 동군으로 감, 10회 '東郡從事'"
+   },
+   {
+    "faction": "other",
+    "lord": "장막·여포",
+    "from": 11,
+    "to": 19,
+    "change": "합류",
+    "evidence": "11회: 장막을 설득해 여포를 맞아들임, 19회 처형"
+   }
+  ],
+  "陳珪": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 19,
+    "change": "시작",
+    "evidence": "16회 서주에서 여포에게 진언"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 19,
+    "to": 21,
+    "change": "배신",
+    "evidence": "16회 조조가 치중 녹봉을 내림, 19회 아들과 함께 여포를 배신해 내응"
+   }
+  ],
+  "陳琳": [
+   {
+    "faction": "han",
+    "lord": "후한 조정(하진 주부)",
+    "from": 1,
+    "to": 3,
+    "change": "시작",
+    "evidence": "2·3회 하진의 주부로 간언"
+   },
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 3,
+    "to": 32,
+    "change": "망명",
+    "evidence": "22회: '避難冀州，紹用為記室', 격문 작성"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 120,
+    "change": "포로",
+    "evidence": "32회: 기주 함락 때 붙잡혀 조조에게 끌려왔으나 용서받음(56회 조조 문관으로 등장)"
+   }
+  ],
+  "陳登": [
+   {
+    "faction": "other",
+    "lord": "도겸",
+    "from": 1,
+    "to": 12,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 12,
+    "to": 14,
+    "change": "합류",
+    "evidence": "12회: 유비가 서주를 맡자 막관이 됨"
+   },
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 14,
+    "to": 19,
+    "change": "합류",
+    "evidence": "14회 여포의 서주 탈취 뒤 여포를 섬김(16회 여포의 사자로 허도행)"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 19,
+    "to": 21,
+    "change": "배신",
+    "evidence": "16회 조조에게 내응 약속(광릉태수), 19회 여포를 속여 조조 승리에 기여"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 21,
+    "to": 22,
+    "change": "배신",
+    "evidence": "21회: 차주의 유비 암살 계획을 유비에게 알리고, 22회 원소에게 구원 요청을 건의"
+   }
+  ],
+  "陳蘭": [
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 1,
+    "to": 21,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "독립(숭산 산적)",
+    "from": 21,
+    "to": 21,
+    "change": "배신",
+    "evidence": "21회: 원술의 사치를 이유로 숭산으로 떠남"
+   }
+  ],
+  "陳震": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 81,
+    "change": "시작",
+    "evidence": "26회: '袁紹部下南陽陳震', 29회 원소 사신으로 손권에게 감"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 81,
+    "to": 98,
+    "change": "합류",
+    "evidence": "81회: 선주의 사신으로 등장(전향 장면은 원문에 없음)"
+   }
+  ],
+  "陶謙": [
+   {
+    "faction": "other",
+    "lord": "도겸",
+    "from": 1,
+    "to": 12,
+    "change": "시작",
+    "evidence": "서주목, 12회 병사"
+   }
+  ],
+  "雷薄": [
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 1,
+    "to": 21,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "독립(숭산 산적)",
+    "from": 21,
+    "to": 21,
+    "change": "배신",
+    "evidence": "21회: 원술의 사치를 이유로 숭산으로 떠남"
+   }
+  ],
+  "雷銅": [
+   {
+    "faction": "other",
+    "lord": "유장",
+    "from": 1,
+    "to": 65,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 70,
+    "change": "항복",
+    "evidence": "62~64회 유장 장수, 65회: 투항 관원 명단"
+   }
+  ],
+  "霍峻": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 62,
+    "change": "시작",
+    "evidence": "62회: '曾在荊州劉表部下為中郎將'"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 62,
+    "to": 70,
+    "change": "합류",
+    "evidence": "62회: 맹달의 천거로 유비가 가맹관 수비를 맡김"
+   }
+  ],
+  "韓暹": [
+   {
+    "faction": "other",
+    "lord": "한섬(백파 우두머리)",
+    "from": 1,
+    "to": 13,
+    "change": "시작"
+   },
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 13,
+    "to": 14,
+    "change": "합류",
+    "evidence": "13회: 성지를 받고 어가 구원"
+   },
+   {
+    "faction": "other",
+    "lord": "원술",
+    "from": 14,
+    "to": 17,
+    "change": "망명",
+    "evidence": "14회: 양봉과 원술에게 투탁"
+   },
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 17,
+    "to": 17,
+    "change": "배신",
+    "evidence": "17회: 원술을 배반하고 여포에 호응, 같은 회 피살"
+   }
+  ],
+  "韓玄": [
+   {
+    "faction": "other",
+    "lord": "유표(장사태수, 유표 사후 자립)",
+    "from": 1,
+    "to": 53,
+    "change": "시작"
+   }
+  ],
+  "韓遂": [
+   {
+    "faction": "other",
+    "lord": "한수(서량 군웅, 마등·마초와 연합)",
+    "from": 1,
+    "to": 59,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 59,
+    "to": 59,
+    "change": "항복",
+    "evidence": "59회: 양추를 보내 조조에게 투항, 마초에게 왼손을 잘림"
+   }
+  ],
+  "顏良": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 25,
+    "change": "시작"
+   }
+  ],
+  "馬岱": [
+   {
+    "faction": "other",
+    "lord": "서량 마등",
+    "from": 1,
+    "to": 64,
+    "change": "시작",
+    "evidence": "57회: 마등의 조카로 등장"
+   },
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 64,
+    "to": 65,
+    "change": "합류",
+    "evidence": "64회: 마초와 함께 장로에게 의탁"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 105,
+    "change": "귀순",
+    "evidence": "65회: 마초와 함께 유비에게 귀순"
+   }
+  ],
+  "馬延": [
+   {
+    "faction": "other",
+    "lord": "원상",
+    "from": 1,
+    "to": 32,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 32,
+    "to": 120,
+    "change": "항복",
+    "evidence": "32회: 장의와 함께 항복"
+   }
+  ],
+  "馬超": [
+   {
+    "faction": "other",
+    "lord": "서량 마등",
+    "from": 1,
+    "to": 64,
+    "change": "시작",
+    "evidence": "10회: 마등의 아들로 등장"
+   },
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 64,
+    "to": 65,
+    "change": "합류",
+    "evidence": "64회: 마대·방덕과 한중 장로에게 의탁"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 65,
+    "to": 91,
+    "change": "귀순",
+    "evidence": "65회: 양백을 베고 이회와 함께 유비에게 귀순(91회 병사 언급)"
+   }
+  ],
+  "馬騰": [
+   {
+    "faction": "other",
+    "lord": "마등(서량 독립 군웅)",
+    "from": 1,
+    "to": 57,
+    "change": "시작"
+   }
+  ],
+  "高幹": [
+   {
+    "faction": "other",
+    "lord": "원소·원상(원씨 일족, 병주)",
+    "from": 1,
+    "to": 33,
+    "change": "시작"
+   }
+  ],
+  "高覽": [
+   {
+    "faction": "other",
+    "lord": "원소",
+    "from": 1,
+    "to": 30,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 30,
+    "to": 31,
+    "change": "항복",
+    "evidence": "30회: 장합과 함께 조조에게 투항, 31회 조조군으로 원소를 공격"
+   }
+  ],
+  "高順": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 19,
+    "change": "시작"
+   }
+  ],
+  "魏延": [
+   {
+    "faction": "other",
+    "lord": "유표·유종(형주)",
+    "from": 1,
+    "to": 41,
+    "change": "시작",
+    "evidence": "41회: 양양성에서 유종 측 문빙과 싸움"
+   },
+   {
+    "faction": "other",
+    "lord": "장사 한현",
+    "from": 41,
+    "to": 53,
+    "change": "망명",
+    "evidence": "41회: 유비를 찾지 못하고 장사태수 한현에게 감"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 53,
+    "to": 105,
+    "change": "항복",
+    "evidence": "53회: 한현을 베고 관우에게 투항"
+   }
+  ],
+  "魏續": [
+   {
+    "faction": "other",
+    "lord": "여포",
+    "from": 1,
+    "to": 19,
+    "change": "시작"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 19,
+    "to": 25,
+    "change": "배신",
+    "evidence": "19회: 여포를 묶어 하비성 문을 열고 조조에게 항복, 25회 안량에게 죽음"
+   }
+  ],
+  "鮑信": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정) (후군교위)",
+    "from": 1,
+    "to": 5,
+    "change": "시작"
+   },
+   {
+    "faction": "other",
+    "lord": "포신(제북상, 반동탁 연합 제후)",
+    "from": 5,
+    "to": 10,
+    "change": "합류",
+    "evidence": "5회: 제북상으로 반동탁 연합 참가; 10회 조조와 황건 토벌 중 전사"
+   }
+  ],
+  "麋竺": [
+   {
+    "faction": "other",
+    "lord": "서주 도겸",
+    "from": 1,
+    "to": 12,
+    "change": "시작",
+    "evidence": "11회: 도겸의 별가종사"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 12,
+    "to": 80,
+    "change": "합류",
+    "evidence": "12회: 도겸 유언 '劉公當世人傑，汝當善事之'"
+   }
+  ],
+  "黃忠": [
+   {
+    "faction": "other",
+    "lord": "장사 한현(본래 유표 휘하)",
+    "from": 1,
+    "to": 53,
+    "change": "시작",
+    "evidence": "53회: '是劉表帳下中郎將…後事韓玄'"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 53,
+    "to": 83,
+    "change": "항복",
+    "evidence": "53회: 장사 함락 후 유비가 직접 청하자 출항"
+   }
+  ],
+  "黃承彥": [
+   {
+    "faction": "other",
+    "lord": "없음(은사, 제갈량 장인)",
+    "from": 1,
+    "to": 117,
+    "change": "시작"
+   }
+  ],
+  "黃琬": [
+   {
+    "faction": "han",
+    "lord": "헌제(후한 조정)",
+    "from": 1,
+    "to": 10,
+    "change": "시작"
+   }
+  ],
+  "黃祖": [
+   {
+    "faction": "other",
+    "lord": "유표",
+    "from": 1,
+    "to": 39,
+    "change": "시작"
+   }
+  ],
+  "龐德": [
+   {
+    "faction": "other",
+    "lord": "서량 마초",
+    "from": 1,
+    "to": 64,
+    "change": "시작",
+    "evidence": "58~59회 마초 휘하"
+   },
+   {
+    "faction": "other",
+    "lord": "장로",
+    "from": 64,
+    "to": 67,
+    "change": "망명",
+    "evidence": "64회: 마초와 함께 한중 장로에게 투신(65회 마초가 유비에게 갈 때 병으로 남음)"
+   },
+   {
+    "faction": "wei",
+    "lord": "조조",
+    "from": 67,
+    "to": 74,
+    "change": "항복",
+    "evidence": "67회: 사로잡힌 뒤 '情願拜降', 74회 관우에게 참수"
+   }
+  ],
+  "龔都": [
+   {
+    "faction": "other",
+    "lord": "황건 잔당(여남)",
+    "from": 1,
+    "to": 27,
+    "change": "시작"
+   },
+   {
+    "faction": "shu",
+    "lord": "유비",
+    "from": 27,
+    "to": 31,
+    "change": "합류",
+    "evidence": "27~28회: 여남에서 유비가 유벽·공도와 합류; 31회 유비를 위해 죽음"
+   }
+  ]
+ }
+}

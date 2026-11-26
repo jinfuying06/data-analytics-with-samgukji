@@ -143,7 +143,8 @@
 | 테이블 | 키 | 한 행의 의미 | 출처 |
 |---|---|---|---|
 | `paragraphs` | `(chapter, idx)` | 원문 한 줄(문단)과 번역 | `data/raw/wikisource/연의`의 줄 순서, 번역은 원문과 같거나 98% 이상 같은 문단에 연결 |
-| `persons` | `name` | 인물 한 명의 한국어 이름·기본 세력·사망 연도 | 세력은 `jeongsa_persons.country`, 없으면 `data/curated/인물_세력_보충.json`(han·other 포함). 이름·사망 연도는 `data/curated/인물_정보.json` |
+| `persons` | `name` | 인물 한 명의 한국어 이름·소속·사망 연도. 소속은 세 칸: `jeongsa_faction`(정사 분류), `first_faction`(연의 처음 소속), `last_faction`(연의 마지막 소속) | 세력은 `jeongsa_persons.country`, 없으면 `data/curated/인물_세력_보충.json`(han·other 포함). 이름·사망 연도는 `data/curated/인물_정보.json` |
+| `affiliations` | `(name, seq)` | 소속 이력 한 구간: 세력, 섬긴 사람(`lord`), 연의 회차 `chapter_from`~`chapter_to`, 바뀐 이유(`change`: 시작·항복·귀순·포로·합류·망명·배신), 근거 회차(`evidence`) | `data/curated/인물_소속이력.json` (2026-11-26, 197명·371구간. 3회 이상 나오는 349명을 조사해 소속이 바뀐 사람과 han·other 인물 전원) |
 | `aliases` | `alias` | 별명 하나 → 표준 인물명 | `data/processed/인물명_정규화.json` |
 | `mentions` | `(name, chapter, idx)` | **한 인물이 한 문단에 나옴** | `yeonui_mentions.excerpt`를 문단 번호로 옮김(다시 태깅하지 않음) |
 
@@ -152,6 +153,7 @@
 - 순서: `build_analysis_tables.py` → `build_red_cliff_seed.py` → `build_red_cliff_lab_data.py`.
 - **태깅 보완 (2026-11-26).** 별명 표가 304명 중 255명만 담고, 연의에만 나오는 인물(관흥·마대·초선 등)은 인물 목록에 없어서, `mentions`는 원문을 직접 다시 태깅한다. 추가분은 `data/curated/인물_추가.json`: 새 인물 388명(동명이인은 `chapters`로 회차를 나눔, 예: 장남·이풍·오의 마충), 기존 인물 별명 154개, 회차를 제한한 별명(`alias_chapters`, 예: 吳主는 107회까지 손권), 먼저 가리는 문자열(`block`, 예: 天子明詔의 子明). 전체 결과: 인물 692명, 등장 기록 8,068 → 12,338건. 옛 `yeonui_mentions`·`cooccurrence_edges`는 보완 이전 값 그대로 둔다.
 - 적벽(43~50회) 영향: 등장 인물 63 → 90명, 기본 명단 42 → 53명(위 20·오 24·촉 9), 점수 1,255/467 → 1,356/647, 지수 83→72/52 → 78→68/48. 판정과 민감도(215/215)는 그대로다. 항복한 형주 수군(채모 등)은 `battles.json`의 `faction`으로 조조군에 넣고, 마등·한수는 `leave_out`으로 뺀다.
+- **전투 당시 소속**은 `battles.json`의 `faction` 보정 > 소속 이력에서 그 전투에 처음 나온 회차의 소속 > 정사 분류 순서로 정한다. 그 전투의 '이미 죽은 사람'은 정사 분류를 그대로 둔다(적벽 퀘스트 1의 원소 카드가 이 분류의 함정을 다룬다). 이력 도입 뒤 적벽의 수동 보정 6건(채모 등 → 조조군, 유기 → 유비 쪽)은 이력만으로 같은 결과가 나와 지웠다. 이릉의 미방·사인은 전투 당시 소속인 오로 센다.
 - 전투마다 다른 값(회차 범위, 지표 글자, 편 나누기, 이미 죽은 인물, 바람 같은 보너스)은 `data/curated/battles.json`에 둔다. 게임 데이터에 `BATTLE`로 함께 실리고, `prototype/game-demo/core.js`의 `Core.battle(BATTLE)`이 이 값으로 계산한다. '이미 죽은 인물'은 사망 연도로 자동 계산하지 않고 연의 이야기 기준으로 직접 적는다(태사자·유복은 역사상 208년 전후 사망이지만 연의의 적벽에는 살아 있다).
 
 ### 6.4 현재 seed 규모 (2026-10-30 조회)

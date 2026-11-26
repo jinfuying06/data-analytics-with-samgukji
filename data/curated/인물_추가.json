@@ -3235,6 +3235,18 @@
    "aliases": [
     "龔都"
    ]
+  },
+  "張溫_漢": {
+   "ko": "장온",
+   "faction": "han",
+   "death_year": 191,
+   "aliases": [
+    "張溫"
+   ],
+   "chapters": [
+    1,
+    20
+   ]
   }
  },
  "add_aliases": {

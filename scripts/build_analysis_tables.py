@@ -36,10 +36,13 @@ DROP TABLE IF EXISTS paragraphs;
 DROP TABLE IF EXISTS persons;
 DROP TABLE IF EXISTS aliases;
 DROP TABLE IF EXISTS mentions;
+DROP TABLE IF EXISTS affiliations;
 CREATE TABLE paragraphs (chapter INTEGER NOT NULL, idx INTEGER NOT NULL, zh TEXT NOT NULL, ko TEXT,
   PRIMARY KEY (chapter, idx));
-CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, faction TEXT NOT NULL, death_year INTEGER,
-  in_jeongsa INTEGER NOT NULL);
+CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, jeongsa_faction TEXT NOT NULL,
+  first_faction TEXT NOT NULL, last_faction TEXT NOT NULL, death_year INTEGER, in_jeongsa INTEGER NOT NULL);
+CREATE TABLE affiliations (name TEXT NOT NULL, seq INTEGER NOT NULL, faction TEXT NOT NULL, lord TEXT,
+  chapter_from INTEGER NOT NULL, chapter_to INTEGER NOT NULL, change TEXT, evidence TEXT, PRIMARY KEY (name, seq));
 CREATE TABLE aliases (alias TEXT NOT NULL, name TEXT NOT NULL, chapter_from INTEGER NOT NULL,
   chapter_to INTEGER NOT NULL, PRIMARY KEY (alias, name));
 CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
@@ -130,15 +133,24 @@ def main() -> None:
     con.executescript(SCHEMA)
     con.executemany("insert into paragraphs values (?,?,?,?)",
                     [(ch, i, p, ko.get((ch, i))) for ch, lines in raw.items() for i, p in enumerate(lines)])
-    con.executemany("insert into persons values (?,?,?,?,?)",
+    # 소속 이력: 연의에서 섬긴 쪽이 바뀐 사람(항복·귀순 등)과, 정사 분류와 처음 소속이 다른 사람
+    history = json.loads((CURATED / "인물_소속이력.json").read_text(encoding="utf-8"))["people"]
+    unknown = set(history) - persons.keys()
+    if unknown:
+        raise SystemExit(f"affiliation history for unknown people: {sorted(unknown)}")
+    con.executemany("insert into affiliations values (?,?,?,?,?,?,?,?)",
+                    [(n, k, a["faction"], a.get("lord"), a["from"], a["to"], a.get("change"), a.get("evidence"))
+                     for n, segs in history.items() for k, a in enumerate(segs)])
+    con.executemany("insert into persons values (?,?,?,?,?,?,?)",
                     [(n, info.get(n, {}).get("ko") or supplement.get(n, {}).get("ko"), f,
+                      history[n][0]["faction"] if n in history else f, history[n][-1]["faction"] if n in history else f,
                       info.get(n, {}).get("death_year"), j) for n, (f, j) in persons.items()])
     con.executemany("insert into aliases values (?,?,?,?)", entries)
     con.executemany("insert into mentions values (?,?,?)", sorted(mentions))
     con.commit()
     count = lambda t: con.execute(f"select count(*) from {t}").fetchone()[0]
     print(f"paragraphs {count('paragraphs')} (translated {len(ko)}), persons {count('persons')}, "
-          f"aliases {count('aliases')}, mentions {count('mentions')}")
+          f"aliases {count('aliases')}, mentions {count('mentions')}, affiliations {count('affiliations')}")
 
 
 if __name__ == "__main__":

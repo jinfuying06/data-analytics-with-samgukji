@@ -59,9 +59,25 @@ def sentences(text: str) -> list[str]:
 
 def main() -> None:
     con = sqlite3.connect(DB_PATH)
+    # 전투 당시 소속: battles.json의 faction 보정 > 소속 이력에서 이 전투에 처음 나온 회차의 소속 > 정사 분류
+    history: dict[str, list[tuple[int, int, str]]] = {}
+    for n, f, a, b in con.execute("select name, faction, chapter_from, chapter_to from affiliations order by name, seq"):
+        history.setdefault(n, []).append((a, b, f))
+    first_seen = dict(con.execute(
+        "select name, min(chapter) from mentions where chapter between ? and ? group by name", (FIRST, LAST)))
+
+    def at_battle(n: str, default: str) -> str:
+        if n in BATTLE["dead"]:  # 이미 죽은 사람은 데이터의 정사 분류 그대로(퀘스트 1이 이 함정을 다룬다)
+            return default
+        ch = first_seen.get(n, FIRST)
+        segs = history.get(n, [])
+        covering = [f for a, b, f in segs if a <= ch <= b]
+        earlier = [f for a, b, f in segs if a <= ch]
+        return (covering or earlier or [default])[-1]
+
     faction, korean = {}, {}
-    for n, ko, f in con.execute("select name, ko, faction from persons"):
-        faction[n], korean[n] = BATTLE.get("faction", {}).get(n, f), ko
+    for n, ko, f in con.execute("select name, ko, jeongsa_faction from persons"):
+        faction[n], korean[n] = BATTLE.get("faction", {}).get(n) or at_battle(n, f), ko
     leave_out = set(BATTLE.get("leave_out", []))
 
     people: dict[str, dict] = {}
