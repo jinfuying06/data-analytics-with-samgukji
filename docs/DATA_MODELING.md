@@ -98,7 +98,7 @@
 
 ### 5.3 공동등장(co-occurrence) 정의
 - **같은 회차에 함께 등장하면 1회**. 두 인물이 함께 나온 회차 수가 간선 가중치다.
-- 장면·문단 단위 겹침이 아니다. 문단 위치 정보를 저장하지 않아 현재 데이터로는 장면 단위를 판별할 수 없다.
+- 장면·문단 단위 겹침이 아니다. 문단 단위로 세려면 6.5의 `mentions`(문단 번호 포함)를 쓴다.
 - 쌍은 이름을 정렬해 `(person_a < person_b)`로 한 번만 저장한다.
 
 ---
@@ -135,6 +135,21 @@
 
 인덱스: `yeonui_mentions(name)`, `yeonui_mentions(chapter)`.
 연결 키: 모든 테이블은 **표준 인물명(번체 한자)** 으로 이어진다. 번역 문단은 원문 문단 문자열(`paragraph_zh`)로 `excerpt` 속 문단과 맞춘다.
+
+### 6.5 분석 표 (2026-11-26 추가, `scripts/build_analysis_tables.py`)
+
+위 표는 그대로 두고, 게임과 분석이 쓰는 표 4개를 전체 DB에 만든 뒤 seed에도 같은 회차 범위만큼 복사한다. 게임 데이터(`build_red_cliff_lab_data.py`)는 이 표만 읽는다.
+
+| 테이블 | 키 | 한 행의 의미 | 출처 |
+|---|---|---|---|
+| `paragraphs` | `(chapter, idx)` | 원문 한 줄(문단)과 번역 | `data/raw/wikisource/연의`의 줄 순서, 번역은 원문과 같거나 98% 이상 같은 문단에 연결 |
+| `persons` | `name` | 인물 한 명의 한국어 이름·기본 세력·사망 연도 | 세력은 `jeongsa_persons.country`, 없으면 `data/curated/인물_세력_보충.json`(han·other 포함). 이름·사망 연도는 `data/curated/인물_정보.json` |
+| `aliases` | `alias` | 별명 하나 → 표준 인물명 | `data/processed/인물명_정규화.json` |
+| `mentions` | `(name, chapter, idx)` | **한 인물이 한 문단에 나옴** | `yeonui_mentions.excerpt`를 문단 번호로 옮김(다시 태깅하지 않음) |
+
+- 등장 문단 수는 `mentions` 행 수, 공동등장은 `mentions`에서 같은 회차를 공유한 인물 쌍을 바로 센다.
+- 사람이 정한 값(세력 보충, 이름, 사망 연도)은 git에 남도록 `data/curated/`에 둔다. 사망 연도가 불확실한 인물은 `uncertain: true`, 모르면 `null`.
+- 순서: `build_analysis_tables.py` → `build_red_cliff_seed.py` → `build_red_cliff_lab_data.py`.
 
 ### 6.4 현재 seed 규모 (2026-10-30 조회)
 

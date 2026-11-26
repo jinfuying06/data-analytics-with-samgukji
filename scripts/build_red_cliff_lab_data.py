@@ -30,7 +30,6 @@ ROOT = Path(__file__).resolve().parents[1]
 DB_PATH = ROOT / "data" / "seed" / "red_cliff.db"
 OUT_PATH = ROOT / "prototype" / "red-cliff-lab" / "src" / "30-data.js"
 
-FACTION = {"魏": "wei", "吳": "wu", "蜀": "shu"}
 INDICATORS = {
     "ship": ["船", "舟", "水軍", "艦"],
     "fire": ["火", "燒", "焚"],
@@ -44,19 +43,6 @@ ALL_PARAS_FOR = ["諸葛亮", "曹操", "周瑜", "黃蓋"]
 ZH_AROUND = 60
 KO_LEN = 160
 
-KOREAN = {
-    "諸葛亮": "제갈량", "曹操": "조조", "周瑜": "주유", "魯肅": "노숙", "黃蓋": "황개", "孫權": "손권",
-    "劉備": "유비", "關羽": "관우", "甘寧": "감녕", "闞澤": "감택", "張昭": "장소", "趙雲": "조운",
-    "程普": "정보", "張遼": "장료", "袁紹": "원소", "韓當": "한당", "龐統": "방통", "文聘": "문빙",
-    "劉表": "유표", "諸葛瑾": "제갈근", "周泰": "주태", "毛玠": "모개", "徐晃": "서황", "徐盛": "서성",
-    "曹仁": "조인", "呂蒙": "여몽", "太史慈": "태사자", "蔣欽": "장흠", "于禁": "우금", "丁奉": "정봉",
-    "呂布": "여포", "袁術": "원술", "顧雍": "고옹", "孫策": "손책", "張飛": "장비", "程昱": "정욱",
-    "許褚": "허저", "夏侯惇": "하후돈", "凌統": "능통", "潘璋": "반장", "陸遜": "육손", "荀攸": "순유",
-    "張郃": "장합", "李典": "이전", "呂範": "여범", "簡雍": "간옹", "曹洪": "조홍", "樂進": "악진",
-    "嚴畯": "엄준", "張溫": "장온", "薛綜": "설종", "虞翻": "우번", "陸績": "육적", "駱統": "낙통",
-    "朱治": "주치", "董卓": "동탁", "劉馥": "유복", "呂虔": "여건", "夏侯淵": "하후연", "臧霸": "장패",
-    "孫乾": "손건", "糜芳": "미방", "郭嘉": "곽가",
-}
 
 
 def has(text: str, key: str) -> bool:
@@ -69,30 +55,30 @@ def sentences(text: str) -> list[str]:
 
 def main() -> None:
     con = sqlite3.connect(DB_PATH)
-    faction = {n: FACTION[c] for n, c in con.execute("select name, country from jeongsa_persons")}
-    translations = dict(con.execute("select paragraph_zh, paragraph_ko from yeonui_paragraph_translations"))
+    faction, korean = {}, {}
+    for n, ko, f in con.execute("select name, ko, faction from persons"):
+        faction[n], korean[n] = f, ko
 
     people: dict[str, dict] = {}
     evidence: dict[str, dict] = {}
     every: dict[str, dict] = {}
-    for name, chapter, excerpt in con.execute("select name, chapter, excerpt from yeonui_mentions"):
+    for name, chapter, para, ko in con.execute(
+            "select m.name, m.chapter, p.zh, p.ko from mentions m join paragraphs p using (chapter, idx) "
+            "order by m.chapter, m.name, m.idx"):
         row = people.setdefault(name, {"ch": [0] * 8, "yy": {k: 0 for k in ORDER}})
-        paragraphs = json.loads(excerpt)
-        row["ch"][chapter - 43] = len(paragraphs)
-        for para in paragraphs:
-            for key in ORDER:
-                if not has(para, key):
-                    continue
-                row["yy"][key] += 1
-                ko = translations.get(para)
-                if name in ALL_PARAS_FOR:
-                    at = min(para.find(w) for w in INDICATORS[key] if w in para)
-                    zh = ("…" if at > ZH_AROUND else "") + para[max(0, at - ZH_AROUND):at + ZH_AROUND] + ("…" if at + ZH_AROUND < len(para) else "")
-                    ko_cut = (ko[:KO_LEN] + ("…" if len(ko) > KO_LEN else "")) if ko else ""
-                    every.setdefault(name, {}).setdefault(key, []).append([chapter, zh, ko_cut])
-                current = evidence.setdefault(name, {}).get(key)
-                if ko and (current is None or len(ko) < len(current[1])):
-                    evidence[name][key] = [chapter, ko]
+        row["ch"][chapter - 43] += 1
+        for key in ORDER:
+            if not has(para, key):
+                continue
+            row["yy"][key] += 1
+            if name in ALL_PARAS_FOR:
+                at = min(para.find(w) for w in INDICATORS[key] if w in para)
+                zh = ("…" if at > ZH_AROUND else "") + para[max(0, at - ZH_AROUND):at + ZH_AROUND] + ("…" if at + ZH_AROUND < len(para) else "")
+                ko_cut = (ko[:KO_LEN] + ("…" if len(ko) > KO_LEN else "")) if ko else ""
+                every.setdefault(name, {}).setdefault(key, []).append([chapter, zh, ko_cut])
+            current = evidence.setdefault(name, {}).get(key)
+            if ko and (current is None or len(ko) < len(current[1])):
+                evidence[name][key] = [chapter, ko]
 
     for name, bio in con.execute("select name, biography from jeongsa_persons"):
         if name not in people:
@@ -103,20 +89,23 @@ def main() -> None:
         people[name]["jn"] = {k: sum(1 for s in sentences(notes) if has(s, k)) for k in ORDER}
 
     names = sorted(people, key=lambda n: -sum(people[n]["ch"]))
-    missing = [n for n in names if n not in KOREAN]
+    missing = [n for n in names if not korean.get(n)]
     if missing:
         raise SystemExit(f"Korean name missing for: {missing}")
 
     rows = [
-        [n, KOREAN[n], faction[n], people[n]["ch"],
+        [n, korean[n], faction[n], people[n]["ch"],
          [people[n]["yy"][k] for k in ORDER],
          [people[n]["jb"][k] for k in ORDER],
          [people[n]["jn"][k] for k in ORDER]]
         for n in names
     ]
     index = {n: i for i, n in enumerate(names)}
+    # 같은 회차에 함께 나온 횟수
     edges = [[index[a], index[b], k] for a, b, k in con.execute(
-        "select person_a, person_b, count from cooccurrence_edges") if a in index and b in index]
+        "select x.name, y.name, count(distinct x.chapter) from (select distinct name, chapter from mentions) x "
+        "join (select distinct name, chapter from mentions) y on x.chapter = y.chapter and x.name < y.name "
+        "group by x.name, y.name order by x.name, y.name")]
     evid = {
         n: {k: [ch, ko[:EXCERPT_LEN] + ("…" if len(ko) > EXCERPT_LEN else "")] for k, (ch, ko) in v.items()}
         for n, v in evidence.items()

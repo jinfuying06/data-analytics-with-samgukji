@@ -72,7 +72,23 @@ CREATE TABLE yeonui_paragraph_translations (
     translated_by TEXT,
     UNIQUE(chapter, paragraph_zh)
 );
+
+CREATE TABLE paragraphs (chapter INTEGER NOT NULL, idx INTEGER NOT NULL, zh TEXT NOT NULL, ko TEXT,
+  PRIMARY KEY (chapter, idx));
+CREATE TABLE persons (name TEXT PRIMARY KEY, ko TEXT, faction TEXT NOT NULL, death_year INTEGER,
+  in_jeongsa INTEGER NOT NULL);
+CREATE TABLE aliases (alias TEXT PRIMARY KEY, name TEXT NOT NULL);
+CREATE TABLE mentions (name TEXT NOT NULL, chapter INTEGER NOT NULL, idx INTEGER NOT NULL,
+  PRIMARY KEY (name, chapter, idx), FOREIGN KEY (chapter, idx) REFERENCES paragraphs (chapter, idx));
+CREATE INDEX idx_mentions_chapter ON mentions (chapter, idx);
 """
+# 분석 표(scripts/build_analysis_tables.py)를 회차 범위만큼 복사한다
+ANALYSIS_COPY = [
+    ("paragraphs", "SELECT * FROM paragraphs WHERE chapter BETWEEN ? AND ?"),
+    ("mentions", "SELECT * FROM mentions WHERE chapter BETWEEN ? AND ?"),
+    ("persons", "SELECT * FROM persons WHERE name IN (SELECT name FROM mentions WHERE chapter BETWEEN ? AND ?)"),
+    ("aliases", "SELECT * FROM aliases WHERE name IN (SELECT name FROM mentions WHERE chapter BETWEEN ? AND ?)"),
+]
 
 
 def table_exists(connection: sqlite3.Connection, table: str) -> bool:
@@ -163,6 +179,13 @@ def build_seed(source_path: Path, target_path: Path) -> None:
                 "INSERT INTO yeonui_paragraph_translations VALUES (?, ?, ?, ?, ?, ?)",
                 [tuple(row) for row in paragraph_rows],
             )
+
+        if not table_exists(source, "mentions"):
+            raise RuntimeError("analysis tables missing: run scripts/build_analysis_tables.py first")
+        for table, query in ANALYSIS_COPY:
+            rows = source.execute(query, (CHAPTER_START, CHAPTER_END)).fetchall()
+            marks = ",".join("?" * len(rows[0]))
+            target.executemany(f"INSERT INTO {table} VALUES ({marks})", [tuple(r) for r in rows])
 
         target.commit()
         integrity = target.execute("PRAGMA integrity_check").fetchone()[0]

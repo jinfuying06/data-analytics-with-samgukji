@@ -1,0 +1,735 @@
+{
+ "曹操": {
+  "ko": "조조",
+  "death_year": 220
+ },
+ "劉備": {
+  "ko": "유비",
+  "death_year": 223
+ },
+ "諸葛亮": {
+  "ko": "제갈량",
+  "death_year": 234
+ },
+ "孫權": {
+  "ko": "손권",
+  "death_year": 252
+ },
+ "關羽": {
+  "ko": "관우",
+  "death_year": 220,
+  "uncertain": true
+ },
+ "張飛": {
+  "ko": "장비",
+  "death_year": 221
+ },
+ "趙雲": {
+  "ko": "조운",
+  "death_year": 229
+ },
+ "袁紹": {
+  "ko": "원소",
+  "death_year": 202
+ },
+ "夏侯惇": {
+  "ko": "하후돈",
+  "death_year": 220
+ },
+ "魏延": {
+  "ko": "위연",
+  "death_year": 234
+ },
+ "劉禪": {
+  "ko": "유선",
+  "death_year": 271
+ },
+ "劉表": {
+  "ko": "유표",
+  "death_year": 208
+ },
+ "徐晃": {
+  "ko": "서황",
+  "death_year": 227
+ },
+ "曹仁": {
+  "ko": "조인",
+  "death_year": 223
+ },
+ "張遼": {
+  "ko": "장료",
+  "death_year": 222
+ },
+ "許褚": {
+  "ko": "허저",
+  "death_year": null
+ },
+ "于禁": {
+  "ko": "우금",
+  "death_year": 221
+ },
+ "司馬懿": {
+  "ko": "사마의",
+  "death_year": 251
+ },
+ "曹洪": {
+  "ko": "조홍",
+  "death_year": 232
+ },
+ "呂布": {
+  "ko": "여포",
+  "death_year": 198
+ },
+ "姜維": {
+  "ko": "강유",
+  "death_year": 264
+ },
+ "張翼": {
+  "ko": "장익",
+  "death_year": 264
+ },
+ "孫乾": {
+  "ko": "손건",
+  "death_year": null
+ },
+ "張昭": {
+  "ko": "장소",
+  "death_year": 236
+ },
+ "荀彧": {
+  "ko": "순욱",
+  "death_year": 212
+ },
+ "夏侯淵": {
+  "ko": "하후연",
+  "death_year": 219
+ },
+ "李典": {
+  "ko": "이전",
+  "death_year": null
+ },
+ "程昱": {
+  "ko": "정욱",
+  "death_year": 220
+ },
+ "魯肅": {
+  "ko": "노숙",
+  "death_year": 217
+ },
+ "曹丕": {
+  "ko": "조비",
+  "death_year": 226
+ },
+ "董卓": {
+  "ko": "동탁",
+  "death_year": 192
+ },
+ "劉協": {
+  "ko": "유협",
+  "death_year": 234
+ },
+ "呂蒙": {
+  "ko": "여몽",
+  "death_year": 220,
+  "uncertain": true
+ },
+ "張郃": {
+  "ko": "장합",
+  "death_year": 231
+ },
+ "樂進": {
+  "ko": "악진",
+  "death_year": 218
+ },
+ "袁術": {
+  "ko": "원술",
+  "death_year": 199
+ },
+ "賈詡": {
+  "ko": "가후",
+  "death_year": 223
+ },
+ "馬超": {
+  "ko": "마초",
+  "death_year": 222
+ },
+ "周瑜": {
+  "ko": "주유",
+  "death_year": 210
+ },
+ "王平": {
+  "ko": "왕평",
+  "death_year": 248
+ },
+ "陸遜": {
+  "ko": "육손",
+  "death_year": 245
+ },
+ "韓當": {
+  "ko": "한당",
+  "death_year": null
+ },
+ "荀攸": {
+  "ko": "순유",
+  "death_year": 214
+ },
+ "諸葛瑾": {
+  "ko": "제갈근",
+  "death_year": 241
+ },
+ "程普": {
+  "ko": "정보",
+  "death_year": null
+ },
+ "郭嘉": {
+  "ko": "곽가",
+  "death_year": 207
+ },
+ "丁奉": {
+  "ko": "정봉",
+  "death_year": 271
+ },
+ "周泰": {
+  "ko": "주태",
+  "death_year": null
+ },
+ "孫策": {
+  "ko": "손책",
+  "death_year": 200
+ },
+ "張嶷": {
+  "ko": "장억",
+  "death_year": 254
+ },
+ "曹叡": {
+  "ko": "조예",
+  "death_year": 239
+ },
+ "甘寧": {
+  "ko": "감녕",
+  "death_year": null
+ },
+ "黃忠": {
+  "ko": "황충",
+  "death_year": 220
+ },
+ "徐盛": {
+  "ko": "서성",
+  "death_year": null
+ },
+ "糜芳": {
+  "ko": "미방",
+  "death_year": null
+ },
+ "簡雍": {
+  "ko": "간옹",
+  "death_year": null
+ },
+ "馬良": {
+  "ko": "마량",
+  "death_year": 222
+ },
+ "黃蓋": {
+  "ko": "황개",
+  "death_year": null
+ },
+ "張魯": {
+  "ko": "장로",
+  "death_year": 216,
+  "uncertain": true
+ },
+ "潘璋": {
+  "ko": "반장",
+  "death_year": 234
+ },
+ "蔣琬": {
+  "ko": "장완",
+  "death_year": 246
+ },
+ "郭淮": {
+  "ko": "곽회",
+  "death_year": 255
+ },
+ "顧雍": {
+  "ko": "고옹",
+  "death_year": 243
+ },
+ "馬忠": {
+  "ko": "마충",
+  "death_year": null
+ },
+ "凌統": {
+  "ko": "능통",
+  "death_year": 217,
+  "uncertain": true
+ },
+ "法正": {
+  "ko": "법정",
+  "death_year": 220
+ },
+ "滿寵": {
+  "ko": "만총",
+  "death_year": 242
+ },
+ "蔣欽": {
+  "ko": "장흠",
+  "death_year": 219,
+  "uncertain": true
+ },
+ "陳宮": {
+  "ko": "진궁",
+  "death_year": 198
+ },
+ "龐德": {
+  "ko": "방덕",
+  "death_year": 219
+ },
+ "公孫瓚": {
+  "ko": "공손찬",
+  "death_year": 199
+ },
+ "呂虔": {
+  "ko": "여건",
+  "death_year": null
+ },
+ "華歆": {
+  "ko": "화흠",
+  "death_year": 232
+ },
+ "譙周": {
+  "ko": "초주",
+  "death_year": 270
+ },
+ "費禕": {
+  "ko": "비의",
+  "death_year": 253
+ },
+ "鄧艾": {
+  "ko": "등애",
+  "death_year": 264
+ },
+ "龐統": {
+  "ko": "방통",
+  "death_year": 214
+ },
+ "文聘": {
+  "ko": "문빙",
+  "death_year": null
+ },
+ "李嚴": {
+  "ko": "이엄",
+  "death_year": 234
+ },
+ "楊儀": {
+  "ko": "양의",
+  "death_year": 235
+ },
+ "典韋": {
+  "ko": "전위",
+  "death_year": 197
+ },
+ "孫堅": {
+  "ko": "손견",
+  "death_year": 191,
+  "uncertain": true
+ },
+ "毛玠": {
+  "ko": "모개",
+  "death_year": null
+ },
+ "臧霸": {
+  "ko": "장패",
+  "death_year": null
+ },
+ "馬謖": {
+  "ko": "마속",
+  "death_year": 228
+ },
+ "呂範": {
+  "ko": "여범",
+  "death_year": 228
+ },
+ "太史慈": {
+  "ko": "태사자",
+  "death_year": 206
+ },
+ "孫禮": {
+  "ko": "손례",
+  "death_year": 250
+ },
+ "辛毗": {
+  "ko": "신비",
+  "death_year": null
+ },
+ "鍾繇": {
+  "ko": "종요",
+  "death_year": 230
+ },
+ "王朗": {
+  "ko": "왕랑",
+  "death_year": 228
+ },
+ "闞澤": {
+  "ko": "감택",
+  "death_year": 243
+ },
+ "陳震": {
+  "ko": "진진",
+  "death_year": 235
+ },
+ "陶謙": {
+  "ko": "도겸",
+  "death_year": 194
+ },
+ "何進": {
+  "ko": "하진",
+  "death_year": 189
+ },
+ "呂凱": {
+  "ko": "여개",
+  "death_year": null
+ },
+ "士仁": {
+  "ko": "사인",
+  "death_year": null
+ },
+ "曹芳": {
+  "ko": "조방",
+  "death_year": 274
+ },
+ "李恢": {
+  "ko": "이회",
+  "death_year": 231
+ },
+ "楊阜": {
+  "ko": "양부",
+  "death_year": null
+ },
+ "郤正": {
+  "ko": "극정",
+  "death_year": 278
+ },
+ "張溫": {
+  "ko": "장온",
+  "death_year": 230,
+  "uncertain": true
+ },
+ "張角": {
+  "ko": "장각",
+  "death_year": 184
+ },
+ "張讓": {
+  "ko": "장양",
+  "death_year": 189
+ },
+ "張邈": {
+  "ko": "장막",
+  "death_year": 195
+ },
+ "曹髦": {
+  "ko": "조모",
+  "death_year": 260
+ },
+ "朱儁": {
+  "ko": "주준",
+  "death_year": 195
+ },
+ "杜瓊": {
+  "ko": "두경",
+  "death_year": 250
+ },
+ "毌丘儉": {
+  "ko": "관구검",
+  "death_year": 255
+ },
+ "王基": {
+  "ko": "왕기",
+  "death_year": 261
+ },
+ "秦宓": {
+  "ko": "진복",
+  "death_year": 226
+ },
+ "管輅": {
+  "ko": "관로",
+  "death_year": 256
+ },
+ "華佗": {
+  "ko": "화타",
+  "death_year": 208,
+  "uncertain": true
+ },
+ "虞翻": {
+  "ko": "우번",
+  "death_year": 233,
+  "uncertain": true
+ },
+ "丁原": {
+  "ko": "정원",
+  "death_year": 189
+ },
+ "何太后": {
+  "ko": "하태후",
+  "death_year": 189
+ },
+ "劉巴": {
+  "ko": "유파",
+  "death_year": 222
+ },
+ "劉焉": {
+  "ko": "유언",
+  "death_year": 194
+ },
+ "劉琰": {
+  "ko": "유염",
+  "death_year": 234
+ },
+ "劉辯": {
+  "ko": "유변",
+  "death_year": 190
+ },
+ "崔琰": {
+  "ko": "최염",
+  "death_year": 216
+ },
+ "張寶": {
+  "ko": "장보",
+  "death_year": 184
+ },
+ "朱桓": {
+  "ko": "주환",
+  "death_year": 238
+ },
+ "李肅": {
+  "ko": "이숙",
+  "death_year": 192
+ },
+ "楊洪": {
+  "ko": "양홍",
+  "death_year": 228
+ },
+ "滕胤": {
+  "ko": "등윤",
+  "death_year": 256
+ },
+ "王粲": {
+  "ko": "왕찬",
+  "death_year": 217
+ },
+ "皇甫嵩": {
+  "ko": "황보숭",
+  "death_year": 195
+ },
+ "盧植": {
+  "ko": "노식",
+  "death_year": 192
+ },
+ "董昭": {
+  "ko": "동소",
+  "death_year": 236
+ },
+ "蔣濟": {
+  "ko": "장제",
+  "death_year": 249
+ },
+ "費詩": {
+  "ko": "비시",
+  "death_year": null
+ },
+ "霍峻": {
+  "ko": "곽준",
+  "death_year": null
+ },
+ "任峻": {
+  "ko": "임준",
+  "death_year": 204
+ },
+ "公孫度": {
+  "ko": "공손도",
+  "death_year": 204
+ },
+ "嚴畯": {
+  "ko": "엄준",
+  "death_year": null
+ },
+ "尹默": {
+  "ko": "윤묵",
+  "death_year": null
+ },
+ "張梁": {
+  "ko": "장량",
+  "death_year": 184
+ },
+ "張裔": {
+  "ko": "장예",
+  "death_year": 230
+ },
+ "朱治": {
+  "ko": "주치",
+  "death_year": 224
+ },
+ "李通": {
+  "ko": "이통",
+  "death_year": 209
+ },
+ "杜襲": {
+  "ko": "두습",
+  "death_year": null
+ },
+ "桓階": {
+  "ko": "환계",
+  "death_year": null
+ },
+ "潘濬": {
+  "ko": "반준",
+  "death_year": 239
+ },
+ "王連": {
+  "ko": "왕련",
+  "death_year": null
+ },
+ "程秉": {
+  "ko": "정병",
+  "death_year": null
+ },
+ "華覈": {
+  "ko": "화핵",
+  "death_year": null
+ },
+ "董和": {
+  "ko": "동화",
+  "death_year": null
+ },
+ "薛綜": {
+  "ko": "설종",
+  "death_year": 243
+ },
+ "陸績": {
+  "ko": "육적",
+  "death_year": 219,
+  "uncertain": true
+ },
+ "駱統": {
+  "ko": "낙통",
+  "death_year": 228,
+  "uncertain": true
+ },
+ "全琮": {
+  "ko": "전종",
+  "death_year": 249,
+  "uncertain": true
+ },
+ "劉劭": {
+  "ko": "유소",
+  "death_year": null
+ },
+ "劉廙": {
+  "ko": "유이",
+  "death_year": 221
+ },
+ "劉馥": {
+  "ko": "유복",
+  "death_year": 208
+ },
+ "司馬朗": {
+  "ko": "사마랑",
+  "death_year": 217
+ },
+ "向朗": {
+  "ko": "상랑",
+  "death_year": 247
+ },
+ "呂岱": {
+  "ko": "여대",
+  "death_year": 256
+ },
+ "周魴": {
+  "ko": "주방",
+  "death_year": null
+ },
+ "和洽": {
+  "ko": "화흡",
+  "death_year": null
+ },
+ "宗預": {
+  "ko": "종예",
+  "death_year": null
+ },
+ "張楊": {
+  "ko": "장양",
+  "death_year": 198
+ },
+ "李譔": {
+  "ko": "이선",
+  "death_year": null
+ },
+ "杜微": {
+  "ko": "두미",
+  "death_year": null
+ },
+ "楊顒": {
+  "ko": "양옹",
+  "death_year": null
+ },
+ "樓玄": {
+  "ko": "누현",
+  "death_year": null
+ },
+ "濮陽興": {
+  "ko": "복양흥",
+  "death_year": 264
+ },
+ "王昶": {
+  "ko": "왕창",
+  "death_year": 259
+ },
+ "王觀": {
+  "ko": "왕관",
+  "death_year": null
+ },
+ "田疇": {
+  "ko": "전주",
+  "death_year": 214,
+  "uncertain": true
+ },
+ "田豫": {
+  "ko": "전예",
+  "death_year": null
+ },
+ "管寧": {
+  "ko": "관녕",
+  "death_year": 241
+ },
+ "胡質": {
+  "ko": "호질",
+  "death_year": 250
+ },
+ "脂習": {
+  "ko": "지습",
+  "death_year": null
+ },
+ "董太后": {
+  "ko": "동태후",
+  "death_year": 189
+ },
+ "許慈": {
+  "ko": "허자",
+  "death_year": null
+ },
+ "邴原": {
+  "ko": "병원",
+  "death_year": null
+ },
+ "閻宇": {
+  "ko": "염우",
+  "death_year": null
+ },
+ "高柔": {
+  "ko": "고유",
+  "death_year": 263
+ },
+ "麋竺": {
+  "ko": "미축",
+  "death_year": null
+ }
+}
