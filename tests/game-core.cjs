@@ -79,6 +79,7 @@ for (const id of ['red-cliff', 'yiling']) {
       r.cards.forEach((c, k) => assert.ok(c.ans.length && c.ans.every(a => keys.includes(a)) && c.why, `${id} ${r.id} card ${k}`));
     }
   }
+  assert.ok(fs.readFileSync('prototype/game-demo/index.html', 'utf8').includes(`id:"${id}"`) && new RegExp(`id:"${id}"[^}]*key:"${K.saveKey}"`).test(fs.readFileSync('prototype/game-demo/index.html', 'utf8')), `${id}: 연표 key = saveKey`);
   if (K.design) for (const k of ['q', 'env', 'follow', 'envShort', 'followShort', 'limit', 'condTitle']) assert.ok(K.design[k], `${id} design.${k}`);
 }
 assert.equal(JSON.stringify(ctx.JEONGSA['周瑜']), '[150,101]', '정사 주유 본문 150·주석 101문장');

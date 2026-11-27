@@ -53,7 +53,6 @@ img.spr{image-rendering:pixelated;display:block}
 .title h2{font-family:var(--px);font-size:22px;margin:16px 0 4px}
 .portrait{aspect-ratio:1;display:grid;place-items:center;overflow:hidden;padding:0;background:#1b2530}
 .portrait img{width:125%;max-width:none}
-.press{font-family:var(--px);color:var(--gold);animation:blink 1.2s steps(2) infinite;margin-top:18px}
 
 /* HUD */
 .hud{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
@@ -218,7 +217,23 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 .pair .d{font-size:13px;color:var(--dim);text-align:right}.pair.ok{border-color:var(--gold)}.pair.no{border-style:dashed}
 .key2{display:flex;gap:14px;font-size:13px;color:var(--dim);margin:6px 0}.key2 i{display:inline-block;width:12px;height:8px;margin-right:4px}
 .card-ev{margin-top:12px}.card-ev .src{font-size:13px;color:var(--dim)}
-.title .battles{margin-top:16px;gap:8px}.title .battles a[aria-current]{border-color:var(--gold);color:var(--gold)}
+/* 대사 상자 안의 선택지 (타이틀) */
+.choices{display:grid;gap:6px;margin-top:12px}
+.choice{display:block;width:100%;text-align:left;background:transparent;border:2px solid transparent;color:var(--ink);padding:8px 10px 8px 30px;position:relative}
+.choice b{font-family:var(--px);font-size:16px}.choice span{display:block;font-size:13px;color:var(--dim)}
+.choice:hover,.choice:focus{border-color:var(--gold);outline:none}
+.choice:hover::before,.choice:focus::before{content:"▶";position:absolute;left:9px;top:9px;color:var(--gold);animation:blink 1s steps(2) infinite}
+/* 연표: 전투를 일어난 해 순서로 */
+.chron{list-style:none;margin:16px 0 6px;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:12px;position:relative}
+.chron::before{content:"";position:absolute;left:6%;right:6%;top:58px;border-top:3px dashed var(--line)}
+.cnode{position:relative;width:100%;display:grid;justify-items:center;gap:2px;background:var(--card);border:2px solid var(--line);padding:10px 6px}
+.cnode .yr{font-family:var(--px);font-size:13px;color:var(--dim)}.cnode .hz{font-family:var(--px);font-size:28px;line-height:1.3;color:var(--ink)}
+.cnode .nm{font-size:13px}.cnode .st{font-size:12px;color:var(--gold);min-height:1.5em}
+.cnode.sealed{border-style:dashed}.cnode.sealed .hz,.cnode.sealed .nm{color:#5b6068}.cnode.sealed .st{color:var(--dim)}
+.cnode[aria-pressed="true"]{border-color:var(--gold);box-shadow:4px 4px 0 #000;transform:translateY(-4px)}
+.cnode:focus-visible{outline:3px dashed var(--gold);outline-offset:4px}
+.dlg.chat{cursor:default}.dlg.chat .row{margin-top:12px}
+@media (hover:none){.keyhint{display:none}}
 @keyframes hop{50%{transform:translateY(-12px)}}
 .clear-pt{width:160px!important;border:3px solid var(--line);margin:4px auto}
 
@@ -239,6 +254,8 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 @media (max-width:760px){
  .title{grid-template-columns:1fr;gap:22px;min-height:auto;padding-top:12px}
  .portrait{max-width:240px}
+ .chron{grid-template-columns:1fr}.chron::before{display:none}
+ .cnode{grid-template-columns:40px 92px 1fr;justify-items:start;align-items:center;text-align:left;padding:6px 10px}.cnode .hz{font-size:22px;white-space:nowrap}.cnode .st{grid-column:3}.cnode[aria-pressed="true"]{transform:translateX(6px)}
  .pcards{grid-template-columns:1fr 1fr}
  .friends,.cols,.cmp,.kcount{grid-template-columns:1fr}
  .nodes{grid-template-columns:repeat(3,1fr);height:auto;row-gap:24px}
@@ -260,8 +277,14 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 <!-- 전투 데이터와 내용: ?b=<전투 id>, 기본은 적벽. 적벽 데이터는 기존 화면(red-cliff-lab)과 같은 파일. 형식: docs/BATTLE_CONTENT_FORMAT.md -->
 <script src="core.js"></script>
 <script>
-const BATTLE_LIST=[{id:"red-cliff",name:"적벽대전",hz:"赤壁"},{id:"yiling",name:"이릉대전",hz:"夷陵"}];
-const BATTLE_ID=(q=>BATTLE_LIST.some(b=>b.id===q)?q:"red-cliff")(new URLSearchParams(location.search).get("b"));
+/* 연표: 일어난 해 순서. id가 없는 전투는 아직 만들지 않은 '봉인된 기록'. key는 그 전투 내용 파일의 saveKey와 같아야 한다 */
+const BATTLE_LIST=[
+ {name:"관도대전",hz:"官渡",year:200,mission:"만약 허유가 원소 곁에 남았다면?"},
+ {id:"red-cliff",name:"적벽대전",hz:"赤壁",year:208,key:"gyechaek-zg",mission:"만약 제갈량이 조조의 편이었다면?",first:1},
+ {name:"번성·맥성",hz:"樊城",year:219,mission:"만약 맹달이 관우를 구하러 갔다면?"},
+ {id:"yiling",name:"이릉대전",hz:"夷陵",year:222,key:"gyechaek-yiling",mission:"만약 육손이 오의 대도독이 아니었다면?"},
+ {name:"오장원",hz:"五丈原",year:234,mission:"만약 제갈량이 오래 살았다면?"}];
+const BATTLE_ID=(q=>BATTLE_LIST.some(b=>b.id&&b.id===q)?q:"red-cliff")(new URLSearchParams(location.search).get("b"));
 const DATA_SRC={"red-cliff":"../red-cliff-lab/src/30-data.js"};
 document.write(`<script src="${DATA_SRC[BATTLE_ID]||`battles/${BATTLE_ID}-data.js`}"><\/script><script src="battles/${BATTLE_ID}.js"><\/script>`);
 </script>
@@ -363,19 +386,63 @@ function hud(){const n=doneCount();return `<header class="hud"><button class="lo
 const wireHud=()=>{$("#toMap").onclick=()=>map()};
 
 /* ===== 타이틀 ===== */
+/* 다른 전투의 진행은 그 전투의 저장 칸에서 읽는다 */
+const progressOf=b=>{if(!b?.id)return null;if(b.id===BATTLE_ID)return S;try{return JSON.parse(localStorage.getItem(b.key)||"null")}catch{return null}};
+const doneOf=s=>Object.keys(s?.done||{}).length;
+const started=b=>{const s=progressOf(b);return !!s&&(s.pred!=null||doneOf(s)>0)};
+function statusOf(b){
+ if(!b.id)return "봉인된 기록";
+ const s=progressOf(b),n=doneOf(s);
+ if(n<6)return n||s?.pred!=null?`★ 진행 ${n}/6`:b.first?"첫 기록":"아직 펼치지 않음";
+ return "★".repeat(1+Object.values(s.req||{}).some(r=>r.done)+!!s.design?.done)+" 얻음";
+}
+function enter(b){
+ try{localStorage.setItem("gyechaek-last",b.id)}catch{}
+ if(b.id===BATTLE_ID)S.pred==null?prologue():map();else location.href=`?b=${b.id}&go=1`;
+}
+function choiceHTML(list){return `<div class="choices" data-nav>${list.map(([t,s],i)=>`<button class="choice" data-i="${i}"><b>${esc(t)}</b><span>${esc(s)}</span></button>`).join("")}</div>`}
+function wireChoices(list){$$(".choice").forEach(b=>b.onclick=e=>{e.stopPropagation();list[+b.dataset.i][2]()});$(".choice")?.focus()}
+
+/* ===== 타이틀: 기록관 대사 상자 안에서 고른다. 선택지는 늘 두 개, 전투 목록은 연표에서 ===== */
 function title(){
  fxLevel=1;onBack=null;
+ let last=null;try{last=BATTLE_LIST.find(b=>b.id&&b.id===localStorage.getItem("gyechaek-last"))}catch{}
+ if(!started(last))last=BATTLE_LIST.find(started)||null;
+ const first=BATTLE_LIST.find(b=>b.first);
+ const list=[last?[`이어서 하기 — ${last.hz} ${last.name}`,`${statusOf(last)} · ${last.mission}`,()=>enter(last)]
+   :[`${first.hz} ${first.name}부터 펼치기`,`첫 기록 · ${first.mission}`,()=>enter(first)],
+  ["다른 기록 고르기","연표에서 전투를 골라 그 '만약'을 펼칩니다",()=>chronicle()]];
  app.innerHTML=`<section class="title">
-  <div><div class="tag">${esc(K.label)}</div>
+  <div><div class="tag">『삼국지연의』 데이터 실험</div>
    <h1 class="logo">계책록</h1>
    <h2>삼국지로 배우는 데이터 분석</h2>
-   <p class="dim">${MISSION}</p>
-   <div class="box dlg"><div class="who">기록관</div><div class="say"></div><span class="more"></span></div>
-   <div class="press">▶ ENTER 또는 클릭으로 시작</div>
-   <nav class="row battles" aria-label="전투 고르기">${BATTLE_LIST.map(b=>`<a class="btn ghost" href="?b=${b.id}"${b.id===BATTLE_ID?' aria-current="page"':""}>${b.hz} ${b.name}</a>`).join("")}</nav></div>
+   <div class="box dlg chat" style="margin-top:18px"><div class="who">기록관</div><div class="say"></div>${choiceHTML(list)}</div>
+   <p class="dim keyhint" style="font-size:13px">↑↓ 고르기 · Enter 펼치기</p></div>
   <div class="box portrait"><img class="pt" src="assets/portraits/archivist.png" alt="돋보기를 든 기록관"></div></section>`;
- type($(".say"),"어서 오세요. 지난날의 기록을 함께 펼쳐 보시지요.");
- onAdvance=()=>{if(!skipType())S.pred==null?prologue():map()};
+ type($(".say"),last?`다시 오셨군요. ${last.name} 기록을 펼치던 중이었지요.`:"어서 오세요. 오늘은 어떤 '만약'을 펼쳐 보시겠습니까?");
+ wireChoices(list);
+ onAdvance=()=>skipType();
+}
+
+/* ===== 연표: 전투를 일어난 해 순서로 놓고, 고르면 기록관이 그 '만약'을 읽어 준다 ===== */
+function chronicle(){
+ fxLevel=1;onBack=title;onAdvance=()=>skipType();
+ let sel=Math.max(0,BATTLE_LIST.findIndex(b=>started(b)&&b.id===BATTLE_ID));
+ if(!started(BATTLE_LIST[sel]))sel=BATTLE_LIST.findIndex(b=>b.first);
+ app.innerHTML=`<section class="stack">
+  <div class="box"><div class="tag">연표 · 『삼국지연의』의 큰 싸움</div>
+   <ol class="chron" data-nav>${BATTLE_LIST.map((b,i)=>`<li><button class="cnode${b.id?"":" sealed"}" data-i="${i}" aria-pressed="false" aria-label="${b.year}년 ${b.name}, ${statusOf(b)}"><span class="yr">${b.year}</span><span class="hz">${b.hz}</span><span class="nm">${b.name}</span><span class="st">${statusOf(b)}</span></button></li>`).join("")}</ol></div>
+  <div class="box dlg chat"><div class="who">기록관</div><div class="say" aria-live="polite"></div><div class="row" id="cgo"></div></div>
+  <div class="row sb"><button class="btn ghost" id="back">◀ 타이틀</button><span class="dim keyhint" style="font-size:13px">←→ 고르기 · Enter 펼치기 · Esc 타이틀</span></div></section>`;
+ const pick=i=>{if(i===sel&&$("#cgo").dataset.i==i)return;sel=i;const b=BATTLE_LIST[i];$("#cgo").dataset.i=i;
+  $$(".cnode").forEach(x=>x.setAttribute("aria-pressed",String(+x.dataset.i===i)));
+  type($(".say"),`${b.year}년, ${b.name}. ${b.mission}${b.id?"":" 이 기록은 아직 봉인되어 있습니다. 곧 펼쳐 드리지요."}`);
+  $("#cgo").innerHTML=b.id?`<button class="btn" id="open">${started(b)?"이어서 펼치기":"이 기록 펼치기"} ▶</button>`:"";
+  if(b.id)$("#open").onclick=()=>enter(b)};
+ $$(".cnode").forEach(x=>{const i=+x.dataset.i;x.onfocus=()=>pick(i);x.onclick=()=>pick(i);
+  x.onkeydown=e=>{if(e.key==="Enter"&&BATTLE_LIST[i].id){e.preventDefault();enter(BATTLE_LIST[i])}}});
+ $("#back").onclick=title;
+ pick(sel);$(`.cnode[data-i="${sel}"]`).focus();
 }
 
 /* ===== 프롤로그: 이야기와 처음 짐작 ===== */
@@ -784,7 +851,7 @@ function design(){
 function validityBox(base){
  const W=BATTLE.winner==="a"?SA:SB,lead=base>55?SA:base<45?SB:null,ok=lead===W;
  const say=lead?`기록 점수로는 <b>${esc(lead.short)}${jo(lead.short,"이","가")} 앞섭니다</b>(${base}).`:`기록 점수로는 두 편이 <b>비슷합니다</b>(${base}).`;
- const others=BATTLE_LIST.filter(b=>b.id!==BATTLE_ID).map(b=>`<a href="?b=${b.id}">${b.hz} ${b.name}</a>`).join(" · ");
+ const others=BATTLE_LIST.filter(b=>b.id&&b.id!==BATTLE_ID).map(b=>`<a href="?b=${b.id}">${b.hz} ${b.name}</a>`).join(" · ");
  return `<div class="box"><div class="tag">지표 타당도 · 이 점수는 실제 승패와 맞았을까요?</div>
   <p style="margin:8px 0 0">${say} 『삼국지연의』에서 실제로 이긴 편은 <b>${esc(W.name)}</b>입니다. ${ok
    ?"지표와 결과가 맞았습니다. 다만 점수에 쓴 글자는 이 싸움의 결과를 알고 고른 것이라, 맞았다는 사실만으로 이 지표가 승패를 잰다고 말할 수는 없습니다."
@@ -817,9 +884,12 @@ function report(){
 /* ===== 키보드 ===== */
 addEventListener("keydown",ev=>{
  if(ev.key==="Escape"&&onBack){const f=onBack;onBack=null;f();return}
+ const nav=$("[data-nav]");
+ if(nav&&/^Arrow/.test(ev.key)&&!ev.target.closest("input")){const b=[...nav.querySelectorAll("button")],i=b.indexOf(document.activeElement);
+  b[i<0?0:(i+(/Down|Right/.test(ev.key)?1:-1)+b.length)%b.length].focus();ev.preventDefault();return}
  if((ev.key==="Enter"||ev.key===" ")&&onAdvance&&!ev.target.closest("button,a,summary,input")){ev.preventDefault();onAdvance()}
 });
-addEventListener("click",ev=>{if(ev.target.closest(".dlg, .title .press, .portrait")&&onAdvance)onAdvance()});
+addEventListener("click",ev=>{if(ev.target.closest(".dlg, .portrait")&&onAdvance)onAdvance()});
 
 /* ===== 불길 배경: prototype/red-cliff-lab/src/50-fx.js 의 fire 모드를 오른쪽 아래에 은은하게 ===== */
 (function(){
@@ -844,7 +914,8 @@ addEventListener("click",ev=>{if(ev.target.closest(".dlg, .title .press, .portra
  if(RM)draw(0);else requestAnimationFrame(loop);
 })();
 
-title();
+/* 연표나 타이틀에서 다른 전투를 고르면 ?go=1로 다시 열려 그 전투로 바로 들어간다 */
+if(new URLSearchParams(location.search).has("go")){history.replaceState(null,"",`?b=${BATTLE_ID}`);enter(BATTLE_LIST.find(b=>b.id===BATTLE_ID))}else title();
 </script>
 </body>
 </html>
