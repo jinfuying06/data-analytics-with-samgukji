@@ -80,6 +80,7 @@ for (const id of ['red-cliff', 'yiling']) {
     }
   }
   assert.ok(fs.readFileSync('prototype/game-demo/index.html', 'utf8').includes(`id:"${id}"`) && new RegExp(`id:"${id}"[^}]*key:"${K.saveKey}"`).test(fs.readFileSync('prototype/game-demo/index.html', 'utf8')), `${id}: 연표 key = saveKey`);
+  if (K.requests?.length || K.design) assert.ok(K.unlock?.length && K.unlock.every(s => s.length === 4), `${id}: 사다리 열림 대사`);
   if (K.design) for (const k of ['q', 'env', 'follow', 'envShort', 'followShort', 'limit', 'condTitle']) assert.ok(K.design[k], `${id} design.${k}`);
 }
 assert.equal(JSON.stringify(ctx.JEONGSA['周瑜']), '[150,101]', '정사 주유 본문 150·주석 101문장');

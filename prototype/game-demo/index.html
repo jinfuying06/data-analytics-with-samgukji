@@ -234,6 +234,12 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 .cnode:focus-visible{outline:3px dashed var(--gold);outline-offset:4px}
 .dlg.chat{cursor:default}.dlg.chat .row{margin-top:12px}
 @media (hover:none){.keyhint{display:none}}
+/* 사다리 예고·열림 */
+.pcard.lit{border-color:var(--gold)}
+.pcard.sealed{border-style:dashed;opacity:.75}.pcard.sealed .tag{color:var(--dim)}
+.seal{font-family:var(--px);font-size:26px;color:var(--dim);letter-spacing:4px}
+.pcard.unseal{border-color:var(--gold);animation:unseal .7s steps(6) both}.pcard.unseal+.pcard.unseal{animation-delay:.5s}
+@keyframes unseal{from{opacity:0;transform:scale(.7)}}
 @keyframes hop{50%{transform:translateY(-12px)}}
 .clear-pt{width:160px!important;border:3px solid var(--line);margin:4px auto}
 
@@ -464,12 +470,13 @@ function prologue(){
   <div class="row sb"><button class="btn ghost" id="back">◀ 타이틀</button><button class="btn" id="go" ${S.pred==null?"disabled":""}>원정 시작 ▶</button></div></section>`;
  wireHud();
  $("#pred").onclick=e=>{const b=e.target.closest(".opt");if(!b)return;S.pred=+b.dataset.i;save();$$("#pred .opt").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));$("#go").disabled=false};
- $("#back").onclick=title;$("#go").onclick=()=>map();
+ $("#back").onclick=title;$("#go").onclick=()=>BATTLE_LIST.find(b=>b.first).id===BATTLE_ID&&hasLadder()&&!S.teased?tease():map();
  onAdvance=null;
 }
 
 /* ===== 원정 지도 ===== */
 function map(focus){
+ if(doneCount()===6&&hasLadder()&&!S.unlocked)return unlock(); /* 사다리가 생기기 전에 ★를 마친 저장도 한 번 보여 준다 */
  fxLevel=1;
  const cur=nextStage();
  app.innerHTML=`${hud()}
@@ -480,7 +487,7 @@ function map(focus){
    return `<button class="node ${st}" data-i="${i}" style="padding-top:${[52,24,72,32,80,44][i]}px" ${st==="lock"?'aria-disabled="true"':""} aria-label="순서 ${i+1}: ${esc(e.short)}${st==="lock"?" (잠김)":st==="clear"?" (완료)":""}"><span class="sq"></span>${i+1}. ${esc(e.short)}</button>`}).join("")}</div>
  </section>
  <section class="box gold" style="margin-top:22px">${cur<6?`<div class="tag">다음 퀘스트 · 순서 ${cur+1}</div><h2 class="px" style="font-size:20px;margin:6px 0">${esc(STAGES[cur].q)}</h2><p class="note" style="margin:0 0 14px">${esc(STAGES[cur].why)}</p><button class="btn" id="goNext">퀘스트 시작 ▶</button>`
-  :`<div class="tag">원정 완료</div><h2 class="px" style="font-size:20px;margin:6px 0">여섯 퀘스트를 모두 마쳤습니다</h2><button class="btn" id="goNext">계책 보고서 보기 ▶</button>`}</section>
+  :`<div class="tag">원정 완료</div><h2 class="px" style="font-size:20px;margin:6px 0">여섯 퀘스트를 모두 마쳤습니다</h2>${REQS.length||K.design?`<p class="note" style="margin:0 0 14px">더 어려운 질문이 열렸습니다. 아래 질문 사다리에서 골라 보시지요.</p>`:""}<button class="btn" id="goNext">계책 보고서 보기 ▶</button>`}</section>
  ${ladderBoard()}
  <p class="row" style="margin-top:22px"><button class="btn ghost" id="prol">처음 짐작 다시 보기</button>${doneCount()?`<button class="btn ghost" id="reset">처음부터 다시</button>`:""}</p>`;
  wireHud();
@@ -527,7 +534,7 @@ function clearStage(i){
  const pop=document.createElement("div");pop.className="pop";pop.setAttribute("role","dialog");pop.setAttribute("aria-modal","true");pop.setAttribute("aria-label",`퀘스트 ${i+1} 완료`);
  pop.innerHTML=`<div class="box gold"><div class="tag">QUEST ${i+1} CLEAR</div><p class="logo" style="margin:6px 0">CLEAR!</p><img class="pt clear-pt" src="${ARCHIVIST}" alt=""><div class="tool-get">${toolTile(i,true)}<div style="text-align:left"><span class="dim">새 도구</span><br><b class="px">${TOOLS[i].name}</b> · ${TOOLS[i].does}</div></div><p style="margin:14px 0 4px"><b class="px">획득한 기록</b></p><p style="margin:0">${esc(S.done[i+1])}</p><p style="margin-top:18px"><button class="btn" id="ok">${last?"계책 보고서 보기 ▶":"지도로 ▶"}</button></p></div>`;
  document.body.append(pop);$("#ok").focus();
- const close=()=>{pop.remove();last?report():map(Math.min(i+1,5))};
+ const close=()=>{pop.remove();last?(hasLadder()&&!S.unlocked?unlock():report()):map(Math.min(i+1,5))};
  $("#ok").onclick=close;onAdvance=close;onBack=close;
 }
 
@@ -777,17 +784,40 @@ function reqCompare(r,Rq){
 
 /* ===== 질문 사다리: ★ 세어 보기(퀘스트 6개) · ★★ 숫자 의심하기(의뢰) · ★★★ 가정 설계하기 ===== */
 function ladderBoard(){
- if(!REQS.length&&!K.design)return "";
- const open=doneCount()===6;
+ /* ★(퀘스트 6개)를 마치기 전에는 보이지 않는다. 미리 보이면 갈 길이 길게 느껴진다 */
+ if(!REQS.length&&!K.design||doneCount()<6)return "";
  const card=(star,title,line,state,btn="")=>`<div class="box pcard"><span class="tag">${star}</span><h3 style="font-size:17px;margin:0">${title}</h3><p style="margin:0">${line}</p><p class="fact">${state}</p>${btn}</div>`;
- const lock=`★를 마치면 열립니다`;
  return `<section class="box" style="margin-top:22px"><div class="tag">질문 사다리</div><div class="reqs">
-  ${card("★ 세어 보기",esc(MISSION),"기록관의 안내를 따라 퀘스트 6개를 풉니다.",`진행 ${doneCount()}/6`)}
+  ${card("★ 세어 보기",esc(MISSION),"기록관의 안내를 따라 퀘스트 6개를 풀었습니다.","완료")}
   ${REQS.map((r,i)=>{const R=S.req[r.id];return card("★★ 숫자 의심하기",esc(r.title),esc(r.line),R?.done?"완료":R?"진행 중":"진행 전",
-   `<button class="btn${open?"":" ghost"}" data-req="${i}" ${open?"":"disabled"}>${open?(R?.done?"다시 보기":"의뢰 받기"):lock}</button>`)}).join("")}
+   `<button class="btn" data-req="${i}">${R?.done?"다시 보기":"의뢰 받기"}</button>`)}).join("")}
   ${K.design?card("★★★ 가정 설계하기",esc(K.design.q),"바꿀 사람과 조건을 직접 고르고, 근거를 골라 결론을 씁니다.",S.design?.done?"완료":"진행 전",
-   `<button class="btn${open?"":" ghost"}" id="toDesign" ${open?"":"disabled"}>${open?(S.design?.done?"다시 설계하기":"설계 시작"):lock}</button>`):""}
+   `<button class="btn" id="toDesign">${S.design?.done?"다시 설계하기":"설계 시작"}</button>`):""}
  </div></section>`}
+
+/* 사다리 예고와 열림: 튜토리얼 전투의 프롤로그 끝에서 한 번 '???'로 예고하고, ★를 마친 순간 봉인을 풀어 보여 준다 */
+const hasLadder=()=>REQS.length>0||!!K.design;
+function ladderPeek(open){
+ const up=[...REQS.map(r=>["★★ 숫자 의심하기",r.title]),...(K.design?[["★★★ 가정 설계하기",K.design.q]]:[])];
+ const c=(star,t,cls)=>`<div class="box pcard ${cls}"><span class="tag">${star}</span><h3 style="font-size:17px;margin:0">${t}</h3></div>`;
+ return `<div class="reqs">${c("★ 세어 보기",esc(MISSION),open?"":"lit")}${up.map(([s,t])=>open?c(s,esc(t),"unseal"):c(s.replace(/ .*/,"")+" 봉인",`<span class="seal" aria-label="아직 봉인된 질문">封 ???</span>`,"sealed")).join("")}</div>`}
+function tease(){
+ S.teased=1;save();fxLevel=1;onBack=null;onAdvance=null;
+ app.innerHTML=`${hud()}<section class="stack">
+  ${sayBox(["기록관","안내","記","이 기록에는 질문이 세 겹으로 숨어 있습니다. 첫 겹을 다 펼치면 다음 봉인이 풀리지요. 오늘은 첫 겹부터 펼쳐 보시지요."])}
+  <section class="box"><div class="tag">질문 사다리</div>${ladderPeek(false)}</section>
+  <div class="row" style="justify-content:flex-end"><button class="btn" id="go">첫 겹부터 펼치기 ▶</button></div></section>`;
+ wireHud();$("#go").onclick=()=>map();$("#go").focus();
+}
+function unlock(){
+ S.unlocked=1;save();fxLevel=2;onBack=()=>map();onAdvance=null;
+ app.innerHTML=`${hud()}<section class="stack">
+  <div class="box gold"><div class="tag">봉인 해제</div><h1 class="logo" style="font-size:clamp(26px,4vw,40px);margin:8px 0">다음 질문이 열렸습니다</h1><p style="margin:0">첫 겹, 퀘스트 여섯 개를 모두 펼쳤습니다.</p></div>
+  <section class="box"><div class="tag">질문 사다리</div>${ladderPeek(true)}</section>
+  ${(K.unlock||[]).map(sayBox).join("")}
+  <div class="row sb"><button class="btn ghost" id="rep">계책 보고서 먼저 보기</button><button class="btn" id="go">질문 사다리로 ▶</button></div></section>`;
+ wireHud();$("#go").onclick=()=>map();$("#rep").onclick=report;$("#go").focus();
+}
 
 /* ★★★ 가정 설계하기: 학습자가 사람·행동·조건을 고르고, 짐작한 뒤 계산하고, 근거를 골라 결론을 쓴다. 정답은 없다 */
 function design(){
