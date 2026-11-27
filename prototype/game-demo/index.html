@@ -8,7 +8,7 @@
 <style>
 /* 색은 맡은 일이 하나씩: 금색=지금 할 일, 위·오·촉 색=세력, 나머지는 무채색.
    --line은 기본 테두리(차분하게), --red는 위 세력과 같은 색이라 세력 표시 밖에서는 쓰지 않는다. */
-:root{--bg:#0f1114;--grid:rgba(255,255,255,.018);--card:#171a1e;--line:#3f444b;--line-hi:#6a6f77;--ink:#f1ebde;--dim:#b9b1a1;--red:#d6463c;--gold:#e8b030;--wei:#d6463c;--wu:#4a90c2;--shu:#5c9a5a;--ally:#4a90c2;--px:"Galmuri11","Galmuri9",monospace}
+:root{--bg:#0f1114;--grid:rgba(255,255,255,.018);--card:#171a1e;--line:#3f444b;--line-hi:#6a6f77;--ink:#f1ebde;--dim:#b9b1a1;--red:#d6463c;--gold:#e8b030;--wei:#d6463c;--wu:#4a90c2;--shu:#5c9a5a;--yuan:#9a6fb0;--ally:#4a90c2;--px:"Galmuri11","Galmuri9",monospace}
 *{box-sizing:border-box}
 html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:15px/1.65 "Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
 body{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:32px 32px;overflow-x:hidden}
@@ -120,7 +120,7 @@ img.spr{image-rendering:pixelated;display:block}
 .pcard{display:grid;gap:8px;align-content:start;padding:16px}
 .pcard h3{font-family:var(--px);font-size:18px;display:flex;gap:8px;align-items:center}
 .chip{display:inline-block;font-size:12px;font-weight:700;padding:2px 7px;border:2px solid currentColor}
-.chip.wei{color:var(--wei)}.chip.wu{color:var(--wu)}.chip.shu{color:var(--shu)}
+.chip.wei{color:var(--wei)}.chip.wu{color:var(--wu)}.chip.shu{color:var(--shu)}.chip.yuan{color:var(--yuan)}
 .pcard .fact{font-size:13px;color:var(--dim);margin:0}
 .pcard .pick{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 .pcard .pick button{border:2px solid var(--line);background:transparent;padding:6px 4px;font-size:13px}
@@ -194,13 +194,13 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 
 /* 한자 이름 패와 깃발 (인물 그림 대신) */
 .hz{display:inline-grid;place-items:center;font-family:"Noto Serif KR","Batang",serif;font-weight:700;font-size:18px;padding:4px 8px;border:3px solid var(--line);background:#0a0b0d;color:var(--ink);box-shadow:3px 3px 0 #000;letter-spacing:.06em;line-height:1.1}
-.hz.wei{border-color:var(--wei)}.hz.wu{border-color:var(--wu)}.hz.shu{border-color:var(--shu)}
+.hz.wei{border-color:var(--wei)}.hz.wu{border-color:var(--wu)}.hz.shu{border-color:var(--shu)}.hz.yuan{border-color:var(--yuan)}
 .hz.big{width:100%;height:100%;border:0;box-shadow:none;background:transparent;font-size:clamp(26px,3.4vw,40px);writing-mode:vertical-rl;padding:0}
-.face:has(.hz.wei){background:#2a1214}.face:has(.hz.wu){background:#10202e}.face:has(.hz.shu){background:#132219}
+.face:has(.hz.wei){background:#2a1214}.face:has(.hz.wu){background:#10202e}.face:has(.hz.shu){background:#132219}.face:has(.hz.yuan){background:#21162a}
 .pcard .hz{justify-self:start}
 .flags{display:flex;justify-content:center;gap:4px;transition:opacity .3s}
 .flag{width:100%;max-width:200px;image-rendering:pixelated;display:block}
-.flags .flag+.flag{margin-left:-8%}
+.flags .flag+.flag{margin-left:-8%}.flag.txt{width:76px;aspect-ratio:1;display:grid;place-items:center;background:var(--c);border:4px solid #000;box-shadow:inset 0 0 0 4px rgba(0,0,0,.25);font-family:"Noto Serif KR","Batang",serif;font-weight:700;font-size:40px;color:#f1ebde;text-shadow:3px 3px 0 #000;margin:0 auto}
 .flags.win{animation:rally .4s steps(2) 3}
 .flags.lose{opacity:.45;filter:grayscale(.6)}
 @keyframes rally{50%{transform:translateY(-8px) scale(1.04)}}
@@ -282,7 +282,7 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 <script>
 /* 연표: 일어난 해 순서. id가 없는 전투는 아직 만들지 않은 '봉인된 기록'. key는 그 전투 내용 파일의 saveKey와 같아야 한다 */
 const BATTLE_LIST=[
- {name:"관도대전",hz:"官渡",year:200,mission:"만약 허유가 원소 곁에 남았다면?"},
+ {id:"guandu",name:"관도대전",hz:"官渡",year:200,key:"gyechaek-guandu",mission:"만약 허유가 원소 곁에 남았다면?"},
  {id:"red-cliff",name:"적벽대전",hz:"赤壁",year:208,key:"gyechaek-zg",mission:"만약 제갈량이 조조의 편이었다면?",first:1},
  {name:"번성·맥성",hz:"樊城",year:219,mission:"만약 맹달이 관우를 구하러 갔다면?"},
  {id:"yiling",name:"이릉대전",hz:"夷陵",year:222,key:"gyechaek-yiling",mission:"만약 육손이 오의 대도독이 아니었다면?"},
@@ -297,7 +297,7 @@ const K=CONTENT,SA=BATTLE.sides.a,SB=BATTLE.sides.b;
 document.title=`계책록 — ${K.mission.replace(/^만약 |\?$/g,"")}`;
 const C=Core.battle(BATTLE),PP=C.people(DB);
 const NAMES=DB.map(r=>r[0]);
-const FN={wei:"위",wu:"오",shu:"촉"};
+const FN={wei:"위",wu:"오",shu:"촉",yuan:"원소군"};
 const {avg,median}=Core;
 const IND=BATTLE.indicators,SKEYS=BATTLE.score,at=k=>Object.keys(IND).indexOf(k),indKo=k=>IND[k].ko;
 const TOTAL=6**SKEYS.length-1;
@@ -339,8 +339,8 @@ const jo=(w,a,b)=>{const c=w.charCodeAt(w.length-1)-44032;return c>=0&&c<11172&&
 const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* 이미지는 기록관 그림과 세력 깃발만 씁니다. 그 밖의 인물은 한자 이름 패로 표시합니다. */
 const FLAG_DIR="../../frontend/public/sprites/factions/";
-const FLAG_KO={wei:"위",wu:"오",shu:"촉"};
-const flag=(f,cls="")=>`<img class="flag ${cls}" src="${FLAG_DIR}${f}-flag.${RM?"png":"gif"}" alt="${FLAG_KO[f]} 깃발">`;
+/* 깃발 그림이 없는 세력(원소)은 세력색 바탕에 한자 한 글자로 그린다 */const FLAG_KO=FN,FLAG_HZ={yuan:"袁"};
+const flag=(f,cls="")=>FLAG_HZ[f]?`<span class="flag txt ${cls}" style="--c:var(--${f})" role="img" aria-label="${FLAG_KO[f]} 깃발">${FLAG_HZ[f]}</span>`:`<img class="flag ${cls}" src="${FLAG_DIR}${f}-flag.${RM?"png":"gif"}" alt="${FLAG_KO[f]} 깃발">`;
 const flags=s=>s.factions.map(f=>flag(f)).join("");
 const ARCHIVIST="assets/portraits/archivist.png";
 const BY_KO={};DB.forEach(r=>BY_KO[r[1]]=r[0]);
@@ -575,7 +575,7 @@ ACT[0]=(el,unlock)=>{
    <p style="margin-top:0">내 기준: <b class="px">${S.rule.min}회 이상 나온 사람</b>만, 이미 죽은 사람은 <b class="px">${S.rule.dead?"빼고":"넣고"}</b></p>
    <div class="sides"><div class="side-n b"><span>${esc(SB.short)}</span><b>${t.b}<small>명</small></b></div><div class="side-n a"><span>${esc(SA.name)}</span><b>${t.a}<small>명</small></b></div></div>
    <p class="note">기록에 이름이 나온 ${DB.length}명 중 <b>${t.all}명</b>을 셉니다. 이 명단으로 마지막 실험까지 계산합니다.</p>
-   <details style="margin-top:10px"><summary class="px" style="cursor:pointer">다른 기준도 살펴보기</summary><div class="row" style="margin-top:10px">${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"]],S.rule.min)}${seg("rDead",[[1,"죽은 사람 빼기"],[0,"넣기"]],S.rule.dead)}</div><p class="note" id="alt"></p></details></div></section>
+   <details style="margin-top:10px"><summary class="px" style="cursor:pointer">다른 기준도 살펴보기</summary><div class="row" style="margin-top:10px">${seg("rMin",[[1,"1회 이상"],[2,"2회 이상"],[3,"3회 이상"]].filter(o=>o[0]<=BATTLE.chapters[1]-BATTLE.chapters[0]+1),S.rule.min)}${seg("rDead",[[1,"죽은 사람 빼기"],[0,"넣기"]],S.rule.dead)}</div><p class="note" id="alt"></p></details></div></section>
    ${named("분석 대상 정하기",K.q1.named)}`;
   const alt=()=>{const a=sideCount();$("#alt").textContent=`→ ${SB.short} ${a.b}명 · ${SA.short} ${a.a}명 (모두 ${a.all}명)`};
   onSeg("rMin",v=>{S.rule.min=+v;save();alt()});onSeg("rDead",v=>{S.rule.dead=+v;save();alt()});alt();
