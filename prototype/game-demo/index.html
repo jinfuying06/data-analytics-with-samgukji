@@ -44,15 +44,13 @@ img.spr{image-rendering:pixelated;display:block}
 .talk{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:end}
 .face{aspect-ratio:1;display:grid;place-items:center;padding:0;overflow:hidden;background:#1b2530;font-family:var(--px);font-size:52px;color:var(--ink)}
 .face img{width:160%;max-width:none}
-.face img.pt,.portrait img.pt{width:100%;max-width:100%;image-rendering:pixelated}
+.face img.pt{width:100%;max-width:100%;image-rendering:pixelated}
 .pcard .pt{width:64px;height:64px;border:2px solid var(--line);image-rendering:pixelated}
 
 /* 타이틀 */
-.title{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:82vh}
+.title{display:grid;align-items:center;min-height:82vh;max-width:820px;margin:0 auto}
 .title .logo{font-size:clamp(56px,9vw,104px)}
 .title h2{font-family:var(--px);font-size:22px;margin:16px 0 4px}
-.portrait{aspect-ratio:1;display:grid;place-items:center;overflow:hidden;padding:0;background:#1b2530}
-.portrait img{width:125%;max-width:none}
 
 /* HUD */
 .hud{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}
@@ -258,8 +256,7 @@ blockquote.ev{margin:12px 0 0;padding:14px 16px;border:2px dashed var(--line);ba
 .cmp b{font-family:var(--px);display:block;font-size:17px;margin-top:4px}
 
 @media (max-width:760px){
- .title{grid-template-columns:1fr;gap:22px;min-height:auto;padding-top:12px}
- .portrait{max-width:240px}
+ .title{min-height:auto;padding-top:12px}
  .chron{grid-template-columns:1fr}.chron::before{display:none}
  .cnode{grid-template-columns:40px 92px 1fr;justify-items:start;align-items:center;text-align:left;padding:6px 10px}.cnode .hz{font-size:22px;white-space:nowrap}.cnode .st{grid-column:3}.cnode[aria-pressed="true"]{transform:translateX(6px)}
  .pcards{grid-template-columns:1fr 1fr}
@@ -409,6 +406,8 @@ function enter(b){
 function choiceHTML(list){return `<div class="choices" data-nav>${list.map(([t,s],i)=>`<button class="choice" data-i="${i}"><b>${esc(t)}</b><span>${esc(s)}</span></button>`).join("")}</div>`}
 function wireChoices(list){$$(".choice").forEach(b=>b.onclick=e=>{e.stopPropagation();list[+b.dataset.i][2]()});$(".choice")?.focus()}
 
+/* 미연시처럼 대사 상자 왼쪽에 작은 초상화 (.talk 틀은 퀘스트 대사와 같다) */
+const archFace=`<div class="box face"><img class="pt" src="assets/portraits/archivist.png" alt="돋보기를 든 기록관"></div>`;
 /* ===== 타이틀: 기록관 대사 상자 안에서 고른다. 선택지는 늘 두 개, 전투 목록은 연표에서 ===== */
 function title(){
  fxLevel=1;onBack=null;
@@ -422,10 +421,9 @@ function title(){
   <div><div class="tag">『삼국지연의』 데이터 실험</div>
    <h1 class="logo">계책록</h1>
    <h2>삼국지로 배우는 데이터 분석</h2>
-   <div class="box dlg chat" style="margin-top:18px"><div class="who">기록관</div><div class="say"></div>${choiceHTML(list)}</div>
-   <p class="dim keyhint" style="font-size:13px">↑↓ 고르기 · Enter 펼치기</p></div>
-  <div class="box portrait"><img class="pt" src="assets/portraits/archivist.png" alt="돋보기를 든 기록관"></div></section>`;
- type($(".say"),last?`다시 오셨군요. ${last.name} 기록을 펼치던 중이었지요.`:"어서 오세요. 오늘은 어떤 '만약'을 펼쳐 보시겠습니까?");
+   <div class="talk" style="margin-top:22px;align-items:start">${archFace}<div class="box dlg chat"><div class="who">기록관</div><div class="say"></div>${choiceHTML(list)}</div></div>
+   <p class="dim keyhint" style="font-size:13px">↑↓ 고르기 · Enter 펼치기</p></div></section>`;
+ type($(".say"),last?`다시 오셨군요. ${last.name}의 계책을 이어서 살펴볼까요?`:"어서 오세요. 오늘은 어느 전투의 계책을 파헤쳐 볼까요?");
  wireChoices(list);
  onAdvance=()=>skipType();
 }
@@ -436,13 +434,13 @@ function chronicle(){
  let sel=Math.max(0,BATTLE_LIST.findIndex(b=>started(b)&&b.id===BATTLE_ID));
  if(!started(BATTLE_LIST[sel]))sel=BATTLE_LIST.findIndex(b=>b.first);
  app.innerHTML=`<section class="stack">
-  <div class="box"><div class="tag">연표 · 『삼국지연의』의 큰 싸움</div>
+  <div class="box"><div class="tag">연표 · 『삼국지연의』의 큰 전투</div>
    <ol class="chron" data-nav>${BATTLE_LIST.map((b,i)=>`<li><button class="cnode${b.id?"":" sealed"}" data-i="${i}" aria-pressed="false" aria-label="${b.year}년 ${b.name}, ${statusOf(b)}"><span class="yr">${b.year}</span><span class="hz">${b.hz}</span><span class="nm">${b.name}</span><span class="st">${statusOf(b)}</span></button></li>`).join("")}</ol></div>
-  <div class="box dlg chat"><div class="who">기록관</div><div class="say" aria-live="polite"></div><div class="row" id="cgo"></div></div>
+  <div class="talk">${archFace}<div class="box dlg chat"><div class="who">기록관</div><div class="say" aria-live="polite"></div><div class="row" id="cgo"></div></div></div>
   <div class="row sb"><button class="btn ghost" id="back">◀ 타이틀</button><span class="dim keyhint" style="font-size:13px">←→ 고르기 · Enter 펼치기 · Esc 타이틀</span></div></section>`;
  const pick=i=>{if(i===sel&&$("#cgo").dataset.i==i)return;sel=i;const b=BATTLE_LIST[i];$("#cgo").dataset.i=i;
   $$(".cnode").forEach(x=>x.setAttribute("aria-pressed",String(+x.dataset.i===i)));
-  type($(".say"),`${b.year}년, ${b.name}. ${b.mission}${b.id?"":" 이 기록은 아직 봉인되어 있습니다. 곧 펼쳐 드리지요."}`);
+  type($(".say"),`${b.year}년, ${b.name}. ${b.mission}${b.id?"":" 아직 봉인된 기록입니다."}`);
   $("#cgo").innerHTML=b.id?`<button class="btn" id="open">${started(b)?"이어서 펼치기":"이 기록 펼치기"} ▶</button>`:"";
   if(b.id)$("#open").onclick=()=>enter(b)};
  $$(".cnode").forEach(x=>{const i=+x.dataset.i;x.onfocus=()=>pick(i);x.onclick=()=>pick(i);
@@ -489,14 +487,14 @@ function map(focus){
  <section class="box gold" style="margin-top:22px">${cur<6?`<div class="tag">다음 퀘스트 · 순서 ${cur+1}</div><h2 class="px" style="font-size:20px;margin:6px 0">${esc(STAGES[cur].q)}</h2><p class="note" style="margin:0 0 14px">${esc(STAGES[cur].why)}</p><button class="btn" id="goNext">퀘스트 시작 ▶</button>`
   :`<div class="tag">원정 완료</div><h2 class="px" style="font-size:20px;margin:6px 0">여섯 퀘스트를 모두 마쳤습니다</h2>${REQS.length||K.design?`<p class="note" style="margin:0 0 14px">더 어려운 질문이 열렸습니다. 아래 질문 사다리에서 골라 보시지요.</p>`:""}<button class="btn" id="goNext">계책 보고서 보기 ▶</button>`}</section>
  ${ladderBoard()}
- <p class="row" style="margin-top:22px"><button class="btn ghost" id="prol">처음 짐작 다시 보기</button>${doneCount()?`<button class="btn ghost" id="reset">처음부터 다시</button>`:""}</p>`;
+ <p class="row sb" style="margin-top:22px"><button class="btn ghost" id="prol">내 첫 짐작 보기</button>${doneCount()?`<button class="btn ghost" id="reset">이 전투 기록 지우기</button>`:""}</p>`;
  wireHud();
  $$(".node").forEach(b=>b.onclick=()=>{if(!b.classList.contains("lock"))quest(+b.dataset.i)});
  $("#goNext").onclick=()=>cur<6?quest(cur):report();
  $("#prol").onclick=prologue;
  $$("[data-req]").forEach(b=>b.onclick=()=>request(+b.dataset.req));
  $("#toDesign")&&($("#toDesign").onclick=design);
- $("#reset")&&($("#reset").onclick=()=>{S=fresh();save();title()});
+ $("#reset")&&($("#reset").onclick=askReset);
  drawPath();
  if(focus!=null)$(`.node[data-i="${focus}"]`)?.focus();
  onAdvance=()=>$("#goNext").click();onBack=null;
@@ -528,14 +526,29 @@ function quest(i){
   else{b.classList.add("no");fb.className="fb bad";fb.innerHTML=`<b>다시 생각해 보시지요.</b> ${esc(e.check.bad)}`;if(!$("#clearBtn")){const q=$("#quiz");q.classList.remove("shake");void q.offsetWidth;q.classList.add("shake")}}};
 }
 
+/* 기록 지우기는 되돌릴 수 없으니 한 번 더 묻는다. 기본 초점은 '그만두기' */
+function askReset(){
+ const name=BATTLE_LIST.find(b=>b.id===BATTLE_ID).name,pa=onAdvance,pb=onBack;
+ const pop=document.createElement("div");pop.className="pop";pop.setAttribute("role","alertdialog");pop.setAttribute("aria-modal","true");pop.setAttribute("aria-label","기록 지우기 확인");
+ pop.innerHTML=`<div class="box"><div class="tag">기록 지우기</div><p style="margin:10px 0 0"><b>${esc(name)}</b> 기록(퀘스트 ${doneCount()}/6, 처음 짐작, 의뢰와 설계)을 모두 지울까요?</p><p class="note">지운 기록은 되돌릴 수 없습니다. 다른 전투의 기록은 그대로입니다.</p>
+  <p class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="keep">그만두기</button><button class="btn ghost" id="wipe">지우기</button></p></div>`;
+ document.body.append(pop);$("#keep").focus();
+ const cancel=()=>{pop.remove();onAdvance=pa;onBack=pb};
+ onAdvance=null;onBack=cancel;$("#keep").onclick=cancel;
+ $("#wipe").onclick=()=>{pop.remove();S=fresh();save();title()};
+}
+
 function clearStage(i){
  const e=STAGES[i];S.done[i+1]=e.check.ev();save();
  const last=doneCount()===6;
  const pop=document.createElement("div");pop.className="pop";pop.setAttribute("role","dialog");pop.setAttribute("aria-modal","true");pop.setAttribute("aria-label",`퀘스트 ${i+1} 완료`);
- pop.innerHTML=`<div class="box gold"><div class="tag">QUEST ${i+1} CLEAR</div><p class="logo" style="margin:6px 0">CLEAR!</p><img class="pt clear-pt" src="${ARCHIVIST}" alt=""><div class="tool-get">${toolTile(i,true)}<div style="text-align:left"><span class="dim">새 도구</span><br><b class="px">${TOOLS[i].name}</b> · ${TOOLS[i].does}</div></div><p style="margin:14px 0 4px"><b class="px">획득한 기록</b></p><p style="margin:0">${esc(S.done[i+1])}</p><p style="margin-top:18px"><button class="btn" id="ok">${last?"계책 보고서 보기 ▶":"지도로 ▶"}</button></p></div>`;
+ pop.innerHTML=`<div class="box gold"><div class="tag">QUEST ${i+1} CLEAR</div><p class="logo" style="margin:6px 0">CLEAR!</p><img class="pt clear-pt" src="${ARCHIVIST}" alt=""><div class="tool-get">${toolTile(i,true)}<div style="text-align:left"><span class="dim">새 도구</span><br><b class="px">${TOOLS[i].name}</b> · ${TOOLS[i].does}</div></div><p style="margin:14px 0 4px"><b class="px">획득한 기록</b></p><p style="margin:0">${esc(S.done[i+1])}</p><p class="row" style="margin-top:18px;justify-content:center">${last?`<button class="btn" id="ok">${hasLadder()&&!S.unlocked?"다음 ▶":"계책 보고서 보기 ▶"}</button>`
+  :`<button class="btn" id="ok">다음 퀘스트 ▶</button><button class="btn ghost" id="toMap2">지도 보기</button>`}</p></div>`;
  document.body.append(pop);$("#ok").focus();
- const close=()=>{pop.remove();last?(hasLadder()&&!S.unlocked?unlock():report()):map(Math.min(i+1,5))};
- $("#ok").onclick=close;onAdvance=close;onBack=close;
+ /* 끝나면 바로 다음 퀘스트로. 지도는 고를 수 있게만 둔다 */
+ const next=()=>{pop.remove();last?(hasLadder()&&!S.unlocked?unlock():report()):quest(nextStage())};
+ const toMap=()=>{pop.remove();map(Math.min(i+1,5))};
+ $("#ok").onclick=next;$("#toMap2")&&($("#toMap2").onclick=toMap);onAdvance=next;onBack=last?next:toMap;
 }
 
 /* ===== 단계별 활동 (계산은 core.js) ===== */
@@ -905,9 +918,9 @@ function report(){
   ${REQS.filter(r=>S.req[r.id]?.done).map(r=>`<div class="box"><div class="tag">의뢰 · ${esc(r.title)}</div><p style="margin:8px 0 0">${esc(S.req[r.id].text)}</p><p class="note">${esc(r.reward.name)} · 실무에서는: ${esc(r.reward.pro)}</p></div>`).join("")}
   ${S.design?.done?`<div class="box"><div class="tag">★★★ 가정 설계</div><p style="margin:8px 0 0">${esc(S.design.text)}</p></div>`:""}
   <div class="box"><div class="tag">순서별로 남긴 기록</div><ol style="margin-top:10px">${STAGES.map((s,k)=>`<li><b class="px">${esc(s.short)}</b><br><span class="dim">${esc(S.done[k+1]||"아직 하지 않음")}</span></li>`).join("")}</ol></div>
-  <div class="row"><button class="btn" id="again">처음부터 다시 하기</button><button class="btn ghost" id="tomap">지도로</button><a class="btn ghost" href="../../frontend/public/learning/index.html">실제 실습 화면 열기</a></div></section>`;
+  <div class="row"><button class="btn" id="tomap">지도로</button><button class="btn ghost" id="again">이 전투 기록 지우기</button><a class="btn ghost" href="../../frontend/public/learning/index.html">실제 실습 화면 열기</a></div></section>`;
  wireHud();
- $("#again").onclick=()=>{S=fresh();save();title()};$("#tomap").onclick=()=>map();
+ $("#again").onclick=askReset;$("#tomap").onclick=()=>map();
  onAdvance=null;
 }
 
@@ -919,7 +932,7 @@ addEventListener("keydown",ev=>{
   b[i<0?0:(i+(/Down|Right/.test(ev.key)?1:-1)+b.length)%b.length].focus();ev.preventDefault();return}
  if((ev.key==="Enter"||ev.key===" ")&&onAdvance&&!ev.target.closest("button,a,summary,input")){ev.preventDefault();onAdvance()}
 });
-addEventListener("click",ev=>{if(ev.target.closest(".dlg, .portrait")&&onAdvance)onAdvance()});
+addEventListener("click",ev=>{if(ev.target.closest(".dlg, .face")&&onAdvance)onAdvance()});
 
 /* ===== 불길 배경: prototype/red-cliff-lab/src/50-fx.js 의 fire 모드를 오른쪽 아래에 은은하게 ===== */
 (function(){
